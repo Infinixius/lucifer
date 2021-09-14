@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.17.1"
+    "@keyvhq/sqlite": "^1.4.0",
+    "express": "^4.17.1",
+    "keyv": "^4.0.3"
   },
   "devDependencies": {},
   "scripts": {
