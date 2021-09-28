@@ -14,7 +14,7 @@ const ROOMS = 10 # amount of rooms in rooms.png (not including the starting room
 const CELL_SIZE = 32
 
 func _ready():
-	randomize()
+	randomize() # generate random numbers
 	
 	var rooms_data = build_level()
 	generate_rooms(rooms_data)
@@ -25,7 +25,7 @@ func map_coord_to_world_pos(coord): # takes list of 2 and converts it to a globa
 
 func build_level():
 	var rooms_data = {
-		str([0,0]):{"type": 0, "coords":[0,0]}
+		str([0,0]):{"type": 0, "coords":[0,0]} # starting room
 	}
 	
 	var possible_room_locations = get_open_adjacent_rooms(rooms_data, [0,0]) # get adjacent rooms that are open
@@ -33,8 +33,7 @@ func build_level():
 	
 	for x in range(LEVEL_SIZE):
 		var rand_room_loc = select_rand_room_location(possible_room_locations, rooms_data) # gets a random adjacent room
-		var rand_room_type = (randi() % (ROOMS)) + 1
-		print(str(rand_room_type))
+		var rand_room_type = (randi() % (ROOMS)) + 1 # gets a random room from rooms.png
 		rooms_data[str(rand_room_loc)] = {"type": rand_room_type, "coords":rand_room_loc} # add room
 		generated_rooms.append(rand_room_loc)
 		possible_room_locations += get_open_adjacent_rooms(rooms_data, rand_room_loc)
@@ -78,13 +77,13 @@ func generate_rooms(rooms_data_list: Dictionary) -> void:
 		var y_pos = coords[1] * ROOMS_SIZE
 		
 		var type = room_data.type
-		var x_pos_img = (type % ROOM_DATA_IMAGE_ROW_LEN) * ROOMS_SIZE
-		var y_pos_img = (type / ROOM_DATA_IMAGE_ROW_LEN) * ROOMS_SIZE
+		var x_pos_img = (type % ROOM_DATA_IMAGE_ROW_LEN) * ROOMS_SIZE # get x for the current room type in rooms.png
+		var y_pos_img = (type / ROOM_DATA_IMAGE_ROW_LEN) * ROOMS_SIZE # get y for the current room type in rooms.png
 		
 		for x in range(ROOMS_SIZE):
 			for y in range(ROOMS_SIZE):
-				rooms_texture_data.lock()
-				var cell_data = rooms_texture_data.get_pixel(x_pos_img+x, y_pos_img+y)
+				rooms_texture_data.lock() # puts a lock on the file
+				var cell_data = rooms_texture_data.get_pixel(x_pos_img+x, y_pos_img+y) # get an individual pixel's color
 				var cell_coords = [x_pos+x, y_pos+y]
 				var wall_tile = false
 				if cell_data == Color.black:
@@ -107,6 +106,7 @@ func generate_rooms(rooms_data_list: Dictionary) -> void:
 		var room_at_right = str([coords[0]+1, coords[1]]) in rooms_data_list
 		var room_at_top = str([coords[0], coords[1]-1]) in rooms_data_list
 		var room_at_bottom = str([coords[0], coords[1]+1]) in rooms_data_list
+		
 		if !room_at_left:
 			tilemap.set_cell(x_pos, y_pos+3, Tiles.Wall)
 			tilemap.set_cell(x_pos, y_pos+4, Tiles.Wall)
@@ -116,6 +116,7 @@ func generate_rooms(rooms_data_list: Dictionary) -> void:
 			scoords = str([x_pos, y_pos+4])
 			if scoords in walkable_floor_tiles:
 				walkable_floor_tiles.erase(scoords)
+		
 		if !room_at_right:
 			tilemap.set_cell(x_pos+ROOMS_SIZE-1, y_pos+3, Tiles.Wall)
 			tilemap.set_cell(x_pos+ROOMS_SIZE-1, y_pos+4, Tiles.Wall)
@@ -125,6 +126,7 @@ func generate_rooms(rooms_data_list: Dictionary) -> void:
 			scoords = str([x_pos+ROOMS_SIZE-1, y_pos+4])
 			if scoords in walkable_floor_tiles:
 				walkable_floor_tiles.erase(scoords)
+		
 		if !room_at_top:
 			tilemap.set_cell(x_pos+3, y_pos, Tiles.Wall)
 			tilemap.set_cell(x_pos+4, y_pos, Tiles.Wall)
@@ -134,6 +136,7 @@ func generate_rooms(rooms_data_list: Dictionary) -> void:
 			scoords = str([x_pos+4, y_pos])
 			if scoords in walkable_floor_tiles:
 				walkable_floor_tiles.erase(scoords)
+		
 		if !room_at_bottom:
 			tilemap.set_cell(x_pos+3, y_pos+ROOMS_SIZE-1, Tiles.Wall)
 			tilemap.set_cell(x_pos+4, y_pos+ROOMS_SIZE-1, Tiles.Wall)
