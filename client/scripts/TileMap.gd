@@ -1,21 +1,27 @@
 extends TileMap
 
 onready var tilemap = self
+onready  var player = $"../KinematicBody2D"
 
-enum Rooms {BASIC}
-enum Tiles {Door, Floor, Void, Wall}
-onready var rooms_texture_data = preload("res://assets/rooms.png").get_data()
-const ROOMS_SIZE = 8
+enum Tiles {Door, Floor, Void, Wall} # enum of the different tile types
+
+onready var rooms_texture_data = preload("res://assets/rooms.png").get_data() # load the rooms.png image
+
+const LEVEL_SIZE = 30 # how many rooms should be generated
+const ROOMS_SIZE = 8 # size of an individual room
 const ROOM_DATA_IMAGE_ROW_LEN = 4
-
-const NUM_OF_WALL_TYPES = 4
-const CHANCE_OF_NON_BLANK_WALL = 4
+const ROOMS = 10 # amount of rooms in rooms.png (not including the starting room)
+const CELL_SIZE = 32
 
 func _ready():
 	randomize()
 	
 	var rooms_data = build_level()
 	generate_rooms(rooms_data)
+	player.global_position = map_coord_to_world_pos(Vector2.ONE)
+
+func map_coord_to_world_pos(coord): # takes list of 2 and converts it to a global position
+	return tilemap.map_to_world(Vector2(coord[0], coord[1])) + Vector2(CELL_SIZE / 2, CELL_SIZE / 2)
 
 func build_level():
 	var rooms_data = {
@@ -25,9 +31,10 @@ func build_level():
 	var possible_room_locations = get_open_adjacent_rooms(rooms_data, [0,0]) # get adjacent rooms that are open
 	var generated_rooms = []
 	
-	for x in range(30):
+	for x in range(LEVEL_SIZE):
 		var rand_room_loc = select_rand_room_location(possible_room_locations, rooms_data) # gets a random adjacent room
-		var rand_room_type = (randi() % (5 - 1)) + 1
+		var rand_room_type = (randi() % (ROOMS)) + 1
+		print(str(rand_room_type))
 		rooms_data[str(rand_room_loc)] = {"type": rand_room_type, "coords":rand_room_loc} # add room
 		generated_rooms.append(rand_room_loc)
 		possible_room_locations += get_open_adjacent_rooms(rooms_data, rand_room_loc)
@@ -65,12 +72,15 @@ func generate_rooms(rooms_data_list: Dictionary) -> void:
 	for room_data in rooms_data_list.values():
 		var only_do_walls = ind == 0 # only want to create walls if it's the first room since that's where the player starts
 		ind += 1
-		var coords = room_data.coords
+		var coords = room_data.coords # coordinates of this room
+		
 		var x_pos = coords[0] * ROOMS_SIZE
 		var y_pos = coords[1] * ROOMS_SIZE
+		
 		var type = room_data.type
 		var x_pos_img = (type % ROOM_DATA_IMAGE_ROW_LEN) * ROOMS_SIZE
 		var y_pos_img = (type / ROOM_DATA_IMAGE_ROW_LEN) * ROOMS_SIZE
+		
 		for x in range(ROOMS_SIZE):
 			for y in range(ROOMS_SIZE):
 				rooms_texture_data.lock()

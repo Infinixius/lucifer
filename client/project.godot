@@ -15,6 +15,10 @@ run/main_scene="res://Game.tscn"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 
+[global]
+
+color=false
+
 [input]
 
 up={

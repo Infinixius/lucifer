@@ -2,6 +2,9 @@ extends KinematicBody2D
 
 export (int) var speed = 200
 
+onready var tile_map = $"../TileMap"
+onready var player = self
+
 var velocity = Vector2()
 var speedvel = 1000
 
@@ -17,7 +20,6 @@ func get_input():
 		velocity.y -= speedvel
 	velocity = velocity.normalized() * speed
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	get_input()
-	velocity = move_and_collide(velocity * _delta)
-	print(velocity)
+	velocity = move_and_slide(velocity, Vector2(0, -1))

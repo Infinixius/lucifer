@@ -14,6 +14,7 @@ var score = 0
 #func _ready():
 
 func _process(fl):
+	# update the position text
 	var pos = tile_map.world_to_map(body.position)
 	var rawpos = body.position
 	pos_text.text = "Tile X: " + str(floor(pos.x)) + " Y: " + str(floor(pos.y))
