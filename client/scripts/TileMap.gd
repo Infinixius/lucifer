@@ -8,7 +8,7 @@ enum Tiles {Door, Floor, Void, Wall} # enum of the different tile types
 onready var rooms_texture_data = preload("res://assets/rooms.png").get_data() # load the rooms.png image
 
 const LEVEL_SIZE = 30 # how many rooms should be generated
-const ROOMS_SIZE = 8 # size of an individual room
+const ROOMS_SIZE = 16 # size of an individual room
 const ROOM_DATA_IMAGE_ROW_LEN = 4
 const ROOMS = 10 # amount of rooms in rooms.png (not including the starting room)
 const CELL_SIZE = 32
@@ -98,8 +98,9 @@ func generate_rooms(rooms_data_list: Dictionary) -> void:
 						pass #spawn_locations.exit_coords = cell_coords
 					elif cell_data == Color.magenta:
 						pass #spawn_locations.door_coords.append(cell_coords)
-				if !wall_tile:
+				if !wall_tile: # add a floor tile
 					walkable_floor_tiles[str([x_pos+x, y_pos+y])] = [x_pos+x, y_pos+y]
+					tilemap.set_cell(x_pos+x, y_pos+y, Tiles.Floor)
 		
 		var scoords = ""
 		var room_at_left = str([coords[0]-1, coords[1]]) in rooms_data_list

@@ -4,14 +4,7 @@ onready var body = $KinematicBody2D
 onready var tile_map = $TileMap
 onready var pos_text = $CanvasLayer/position_text
 onready var rawpos_text = $CanvasLayer/rawposition_text
-
-# game state
-
-var player_tile
-var score = 0
-
-# Called when the node enters the scene tree for the first time.
-#func _ready():
+onready var fpstext = $CanvasLayer/fps_text
 
 func _process(fl):
 	# update the position text
@@ -19,3 +12,4 @@ func _process(fl):
 	var rawpos = body.position
 	pos_text.text = "Tile X: " + str(floor(pos.x)) + " Y: " + str(floor(pos.y))
 	rawpos_text.text = "Raw Position: X: " + str(floor(rawpos.x)) + " Y: " + str(floor(rawpos.y))
+	fpstext.text =  "FPS: " + str(Engine.get_frames_per_second())
