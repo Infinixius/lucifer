@@ -51,6 +51,11 @@ func _on_data():
 			player.position.y = data.y
 		elif data.type == "player_initalize":
 			id = data.id
+			for x in data.players:
+				var player = Sprite.new()
+				player.texture = load("res://assets/player_multiplayer.png")
+				player.name = str(x)
+				$Players.add_child(player)
 	else:
 		print(json.error)
 		print("Error Line: ", json.error_line)
