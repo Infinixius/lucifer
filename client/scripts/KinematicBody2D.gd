@@ -4,6 +4,7 @@ export (int) var speed = 200
 
 onready var tile_map = $"../TileMap"
 onready var player = self
+onready var Multiplayer = $".."
 
 var velocity = Vector2()
 var speedvel = 1000
@@ -23,3 +24,4 @@ func get_input():
 func _physics_process(delta):
 	get_input()
 	velocity = move_and_slide(velocity, Vector2(0, -1))
+	Multiplayer.movement_update()

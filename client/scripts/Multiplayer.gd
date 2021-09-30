@@ -1,6 +1,6 @@
 extends Node2D
 
-export var websocket_url = "https://ce11-96-28-108-233.ngrok.io/"
+export var websocket_url = "https://2c89-96-28-108-233.ngrok.io/"
 onready var player = $KinematicBody2D
 
 var id = 0
@@ -53,11 +53,14 @@ func _on_data():
 		print("Error Line: ", json.error_line)
 		print("Error String: ", json.error_string)
 
-func _process(delta):
-	_client.poll()
+func movement_update(): # called in KinematicBody2D.gd to update position
 	_client.get_peer(1).put_packet(JSON.print({
 		"type": "player_move",
 		"id": id,
 		"x": player.position.x,
 		"y": player.position.y
 	}).to_utf8())
+
+func _process(delta):
+	_client.poll()
+	

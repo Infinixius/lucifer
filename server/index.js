@@ -17,6 +17,7 @@ var players = {}
 
 wss.on("connection", function connection(ws) {
 	playerID += 1
+	console.log("Player connected with ID " + playerID)
 	let currentID = playerID
 	players[playerID] = ws
 	broadcast({
@@ -32,7 +33,7 @@ wss.on("connection", function connection(ws) {
 	ws.on("message", function incoming(message) {
 		if (message.toString().search("player_move") == -1) console.log(message.toString())
 		try { var data = JSON.parse(message) } catch (error) {
-			console.log(error)
+			return console.log(error)
 		}
 
 		switch (data.type) {
