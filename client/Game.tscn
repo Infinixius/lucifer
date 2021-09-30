@@ -112,7 +112,7 @@ script = ExtResource( 8 )
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
 collision/safe_margin = 0.001
 script = ExtResource( 6 )
-speed = 10000
+speed = 350
 
 [node name="Player" type="Sprite" parent="KinematicBody2D"]
 position = Vector2( 16, 16 )
@@ -125,7 +125,7 @@ current = true
 texture = ExtResource( 9 )
 color = Color( 1, 0.843137, 0.513726, 1 )
 shadow_enabled = true
-shadow_color = Color( 1, 0.537255, 0, 0.054902 )
+shadow_gradient_length = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 16, 16 )
