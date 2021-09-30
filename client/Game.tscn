@@ -162,3 +162,5 @@ __meta__ = {
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color( 0.329412, 0.32549, 0.32549, 1 )
+
+[node name="Players" type="Node" parent="."]

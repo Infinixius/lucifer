@@ -30,6 +30,7 @@ wss.on("connection", function connection(ws) {
 	}, ws)
 
 	ws.on("message", function incoming(message) {
+		if (message.toString().search("player_move") == -1) console.log(message.toString())
 		try { var data = JSON.parse(message) } catch (error) {
 			console.log(error)
 		}
