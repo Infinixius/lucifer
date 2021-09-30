@@ -45,7 +45,10 @@ func _on_data():
 			$Players.add_child(player)
 		elif data.type == "player_move":
 			var player = get_node("Players/" + str(data.id))
-			player.position = Vector2(data.x, data.y)
+			print(str(player))
+			player.position = player.get_global_position()
+			player.position.x = data.x
+			player.position.y = data.y
 		elif data.type == "player_initalize":
 			id = data.id
 	else:
