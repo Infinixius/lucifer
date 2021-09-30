@@ -44,8 +44,8 @@ func _on_data():
 			player.name = str(data.id)
 			$Players.add_child(player)
 		elif data.type == "player_move":
+			print(str(data.id))
 			var player = get_node("Players/" + str(data.id))
-			print(str(player))
 			player.position = player.get_global_position()
 			player.position.x = data.x
 			player.position.y = data.y

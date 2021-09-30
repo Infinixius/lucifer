@@ -13,6 +13,7 @@ function broadcast(message) {
 }
 
 var playerID = 0
+var playerIDArray = []
 var players = {}
 
 wss.on("connection", function connection(ws) {
@@ -20,6 +21,7 @@ wss.on("connection", function connection(ws) {
 	console.log("Player connected with ID " + playerID)
 	let currentID = playerID
 	players[playerID] = ws
+	playerIDArray.push(playerID)
 	broadcast({
 		"type": "player_connect",
 		"id": currentID,
@@ -28,6 +30,7 @@ wss.on("connection", function connection(ws) {
 	send({
 		"type": "player_initalize",
 		"id": currentID,
+		"players": playerIDArray
 	}, ws)
 
 	ws.on("message", function incoming(message) {
