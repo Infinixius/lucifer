@@ -1,13 +1,18 @@
-const express = require("express")
-const app = express()
-const config = require("./config.json")
+import { WebSocketServer } from "ws"
 
-app.get("/", (req, res) => {
-  res.send("kndfnnbosdjbjsdjbfjhdjdjfajsbjsbsajhafhshjdbghjasbdvjnsdfnbjkfdbjbhdvfj!")
-})
+const wss = new WebSocketServer({ port: 3939 })
 
-app.use(express.static("."))
+wss.on("connection", function connection(ws) {
+	ws.on("message", function incoming(message) {
+		try { var data = JSON.parse(message) } catch (error) {
+			console.log(error)
+		}
+		console.log("received: %s", message)
+	})
 
-app.listen(config.port, () => {
-  console.log(`Example app listening at http://localhost:${config.port}`)
+	setInterval(function(){
+		ws.send(JSON.stringify({
+			"type": "move"
+		}))
+	}, 1000)
 })

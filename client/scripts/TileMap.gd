@@ -19,6 +19,8 @@ func _ready():
 	var rooms_data = build_level()
 	generate_rooms(rooms_data)
 	player.global_position = map_coord_to_world_pos(Vector2.ONE)
+	
+	surround_map()
 
 func map_coord_to_world_pos(coord): # takes list of 2 and converts it to a global position
 	return tilemap.map_to_world(Vector2(coord[0], coord[1])) + Vector2(CELL_SIZE / 2, CELL_SIZE / 2)
@@ -148,5 +150,25 @@ func generate_rooms(rooms_data_list: Dictionary) -> void:
 			if scoords in walkable_floor_tiles:
 				walkable_floor_tiles.erase(scoords)
 
+func surround_map():
+	var floors = tilemap.get_used_cells_by_id(Tiles.Floor)
+	var walls = tilemap.get_used_cells_by_id(Tiles.Wall)
+	for wall in walls:
+		floors.append(wall)
+	
+	for tile in floors:
+		var tile_up = tilemap.get_cell(tile.x, tile.y - 1)
+		var tile_down = tilemap.get_cell(tile.x, tile.y + 1)
+		var tile_left = tilemap.get_cell(tile.x - 1, tile.y)
+		var tile_right = tilemap.get_cell(tile.x + 1, tile.y)
+		
+		if tile_up == -1:
+			tilemap.set_cell(tile.x, tile.y - 1, Tiles.Wall)
+		if tile_down == -1:
+			tilemap.set_cell(tile.x, tile.y + 1, Tiles.Wall)
+		if tile_left == -1:
+			tilemap.set_cell(tile.x - 1, tile.y, Tiles.Wall)
+		if tile_right == -1:
+			tilemap.set_cell(tile.x + 1, tile.y, Tiles.Wall)
 #func _process(delta):
 #	pass
