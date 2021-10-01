@@ -1,9 +1,9 @@
 extends Node
 
-export var websocket_url = "ws://localhost:3939"
+export var websocket_url = "ws://localhost:3939" # url for the websocket server
 onready var player = $"../KinematicBody2D"
 
-var id = 0
+var id = 0 # our client's id, sent to us form the server with player_initalize
 var _client = WebSocketClient.new()
 
 func _ready():
