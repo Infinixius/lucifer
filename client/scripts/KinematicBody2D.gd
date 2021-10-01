@@ -4,7 +4,8 @@ export (int) var speed = 200
 
 onready var tile_map = $"../TileMap"
 onready var player = self
-onready var Multiplayer = $".."
+onready var Multiplayer = $"../Players"
+onready var velocitytext = $"../CanvasLayer/velocity_text"
 
 
 var velocity = Vector2()
@@ -28,7 +29,8 @@ func _physics_process(delta):
 	time += delta
 	get_input()
 	velocity = move_and_slide(velocity, Vector2(0, -1))
+	velocitytext.text = "Velocity: " + str(velocity)
 	
-	if time > 0.5:
+	if time > 0.025:
 		Multiplayer.movement_update()
 		time = 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/wall.png" type="Texture" id=1]
 [ext_resource path="res://assets/player.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scripts/Multiplayer.gd" type="Script" id=7]
 [ext_resource path="res://scripts/TileMap.gd" type="Script" id=8]
 [ext_resource path="res://assets/light.png" type="Texture" id=9]
+[ext_resource path="res://scripts/Game.gd" type="Script" id=10]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -100,7 +101,7 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 radius = 15.0578
 
 [node name="Game" type="Node2D"]
-script = ExtResource( 7 )
+script = ExtResource( 10 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 5 )
@@ -160,7 +161,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="velocity_text" type="Label" parent="CanvasLayer"]
+margin_left = 2.38523
+margin_top = 40.8421
+margin_right = 61.3852
+margin_bottom = 54.8421
+rect_pivot_offset = Vector2( 45.7584, 7 )
+text = "Velocity: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color( 0.329412, 0.32549, 0.32549, 1 )
 
 [node name="Players" type="Node" parent="."]
+script = ExtResource( 7 )

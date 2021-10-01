@@ -1,7 +1,7 @@
-extends Node2D
+extends Node
 
-export var websocket_url = "https://2c89-96-28-108-233.ngrok.io/"
-onready var player = $KinematicBody2D
+export var websocket_url = "ws://localhost:3939"
+onready var player = $"../KinematicBody2D"
 
 var id = 0
 var _client = WebSocketClient.new()
@@ -42,10 +42,9 @@ func _on_data():
 			var player = Sprite.new()
 			player.texture = load("res://assets/player_multiplayer.png")
 			player.name = str(data.id)
-			$Players.add_child(player)
+			self.add_child(player)
 		elif data.type == "player_move":
-			print(str(data.id))
-			var player = get_node("Players/" + str(data.id))
+			var player = get_node(str(data.id))
 			player.position = player.get_global_position()
 			player.position.x = data.x
 			player.position.y = data.y
@@ -55,7 +54,7 @@ func _on_data():
 				var player = Sprite.new()
 				player.texture = load("res://assets/player_multiplayer.png")
 				player.name = str(x)
-				$Players.add_child(player)
+				self.add_child(player)
 	else:
 		print(json.error)
 		print("Error Line: ", json.error_line)
@@ -71,4 +70,3 @@ func movement_update(): # called in KinematicBody2D.gd to update position
 
 func _process(delta):
 	_client.poll()
-	
