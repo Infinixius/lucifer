@@ -1,0 +1,7 @@
+{
+	"port": 3939,
+
+	"logs_format": "[%time][%TYPE] - %log",
+	"logs_file_format": "./logs/%date-%time.log",
+	"logs_enable_debug": true
+}
