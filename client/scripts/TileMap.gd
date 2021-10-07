@@ -3,7 +3,7 @@ extends TileMap
 onready var tilemap = self
 onready  var player = $"../KinematicBody2D"
 
-enum Tiles {Door, Floor, Void, Wall} # enum of the different tile types
+enum Tiles {Door, Floor, Void, Wall, Grass} # enum of the different tile types
 
 onready var rooms_texture_data = preload("res://assets/rooms.png").get_data() # load the rooms.png image
 
@@ -87,7 +87,7 @@ func generate_rooms(rooms_data_list: Dictionary) -> void:
 				rooms_texture_data.lock() # puts a lock on the file
 				var cell_data = rooms_texture_data.get_pixel(x_pos_img+x, y_pos_img+y) # get an individual pixel's color
 				var cell_coords = [x_pos+x, y_pos+y]
-				var wall_tile = false
+				var wall_tile = false # if true, set to floor
 				if cell_data == Color.black:
 					tilemap.set_cell(x_pos+x, y_pos+y, Tiles.Wall)
 					wall_tile = true
@@ -95,7 +95,8 @@ func generate_rooms(rooms_data_list: Dictionary) -> void:
 					if cell_data == Color.red:
 						pass #spawn_locations.enemy_spawn_locations.append(cell_coords)
 					elif cell_data == Color.green:
-						pass #spawn_locations.pickup_spawn_locations.append(cell_coords)
+						tilemap.set_cell(x_pos+x, y_pos+y, Tiles.Grass)
+						wall_tile = true
 					elif cell_data == Color.blue:
 						pass #spawn_locations.exit_coords = cell_coords
 					elif cell_data == Color.magenta:
