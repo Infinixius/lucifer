@@ -1,6 +1,6 @@
 extends Node
 
-export var websocket_url = "ws://localhost:3939" # url for the websocket server
+export var websocket_url = "ws://lucifer-ylp.herokuapp.com/" # url for the websocket server
 onready var player = $"../KinematicBody2D"
 onready var connectedtext = $"../CanvasLayer/Debug/connected_text"
 onready var latencytext = $"../CanvasLayer/Debug/latency_text"
@@ -61,7 +61,7 @@ func _on_data():
 				player.name = str(plr.id)
 				self.add_child(player)
 		elif data.type == "ping":
-			latencytext.text = "Latency: " + str(OS.get_system_time_msecs() - data.timestamp)
+			latencytext.text = "Latency: " + str((OS.get_system_time_msecs() - data.timestamp) - 1000)
 	else:
 		print(json.error)
 		print("Error Line: ", json.error_line)
