@@ -4,8 +4,8 @@ import { send, broadcast } from "./modules/messages.js"
 import { log, debug } from "./modules/logger.js"
 import { onMessage, onClose } from "./modules/events.js"
 
-const wss = new WebSocketServer({ port: config.port })
-log("Listening on port " + config.port)
+const wss = new WebSocketServer({ port: config.port || process.env.PORT })
+log("Listening on port " + config.port || process.env.PORT)
 
 var playerID = 0
 var players = []
@@ -42,8 +42,8 @@ wss.on("connection", function connection(ws, req) { // initiate player join even
 
 	ws.on("message", function incoming(message) { onMessage(wss, ws, message) }) // on message event
 	ws.on("close", function incoming(message) {
+		delete players.find(plr => {return plr.id == ws.data.id})
 		onClose(ws)
-		delete player.find(plr => {return plr.id == ws.data.id})
 	})
 	setInterval(function() {
 		send(ws, "ping", 0)

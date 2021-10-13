@@ -1,10 +1,24 @@
 {
-  "dependencies": {
-    "ws": "^8.2.2"
-  },
-  "type": "module",
-  "main": "index.js",
-  "scripts": {
-	"start": "node index.js"
-  }
+	"name": "lucifer-ylp",
+	"version": "0.0.1",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/infinixius/lucifer.git"
+	},
+	"author": "",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/infinixius/lucifer/issues"
+	},
+	"homepage": "https://github.com/infinixius/lucifer#readme",
+	"description": "",
+
+	"dependencies": {
+		"ws": "^8.2.2"
+	},
+	"type": "module",
+	"main": "index.js",
+	"scripts": {
+		"start": "node --experimental-json-modules index.js"
+	}
 }
