@@ -136,7 +136,6 @@ format = 1
 script = ExtResource( 8 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
-collision/safe_margin = 0.001
 script = ExtResource( 6 )
 speed = 350
 

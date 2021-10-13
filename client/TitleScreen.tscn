@@ -1,11 +1,50 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/fonts/Jost-Light.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/TitleScreen.gd" type="Script" id=2]
+[ext_resource path="res://assets/meta/title.png" type="Texture" id=3]
+[ext_resource path="res://scripts/FadeIn.gd" type="Script" id=4]
+[ext_resource path="res://assets/floor.png" type="Texture" id=5]
+[ext_resource path="res://assets/wall.png" type="Texture" id=6]
+[ext_resource path="res://assets/meta/title_gradient.png" type="Texture" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
 font_data = ExtResource( 1 )
+
+[sub_resource type="OccluderPolygon2D" id=2]
+polygon = PoolVector2Array( 0, 32, 32, 32, 32, 0, 0, 0 )
+
+[sub_resource type="TileSet" id=3]
+0/name = "floor.png 0"
+0/texture = ExtResource( 5 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 32, 32 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "wall.png 1"
+1/texture = ExtResource( 6 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 32, 32 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/occluder = SubResource( 2 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
 
 [node name="TitleScreen" type="Node2D"]
 script = ExtResource( 2 )
@@ -32,5 +71,44 @@ margin_bottom = 384.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+margin_left = 96.0
+margin_top = 32.0
+margin_right = 603.0
+margin_bottom = 248.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FadeIn" type="ColorRect" parent="CanvasLayer"]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 0, 0, 0, 1 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Gradient" type="TextureRect" parent="CanvasLayer"]
+margin_left = 408.0
+margin_top = -16.0
+margin_right = 1024.0
+margin_bottom = 600.0
+texture = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource( 3 )
+cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+format = 1
+tile_data = PoolIntArray( 262171, 1, 0, 262172, 1, 0, 262173, 1, 0, 262174, 1, 0, 262175, 1, 0, 262176, 1, 0, 327707, 1, 0, 327708, 0, 0, 327709, 0, 0, 327710, 0, 0, 327711, 0, 0, 327712, 1, 0, 393243, 1, 0, 393244, 0, 0, 393245, 0, 0, 393246, 0, 0, 393247, 0, 0, 393248, 0, 0, 458779, 1, 0, 458780, 0, 0, 458781, 0, 0, 458782, 0, 0, 458783, 0, 0, 458784, 0, 0, 524315, 1, 0, 524316, 0, 0, 524317, 0, 0, 524318, 0, 0, 524319, 0, 0, 524320, 1, 0, 589846, 1, 0, 589847, 1, 0, 589848, 1, 0, 589849, 1, 0, 589850, 1, 0, 589851, 1, 0, 589852, 1, 0, 589853, 0, 0, 589854, 0, 0, 589855, 1, 0, 589856, 1, 0, 655382, 1, 0, 655383, 1, 0, 655384, 0, 0, 655385, 0, 0, 655386, 1, 0, 655387, 1, 0, 655388, 0, 0, 655389, 0, 0, 655390, 0, 0, 655391, 0, 0, 655392, 1, 0, 720918, 1, 0, 720919, 0, 0, 720920, 0, 0, 720921, 0, 0, 720922, 0, 0, 720923, 0, 0, 720924, 0, 0, 720925, 1, 0, 720926, 1, 0, 720927, 0, 0, 720928, 0, 0, 786454, 1, 0, 786455, 0, 0, 786456, 0, 0, 786457, 0, 0, 786458, 0, 0, 786459, 0, 0, 786460, 0, 0, 786461, 1, 0, 786462, 1, 0, 786463, 0, 0, 786464, 0, 0, 851990, 1, 0, 851991, 1, 0, 851992, 0, 0, 851993, 0, 0, 851994, 1, 0, 851995, 1, 0, 851996, 0, 0, 851997, 0, 0, 851998, 0, 0, 851999, 0, 0, 852000, 1, 0, 917526, 1, 0, 917527, 1, 0, 917528, 0, 0, 917529, 0, 0, 917530, 1, 0, 917531, 1, 0, 917532, 1, 0, 917533, 0, 0, 917534, 0, 0, 917535, 1, 0, 917536, 1, 0, 983062, 1, 0, 983063, 1, 0, 983064, 0, 0, 983065, 0, 0, 983066, 0, 0, 983067, 1, 0, 983068, 0, 0, 983069, 0, 0, 983070, 0, 0, 983071, 0, 0, 983072, 1, 0, 1048598, 1, 0, 1048599, 0, 0, 1048600, 0, 0, 1048601, 1, 0, 1048602, 0, 0, 1048603, 0, 0, 1048604, 0, 0, 1048605, 0, 0, 1048606, 0, 0, 1048607, 0, 0, 1048608, 0, 0, 1114134, 1, 0, 1114135, 0, 0, 1114136, 1, 0, 1114137, 0, 0, 1114138, 0, 0, 1114139, 0, 0, 1114140, 0, 0, 1114141, 0, 0, 1114142, 0, 0, 1114143, 0, 0, 1114144, 0, 0, 1179670, 1, 0, 1179671, 0, 0, 1179672, 0, 0, 1179673, 0, 0, 1179674, 1, 0, 1179675, 1, 0, 1179676, 0, 0, 1179677, 0, 0, 1179678, 0, 0, 1179679, 0, 0, 1179680, 1, 0, 1245206, 1, 0, 1245207, 1, 0, 1245208, 0, 0, 1245209, 0, 0, 1245210, 1, 0, 1245211, 1, 0, 1245212, 1, 0, 1245213, 0, 0, 1245214, 0, 0, 1245215, 1, 0, 1245216, 1, 0 )
 
 [connection signal="pressed" from="CanvasLayer/PlayButton" to="." method="_on_PlayButton_pressed"]

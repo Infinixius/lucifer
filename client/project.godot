@@ -10,7 +10,7 @@ config_version=4
 
 [application]
 
-config/name="roguelike3"
+config/name="Lucifer"
 run/main_scene="res://Game.tscn"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"

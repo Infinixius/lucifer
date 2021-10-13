@@ -22,6 +22,7 @@ func get_input():
 		velocity.y -= speedvel
 	if Input.is_action_pressed("debug"):
 		$"../CanvasLayer/Debug".visible = !$"../CanvasLayer/Debug".visible
+	
 	velocity = velocity.normalized() * speed
 
 var time = 0
@@ -31,6 +32,6 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector2(0, -1))
 	velocitytext.text = "Velocity: " + str(velocity)
 	
-	if time > 0.015: # loop every 0.015 seconds
+	if velocity != Vector2(0,0): # loop every 0.015 seconds
 		Multiplayer.movement_update()
 		time = 0
