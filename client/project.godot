@@ -11,9 +11,13 @@ config_version=4
 [application]
 
 config/name="Lucifer"
-run/main_scene="res://Game.tscn"
+run/main_scene="res://TitleScreen.tscn"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
+
+[autoload]
+
+Global="*res://scripts/Global.gd"
 
 [global]
 

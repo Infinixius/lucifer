@@ -1,6 +1,5 @@
 extends Node
 
-export var websocket_url = "ws://lucifer-ylp.herokuapp.com/" # url for the websocket server
 onready var player = $"../KinematicBody2D"
 onready var connectedtext = $"../CanvasLayer/Debug/connected_text"
 onready var latencytext = $"../CanvasLayer/Debug/latency_text"
@@ -16,7 +15,7 @@ func _ready():
 	_client.connect("data_received", self, "_on_data")
 
 	# Initiate connection to the given URL.
-	var err = _client.connect_to_url(websocket_url)
+	var err = _client.connect_to_url(Global.IP + ":" + Global.PORT)
 	if err != OK:
 		print("Unable to connect")
 		latencytext.text = "Latency: Not Connected"
