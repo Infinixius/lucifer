@@ -14,6 +14,13 @@ export function onMessage(wss, ws, message) { // fired when we get a message
 				"x": data.message.x,
 				"y": data.message.y
 			})
+			ws.data.position = [data.message.x, data.message.y]
+			break
+		case "send_message":
+			broadcast(wss, "receive_message", {
+				"name": ws.data.id.toString(),
+				"message": data.message		
+			})
 			break
 		default:
 			return console.warn(`Player packet didn't contain "type" value!`)

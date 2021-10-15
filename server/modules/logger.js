@@ -1,5 +1,6 @@
 import fs from "fs"
 import config from "../config.json"
+import npmpackage from "../package.json"
 
 if (!fs.existsSync("./logs")) {
 	fs.mkdirSync("./logs")
@@ -13,7 +14,7 @@ export function datestamp() {
 }
 
 // splash
-console.log("ylp dedicated server - version v0.0.0")
+console.log("ylp dedicated server - version v" + npmpackage.version)
 console.log("-------------------------------------")
 
 // create log file

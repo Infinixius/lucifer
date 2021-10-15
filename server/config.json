@@ -1,5 +1,5 @@
 {
-	"port": null,
+	"port": 8000,
 
 	"logs_format": "[%time][%TYPE] - %log",
 	"logs_file_format": "./logs/%date-%time.log",

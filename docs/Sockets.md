@@ -31,6 +31,12 @@ Broadcasted to all clients upon a new client connecting. Includes the player's I
 
 - **id** - ID of the new player.
 
+## > player_disconnect
+
+Broadcasted to all clients upon a client disconnecting. Includes the player's ID.
+
+- **id** - ID of the disconnecting player
+
 ## > player_initalize
 
 Sent to a player upon connecting to the server. Includes information about the current state of the game and players.

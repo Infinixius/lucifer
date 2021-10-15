@@ -10,3 +10,5 @@ func _process(delta):
 	if self.visible == true and transparency > 0.0:
 		transparency -= 0.01
 		self.color = Color(0,0,0, transparency)
+	elif transparency < 0.0:
+		self.queue_free()

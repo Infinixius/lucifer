@@ -15,7 +15,8 @@ wss.on("connection", function connection(ws, req) { // initiate player join even
 	log(`Client connected! ID: "${playerID}" IP: "${req.socket.remoteAddress}"`)
 	ws.data = {
 		id: playerID,
-		ip: req.socket.remoteAddress
+		ip: req.socket.remoteAddress,
+		position: [0,0]
 	}
 	players.push({
 		"id": ws.data.id,
@@ -31,10 +32,12 @@ wss.on("connection", function connection(ws, req) { // initiate player join even
 	let playerArray = []
 	for (const player of players) {
 		playerArray.push({
-			"id": player.id
+			"id": player.id,
+			"position": player.ws.data.position
 		})
 	}
 	
+	broadcast(wss, "system_message", ws.data.id + " connected")
 	send(ws, "player_initalize", { // update the player with all currently connected clients
 		"id": ws.data.id,
 		"players": playerArray
@@ -42,10 +45,14 @@ wss.on("connection", function connection(ws, req) { // initiate player join even
 
 	ws.on("message", function incoming(message) { onMessage(wss, ws, message) }) // on message event
 	ws.on("close", function incoming(message) {
-		delete players.find(plr => {return plr.id == ws.data.id})
+		broadcast(wss, "system_message", ws.data.id + " disconnected")
+		send(ws, "player_disconnect", { // update the player with all currently connected clients
+			"id": ws.data.id
+		})
+		delete players[players.indexOf(players.find(plr => { return plr.id == ws.data.id }))]
 		onClose(ws)
 	})
 	setInterval(function() {
 		send(ws, "ping", 0)
-	}, 500)
+	}, 1)
 })
