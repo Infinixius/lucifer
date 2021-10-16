@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://assets/wall.png" type="Texture" id=1]
 [ext_resource path="res://assets/player.png" type="Texture" id=2]
@@ -13,6 +13,10 @@
 [ext_resource path="res://assets/grass.png" type="Texture" id=11]
 [ext_resource path="res://scripts/Global.gd" type="Script" id=12]
 [ext_resource path="res://assets/fonts/Jost-Bold.ttf" type="DynamicFontData" id=13]
+[ext_resource path="res://assets/MenuBackground.png" type="Texture" id=14]
+[ext_resource path="res://assets/Button_Pressed.png" type="Texture" id=15]
+[ext_resource path="res://assets/Button_Unpressed.png" type="Texture" id=16]
+[ext_resource path="res://CanvasLayer.gd" type="Script" id=17]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -152,7 +156,7 @@ texture = ExtResource( 2 )
 current = true
 
 [node name="Light2D" type="Light2D" parent="KinematicBody2D/Player"]
-position = Vector2( 1.18921, 0 )
+position = Vector2( 0.18921, 0 )
 texture = ExtResource( 9 )
 color = Color( 1, 0.843137, 0.513726, 1 )
 shadow_enabled = true
@@ -163,6 +167,7 @@ position = Vector2( 16, 16 )
 shape = SubResource( 7 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource( 17 )
 
 [node name="Debug" type="Control" parent="CanvasLayer"]
 margin_right = 100.0
@@ -269,6 +274,120 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="GameMenu" type="Control" parent="CanvasLayer"]
+margin_left = 412.0
+margin_top = 200.0
+margin_right = 452.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/GameMenu"]
+margin_left = -412.0
+margin_top = -200.0
+margin_right = 612.0
+margin_bottom = 400.0
+color = Color( 0, 0, 0, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/GameMenu"]
+margin_right = 200.0
+margin_bottom = 200.0
+texture = ExtResource( 14 )
+region_rect = Rect2( 500, 500, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameMenu"]
+margin_right = 200.0
+margin_bottom = 176.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/GameMenu/VBoxContainer"]
+margin_right = 200.0
+margin_bottom = 14.0
+text = "Game Menu"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/GameMenu/VBoxContainer"]
+margin_top = 18.0
+margin_right = 200.0
+margin_bottom = 18.0
+
+[node name="Resume" type="TextureButton" parent="CanvasLayer/GameMenu/VBoxContainer"]
+margin_left = 50.0
+margin_top = 22.0
+margin_right = 150.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 100, 30 )
+size_flags_horizontal = 4
+texture_normal = ExtResource( 16 )
+texture_pressed = ExtResource( 15 )
+
+[node name="Label" type="Label" parent="CanvasLayer/GameMenu/VBoxContainer/Resume"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -50.0
+margin_top = -15.5
+margin_right = 50.0
+margin_bottom = 15.5
+text = "Resume"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Options" type="TextureButton" parent="CanvasLayer/GameMenu/VBoxContainer"]
+margin_left = 50.0
+margin_top = 56.0
+margin_right = 150.0
+margin_bottom = 86.0
+rect_min_size = Vector2( 100, 30 )
+size_flags_horizontal = 4
+texture_normal = ExtResource( 16 )
+texture_pressed = ExtResource( 15 )
+
+[node name="Label" type="Label" parent="CanvasLayer/GameMenu/VBoxContainer/Options"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Options"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Exit_to_menu" type="TextureButton" parent="CanvasLayer/GameMenu/VBoxContainer"]
+margin_left = 50.0
+margin_top = 90.0
+margin_right = 150.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 100, 30 )
+size_flags_horizontal = 4
+texture_normal = ExtResource( 16 )
+texture_pressed = ExtResource( 15 )
+
+[node name="Label" type="Label" parent="CanvasLayer/GameMenu/VBoxContainer/Exit_to_menu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Exit to Menu"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color( 0.329412, 0.32549, 0.32549, 1 )
 
@@ -279,3 +398,5 @@ script = ExtResource( 7 )
 script = ExtResource( 12 )
 
 [connection signal="pressed" from="CanvasLayer/Chat/Send" to="Players" method="_on_Send_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameMenu/VBoxContainer/Resume" to="." method="_on_Exit_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameMenu/VBoxContainer/Options" to="CanvasLayer" method="_on_Options_pressed"]

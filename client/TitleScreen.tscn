@@ -134,4 +134,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="AnimationTree" type="AnimationTree" parent="."]
+
 [connection signal="pressed" from="CanvasLayer/Control/Connect" to="CanvasLayer/Control/Connect" method="_on_Connect_pressed"]

@@ -13,3 +13,7 @@ func _process(fl):
 	pos_text.text = "Tile X: " + str(floor(pos.x)) + " Y: " + str(floor(pos.y))
 	rawpos_text.text = "Raw Position: X: " + str(floor(rawpos.x)) + " Y: " + str(floor(rawpos.y))
 	fpstext.text =  "FPS: " + str(Engine.get_frames_per_second())
+
+
+func _on_Exit_pressed():
+	get_node("CanvasLayer/GameMenu").hide()
