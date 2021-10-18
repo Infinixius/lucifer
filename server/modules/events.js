@@ -19,7 +19,7 @@ export function onMessage(wss, ws, message) { // fired when we get a message
 		case "send_message":
 			broadcast(wss, "receive_message", {
 				"name": ws.data.id.toString(),
-				"message": data.message		
+				"message": data.message.slice(0,256)
 			})
 			break
 		default:

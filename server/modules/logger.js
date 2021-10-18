@@ -14,7 +14,7 @@ export function datestamp() {
 }
 
 // splash
-console.log("ylp dedicated server - version v" + npmpackage.version)
+console.log("lucifer dedicated server - version v" + npmpackage.version)
 console.log("-------------------------------------")
 
 // create log file

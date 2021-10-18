@@ -15,7 +15,7 @@ Events prefixed with `>` are intended to be sent from the server, and events pre
 
 ## > ping
 
-Sent every 1000 milliseconds and expects the `< pong` reply. Used to calculate the latency/ping of the client.
+Sent every millisecond and expects the `< pong` reply. Used to calculate the latency/ping of the client.
 
 ## < pong
 
@@ -72,3 +72,30 @@ Sent from the client every 0.015 seconds with the client's new position, to be s
 - **id** -- ID of the player movement
 - **x** - The new X coordinate of the player.
 - **y** - The new Y coordinate of the player.
+
+## < send_message
+
+Received when a player wants to send a chat message.
+
+- **message** - The message the player wants to send. Can't exceed 256 characters.
+
+## > receive_message
+
+Called when a chat message from another player is received.
+
+**name** - Name of the player who sent the message.
+**message** - The chat message itself.
+
+## > system_message
+
+Called when a system message is received.
+
+**message** - The system message itself.
+
+## > tile_update
+
+Called when the server wants a client to update a tile locally.
+
+**x** - The X position of the tile.
+**y** - The Y position of the tile.
+**tile** - The tile ID of the tile. *(NOT the name!)*

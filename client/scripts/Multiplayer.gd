@@ -36,20 +36,21 @@ func _connected(proto):
 	}).to_utf8())
 
 func _on_data():
-	# you MUST always use get_peer(1).get_packet to receive data from server, and not get_packet directly when not
+	# you MUST always use get_peer(1).get_packet to receive data from server, and not get_packet directly
 	var json = JSON.parse(_client.get_peer(1).get_packet().get_string_from_utf8())
 	var data = json.result
 	var msg = data.message
 	
 	if json.error == OK:
 		if data.type == "player_connect":
-			var player = Sprite.new()
-			player.texture = load("res://assets/player_multiplayer.png")
-			player.name = str(msg.id)
-			self.add_child(player)
+			if (msg.id != id): # we don't want to update ourselves
+				var player = Sprite.new()
+				player.texture = load("res://assets/player_multiplayer.png")
+				player.name = str(msg.id)
+				self.add_child(player)
 		elif data.type == "player_disconnect":
 			var player = get_node(str(msg.id))
-			player.queue_free()
+			player.queue_free() # delete the node
 		elif data.type == "player_move":
 			var player = get_node(str(msg.id))
 			player.position = player.get_global_position()
@@ -73,6 +74,8 @@ func _on_data():
 		elif data.type == "system_message":
 			chatbox.text = chatbox.text + "\n" + msg
 			chatbox.scroll_to_line(chatbox.text.count("\n", 0, 0)) # count gets the amount of lines, to scroll to the bottom
+		elif data.type == "tile_update":
+			$"../TileMap".set_cell(msg.x, msg.y, msg.tile)
 	else:
 		print(json.error)
 		print("Error Line: ", json.error_line)
@@ -84,7 +87,7 @@ func latency_update(timestamp): # called to update latency text
 	var live = OS.get_system_time_msecs() - timestamp # live latency
 	if time > 1:
 		time = 0
-		old = live
+		old = live # old latency, only updated every second using a timer from var old, which is updated in _process()
 	latencytext.text = "Latency: " + str(old) + " (" + str(live) + ")"
 
 func movement_update(): # called in KinematicBody2D.gd to update position
@@ -92,9 +95,8 @@ func movement_update(): # called in KinematicBody2D.gd to update position
 		_client.get_peer(1).put_packet(JSON.print({
 			"type": "player_move",
 			"message": {
-				"id": id,
-				"x": player.position.x,
-				"y": player.position.y
+				"x": floor(player.position.x),
+				"y": floor(player.position.y)
 			}
 		}).to_utf8())
 
