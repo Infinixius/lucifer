@@ -26,6 +26,12 @@ class Map {
 	}
 }
 
+const LEVEL_SIZE = 30 // how many rooms should be generated
+const ROOMS_SIZE = 16 // size of an individual room
+const ROOM_DATA_IMAGE_ROW_LEN = 4
+const ROOMS = 10 // amount of rooms in rooms.png (not including the starting room)
+const CELL_SIZE = 32
+
 var currentMap = new Map(100,100)
 
 export function sendMap(ws) {
@@ -40,3 +46,31 @@ export function sendMap(ws) {
 		}
 	}
 }
+
+export function buildLevel() {
+	var rooms = {
+		"0, 0": {"type": 0, "coords": [0,0]},
+		"0, 2": {"type": 0, "coords": [0,0]}
+	}
+
+	var rooms =[{"type": 0, "coords": [0,0]},{"type": 2, "coords": [0,3]}]
+	var possible_room_locations = getOpenAdjacentRooms(rooms, [0,0])
+}
+
+export function getOpenAdjacentRooms(rooms, coords) {
+	var emptyAdjacentRooms = []
+	var adjacentCoords = [
+		[coords[0]+0, coords[1]+1], // up
+		[coords[0]+1, coords[1]+0], // right
+		[coords[0]+0, coords[1]-1], // down
+		[coords[0]-1, coords[1]+0], // left
+	]
+	for (adjacentCoord in adjacentCoords) {
+		var coord = rooms.find((room) => room.coords[0] == coords[0] && room.coords[1] == coords[1])
+		if (coord) emptyAdjacentRooms.push(coord)
+	}
+
+	return emptyAdjacentRooms
+}
+
+export function generatero
