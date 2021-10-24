@@ -4,6 +4,8 @@ Lucifer is a multiplayer roguelite hack 'n slash dungeon crawler created for our
 
 Since this project is still under development and is in no-way near finished, builds are not provided. You can build the source yourself in [Godot](https://godotengine.org/).
 
+We decided to release the code, open-sourced here on GitHub in the hope that someone else in the future may find it useful, or for our classmates to find it useful.
+
 ## Building
 
 The server is written in [Node.JS](https://nodejs.org) and doesn't need to be built. Just run `npm install` in the `server` folder. Edit `config.json` and run `npm start` or `node --experimental-json-modules index` and you're good to go!

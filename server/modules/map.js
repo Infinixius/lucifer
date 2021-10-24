@@ -1,45 +1,78 @@
+import Jimp from "jimp"
+import { log, error } from "./logger.js"
 import { send } from "./messages.js"
-import { tile } from "./tiles.js"
+import { getTile, TileMap } from "./tiles.js"
 
-Array.prototype.range = function(amount) {
-	if (amount === undefined) return new Error("Missing argument!")
-	if (typeof amount != "number") return new Error("Not a number!")
+const ROOMDATA_IMAGE_ROWLENGTH = 4 // length of rows in rooms.png
+const ROOMDATA_ROOMS = 10 // amount of rooms in rooms.png
+const ROOM_SIZE = 16 // size of an individual room
+const ROOMS = 11 // total amount of rooms
 
-	var array = []
-	for (var i = 0; i < amount; i++) {
-		array.push(i)
-	}
-	
-	return array
-}
-
-class Map {
-	constructor (x, y) {
+export class Map {
+	constructor (x, y, roomAmount) {
 		this.x = x
 		this.y = y
-		this.tiles = []
 
-		for (const tilex of [].range(x)) {
-			if (typeof tilex != "number") return // weird bug where functions are in [].range(x)
-			this.tiles.push([].range(y))
+		var timestamp = Date.now() // used to track how long it took to generate the map
+
+		this.tiles = new TileMap(x, y)
+		this.rooms = [
+			{type: 0, coords: [0, 0]} // starting room
+		]
+
+		for (var room = 0; room < roomAmount; room++) { // generate rooms
+			this.rooms.push(getAdjacentRoom(this.rooms))
 		}
+
+		Jimp.read("./assets/rooms.png", (err, image) => {
+			if (err) return error(`Failed to load rooms.png!!! Level cannot be generated Error: ${err}`)
+			for (const room of this.rooms) {
+				this.tiles.fill(
+					room.coords[0] * 16 + 1, // add 1 to the position because otherwise the left wall is x = -1, which cant be rendered
+					room.coords[1] * 16 + 1,
+					16,
+					16,
+					9
+				)
+
+				var xImage = (room.type % ROOMDATA_IMAGE_ROWLENGTH) * ROOM_SIZE
+				var yImage = Math.floor(room.type / ROOMDATA_IMAGE_ROWLENGTH) * ROOM_SIZE
+
+				for (var x = 0; x < ROOM_SIZE; x++) {
+					for (var y = 0; y < ROOM_SIZE; y++) {
+						var pixel = Jimp.intToRGBA(image.getPixelColor(xImage + x, yImage + y))
+
+						if (pixel.r == 0 && pixel.g == 0 && pixel.b == 0 && pixel.a == 255) { // black
+							this.tiles.set(
+								room.coords[0] * 16 + x + 1,
+								room.coords[1] * 16 + y + 1,
+								"wall"
+							)
+						} else {
+							/*this.tiles.set(
+								room.coords[0] * x,
+								room.coords[1] * y,
+								"floor"
+							)*/
+						}
+					}
+				}
+			}
+
+			surroundMap(this.tiles)
+			log(`Generated map with ${this.tiles.all().length} tiles in ${Date.now() - timestamp}ms!`)
+		})
 	}
 }
 
-const LEVEL_SIZE = 30 // how many rooms should be generated
-const ROOMS_SIZE = 16 // size of an individual room
-const ROOM_DATA_IMAGE_ROW_LEN = 4
-const ROOMS = 10 // amount of rooms in rooms.png (not including the starting room)
-const CELL_SIZE = 32
-
-var currentMap = new Map(100,100)
+var currentMap = new Map(300, 300, 32)
 
 export function sendMap(ws) {
-	for (const tilex of currentMap.tiles) {
+	for (const tilex of currentMap.tiles.tiles) {
 		for (const tiley in tilex) {
 			if (isNaN(tilex[tiley])) continue
 			send(ws, "tile_update", {
-				"x": currentMap.tiles.indexOf(tilex),
+				"x": currentMap.tiles.tiles.indexOf(tilex),
 				"y": Number(tiley),
 				"tile": tilex[tiley]
 			})
@@ -47,30 +80,59 @@ export function sendMap(ws) {
 	}
 }
 
-export function buildLevel() {
-	var rooms = {
-		"0, 0": {"type": 0, "coords": [0,0]},
-		"0, 2": {"type": 0, "coords": [0,0]}
+export function getAdjacentRoom(rooms) {
+	var randomRoom = rooms[rooms.length - Math.floor(Math.random() * 5)] //rooms[Math.floor(Math.random() * rooms.length)]
+	if (!randomRoom) randomRoom = rooms[rooms.length - 1]
+	var room
+	var random = Math.floor(Math.random() * 3) // get random cardinal direction
+	var type = Math.floor(Math.random() * ROOMS)
+
+	switch (random) {
+		case 0: // north
+			room = {
+				type: type,
+				coords: [randomRoom.coords[0], randomRoom.coords[1] - 1]
+			}
+			break
+		case 1: // east
+			room = {
+				type: type,
+				coords: [randomRoom.coords[0] + 1, randomRoom.coords[1]]
+			}
+			break
+		case 2: // south
+			room = {
+				type: type,
+				coords: [randomRoom.coords[0], randomRoom.coords[1] + 1]
+			}
+			break
+		case 3: // west
+			room = {
+				type: type,
+				coords: [randomRoom.coords[0] - 1, randomRoom.coords[1]]
+			}
+			break
 	}
 
-	var rooms =[{"type": 0, "coords": [0,0]},{"type": 2, "coords": [0,3]}]
-	var possible_room_locations = getOpenAdjacentRooms(rooms, [0,0])
-}
-
-export function getOpenAdjacentRooms(rooms, coords) {
-	var emptyAdjacentRooms = []
-	var adjacentCoords = [
-		[coords[0]+0, coords[1]+1], // up
-		[coords[0]+1, coords[1]+0], // right
-		[coords[0]+0, coords[1]-1], // down
-		[coords[0]-1, coords[1]+0], // left
-	]
-	for (adjacentCoord in adjacentCoords) {
-		var coord = rooms.find((room) => room.coords[0] == coords[0] && room.coords[1] == coords[1])
-		if (coord) emptyAdjacentRooms.push(coord)
+	if (rooms.find(x => x.coords[0] == room.coords[0] && x.coords[1] == room.coords[1] )) { // room already exists
+		room = getAdjacentRoom(rooms)
 	}
 
-	return emptyAdjacentRooms
+	return room
 }
 
-export function generatero
+export function surroundMap(tiles) { // surrounds the map with a wall
+	for (const tile of tiles.all()) {
+		if (tile.tile != getTile("floor")) return
+
+		var tile_up = tiles.get(tile.x, tile.y - 1)
+		var tile_right = tiles.get(tile.x + 1, tile.y)
+		var tile_down = tiles.get(tile.x, tile.y + 1)
+		var tile_left = tiles.get(tile.x - 1, tile.y)
+		
+		if (!tile_up) tiles.set(tile.x, tile.y - 1, "wall")
+		if (!tile_right) tiles.set(tile.x + 1, tile.y, "wall")
+		if (!tile_down) tiles.set(tile.x, tile.y + 1, "wall")
+		if (!tile_left) tiles.set(tile.x - 1, tile.y, "wall")
+	}
+}
