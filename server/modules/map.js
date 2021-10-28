@@ -16,6 +16,7 @@ export class Map {
 		var timestamp = Date.now() // used to track how long it took to generate the map
 
 		this.tiles = new TileMap(x, y)
+		
 		this.rooms = [
 			{type: 0, coords: [0, 0]} // starting room
 		]
@@ -25,7 +26,8 @@ export class Map {
 		}
 
 		Jimp.read("./assets/rooms.png", (err, image) => {
-			if (err) return error(`Failed to load rooms.png!!! Level cannot be generated Error: ${err}`)
+			if (err) return error(`Failed to load rooms.png!!! Level cannot be generated Error: "${err}"`)
+			
 			for (const room of this.rooms) {
 				this.tiles.fill(
 					room.coords[0] * 16 + 1, // add 1 to the position because otherwise the left wall is x = -1, which cant be rendered
@@ -34,7 +36,11 @@ export class Map {
 					16,
 					9
 				)
+			}
 
+			surroundMap(this.tiles)
+
+			for (const room of this.rooms) {
 				var xImage = (room.type % ROOMDATA_IMAGE_ROWLENGTH) * ROOM_SIZE
 				var yImage = Math.floor(room.type / ROOMDATA_IMAGE_ROWLENGTH) * ROOM_SIZE
 
@@ -48,18 +54,10 @@ export class Map {
 								room.coords[1] * 16 + y + 1,
 								"wall"
 							)
-						} else {
-							/*this.tiles.set(
-								room.coords[0] * x,
-								room.coords[1] * y,
-								"floor"
-							)*/
 						}
 					}
 				}
 			}
-
-			surroundMap(this.tiles)
 			log(`Generated map with ${this.tiles.all().length} tiles in ${Date.now() - timestamp}ms!`)
 		})
 	}

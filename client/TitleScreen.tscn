@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/fonts/Jost-Light.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/TitleScreen.gd" type="Script" id=2]
 [ext_resource path="res://assets/meta/title.png" type="Texture" id=3]
 [ext_resource path="res://scripts/FadeIn.gd" type="Script" id=4]
 [ext_resource path="res://assets/meta/background.png" type="Texture" id=5]
+[ext_resource path="res://assets/fonts/Jost-Regular.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://assets/fonts/Jost-Bold.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://scripts/Connect.gd" type="Script" id=9]
 
@@ -23,6 +24,9 @@ font_data = SubResource( 3 )
 
 [sub_resource type="DynamicFont" id=5]
 font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=6]
+font_data = ExtResource( 6 )
 
 [node name="TitleScreen" type="Node2D"]
 script = ExtResource( 2 )
@@ -120,6 +124,17 @@ margin_bottom = 190.0
 custom_fonts/font = SubResource( 5 )
 text = "Connect"
 script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Error" type="Label" parent="CanvasLayer"]
+margin_left = 128.0
+margin_top = 448.0
+margin_right = 384.0
+margin_bottom = 514.0
+custom_fonts/font = SubResource( 6 )
+custom_colors/font_color = Color( 0.811765, 0.113725, 0.113725, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

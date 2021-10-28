@@ -6,7 +6,6 @@ onready var messagebox = $"../CanvasLayer/Chat/Message"
 onready var connectedtext = $"../CanvasLayer/Debug/connected_text"
 onready var latencytext = $"../CanvasLayer/Debug/latency_text"
 
-
 var id = 0 # our client's id, sent to us form the server with player_initalize
 var _client = WebSocketClient.new()
 
@@ -18,18 +17,23 @@ func _ready():
 
 	# Initiate connection to the given URL.
 	var err = _client.connect_to_url(Global.IP + ":" + Global.PORT)
+	print(err)
 	if err != OK:
-		print("Unable to connect")
-		latencytext.text = "Latency: Not Connected"
+		print("erred")
 		set_process(false)
+		Global.error = "Can't connect to IP"
+		get_tree().change_scene("res://TitleScreen.tscn")
 
 func _closed(was_clean = false):
 	print("Closed, clean: ", was_clean)
+	Global.error = "Connection closed"
+	get_tree().change_scene("res://TitleScreen.tscn")
 	set_process(false)
 
-func _connected(proto):
+func _connected(proto = ""):
 	# "proto" will be the selected WebSocket sub-protocol (which is optional)
 	print("Connected with protocol: " + proto)
+	movement_update()
 	# you MUST always use get_peer(1).put_packet to send data to server, and not put_packet directly
 	_client.get_peer(1).put_packet(JSON.print({
 		"type": "player_connect"
@@ -54,8 +58,8 @@ func _on_data():
 		elif data.type == "player_move":
 			var player = get_node(str(msg.id))
 			player.position = player.get_global_position()
-			player.position.x = msg.x
-			player.position.y = msg.y
+			player.position.x = msg.x + 16
+			player.position.y = msg.y + 16
 		elif data.type == "player_initalize":
 			id = msg.id
 			for plr in msg.players:

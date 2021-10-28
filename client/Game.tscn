@@ -243,6 +243,7 @@ cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
 format = 1
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+position = Vector2( 128, 128 )
 script = ExtResource( 6 )
 speed = 350
 
@@ -372,6 +373,44 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="HUD" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -1.49831
+margin_bottom = -1.49829
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Loading" type="Control" parent="CanvasLayer/HUD"]
+visible = false
+anchor_left = 0.409
+anchor_top = 0.417
+anchor_right = 0.626
+anchor_bottom = 0.662
+margin_left = -0.402069
+margin_top = -0.0657196
+margin_right = 0.389893
+margin_bottom = -0.0657654
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/HUD/Loading"]
+margin_right = 223.0
+margin_bottom = 147.0
+color = Color( 0, 0, 0, 0.529412 )
+
+[node name="Label" type="Label" parent="CanvasLayer/HUD/Loading"]
+anchor_left = 0.326
+anchor_right = 0.658
+anchor_bottom = 0.163
+margin_left = -0.0300598
+margin_right = -0.0660706
+margin_bottom = 0.0390015
+custom_fonts/font = SubResource( 6 )
+text = "LOADING"
+
 [node name="GameMenu" type="Control" parent="CanvasLayer"]
 visible = false
 margin_left = 412.0
@@ -487,44 +526,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HUD" type="Control" parent="CanvasLayer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -1.49831
-margin_bottom = -1.49829
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Loading" type="Control" parent="CanvasLayer/HUD"]
-visible = false
-anchor_left = 0.409
-anchor_top = 0.417
-anchor_right = 0.626
-anchor_bottom = 0.662
-margin_left = -0.402069
-margin_top = -0.0657196
-margin_right = 0.389893
-margin_bottom = -0.0657654
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/HUD/Loading"]
-margin_right = 223.0
-margin_bottom = 147.0
-color = Color( 0, 0, 0, 0.529412 )
-
-[node name="Label" type="Label" parent="CanvasLayer/HUD/Loading"]
-anchor_left = 0.326
-anchor_right = 0.658
-anchor_bottom = 0.163
-margin_left = -0.0300598
-margin_right = -0.0660706
-margin_bottom = 0.0390015
-custom_fonts/font = SubResource( 6 )
-text = "LOADING"
-
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color( 0.329412, 0.32549, 0.32549, 1 )
 
@@ -537,3 +538,4 @@ script = ExtResource( 12 )
 [connection signal="pressed" from="CanvasLayer/Chat/Send" to="Players" method="_on_Send_pressed"]
 [connection signal="pressed" from="CanvasLayer/GameMenu/VBoxContainer/Resume" to="." method="_on_Exit_pressed"]
 [connection signal="pressed" from="CanvasLayer/GameMenu/VBoxContainer/Options" to="CanvasLayer" method="_on_Options_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameMenu/VBoxContainer/Exit_to_menu" to="CanvasLayer" method="_on_Exit_to_menu_pressed"]

@@ -46,12 +46,6 @@ export class TileMap {
 				//this.tiles[x].push(getTile(defaultTile))
 			}
 		}
-
-		/*for (const y of [].range(ySize)) {
-			if (typeof defaultTile == "string") {
-				this.tiles[y].push(getTile(defaultTile))
-			} else this.tiles[y].push(defaultTile)
-		}*/
 	}
 
 	set (x, y, tile) {
