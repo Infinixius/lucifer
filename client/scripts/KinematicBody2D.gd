@@ -35,3 +35,13 @@ func _physics_process(delta):
 	if velocity != Vector2(0,0): # loop every 0.015 seconds
 		Multiplayer.movement_update()
 		time = 0
+
+
+#health stuff
+var PlayerHealth = 130
+signal PlayerHealthChanged
+
+func _on_Area2D_area_entered(area):
+	PlayerHealth -= 65
+	emit_signal("PlayerHealthChanged" , PlayerHealth)
+

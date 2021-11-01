@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://assets/tiles/floor_mossy.png" type="Texture" id=1]
 [ext_resource path="res://assets/player.png" type="Texture" id=2]
@@ -25,6 +25,13 @@
 [ext_resource path="res://assets/tiles/meta_kill.png" type="Texture" id=23]
 [ext_resource path="res://assets/tiles/meta_spawnpoint_enemy.png" type="Texture" id=24]
 [ext_resource path="res://assets/fonts/Jost-SemiBold.ttf" type="DynamicFontData" id=25]
+[ext_resource path="res://assets/Health_Progress.png" type="Texture" id=26]
+[ext_resource path="res://TextureProgress.gd" type="Script" id=27]
+[ext_resource path="res://assets/enemy.png" type="Texture" id=28]
+[ext_resource path="res://assets/Health_Bkg.png" type="Texture" id=29]
+
+[sub_resource type="CircleShape2D" id=7]
+radius = 20.0
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -227,6 +234,9 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 12.4334, 12.6273 )
 
+[sub_resource type="CircleShape2D" id=8]
+radius = 16.0
+
 [sub_resource type="DynamicFont" id=5]
 font_data = ExtResource( 13 )
 
@@ -235,6 +245,17 @@ font_data = ExtResource( 25 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 10 )
+
+[node name="Enemy" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Enemy"]
+light_mask = 2
+texture = ExtResource( 28 )
+
+[node name="Area2D" type="Area2D" parent="Enemy"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Area2D"]
+shape = SubResource( 7 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 3 )
@@ -265,11 +286,19 @@ shadow_gradient_length = 0.5
 position = Vector2( 16, 16 )
 shape = SubResource( 4 )
 
+[node name="Hit" type="Area2D" parent="KinematicBody2D"]
+position = Vector2( 16, 16 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/Hit"]
+shape = SubResource( 8 )
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource( 17 )
 
 [node name="Debug" type="Control" parent="CanvasLayer"]
-margin_right = 100.0
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -190.0
 margin_bottom = 99.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -411,6 +440,21 @@ margin_bottom = 0.0390015
 custom_fonts/font = SubResource( 6 )
 text = "LOADING"
 
+[node name="HealthBar" type="Control" parent="CanvasLayer/HUD"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureProgress" type="TextureProgress" parent="CanvasLayer/HUD/HealthBar"]
+margin_right = 40.0
+margin_bottom = 40.0
+value = 100.0
+texture_under = ExtResource( 29 )
+texture_progress = ExtResource( 26 )
+script = ExtResource( 27 )
+
 [node name="GameMenu" type="Control" parent="CanvasLayer"]
 visible = false
 margin_left = 412.0
@@ -535,6 +579,8 @@ script = ExtResource( 7 )
 [node name="Global" type="Node" parent="."]
 script = ExtResource( 12 )
 
+[connection signal="PlayerHealthChanged" from="KinematicBody2D" to="CanvasLayer/HUD/HealthBar/TextureProgress" method="_on_KinematicBody2D_PlayerHealthChanged"]
+[connection signal="area_entered" from="KinematicBody2D/Hit" to="KinematicBody2D" method="_on_Area2D_area_entered"]
 [connection signal="pressed" from="CanvasLayer/Chat/Send" to="Players" method="_on_Send_pressed"]
 [connection signal="pressed" from="CanvasLayer/GameMenu/VBoxContainer/Resume" to="." method="_on_Exit_pressed"]
 [connection signal="pressed" from="CanvasLayer/GameMenu/VBoxContainer/Options" to="CanvasLayer" method="_on_Options_pressed"]
