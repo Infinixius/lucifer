@@ -29,13 +29,13 @@
 [ext_resource path="res://scripts/TextureProgress.gd" type="Script" id=27]
 [ext_resource path="res://assets/Health_Bkg.png" type="Texture" id=29]
 
-[sub_resource type="OccluderPolygon2D" id=2]
+[sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 
-[sub_resource type="ConvexPolygonShape2D" id=3]
+[sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 
-[sub_resource type="TileSet" id=4]
+[sub_resource type="TileSet" id=3]
 0/name = "missing.png 0"
 0/texture = ExtResource( 18 )
 0/tex_offset = Vector2( 0, 0 )
@@ -183,18 +183,18 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 10/region = Rect2( 0, 0, 32, 32 )
 10/tile_mode = 0
 10/occluder_offset = Vector2( 0, 0 )
-10/occluder = SubResource( 2 )
+10/occluder = SubResource( 1 )
 10/navigation_offset = Vector2( 0, 0 )
 10/shape_offset = Vector2( 0, 0 )
 10/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-10/shape = SubResource( 3 )
+10/shape = SubResource( 2 )
 10/shape_one_way = false
 10/shape_one_way_margin = 1.0
 10/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 3 ),
+"shape": SubResource( 2 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 10/z_index = 0
@@ -227,16 +227,16 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 12/shapes = [  ]
 12/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 12.4334, 12.6273 )
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=5]
 radius = 16.0
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=6]
 font_data = ExtResource( 13 )
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=7]
 font_data = ExtResource( 25 )
 
 [node name="Game" type="Node2D"]
@@ -244,7 +244,7 @@ position = Vector2( -1, 0 )
 script = ExtResource( 10 )
 
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = SubResource( 4 )
+tile_set = SubResource( 3 )
 cell_size = Vector2( 32, 32 )
 cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
 format = 1
@@ -272,13 +272,13 @@ shadow_gradient_length = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 16, 16 )
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 
 [node name="Hit" type="Area2D" parent="KinematicBody2D"]
 position = Vector2( 16, 16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/Hit"]
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 
 [node name="BulletSpawn" type="Position2D" parent="KinematicBody2D"]
 position = Vector2( 16, 32 )
@@ -374,35 +374,34 @@ __meta__ = {
 anchor_top = 0.743
 anchor_right = 0.31
 anchor_bottom = 1.0
-margin_top = -445.8
-margin_right = -277.44
-margin_bottom = -560.0
+margin_top = -534.96
+margin_right = -346.8
+margin_bottom = -670.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Messages" type="RichTextLabel" parent="CanvasLayer/Chat"]
-margin_top = 450.0
-margin_right = 299.0
-margin_bottom = 566.0
+margin_right = 300.0
+margin_bottom = 200.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Message" type="TextEdit" parent="CanvasLayer/Chat"]
-margin_top = 570.0
+margin_top = 690.0
 margin_right = 227.0
-margin_bottom = 601.0
+margin_bottom = 720.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Send" type="Button" parent="CanvasLayer/Chat"]
-margin_left = 226.528
-margin_top = 570.393
-margin_right = 298.528
-margin_bottom = 600.393
-custom_fonts/font = SubResource( 7 )
+margin_left = 227.0
+margin_top = 689.0
+margin_right = 299.0
+margin_bottom = 719.0
+custom_fonts/font = SubResource( 6 )
 text = "Send"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -411,8 +410,6 @@ __meta__ = {
 [node name="HUD" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -1.49831
-margin_bottom = -1.49829
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -443,7 +440,7 @@ anchor_bottom = 0.163
 margin_left = -0.0300598
 margin_right = -0.0660706
 margin_bottom = 0.0390015
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 7 )
 text = "LOADING"
 
 [node name="HealthBar" type="Control" parent="CanvasLayer/HUD"]
@@ -454,11 +451,14 @@ __meta__ = {
 }
 
 [node name="TextureProgress" type="TextureProgress" parent="CanvasLayer/HUD/HealthBar"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 452.0
+margin_bottom = 70.0
 value = 100.0
 texture_under = ExtResource( 29 )
 texture_progress = ExtResource( 26 )
+nine_patch_stretch = true
 script = ExtResource( 27 )
 __meta__ = {
 "_edit_use_anchors_": false

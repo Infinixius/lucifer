@@ -13,11 +13,16 @@ config_version=4
 config/name="Lucifer"
 run/main_scene="res://TitleScreen.tscn"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
-config/icon="res://icon.png"
 
 [autoload]
 
 Global="*res://scripts/Global.gd"
+
+[display]
+
+window/size/width=1280
+window/size/height=720
+window/size/borderless=true
 
 [global]
 
