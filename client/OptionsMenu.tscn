@@ -3,7 +3,8 @@
 [ext_resource path="res://assets/MenuBackground.png" type="Texture" id=1]
 [ext_resource path="res://assets/Button_Pressed.png" type="Texture" id=2]
 [ext_resource path="res://assets/Button_Unpressed.png" type="Texture" id=3]
-[ext_resource path="res://OptionsMenu.gd" type="Script" id=4]
+[ext_resource path="res://scripts/OptionsMenu.gd" type="Script" id=4]
+
 
 [node name="OptionsMenu" type="Control"]
 margin_right = 40.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://assets/tiles/floor_mossy.png" type="Texture" id=1]
 [ext_resource path="res://assets/player.png" type="Texture" id=2]
@@ -16,7 +16,7 @@
 [ext_resource path="res://assets/MenuBackground.png" type="Texture" id=14]
 [ext_resource path="res://assets/Button_Pressed.png" type="Texture" id=15]
 [ext_resource path="res://assets/Button_Unpressed.png" type="Texture" id=16]
-[ext_resource path="res://CanvasLayer.gd" type="Script" id=17]
+[ext_resource path="res://scripts/CanvasLayer.gd" type="Script" id=17]
 [ext_resource path="res://assets/tiles/missing.png" type="Texture" id=18]
 [ext_resource path="res://assets/tiles/meta_light_block.png" type="Texture" id=19]
 [ext_resource path="res://assets/tiles/void.png" type="Texture" id=20]
@@ -26,20 +26,16 @@
 [ext_resource path="res://assets/tiles/meta_spawnpoint_enemy.png" type="Texture" id=24]
 [ext_resource path="res://assets/fonts/Jost-SemiBold.ttf" type="DynamicFontData" id=25]
 [ext_resource path="res://assets/Health_Progress.png" type="Texture" id=26]
-[ext_resource path="res://TextureProgress.gd" type="Script" id=27]
-[ext_resource path="res://assets/enemy.png" type="Texture" id=28]
+[ext_resource path="res://scripts/TextureProgress.gd" type="Script" id=27]
 [ext_resource path="res://assets/Health_Bkg.png" type="Texture" id=29]
 
-[sub_resource type="CircleShape2D" id=7]
-radius = 20.0
-
-[sub_resource type="OccluderPolygon2D" id=1]
+[sub_resource type="OccluderPolygon2D" id=2]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 
-[sub_resource type="ConvexPolygonShape2D" id=2]
+[sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 
-[sub_resource type="TileSet" id=3]
+[sub_resource type="TileSet" id=4]
 0/name = "missing.png 0"
 0/texture = ExtResource( 18 )
 0/tex_offset = Vector2( 0, 0 )
@@ -187,18 +183,18 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 10/region = Rect2( 0, 0, 32, 32 )
 10/tile_mode = 0
 10/occluder_offset = Vector2( 0, 0 )
-10/occluder = SubResource( 1 )
+10/occluder = SubResource( 2 )
 10/navigation_offset = Vector2( 0, 0 )
 10/shape_offset = Vector2( 0, 0 )
 10/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-10/shape = SubResource( 2 )
+10/shape = SubResource( 3 )
 10/shape_one_way = false
 10/shape_one_way_margin = 1.0
 10/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 2 ),
+"shape": SubResource( 3 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 10/z_index = 0
@@ -231,37 +227,29 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 12/shapes = [  ]
 12/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 12.4334, 12.6273 )
 
-[sub_resource type="CircleShape2D" id=8]
+[sub_resource type="CircleShape2D" id=6]
 radius = 16.0
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=7]
 font_data = ExtResource( 13 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=8]
 font_data = ExtResource( 25 )
 
 [node name="Game" type="Node2D"]
+position = Vector2( -1, 0 )
 script = ExtResource( 10 )
 
-[node name="Enemy" type="Node2D" parent="."]
-
-[node name="Sprite" type="Sprite" parent="Enemy"]
-light_mask = 2
-texture = ExtResource( 28 )
-
-[node name="Area2D" type="Area2D" parent="Enemy"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Area2D"]
-shape = SubResource( 7 )
-
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = SubResource( 3 )
+tile_set = SubResource( 4 )
 cell_size = Vector2( 32, 32 )
 cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
 format = 1
+
+[node name="EnemyDevSpawn" type="Position2D" parent="."]
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
 position = Vector2( 128, 128 )
@@ -284,13 +272,21 @@ shadow_gradient_length = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 16, 16 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="Hit" type="Area2D" parent="KinematicBody2D"]
 position = Vector2( 16, 16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/Hit"]
-shape = SubResource( 8 )
+shape = SubResource( 6 )
+
+[node name="BulletSpawn" type="Position2D" parent="KinematicBody2D"]
+position = Vector2( 16, 32 )
+rotation = 1.5708
+
+[node name="Sprite" type="Sprite" parent="KinematicBody2D/BulletSpawn"]
+scale = Vector2( 0.163953, 0.293907 )
+texture = ExtResource( 26 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource( 17 )
@@ -353,6 +349,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="health_text" type="Label" parent="CanvasLayer/Debug"]
+margin_left = 3.51
+margin_top = 110.0
+margin_right = 98.51
+margin_bottom = 124.0
+rect_pivot_offset = Vector2( 36.6277, 1.84822 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="connected_text" type="Label" parent="CanvasLayer/Debug"]
 margin_left = 1.75527
 margin_top = 68.2454
@@ -396,7 +402,7 @@ margin_left = 226.528
 margin_top = 570.393
 margin_right = 298.528
 margin_bottom = 600.393
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 7 )
 text = "Send"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -437,7 +443,7 @@ anchor_bottom = 0.163
 margin_left = -0.0300598
 margin_right = -0.0660706
 margin_bottom = 0.0390015
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 8 )
 text = "LOADING"
 
 [node name="HealthBar" type="Control" parent="CanvasLayer/HUD"]
@@ -454,6 +460,9 @@ value = 100.0
 texture_under = ExtResource( 29 )
 texture_progress = ExtResource( 26 )
 script = ExtResource( 27 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="GameMenu" type="Control" parent="CanvasLayer"]
 visible = false
