@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://assets/tiles/floor_mossy.png" type="Texture" id=1]
 [ext_resource path="res://assets/player.png" type="Texture" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://assets/fonts/Jost-SemiBold.ttf" type="DynamicFontData" id=25]
 [ext_resource path="res://assets/Health_Progress.png" type="Texture" id=26]
 [ext_resource path="res://scripts/TextureProgress.gd" type="Script" id=27]
+[ext_resource path="res://assets/Handgun1.png" type="Texture" id=28]
 [ext_resource path="res://assets/Health_Bkg.png" type="Texture" id=29]
 
 [sub_resource type="OccluderPolygon2D" id=1]
@@ -286,8 +287,8 @@ position = Vector2( 16, 32 )
 rotation = 1.5708
 
 [node name="Sprite" type="Sprite" parent="KinematicBody2D/BulletSpawn"]
-scale = Vector2( 0.163953, 0.293907 )
-texture = ExtResource( 26 )
+scale = Vector2( 1.68073, 1.61112 )
+texture = ExtResource( 28 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource( 17 )
