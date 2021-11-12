@@ -5,7 +5,6 @@
 [ext_resource path="res://assets/Button_Unpressed.png" type="Texture" id=3]
 [ext_resource path="res://scripts/OptionsMenu.gd" type="Script" id=4]
 
-
 [node name="OptionsMenu" type="Control"]
 margin_right = 40.0
 margin_bottom = 40.0
@@ -20,6 +19,10 @@ margin_top = 100.0
 margin_right = 812.0
 margin_bottom = 500.0
 texture = ExtResource( 1 )
+patch_margin_left = 30
+patch_margin_top = 38
+patch_margin_right = 30
+patch_margin_bottom = 36
 __meta__ = {
 "_edit_use_anchors_": false
 }

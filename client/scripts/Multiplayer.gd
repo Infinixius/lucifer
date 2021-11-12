@@ -1,6 +1,6 @@
 extends Node
 
-onready var player = $"../KinematicBody2D"
+onready var player = $"../Player"
 onready var chatbox = $"../CanvasLayer/Chat/Messages"
 onready var messagebox = $"../CanvasLayer/Chat/Message"
 onready var connectedtext = $"../CanvasLayer/Debug/connected_text"
@@ -47,7 +47,7 @@ func _on_data():
 	
 	if json.error == OK:
 		if data.type == "player_connect":
-			if (msg.id != id): # we don't want to update ourselves
+			if msg.id != id: # we don't want to update ourselves
 				var player = Sprite.new()
 				player.texture = load("res://assets/player_multiplayer.png")
 				player.name = str(msg.id)
@@ -56,20 +56,22 @@ func _on_data():
 			var player = get_node(str(msg.id))
 			player.queue_free() # delete the node
 		elif data.type == "player_move":
-			var player = get_node(str(msg.id))
-			player.position = player.get_global_position()
-			player.position.x = msg.x + 16
-			player.position.y = msg.y + 16
+			if !msg.id == id: # we don't want to update ourselves
+				var player = get_node(str(msg.id))
+				player.position = player.get_global_position()
+				player.position.x = msg.x + 16
+				player.position.y = msg.y + 16
 		elif data.type == "player_initalize":
 			id = msg.id
 			for plr in msg.players:
-				var player = Sprite.new()
-				player.texture = load("res://assets/player_multiplayer.png")
-				player.name = str(plr.id)
-				player.position = player.get_global_position()
-				player.position.x = plr.position[0]
-				player.position.y = plr.position[1]
-				self.add_child(player)
+				if plr.id != id: # we don't want to update ourselves
+					var player = Sprite.new()
+					player.texture = load("res://assets/player_multiplayer.png")
+					player.name = str(plr.id)
+					player.position = player.get_global_position()
+					player.position.x = plr.position[0]
+					player.position.y = plr.position[1]
+					self.add_child(player)
 		elif data.type == "ping":
 			latency_update(data.timestamp)
 		elif data.type == "receive_message":

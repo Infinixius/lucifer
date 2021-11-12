@@ -5,7 +5,7 @@ import { getTile, TileMap } from "./tiles.js"
 
 const ROOMDATA_IMAGE_ROWLENGTH = 4 // length of rows in rooms.png
 const ROOMDATA_ROOMS = 10 // amount of rooms in rooms.png
-const ROOM_SIZE = 16 // size of an individual room
+const ROOM_SIZE = 32 // size of an individual room
 const ROOMS = 11 // total amount of rooms
 
 export class Map {
@@ -30,10 +30,10 @@ export class Map {
 			
 			for (const room of this.rooms) {
 				this.tiles.fill(
-					room.coords[0] * 16 + 1, // add 1 to the position because otherwise the left wall is x = -1, which cant be rendered
-					room.coords[1] * 16 + 1,
-					16,
-					16,
+					room.coords[0] * ROOM_SIZE + 1, // add 1 to the position because otherwise the left wall is x = -1, which cant be rendered
+					room.coords[1] * ROOM_SIZE + 1,
+					ROOM_SIZE,
+					ROOM_SIZE,
 					9
 				)
 			}
@@ -50,8 +50,8 @@ export class Map {
 
 						if (pixel.r == 0 && pixel.g == 0 && pixel.b == 0 && pixel.a == 255) { // black
 							this.tiles.set(
-								room.coords[0] * 16 + x + 1,
-								room.coords[1] * 16 + y + 1,
+								room.coords[0] * ROOM_SIZE + x + 1,
+								room.coords[1] * ROOM_SIZE + y + 1,
 								"wall"
 							)
 						}

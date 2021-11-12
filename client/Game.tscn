@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://assets/tiles/floor_mossy.png" type="Texture" id=1]
 [ext_resource path="res://assets/player.png" type="Texture" id=2]
@@ -27,15 +27,21 @@
 [ext_resource path="res://assets/fonts/Jost-SemiBold.ttf" type="DynamicFontData" id=25]
 [ext_resource path="res://assets/Health_Progress.png" type="Texture" id=26]
 [ext_resource path="res://scripts/TextureProgress.gd" type="Script" id=27]
+[ext_resource path="res://assets/items/pistol.png" type="Texture" id=28]
 [ext_resource path="res://assets/Health_Bkg.png" type="Texture" id=29]
+[ext_resource path="res://assets/sfx/step_stone.mp3" type="AudioStream" id=30]
+[ext_resource path="res://scripts/AudioStreamPlayer.gd" type="Script" id=31]
+[ext_resource path="res://assets/fonts/Jost-Light.ttf" type="DynamicFontData" id=32]
+[ext_resource path="res://assets/effects/bullet_spark.png" type="Texture" id=33]
+[ext_resource path="res://assets/effects/vignette.png" type="Texture" id=34]
 
-[sub_resource type="OccluderPolygon2D" id=2]
+[sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 
-[sub_resource type="ConvexPolygonShape2D" id=3]
+[sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 
-[sub_resource type="TileSet" id=4]
+[sub_resource type="TileSet" id=3]
 0/name = "missing.png 0"
 0/texture = ExtResource( 18 )
 0/tex_offset = Vector2( 0, 0 )
@@ -183,18 +189,18 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 10/region = Rect2( 0, 0, 32, 32 )
 10/tile_mode = 0
 10/occluder_offset = Vector2( 0, 0 )
-10/occluder = SubResource( 2 )
+10/occluder = SubResource( 1 )
 10/navigation_offset = Vector2( 0, 0 )
 10/shape_offset = Vector2( 0, 0 )
 10/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-10/shape = SubResource( 3 )
+10/shape = SubResource( 2 )
 10/shape_one_way = false
 10/shape_one_way_margin = 1.0
 10/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 3 ),
+"shape": SubResource( 2 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 10/z_index = 0
@@ -227,69 +233,119 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 12/shapes = [  ]
 12/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 12.4334, 12.6273 )
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=5]
 radius = 16.0
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="Shader" id=13]
+code = "shader_type canvas_item;
+
+uniform sampler2D vignette;
+
+void fragment() {
+	vec3 vignette_color = texture(vignette, UV).rgb;
+	// Screen texture stores gaussian blurred copies on mipmaps.
+	COLOR.rgb = textureLod(SCREEN_TEXTURE, SCREEN_UV, (1.0 - vignette_color.r) * 4.0).rgb;
+	COLOR.rgb *= texture(vignette, UV).rgb;
+}"
+
+[sub_resource type="ShaderMaterial" id=14]
+shader = SubResource( 13 )
+shader_param/vignette = ExtResource( 34 )
+
+[sub_resource type="DynamicFont" id=6]
 font_data = ExtResource( 13 )
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=7]
 font_data = ExtResource( 25 )
+
+[sub_resource type="DynamicFont" id=8]
+font_data = ExtResource( 13 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 15
+font_data = ExtResource( 32 )
+
+[sub_resource type="Environment" id=12]
+glow_intensity = 2.61
 
 [node name="Game" type="Node2D"]
 position = Vector2( -1, 0 )
 script = ExtResource( 10 )
 
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = SubResource( 4 )
+tile_set = SubResource( 3 )
 cell_size = Vector2( 32, 32 )
 cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
 format = 1
+tile_data = PoolIntArray( 65545, 10, 0, 65546, 10, 0, 65550, 10, 0, 65551, 10, 0, 131081, 10, 0, 131082, 9, 0, 131083, 9, 0, 131084, 9, 0, 131085, 9, 0, 131086, 9, 0, 131087, 10, 0, 196618, 9, 0, 196619, 9, 0, 196620, 9, 0, 196621, 9, 0, 196622, 9, 0, 262154, 9, 0, 262155, 9, 0, 262156, 9, 0, 262157, 9, 0, 262158, 9, 0, 327690, 9, 0, 327691, 9, 0, 327692, 9, 0, 327693, 9, 0, 327694, 9, 0, 393225, 10, 0, 393226, 9, 0, 393227, 9, 0, 393228, 9, 0, 393229, 9, 0, 393230, 9, 0, 393231, 10, 0, 458761, 10, 0, 458762, 10, 0, 458767, 10, 0 )
 
 [node name="EnemyDevSpawn" type="Position2D" parent="."]
 
-[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+[node name="Player" type="KinematicBody2D" parent="."]
 position = Vector2( 128, 128 )
+scale = Vector2( 0.982806, 1 )
 script = ExtResource( 6 )
 speed = 350
 
-[node name="Player" type="Sprite" parent="KinematicBody2D"]
-position = Vector2( 16, 16 )
-texture = ExtResource( 2 )
-
-[node name="Camera2D" type="Camera2D" parent="KinematicBody2D/Player"]
-current = true
-
-[node name="Light2D" type="Light2D" parent="KinematicBody2D/Player"]
-position = Vector2( 0.18921, 0 )
-texture = ExtResource( 9 )
-color = Color( 1, 0.843137, 0.513726, 1 )
-shadow_enabled = true
-shadow_gradient_length = 0.5
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
-position = Vector2( 16, 16 )
-shape = SubResource( 5 )
-
-[node name="Hit" type="Area2D" parent="KinematicBody2D"]
-position = Vector2( 16, 16 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/Hit"]
-shape = SubResource( 6 )
-
-[node name="BulletSpawn" type="Position2D" parent="KinematicBody2D"]
+[node name="BulletSpawn" type="Position2D" parent="Player"]
 position = Vector2( 16, 32 )
 rotation = 1.5708
 
-[node name="Sprite" type="Sprite" parent="KinematicBody2D/BulletSpawn"]
-scale = Vector2( 0.163953, 0.293907 )
-texture = ExtResource( 26 )
+[node name="Sprite" type="Sprite" parent="Player/BulletSpawn"]
+position = Vector2( 5.04057, 0.0638332 )
+texture = ExtResource( 28 )
+
+[node name="Spark" type="Sprite" parent="Player/BulletSpawn"]
+visible = false
+position = Vector2( 19.92, 0.0403748 )
+rotation = -1.5708
+texture = ExtResource( 33 )
+
+[node name="Light2D" type="Light2D" parent="Player/BulletSpawn/Spark"]
+texture = ExtResource( 9 )
+color = Color( 0.933333, 0.905882, 0.27451, 1 )
+range_z_min = -512
+range_z_max = 512
+
+[node name="Sprite" type="Sprite" parent="Player"]
+position = Vector2( 16, 16 )
+texture = ExtResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="Player/Sprite"]
+current = true
+
+[node name="Light2D" type="Light2D" parent="Player/Sprite"]
+position = Vector2( 0.18921, 0 )
+texture = ExtResource( 9 )
+color = Color( 0.917647, 0.870588, 0.768627, 1 )
+shadow_enabled = true
+shadow_gradient_length = 0.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2( 16, 16 )
+shape = SubResource( 4 )
+
+[node name="Hit" type="Area2D" parent="Player"]
+position = Vector2( 16, 16 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Hit"]
+shape = SubResource( 5 )
+
+[node name="Footsteps" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource( 30 )
+script = ExtResource( 31 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource( 17 )
+
+[node name="Vignette" type="Sprite" parent="CanvasLayer"]
+material = SubResource( 14 )
+position = Vector2( 512, 300 )
+scale = Vector2( 8, 4.6875 )
+texture = ExtResource( 34 )
 
 [node name="Debug" type="Control" parent="CanvasLayer"]
 anchor_left = 1.0
@@ -402,7 +458,7 @@ margin_left = 226.528
 margin_top = 570.393
 margin_right = 298.528
 margin_bottom = 600.393
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 6 )
 text = "Send"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -411,8 +467,10 @@ __meta__ = {
 [node name="HUD" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -1.49831
-margin_bottom = -1.49829
+margin_left = -4.0
+margin_top = 4.0
+margin_right = -4.0
+margin_bottom = 4.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -443,7 +501,7 @@ anchor_bottom = 0.163
 margin_left = -0.0300598
 margin_right = -0.0660706
 margin_bottom = 0.0390015
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 7 )
 text = "LOADING"
 
 [node name="HealthBar" type="Control" parent="CanvasLayer/HUD"]
@@ -454,8 +512,10 @@ __meta__ = {
 }
 
 [node name="TextureProgress" type="TextureProgress" parent="CanvasLayer/HUD/HealthBar"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = 6.6355
+margin_top = -1.53096
+margin_right = 114.635
+margin_bottom = 38.469
 value = 100.0
 texture_under = ExtResource( 29 )
 texture_progress = ExtResource( 26 )
@@ -487,37 +547,41 @@ __meta__ = {
 [node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/GameMenu"]
 margin_right = 200.0
 margin_bottom = 200.0
+rect_scale = Vector2( 0.958061, 1 )
 texture = ExtResource( 14 )
-region_rect = Rect2( 500, 500, 0, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameMenu"]
-margin_right = 200.0
-margin_bottom = 176.0
+margin_left = -4.0
+margin_top = 16.0
+margin_right = 196.0
+margin_bottom = 192.0
+rect_scale = Vector2( 0.997914, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="CanvasLayer/GameMenu/VBoxContainer"]
 margin_right = 200.0
-margin_bottom = 14.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 8 )
 text = "Game Menu"
 align = 1
 valign = 1
 uppercase = true
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/GameMenu/VBoxContainer"]
-margin_top = 18.0
+margin_top = 28.0
 margin_right = 200.0
-margin_bottom = 18.0
+margin_bottom = 28.0
 
 [node name="Resume" type="TextureButton" parent="CanvasLayer/GameMenu/VBoxContainer"]
 margin_left = 50.0
-margin_top = 22.0
+margin_top = 32.0
 margin_right = 150.0
-margin_bottom = 52.0
+margin_bottom = 62.0
 rect_min_size = Vector2( 100, 30 )
 size_flags_horizontal = 4
 texture_normal = ExtResource( 16 )
@@ -532,6 +596,7 @@ margin_left = -50.0
 margin_top = -15.5
 margin_right = 50.0
 margin_bottom = 15.5
+custom_fonts/font = SubResource( 9 )
 text = "Resume"
 align = 1
 valign = 1
@@ -541,9 +606,9 @@ __meta__ = {
 
 [node name="Options" type="TextureButton" parent="CanvasLayer/GameMenu/VBoxContainer"]
 margin_left = 50.0
-margin_top = 56.0
+margin_top = 66.0
 margin_right = 150.0
-margin_bottom = 86.0
+margin_bottom = 96.0
 rect_min_size = Vector2( 100, 30 )
 size_flags_horizontal = 4
 texture_normal = ExtResource( 16 )
@@ -552,6 +617,7 @@ texture_pressed = ExtResource( 15 )
 [node name="Label" type="Label" parent="CanvasLayer/GameMenu/VBoxContainer/Options"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+custom_fonts/font = SubResource( 9 )
 text = "Options"
 align = 1
 valign = 1
@@ -561,9 +627,9 @@ __meta__ = {
 
 [node name="Exit_to_menu" type="TextureButton" parent="CanvasLayer/GameMenu/VBoxContainer"]
 margin_left = 50.0
-margin_top = 90.0
+margin_top = 100.0
 margin_right = 150.0
-margin_bottom = 120.0
+margin_bottom = 130.0
 rect_min_size = Vector2( 100, 30 )
 size_flags_horizontal = 4
 texture_normal = ExtResource( 16 )
@@ -572,6 +638,11 @@ texture_pressed = ExtResource( 15 )
 [node name="Label" type="Label" parent="CanvasLayer/GameMenu/VBoxContainer/Exit_to_menu"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -2.0
+margin_right = -2.0
+margin_bottom = -2.0
+custom_fonts/font = SubResource( 9 )
 text = "Exit to Menu"
 align = 1
 valign = 1
@@ -580,7 +651,7 @@ __meta__ = {
 }
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color( 0.329412, 0.32549, 0.32549, 1 )
+color = Color( 0.317647, 0.317647, 0.317647, 1 )
 
 [node name="Players" type="Node" parent="."]
 script = ExtResource( 7 )
@@ -588,8 +659,11 @@ script = ExtResource( 7 )
 [node name="Global" type="Node" parent="."]
 script = ExtResource( 12 )
 
-[connection signal="PlayerHealthChanged" from="KinematicBody2D" to="CanvasLayer/HUD/HealthBar/TextureProgress" method="_on_KinematicBody2D_PlayerHealthChanged"]
-[connection signal="area_entered" from="KinematicBody2D/Hit" to="KinematicBody2D" method="_on_Area2D_area_entered"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 12 )
+
+[connection signal="PlayerHealthChanged" from="Player" to="CanvasLayer/HUD/HealthBar/TextureProgress" method="_on_KinematicBody2D_PlayerHealthChanged"]
+[connection signal="area_entered" from="Player/Hit" to="Player" method="_on_Area2D_area_entered"]
 [connection signal="pressed" from="CanvasLayer/Chat/Send" to="Players" method="_on_Send_pressed"]
 [connection signal="pressed" from="CanvasLayer/GameMenu/VBoxContainer/Resume" to="." method="_on_Exit_pressed"]
 [connection signal="pressed" from="CanvasLayer/GameMenu/VBoxContainer/Options" to="CanvasLayer" method="_on_Options_pressed"]

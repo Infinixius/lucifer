@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var body = $KinematicBody2D
+onready var body = $Player
 onready var tile_map = $TileMap
 onready var pos_text = $CanvasLayer/Debug/position_text
 onready var rawpos_text = $CanvasLayer/Debug/rawposition_text

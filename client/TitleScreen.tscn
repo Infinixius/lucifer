@@ -101,7 +101,7 @@ margin_right = 328.0
 margin_bottom = 56.0
 rect_pivot_offset = Vector2( -32, 24 )
 custom_fonts/font = SubResource( 2 )
-text = "8000"
+text = "8080"
 __meta__ = {
 "_edit_use_anchors_": false
 }
