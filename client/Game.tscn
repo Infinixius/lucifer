@@ -343,8 +343,8 @@ script = ExtResource( 17 )
 
 [node name="Vignette" type="Sprite" parent="CanvasLayer"]
 material = SubResource( 14 )
-position = Vector2( 512, 300 )
-scale = Vector2( 8, 4.6875 )
+position = Vector2( 640, 360 )
+scale = Vector2( 10, 5.625 )
 texture = ExtResource( 34 )
 
 [node name="Debug" type="Control" parent="CanvasLayer"]

@@ -49,6 +49,7 @@ func _physics_process(delta):
 		velocity = move_and_slide(velocity, Vector2(0, 0))
 		velocitytext.text = "Velocity: " + str(velocity)
 	
+	
 	if velocity != Vector2(0,0): # loop every 0.015 seconds
 		Multiplayer.movement_update()
 		time = 0

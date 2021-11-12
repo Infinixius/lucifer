@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/Bullet.gd" type="Script" id=1]
-[ext_resource path="res://assets/laserRed01.png" type="Texture" id=2]
+[ext_resource path="res://assets/bullet.png" type="Texture" id=2]
 [ext_resource path="res://assets/light.png" type="Texture" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
@@ -21,7 +21,7 @@ texture = ExtResource( 2 )
 [node name="Light2D" type="Light2D" parent="Bullet/Sprite"]
 texture = ExtResource( 3 )
 color = Color( 0.921569, 0.27451, 0.27451, 1 )
-energy = 0.5
+energy = 0.72
 range_z_min = -256
 range_z_max = 256
 

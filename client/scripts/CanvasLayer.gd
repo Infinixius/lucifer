@@ -6,7 +6,6 @@ var Enemy = load("res://Enemy.tscn")
 onready var bulletspawn = $"../Player/BulletSpawn"
 onready var enemyspawn = $"../EnemyDevSpawn"
 onready var spark = $"../Player/BulletSpawn/Spark"
-onready var vignette = $PostProcessing/Vignette
 
 var shootCooldown = false
 
@@ -19,7 +18,7 @@ func _input(event):
 		if shootCooldown == false && $"/root/Game/CanvasLayer/GameMenu".visible == false:
 			shoot()
 			shootCooldown = true
-			yield(get_tree().create_timer(0.35), "timeout") # wait 0.35 seconds
+			yield(get_tree().create_timer(0.25), "timeout") # wait 0.25 seconds
 			shootCooldown = false
 	if Input.is_action_just_pressed("SpawnEnemy"):
 		SpawnEnemy()
@@ -30,7 +29,7 @@ func shoot():
 	b.transform = bulletspawn.global_transform
 	
 	spark.visible = true
-	yield(get_tree().create_timer(0.15), "timeout") # wait 0.15 seconds
+	yield(get_tree().create_timer(0.25), "timeout") # wait 0.25 seconds
 	spark.visible = false
 
 func SpawnEnemy():

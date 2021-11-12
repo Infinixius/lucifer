@@ -1,6 +1,6 @@
 extends Node2D
 
-export var health = 100
+export var health = 1000
 
 
 
@@ -11,6 +11,6 @@ func _on_Area2D_area_entered(area):
 		health -= 50
 
 
-func _process(delta):
+func _process(_delta):
 	if health <= 0:
 		queue_free()

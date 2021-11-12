@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/laserRed01.png-dc643a2ae7584e7f1ac7a61eb9ce129b.stex"
+path="res://.import/eyeball_enemy.png-6de5df491f0fe36d948fbc1ea213752b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/laserRed01.png"
-dest_files=[ "res://.import/laserRed01.png-dc643a2ae7584e7f1ac7a61eb9ce129b.stex" ]
+source_file="res://assets/eyeball_enemy.png"
+dest_files=[ "res://.import/eyeball_enemy.png-6de5df491f0fe36d948fbc1ea213752b.stex" ]
 
 [params]
 
