@@ -1,7 +1,7 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://assets/tiles/floor_mossy.png" type="Texture" id=1]
-[ext_resource path="res://assets/player.png" type="Texture" id=2]
+[ext_resource path="res://assets/player_animations/walk_down_3.png" type="Texture" id=2]
 [ext_resource path="res://assets/tiles/floor_burnt.png" type="Texture" id=3]
 [ext_resource path="res://assets/tiles/floor.png" type="Texture" id=4]
 [ext_resource path="res://assets/tiles/wall.png" type="Texture" id=5]
@@ -34,6 +34,21 @@
 [ext_resource path="res://assets/fonts/Jost-Light.ttf" type="DynamicFontData" id=32]
 [ext_resource path="res://assets/effects/bullet_spark.png" type="Texture" id=33]
 [ext_resource path="res://assets/effects/vignette.png" type="Texture" id=34]
+[ext_resource path="res://assets/player_animations/walk_right_1.png" type="Texture" id=35]
+[ext_resource path="res://assets/player_animations/walk_right_2.png" type="Texture" id=36]
+[ext_resource path="res://assets/player_animations/walk_left_4.png" type="Texture" id=37]
+[ext_resource path="res://assets/player_animations/walk_right_4.png" type="Texture" id=38]
+[ext_resource path="res://assets/player_animations/walk_left_2.png" type="Texture" id=39]
+[ext_resource path="res://assets/player_animations/walk_up_1.png" type="Texture" id=40]
+[ext_resource path="res://assets/player_animations/walk_up_3.png" type="Texture" id=41]
+[ext_resource path="res://assets/player_animations/walk_left_1.png" type="Texture" id=42]
+[ext_resource path="res://assets/player_animations/walk_left_3.png" type="Texture" id=43]
+[ext_resource path="res://assets/player_animations/walk_up_2.png" type="Texture" id=44]
+[ext_resource path="res://assets/player_animations/walk_down_1.png" type="Texture" id=45]
+[ext_resource path="res://assets/player_animations/walk_down_4.png" type="Texture" id=46]
+[ext_resource path="res://assets/player_animations/walk_right_3.png" type="Texture" id=47]
+[ext_resource path="res://assets/player_animations/walk_down_2.png" type="Texture" id=48]
+[ext_resource path="res://assets/player_animations/walk_up_4.png" type="Texture" id=49]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -233,13 +248,36 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 12/shapes = [  ]
 12/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 40 ), ExtResource( 44 ), ExtResource( 41 ), ExtResource( 49 ) ],
+"loop": true,
+"name": "walk_up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 35 ), ExtResource( 36 ), ExtResource( 47 ), ExtResource( 38 ) ],
+"loop": true,
+"name": "walk_right",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 45 ), ExtResource( 48 ), ExtResource( 2 ), ExtResource( 46 ) ],
+"loop": true,
+"name": "walk_down",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 42 ), ExtResource( 39 ), ExtResource( 43 ), ExtResource( 37 ) ],
+"loop": true,
+"name": "walk_left",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 12.4334, 12.6273 )
 
-[sub_resource type="CircleShape2D" id=5]
+[sub_resource type="CircleShape2D" id=6]
 radius = 16.0
 
-[sub_resource type="Shader" id=13]
+[sub_resource type="Shader" id=7]
 code = "shader_type canvas_item;
 
 uniform sampler2D vignette;
@@ -251,24 +289,24 @@ void fragment() {
 	COLOR.rgb *= texture(vignette, UV).rgb;
 }"
 
-[sub_resource type="ShaderMaterial" id=14]
-shader = SubResource( 13 )
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 7 )
 shader_param/vignette = ExtResource( 34 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=9]
 font_data = ExtResource( 13 )
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=10]
 font_data = ExtResource( 25 )
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=11]
 font_data = ExtResource( 13 )
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=12]
 size = 15
 font_data = ExtResource( 32 )
 
-[sub_resource type="Environment" id=12]
+[sub_resource type="Environment" id=13]
 glow_intensity = 2.61
 
 [node name="Game" type="Node2D"]
@@ -310,14 +348,16 @@ color = Color( 0.933333, 0.905882, 0.27451, 1 )
 range_z_min = -512
 range_z_max = 512
 
-[node name="Sprite" type="Sprite" parent="Player"]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Player"]
 position = Vector2( 16, 16 )
-texture = ExtResource( 2 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 4 )
+animation = "walk_right"
 
-[node name="Camera2D" type="Camera2D" parent="Player/Sprite"]
+[node name="Camera2D" type="Camera2D" parent="Player/AnimatedSprite"]
 current = true
 
-[node name="Light2D" type="Light2D" parent="Player/Sprite"]
+[node name="Light2D" type="Light2D" parent="Player/AnimatedSprite"]
 position = Vector2( 0.18921, 0 )
 texture = ExtResource( 9 )
 color = Color( 0.917647, 0.870588, 0.768627, 1 )
@@ -326,13 +366,13 @@ shadow_gradient_length = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2( 16, 16 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="Hit" type="Area2D" parent="Player"]
 position = Vector2( 16, 16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Hit"]
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="Footsteps" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource( 30 )
@@ -342,7 +382,7 @@ script = ExtResource( 31 )
 script = ExtResource( 17 )
 
 [node name="Vignette" type="Sprite" parent="CanvasLayer"]
-material = SubResource( 14 )
+material = SubResource( 8 )
 position = Vector2( 640, 360 )
 scale = Vector2( 10, 5.625 )
 texture = ExtResource( 34 )
@@ -458,7 +498,7 @@ margin_left = 226.528
 margin_top = 570.393
 margin_right = 298.528
 margin_bottom = 600.393
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 9 )
 text = "Send"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -501,7 +541,7 @@ anchor_bottom = 0.163
 margin_left = -0.0300598
 margin_right = -0.0660706
 margin_bottom = 0.0390015
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 10 )
 text = "LOADING"
 
 [node name="HealthBar" type="Control" parent="CanvasLayer/HUD"]
@@ -566,7 +606,7 @@ __meta__ = {
 [node name="Label" type="Label" parent="CanvasLayer/GameMenu/VBoxContainer"]
 margin_right = 200.0
 margin_bottom = 24.0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 11 )
 text = "Game Menu"
 align = 1
 valign = 1
@@ -596,7 +636,7 @@ margin_left = -50.0
 margin_top = -15.5
 margin_right = 50.0
 margin_bottom = 15.5
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 12 )
 text = "Resume"
 align = 1
 valign = 1
@@ -617,7 +657,7 @@ texture_pressed = ExtResource( 15 )
 [node name="Label" type="Label" parent="CanvasLayer/GameMenu/VBoxContainer/Options"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 12 )
 text = "Options"
 align = 1
 valign = 1
@@ -642,7 +682,7 @@ margin_left = -2.0
 margin_top = -2.0
 margin_right = -2.0
 margin_bottom = -2.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 12 )
 text = "Exit to Menu"
 align = 1
 valign = 1
@@ -660,7 +700,7 @@ script = ExtResource( 7 )
 script = ExtResource( 12 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 12 )
+environment = SubResource( 13 )
 
 [connection signal="PlayerHealthChanged" from="Player" to="CanvasLayer/HUD/HealthBar/TextureProgress" method="_on_KinematicBody2D_PlayerHealthChanged"]
 [connection signal="area_entered" from="Player/Hit" to="Player" method="_on_Area2D_area_entered"]
