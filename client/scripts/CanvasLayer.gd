@@ -1,7 +1,7 @@
 extends CanvasLayer
 
-var Bullet = load("res://Bullet.tscn")
-var Enemy = load("res://Enemy.tscn")
+var Bullet = load("res://scenes/entities/Bullet.tscn")
+var Enemy = load("res://scenes/entities/Enemy.tscn")
 
 onready var bulletspawn = $"../Player/BulletSpawn"
 onready var enemyspawn = $"../EnemyDevSpawn"

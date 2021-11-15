@@ -1,10 +1,8 @@
 extends KinematicBody2D
 
-export (int) var speed = 200
+export (int) var speed = 350
 
-onready var _animated_sprite = $AnimatedSprite
-
-
+onready var sprite = $AnimatedSprite
 
 onready var tile_map = $"../TileMap"
 onready var player = self
@@ -14,40 +12,42 @@ onready var bulletspawn = $BulletSpawn
 
 var velocity = Vector2()
 var speedvel = 1000
+var direction = "right"
 
 func get_input():
 	velocity = Vector2()
+	#bulletspawn.position = bulletspawn.get_global_position()
 	if Input.is_action_pressed("right"):
-		_animated_sprite.play("walk_right")
 		velocity.x += speedvel
-		bulletspawn.position = bulletspawn.get_global_position()
+		direction = "right"
+		
 		bulletspawn.position.x = 32
 		bulletspawn.position.y = 16
 		bulletspawn.rotation_degrees = 0
 	if Input.is_action_pressed("left"):
-		_animated_sprite.play("walk_left")
 		velocity.x -= speedvel
-		bulletspawn.position = bulletspawn.get_global_position()
+		direction = "left"
+		
 		bulletspawn.position.x = 0
 		bulletspawn.position.y = 16
 		bulletspawn.rotation_degrees = 180
 	if Input.is_action_pressed("down"):
-		_animated_sprite.play("walk_down")
 		velocity.y += speedvel
-		bulletspawn.position = bulletspawn.get_global_position()
+		direction = "down"
+		
 		bulletspawn.position.x = 16
 		bulletspawn.position.y = 32
 		bulletspawn.rotation_degrees = 90
 	if Input.is_action_pressed("up"):
-		_animated_sprite.play("walk_up")
 		velocity.y -= speedvel
-		bulletspawn.position = bulletspawn.get_global_position()
+		direction = "up"
+		
 		bulletspawn.position.x = 16
 		bulletspawn.position.y = 0
 		bulletspawn.rotation_degrees = -90
 	
 	velocity = velocity.normalized() * speed
-
+	sprite.play("walk_" + direction)
 
 var time = 0
 func _physics_process(delta):
@@ -57,18 +57,10 @@ func _physics_process(delta):
 		velocity = move_and_slide(velocity, Vector2(0, 0))
 		velocitytext.text = "Velocity: " + str(velocity)
 	
+	if velocity == Vector2(0,0):
+		sprite.stop()
+		sprite.frame = 0
 	
 	if velocity != Vector2(0,0): # loop every 0.015 seconds
 		Multiplayer.movement_update()
 		time = 0
-
-
-#health stuff
-var PlayerHealth = 100
-signal PlayerHealthChanged
-
-func _on_Area2D_area_entered(area):
-	PlayerHealth -= 50
-	if PlayerHealth < 1:
-		PlayerHealth = 0
-	emit_signal("PlayerHealthChanged" , PlayerHealth)
