@@ -6,12 +6,11 @@
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 4.80986
-height = 44.3617
+height = 11.9283
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Bullet" type="Area2D" parent="."]
-position = Vector2( 50, 0 )
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="Bullet"]
@@ -26,6 +25,7 @@ range_z_min = -256
 range_z_max = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet"]
+position = Vector2( 16.1354, 0.209553 )
 rotation = 1.5708
 shape = SubResource( 1 )
 
