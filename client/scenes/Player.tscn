@@ -82,8 +82,13 @@ position = Vector2( 16, 16 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
 animation = "walk_down"
+<<<<<<< HEAD
 frame = 3
 speed_scale = 1.25
+=======
+frame = 2
+speed_scale = 1.5
+>>>>>>> fd4c662faa7d0e8c9f551f92fce87e44d05d852e
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="AnimatedSprite"]
