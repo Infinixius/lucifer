@@ -39,7 +39,7 @@ func SpawnEnemy():
 
 #Options menu opens
 func _on_Options_pressed():
-	var options_menu = load("res://OptionsMenu.tscn").instance()
+	var options_menu = load("res://scenes/game/OptionsMenu.tscn").instance()
 	add_child(options_menu)
 	get_node("OptionsMenu").connect("CloseOptionsMenu", self,("CloseOptionsMenu"))
 
@@ -47,4 +47,4 @@ func CloseOptionsMenu():
 	get_node("OptionsMenu").queue_free()
 
 func _on_Exit_to_menu_pressed():
-	get_tree().change_scene("res://TitleScreen.tscn")
+	get_tree().change_scene("res://scenes/game/TitleScreen.tscn")

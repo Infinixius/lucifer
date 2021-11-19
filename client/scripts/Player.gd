@@ -16,7 +16,7 @@ var direction = "right"
 
 func get_input():
 	velocity = Vector2()
-	#bulletspawn.position = bulletspawn.get_global_position()
+	
 	if Input.is_action_pressed("right"):
 		velocity.x += speedvel
 		direction = "right"
@@ -60,6 +60,8 @@ func _physics_process(delta):
 	if velocity == Vector2(0,0):
 		sprite.stop()
 		sprite.frame = 0
+	elif sprite.frame == 0:
+		sprite.frame = 1 # fixes a bug where the animation wouldnt play for a splitsecond after moving
 	
 	if velocity != Vector2(0,0): # loop every 0.015 seconds
 		Multiplayer.movement_update()

@@ -1,7 +1,7 @@
 extends Node2D
 
-onready var IP = $CanvasLayer/Control/Input_IP
-onready var PORT = $CanvasLayer/Control/Input_Port
+onready var IP = $CanvasLayer/Play/Input_IP
+onready var PORT = $CanvasLayer/Play/Input_Port
 onready var FadeIn = $CanvasLayer/FadeIn
 
 func _ready():
@@ -10,7 +10,7 @@ func _ready():
 	FadeIn.visible = true
 	
 	if Global.error != "":
-		$CanvasLayer/Error.text = Global.error
+		$CanvasLayer/Play/Error.text = Global.error
 		Global.error = ""
 
 func _on_Connect_pressed():

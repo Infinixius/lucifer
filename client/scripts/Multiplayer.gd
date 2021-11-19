@@ -19,18 +19,17 @@ func _ready():
 	var err = _client.connect_to_url(Global.IP + ":" + Global.PORT)
 	print(err)
 	if err != OK:
-		print("erred")
 		set_process(false)
 		Global.error = "Can't connect to IP"
 		get_tree().change_scene("res://TitleScreen.tscn")
 
-func _closed(was_clean = false):
+func _closed(was_clean):
 	print("Closed, clean: ", was_clean)
 	Global.error = "Connection closed"
-	get_tree().change_scene("res://TitleScreen.tscn")
+	get_tree().change_scene("res://scenes/TitleScreen.tscn")
 	set_process(false)
 
-func _connected(proto = ""):
+func _connected(proto):
 	# "proto" will be the selected WebSocket sub-protocol (which is optional)
 	print("Connected with protocol: " + proto)
 	movement_update()
@@ -41,7 +40,8 @@ func _connected(proto = ""):
 
 func _on_data():
 	# you MUST always use get_peer(1).get_packet to receive data from server, and not get_packet directly
-	var json = JSON.parse(_client.get_peer(1).get_packet().get_string_from_utf8())
+	var raw = _client.get_peer(1).get_packet().get_string_from_utf8()
+	var json = JSON.parse(raw)
 	var data = json.result
 	var msg = data.message
 	
@@ -82,6 +82,9 @@ func _on_data():
 			chatbox.scroll_to_line(chatbox.text.count("\n", 0, 0)) # count gets the amount of lines, to scroll to the bottom
 		elif data.type == "tile_update":
 			$"../TileMap".set_cell(msg.x, msg.y, msg.tile)
+		elif data.type == "player_update":
+			if msg.hp:
+				$"../CanvasLayer/HUD/HealthBar/TextureProgress".value = msg.hp
 	else:
 		print(json.error)
 		print("Error Line: ", json.error_line)

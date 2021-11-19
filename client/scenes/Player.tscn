@@ -30,11 +30,6 @@ animations = [ {
 "name": "walk_down",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 6 ) ],
-"loop": true,
-"name": "walk_left",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 13 ), ExtResource( 7 ), ExtResource( 16 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "walk_right",
@@ -43,6 +38,11 @@ animations = [ {
 "frames": [ ExtResource( 15 ), ExtResource( 1 ), ExtResource( 17 ), ExtResource( 14 ) ],
 "loop": true,
 "name": "walk_up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "walk_left",
 "speed": 5.0
 } ]
 
@@ -82,7 +82,8 @@ position = Vector2( 16, 16 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
 animation = "walk_down"
-speed_scale = 1.5
+frame = 3
+speed_scale = 1.25
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="AnimatedSprite"]

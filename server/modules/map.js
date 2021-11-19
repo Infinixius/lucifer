@@ -61,19 +61,16 @@ export class Map {
 			log(`Generated map with ${this.tiles.all().length} tiles in ${Date.now() - timestamp}ms!`)
 		})
 	}
-}
-
-var currentMap = new Map(300, 300, 32)
-
-export function sendMap(ws) {
-	for (const tilex of currentMap.tiles.tiles) {
-		for (const tiley in tilex) {
-			if (isNaN(tilex[tiley])) continue
-			send(ws, "tile_update", {
-				"x": currentMap.tiles.tiles.indexOf(tilex),
-				"y": Number(tiley),
-				"tile": tilex[tiley]
-			})
+	send(ws) {
+		for (const tilex of this.tiles.tiles) {
+			for (const tiley in tilex) {
+				if (isNaN(tilex[tiley])) continue
+				send(ws, "tile_update", {
+					"x": this.tiles.tiles.indexOf(tilex),
+					"y": Number(tiley),
+					"tile": tilex[tiley] 
+				})
+			}
 		}
 	}
 }

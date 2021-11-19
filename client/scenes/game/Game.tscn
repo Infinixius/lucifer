@@ -272,6 +272,7 @@ tile_data = PoolIntArray( 65545, 10, 0, 65546, 10, 0, 65550, 10, 0, 65551, 10, 0
 [node name="EnemyDevSpawn" type="Position2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource( 21 )]
+position = Vector2( 129, 132 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource( 22 )
