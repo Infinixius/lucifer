@@ -1,4 +1,8 @@
-![Lucifer](https://github.com/Infinixius/lucifer/blob/main/client/assets/meta/title.png?raw=true)
+<p align="center">
+<img width=645.45 height=274.95  src="https://github.com/Infinixius/lucifer/blob/main/client/assets/meta/title_inner.png?raw=true">
+</p>
+
+___
 
 Lucifer is a multiplayer roguelite hack 'n slash dungeon crawler created for our school's 2021-2022 year long project. We were tasked with creating a full game in the span of a year.
 
