@@ -55,7 +55,6 @@ export function onMessage(wss, ws, message) { // fired when we get a message
 				"x": data.message.x,
 				"y": data.message.y
 			})
-			ws.playerController.hurt(1, "test")
 			ws.data.position = [data.message.x, data.message.y]
 			break
 		case "send_message":

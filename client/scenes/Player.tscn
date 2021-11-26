@@ -25,24 +25,24 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 18 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "walk_down",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 13 ), ExtResource( 7 ), ExtResource( 16 ), ExtResource( 10 ) ],
-"loop": true,
-"name": "walk_right",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 15 ), ExtResource( 1 ), ExtResource( 17 ), ExtResource( 14 ) ],
 "loop": true,
 "name": "walk_up",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 18 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "walk_down",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 8 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "walk_left",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 7 ), ExtResource( 16 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "walk_right",
 "speed": 5.0
 } ]
 
@@ -53,11 +53,13 @@ extents = Vector2( 12.4334, 12.6273 )
 radius = 16.0
 
 [node name="Player" type="KinematicBody2D"]
+modulate = Color( 0.99, 0.99, 0.99, 0.99 )
 position = Vector2( 128, 128 )
 scale = Vector2( 0.982806, 1 )
 script = ExtResource( 22 )
 
 [node name="BulletSpawn" type="Position2D" parent="."]
+modulate = Color( 0.99, 0.99, 0.99, 0.99 )
 position = Vector2( 16, 32 )
 rotation = 1.5708
 
@@ -67,11 +69,13 @@ texture = ExtResource( 4 )
 
 [node name="Spark" type="Sprite" parent="BulletSpawn"]
 visible = false
+modulate = Color( 0.99, 0.99, 0.99, 0.99 )
 position = Vector2( 19.92, 0.0403748 )
 rotation = -1.5708
 texture = ExtResource( 12 )
 
 [node name="Light2D" type="Light2D" parent="BulletSpawn/Spark"]
+modulate = Color( 0.99, 0.99, 0.99, 0.99 )
 texture = ExtResource( 19 )
 color = Color( 0.933333, 0.905882, 0.27451, 1 )
 range_z_min = -512
@@ -82,19 +86,15 @@ position = Vector2( 16, 16 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
 animation = "walk_down"
-<<<<<<< HEAD
-frame = 3
-speed_scale = 1.25
-=======
 frame = 2
 speed_scale = 1.5
->>>>>>> fd4c662faa7d0e8c9f551f92fce87e44d05d852e
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="AnimatedSprite"]
 current = true
 
 [node name="Light2D" type="Light2D" parent="AnimatedSprite"]
+modulate = Color( 1, 1, 1, 0 )
 position = Vector2( -1.89504, 2 )
 texture = ExtResource( 19 )
 color = Color( 0.917647, 0.870588, 0.768627, 1 )

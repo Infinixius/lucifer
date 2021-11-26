@@ -12,6 +12,7 @@ height = 11.9283
 
 [node name="Bullet" type="Area2D" parent="."]
 script = ExtResource( 1 )
+speed = 300
 
 [node name="Sprite" type="Sprite" parent="Bullet"]
 rotation = 1.5708

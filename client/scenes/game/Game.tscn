@@ -256,13 +256,19 @@ size = 15
 font_data = ExtResource( 27 )
 
 [sub_resource type="Environment" id=10]
-glow_intensity = 2.61
+background_mode = 4
+glow_enabled = true
+glow_intensity = 1.0
+glow_strength = 0.95
+glow_blend_mode = 1
+adjustment_enabled = true
 
 [node name="Game" type="Node2D"]
 position = Vector2( -1, 0 )
 script = ExtResource( 25 )
 
 [node name="TileMap" type="TileMap" parent="."]
+modulate = Color( 0.99, 0.99, 0.99, 1 )
 tile_set = SubResource( 3 )
 cell_size = Vector2( 32, 32 )
 cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
@@ -272,12 +278,14 @@ tile_data = PoolIntArray( 65545, 10, 0, 65546, 10, 0, 65550, 10, 0, 65551, 10, 0
 [node name="EnemyDevSpawn" type="Position2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource( 21 )]
+modulate = Color( 0.99, 0.99, 0.99, 0.99 )
 position = Vector2( 129, 132 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource( 22 )
 
 [node name="Vignette" type="Sprite" parent="CanvasLayer"]
+visible = false
 material = SubResource( 5 )
 position = Vector2( 640, 360 )
 scale = Vector2( 10, 5.625 )

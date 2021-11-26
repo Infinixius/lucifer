@@ -50,8 +50,8 @@ margin_left = 1232.0
 margin_top = 696.0
 margin_right = 1282.0
 margin_bottom = 720.0
-custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -154,8 +154,8 @@ anchor_right = 0.764
 anchor_bottom = 1.0
 margin_top = 0.127991
 margin_right = 0.0599823
-custom_fonts/font = SubResource( 6 )
 custom_colors/font_color = Color( 0.811765, 0.113725, 0.113725, 1 )
+custom_fonts/font = SubResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
