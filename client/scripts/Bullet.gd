@@ -1,12 +1,11 @@
 extends Area2D
 
 export var speed = 750
+export var airtime = 5000
 
+var time = 0
 func _physics_process(delta):
-	position += transform.x * speed * delta
-
-
-
-func _on_Bullet_area_entered(area):
-	if area.name != "Bullet":
+	time += delta
+	position += transform.y * speed * delta
+	if time > airtime:
 		queue_free()

@@ -14,23 +14,8 @@ func _input(event):
 		get_node("GameMenu").show()
 	if Input.is_action_pressed("debug"):
 		$"../CanvasLayer/Debug".visible = !$"../CanvasLayer/Debug".visible
-	if Input.is_action_just_pressed("shoot"):
-		if shootCooldown == false && $"/root/Game/CanvasLayer/GameMenu".visible == false:
-			shoot()
-			shootCooldown = true
-			yield(get_tree().create_timer(0.25), "timeout") # wait 0.25 seconds
-			shootCooldown = false
 	if Input.is_action_just_pressed("SpawnEnemy"):
 		SpawnEnemy()
-
-func shoot():
-	var b = Bullet.instance()
-	owner.add_child(b)
-	b.transform = bulletspawn.global_transform
-	
-	spark.visible = true
-	yield(get_tree().create_timer(0.25), "timeout") # wait 0.25 seconds
-	spark.visible = false
 
 func SpawnEnemy():
 	var e = Enemy.instance()

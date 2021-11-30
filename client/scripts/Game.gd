@@ -6,6 +6,9 @@ onready var pos_text = $CanvasLayer/Debug/position_text
 onready var rawpos_text = $CanvasLayer/Debug/rawposition_text
 onready var fpstext = $CanvasLayer/Debug/fps_text
 
+func _ready():
+	$CanvasLayer/Vignette.visible = true # the vignette is disabled in the editor to make it easier to see things, this enables it in the game.
+
 func _process(fl):
 	# update the position text
 	var pos = tile_map.world_to_map(body.position)

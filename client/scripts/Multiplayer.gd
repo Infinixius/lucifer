@@ -1,6 +1,8 @@
 extends Node
 
+var Bullet = load("res://scenes/entities/Bullet.tscn")
 onready var player = $"../Player"
+onready var playersprite = $"../Player/AnimatedSprite"
 onready var chatbox = $"../CanvasLayer/Chat/Messages"
 onready var messagebox = $"../CanvasLayer/Chat/Message"
 onready var connectedtext = $"../CanvasLayer/Debug/connected_text"
@@ -48,8 +50,9 @@ func _on_data():
 	if json.error == OK:
 		if data.type == "player_connect":
 			if msg.id != id: # we don't want to update ourselves
-				var player = Sprite.new()
-				player.texture = load("res://assets/player_multiplayer.png")
+				var player = AnimatedSprite.new()
+				player.scale = Vector2(2,2)
+				player.frames = load("res://assets/animations/player_animations.res")
 				player.name = str(msg.id)
 				self.add_child(player)
 		elif data.type == "player_disconnect":
@@ -61,12 +64,15 @@ func _on_data():
 				player.position = player.get_global_position()
 				player.position.x = msg.x + 16
 				player.position.y = msg.y + 16
+				player.animation = msg.animation
+				player.frame = msg.animationframe
 		elif data.type == "player_initalize":
 			id = msg.id
 			for plr in msg.players:
 				if plr.id != id: # we don't want to update ourselves
-					var player = Sprite.new()
-					player.texture = load("res://assets/player_multiplayer.png")
+					var player = AnimatedSprite.new()
+					player.scale = Vector2(2,2)
+					player.frames = load("res://assets/animations/player_animations.res")
 					player.name = str(plr.id)
 					player.position = player.get_global_position()
 					player.position.x = plr.position[0]
@@ -85,6 +91,13 @@ func _on_data():
 		elif data.type == "player_update":
 			if msg.hp:
 				$"../CanvasLayer/HUD/HealthBar/TextureProgress".value = msg.hp
+		elif data.type == "player_shoot":
+			var b = Bullet.instance()
+			owner.add_child(b)
+			b.position = b.get_global_position()
+			b.position.x = msg.position[0] + 16 # offset by 16
+			b.position.y = msg.position[1] + 16 # offset by 16
+			b.rotation_degrees = msg.rotation
 	else:
 		print(json.error)
 		print("Error Line: ", json.error_line)
@@ -105,7 +118,27 @@ func movement_update(): # called in KinematicBody2D.gd to update position
 			"type": "player_move",
 			"message": {
 				"x": floor(player.position.x),
-				"y": floor(player.position.y)
+				"y": floor(player.position.y),
+				"animation": playersprite.animation,
+				"animationframe": playersprite.frame
+			}
+		}).to_utf8())
+
+func shoot(direction):
+	var angle = 0
+	if direction == "down":
+		angle = 0
+	elif direction == "left":
+		angle = 90
+	elif direction == "up":
+		angle = 180
+	elif direction == "right":
+		angle = 270
+	if _client.get_peer(1).is_connected_to_host():
+		_client.get_peer(1).put_packet(JSON.print({
+			"type": "player_shoot",
+			"message": {
+				"direction": angle
 			}
 		}).to_utf8())
 

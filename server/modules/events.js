@@ -1,6 +1,6 @@
 import { send, broadcast } from "./messages.js"
 import { log, debug } from "./logger.js"
-import { Player } from "./player.js"
+import { Player } from "../classes/player.js"
 
 export function onJoin(wss, ws, req) { // fired when a player joins
 	playerID += 1
@@ -8,7 +8,8 @@ export function onJoin(wss, ws, req) { // fired when a player joins
 	ws.data = {
 		id: playerID,
 		ip: req.socket.remoteAddress,
-		req: req
+		req: req,
+		lastShot: 0 // timestamp of when the player last shot their weapon
 	}
 	ws.playerController = new Player(ws)
 	players.push(ws)
@@ -53,7 +54,9 @@ export function onMessage(wss, ws, message) { // fired when we get a message
 			broadcast(wss, "player_move", {
 				"id": ws.data.id,
 				"x": data.message.x,
-				"y": data.message.y
+				"y": data.message.y,
+				"animation": data.message.animation,
+				"animationframe": data.message.animationframe
 			})
 			ws.data.position = [data.message.x, data.message.y]
 			break
@@ -62,6 +65,16 @@ export function onMessage(wss, ws, message) { // fired when we get a message
 				"name": ws.data.id.toString(),
 				"message": data.message.slice(0,256)
 			})
+			break
+		case "player_shoot":
+			if (Date.now() - ws.data.lastShot > 250) {
+				broadcast(wss, "player_shoot", {
+					"id": ws.data.id,
+					"rotation": data.message.direction,
+					"position": ws.data.position
+				})
+				ws.data.lastShot = Date.now()
+			}
 			break
 		default:
 			return console.warn(`Player packet didn't contain "type" value!`)
@@ -72,7 +85,7 @@ export function onClose(wss, ws) {
 	broadcast(wss, "system_message", ws.data.id + " disconnected")
 	log(`Client disconnected! ID: "${ws.data.id}" IP: "${ws.data.ip}"`)
 	
-	send(ws, "player_disconnect", {
+	broadcast(wss, "player_disconnect", {
 		"id": ws.data.id
 	})
 

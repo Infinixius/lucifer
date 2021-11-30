@@ -3,7 +3,6 @@ extends KinematicBody2D
 export (int) var speed = 350
 
 onready var sprite = $AnimatedSprite
-
 onready var tile_map = $"../TileMap"
 onready var player = self
 onready var Multiplayer = $"../Players"
@@ -45,9 +44,15 @@ func get_input():
 		bulletspawn.position.x = 16
 		bulletspawn.position.y = 0
 		bulletspawn.rotation_degrees = -90
+	if Input.is_action_pressed("shoot"):
+		if $"/root/Game/CanvasLayer/GameMenu".visible == false:
+			Multiplayer.shoot(direction)
 	
 	velocity = velocity.normalized() * speed
 	sprite.play("walk_" + direction)
+	if velocity != Vector2(0,0) and sprite.frame == 0:
+		sprite.frame = 1
+		
 
 var time = 0
 func _physics_process(delta):
@@ -60,8 +65,8 @@ func _physics_process(delta):
 	if velocity == Vector2(0,0):
 		sprite.stop()
 		sprite.frame = 0
-	elif sprite.frame == 0:
-		sprite.frame = 1 # fixes a bug where the animation wouldnt play for a splitsecond after moving
+	#elif sprite.frame == 0:
+	#	sprite.frame = 1 # fixes a bug where the animation wouldnt play for a splitsecond after moving
 	
 	if velocity != Vector2(0,0): # loop every 0.015 seconds
 		Multiplayer.movement_update()

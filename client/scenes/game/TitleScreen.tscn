@@ -161,6 +161,7 @@ __meta__ = {
 }
 
 [node name="Back" type="Button" parent="CanvasLayer/Play"]
+visible = false
 anchor_right = 0.188
 anchor_bottom = 0.076
 margin_right = 1.02
@@ -169,6 +170,9 @@ custom_fonts/font = SubResource( 7 )
 text = "Back"
 icon = ExtResource( 3 )
 flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="FadeIn" type="ColorRect" parent="CanvasLayer"]
 visible = false

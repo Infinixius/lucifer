@@ -81,6 +81,7 @@ export function getAdjacentRoom(rooms) {
 	var room
 	var random = Math.floor(Math.random() * 3) // get random cardinal direction
 	var type = Math.floor(Math.random() * ROOMS)
+	if (type == 0) type = 1 // ignore the starting room
 
 	switch (random) {
 		case 0: // north

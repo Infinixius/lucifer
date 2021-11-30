@@ -79,7 +79,7 @@ export class TileMap {
 		}
 	}
 
-	all () {
+	all() {
 		var tiles = []
 		for (const x in this.tiles) {
 			for (const y in this.tiles[x]) {
