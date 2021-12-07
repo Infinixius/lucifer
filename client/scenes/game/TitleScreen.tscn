@@ -174,6 +174,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Options" type="Button" parent="CanvasLayer"]
+anchor_left = 0.137
+anchor_top = 0.729
+anchor_right = 0.194
+anchor_bottom = 0.771
+margin_left = 0.639984
+margin_top = 0.119995
+margin_right = -0.320007
+margin_bottom = -0.119995
+custom_fonts/font = SubResource( 5 )
+text = "Options"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="About" type="Button" parent="CanvasLayer"]
+anchor_left = 0.137
+anchor_top = 0.729
+anchor_right = 0.194
+anchor_bottom = 0.771
+margin_left = 0.640015
+margin_top = 45.12
+margin_right = -0.319992
+margin_bottom = 44.88
+custom_fonts/font = SubResource( 5 )
+text = "About"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="FadeIn" type="ColorRect" parent="CanvasLayer"]
 visible = false
 margin_right = 1280.0
@@ -184,3 +214,5 @@ __meta__ = {
 }
 
 [connection signal="pressed" from="CanvasLayer/Play/Connect" to="." method="_on_Connect_pressed"]
+[connection signal="pressed" from="CanvasLayer/Options" to="." method="_on_Options_pressed"]
+[connection signal="pressed" from="CanvasLayer/About" to="." method="_on_About_pressed"]

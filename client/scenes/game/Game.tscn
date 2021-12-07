@@ -592,6 +592,6 @@ script = ExtResource( 1 )
 environment = SubResource( 10 )
 
 [connection signal="pressed" from="CanvasLayer/Chat/Send" to="Players" method="_on_Send_pressed"]
-[connection signal="pressed" from="CanvasLayer/GameMenu/VBoxContainer/Resume" to="." method="_on_Exit_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameMenu/VBoxContainer/Resume" to="." method="_on_Resume_pressed"]
 [connection signal="pressed" from="CanvasLayer/GameMenu/VBoxContainer/Options" to="CanvasLayer" method="_on_Options_pressed"]
 [connection signal="pressed" from="CanvasLayer/GameMenu/VBoxContainer/Exit_to_menu" to="CanvasLayer" method="_on_Exit_to_menu_pressed"]

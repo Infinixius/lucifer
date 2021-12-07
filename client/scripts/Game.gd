@@ -18,5 +18,5 @@ func _process(fl):
 	fpstext.text =  "FPS: " + str(Engine.get_frames_per_second())
 
 
-func _on_Exit_pressed():
-	get_node("CanvasLayer/GameMenu").hide()
+func _on_Resume_pressed():
+	get_node("CanvasLayer/GameMenu").queue_free()

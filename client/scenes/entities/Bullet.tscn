@@ -9,6 +9,7 @@ radius = 4.80986
 height = 44.3803
 
 [node name="Node2D" type="Node2D"]
+position = Vector2( 0, 17.5 )
 
 [node name="Bullet" type="Area2D" parent="."]
 script = ExtResource( 1 )

@@ -25,3 +25,16 @@ func _process(delta):
 		FadeIn.color = Color(0,0,0, transparency)
 	elif transparency < 0.0:
 		FadeIn.visible = false
+
+
+
+func _on_Options_pressed():
+	var options_menu = load("res://scenes/game/OptionsMenu.tscn").instance()
+	$CanvasLayer.add_child(options_menu)
+	$CanvasLayer/OptionsMenu.connect("CloseOptionsMenu", self,("CloseOptionsMenu"))
+
+
+func _on_About_pressed():
+	var about_menu = load("res://scenes/game/AboutMenu.tscn").instance()
+	$CanvasLayer.add_child(about_menu)
+	$CanvasLayer/AboutMenu.connect("CloseAboutMenu", self,("CloseAboutMenu"))
