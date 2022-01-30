@@ -8,6 +8,7 @@ onready var player = self
 onready var Multiplayer = $"../Players"
 onready var velocitytext = $"../CanvasLayer/Debug/velocity_text"
 onready var bulletspawn = $BulletSpawn
+onready var camera = $AnimatedSprite/Camera2D
 
 var velocity = Vector2()
 var speedvel = 1000
@@ -47,6 +48,12 @@ func get_input():
 	if Input.is_action_pressed("shoot"):
 		if $"/root/Game/CanvasLayer/GameMenu".visible == false:
 			Multiplayer.shoot(direction)
+	if Input.is_action_just_released("zoom_in"):
+		if camera.zoom > Vector2(0.15, 0.15):
+			camera.zoom = camera.zoom - Vector2(0.15, 0.15)
+	if Input.is_action_just_released("zoom_out"):
+		if camera.zoom < Vector2(1, 1):
+			camera.zoom = camera.zoom + Vector2(0.15, 0.15)
 	
 	velocity = velocity.normalized() * speed
 	sprite.play("walk_" + direction)
