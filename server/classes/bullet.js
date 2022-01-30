@@ -1,8 +1,7 @@
-import { Entity } from "./entity.js"
+import { Entity } from "./Entity.js"
 
-export class Bullet {
+export default class Bullet extends Entity {
 	constructor(ws, direction) {
-		this.entity = new Entity(ws.data.position, direction)
-		
+		super(ws.data.position, direction) // initalize entity class
 	}
 }
