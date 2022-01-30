@@ -9,26 +9,28 @@ onready var connectedtext = $"../CanvasLayer/Debug/connected_text"
 onready var latencytext = $"../CanvasLayer/Debug/latency_text"
 
 var id = 0 # our client's id, sent to us form the server with player_initalize
-var _client = WebSocketClient.new()
+var client = WebSocketClient.new()
 
 func _ready():
-	_client.connect("connection_closed", self, "_closed")
-	_client.connect("connection_error", self, "_closed")
-	_client.connect("connection_established", self, "_connected")
-	_client.connect("data_received", self, "_on_data")
+	client.connect("connection_closed", self, "_closed")
+	client.connect("connection_error", self, "_closed")
+	client.connect("connection_established", self, "_connected")
+	client.connect("data_received", self, "_on_data")
 
 	# Initiate connection to the given URL.
-	var err = _client.connect_to_url(Global.IP + ":" + Global.PORT)
-	print(err)
-	if err != OK:
+	var err = client.connect_to_url(Global.IP + ":" + Global.PORT)
+	
+	yield(get_tree().create_timer(1), "timeout")
+	
+	if id == 0:
+		Global.error = "Can't connect"
+		get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
 		set_process(false)
-		Global.error = "Can't connect to IP"
-		get_tree().change_scene("res://TitleScreen.tscn")
 
 func _closed(was_clean):
 	print("Closed, clean: ", was_clean)
 	Global.error = "Connection closed"
-	get_tree().change_scene("res://scenes/TitleScreen.tscn")
+	get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
 	set_process(false)
 
 func _connected(proto):
@@ -36,13 +38,13 @@ func _connected(proto):
 	print("Connected with protocol: " + proto)
 	movement_update()
 	# you MUST always use get_peer(1).put_packet to send data to server, and not put_packet directly
-	_client.get_peer(1).put_packet(JSON.print({
+	client.get_peer(1).put_packet(JSON.print({
 		"type": "player_connect"
 	}).to_utf8())
 
 func _on_data():
 	# you MUST always use get_peer(1).get_packet to receive data from server, and not get_packet directly
-	var raw = _client.get_peer(1).get_packet().get_string_from_utf8()
+	var raw = client.get_peer(1).get_packet().get_string_from_utf8()
 	var json = JSON.parse(raw)
 	var data = json.result
 	var msg = data.message
@@ -113,8 +115,8 @@ func latency_update(timestamp): # called to update latency text
 	latencytext.text = "Latency: " + str(old) + " (" + str(live) + ")"
 
 func movement_update(): # called in KinematicBody2D.gd to update position
-	if _client.get_peer(1).is_connected_to_host():
-		_client.get_peer(1).put_packet(JSON.print({
+	if client.get_peer(1).is_connected_to_host():
+		client.get_peer(1).put_packet(JSON.print({
 			"type": "player_move",
 			"message": {
 				"x": floor(player.position.x),
@@ -134,27 +136,31 @@ func shoot(direction):
 		angle = 180
 	elif direction == "right":
 		angle = 270
-	if _client.get_peer(1).is_connected_to_host():
-		_client.get_peer(1).put_packet(JSON.print({
+	if client.get_peer(1).is_connected_to_host():
+		client.get_peer(1).put_packet(JSON.print({
 			"type": "player_shoot",
 			"message": {
 				"direction": angle
 			}
 		}).to_utf8())
 
-func _process(delta):
-	time += delta
-	if !_client.get_peer(1).is_connected_to_host():
-		connectedtext.text = "Not connected"
-	else:
-		connectedtext.text = "Connected to " + str(_client.get_peer(1).get_connected_host()) + ":" + str(_client.get_peer(1).get_connected_port())
-	
-	_client.poll()
-
-func _on_Send_pressed(): # firedwhen the send message is pressed
-	if _client.get_peer(1).is_connected_to_host():
-		_client.get_peer(1).put_packet(JSON.print({
+func sendChatMessage():
+	if client.get_peer(1).is_connected_to_host():
+		client.get_peer(1).put_packet(JSON.print({
 			"type": "send_message",
 			"message": messagebox.text
 		}).to_utf8())
 		messagebox.text = ""
+
+func _process(delta):
+	time += delta
+	if !client.get_peer(1).is_connected_to_host():
+		connectedtext.text = "Not connected"
+	else:
+		connectedtext.text = "Connected to " + str(client.get_peer(1).get_connected_host()) + ":" + str(client.get_peer(1).get_connected_port())
+	
+	client.poll()
+
+
+func _on_Send_pressed(): # firedwhen the send message is pressed
+	sendChatMessage()
