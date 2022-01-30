@@ -1,15 +1,35 @@
 /* 
-	keylimepie v1.0.4 - made with <3 by https://infinixius.github.io
+	keylimepie v1.1.1 - made with <3 by https://infinixius.github.io
 	https://github.com/Infinixius/dumpster/tree/main/keylimepie
 */
 const lime = {
-	version: "1.0.4",
-	versionNum: 5,
+	version: "1.1.1",
+	versionNum: 7,
 	platform: undefined
 }
 
 try { if (window) lime.platform = "browser" } catch (err) {}
 try { if (process) lime.platform = "node" } catch (err) {}
+
+/**
+ * Returns the array alphabetically sorted.
+ * // ["Orange","Apple","Grapes","Banana"].alphabeticalsort()
+ * @returns Array
+ */
+Array.prototype.alphabeticalsort = function() {
+	return this.sort((a, b) => {
+		if (typeof a != "string") return 0
+		if (typeof b != "string") return 0
+
+		var fa = a.toLowerCase()
+		var fb = b.toLowerCase()
+	
+		if (fa < fb) return -1
+		if (fa > fb) return 1
+		
+		return 0
+	})
+}
 
 /**
  * Returns a random item from the array.
@@ -24,7 +44,7 @@ Array.prototype.random = function() {
  * Returns an array with elements up to amount, intended to be used in for loops. Essentially a port of Python's range().
  * example: Array.range(5) == [ 0, 1, 2, 3, 4 ]
  * @param amount Amount of elements in the array
- * @returns Array
+ * @returns Any
  */
 Array.prototype.range = function(amount) {
 	if (amount === undefined) return new Error("Missing argument!")
@@ -35,6 +55,15 @@ Array.prototype.range = function(amount) {
 		range.push(i)
 	}
 	return range
+}
+
+/**
+ * Capitalizes the first letter of a string.
+ * example: "foobar".capitalize() would return "Foobar"
+ * @returns String
+ */
+String.prototype.capitalize = function() {
+	return this.slice(0,1).toUpperCase() + this.slice(1)
 }
 
 /**
@@ -51,7 +80,7 @@ String.prototype.cut = function(string) {
 }
 
 /**
- * Find a string in another string. Alternative to "String.search() != -1".
+ * Find a string in another string. Alternative to "String.search() != -1" or "String.includes()".
  * example: "foobar".find("bar") would return "true"
  * @param string String to search for
  * @returns String
@@ -61,6 +90,22 @@ String.prototype.find = function(search) {
 	if (typeof search != "string") return new Error("Not a string!")
 
 	if (this.search(search) != -1) { return true } else { return false }
+}
+
+/**
+ * Removes all non-alphanumeric characters from a string. Uses `/[^a-z A-Z 0-9]+/g`.
+ * @returns String
+ */
+String.prototype.sanitize = function() {
+	return this.replace(/[^a-z A-Z 0-9]+/g, "")
+}
+
+/**
+ * Removes all non-ASCII characters from a string. Uses `/[^\x00-\x7F]/g`.
+ * @returns String
+ */
+ String.prototype.sanitizeascii = function() {
+	return this.replace(/[^\x00-\x7F]/g, "")
 }
 
 /**
@@ -78,4 +123,5 @@ lime.random = function(min, max) {
 	return Math.floor((Math.random() * max) + min)
 }
 
-global.lime = lime
+if (lime.platform == "node") global.lime = lime
+if (lime.platform == "browser") window.lime = lime
