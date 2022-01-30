@@ -1,22 +1,43 @@
-import * as keylimepiex from "./assets/keylimepie.js"
-import https from "https"
 import { WebSocketServer } from "ws"
-import config from "./config.json" // node must be ran with --experimental-json-modules for this to work
-import { send, broadcast } from "./modules/messages.js"
-import { log, debug } from "./modules/logger.js"
-import { onJoin, onMessage, onClose } from "./modules/events.js"
-import { Map } from "./modules/map.js"
+import config from "./config.json"
+import "./assets/keylimepie.js"
 
-if (lime) { log(`Loaded keylimepie v${lime.version}!`) } else { error("Failed to load keylimepie!!!") }
+import * as Logger from "./modules/logger.js"
+import { onJoin } from "./modules/events.js"
+import Map from "./classes/map.js"
+
+if (lime) { Logger.log(`Loaded keylimepie v${lime.version}!`) } else { Logger.error("Failed to load keylimepie!!!") }
+Logger.log(`Debugging mode is currently ${config.dev ? "enabled" : "disabled"}`)
 
 const wss = new WebSocketServer({ port: process.env.PORT || config.port || 8080 })
-log("Listening on port " + config.port || process.env.PORT)
 
 // the global object lets us access these variables from any script
+global.wss = wss
+global.config = config
+global.Logger = Logger
+
 global.playerID = 0
-global.players = []
+global.clients = []
 global.map = new Map(300, 300, 32)
 
-wss.on("connection", function connection(ws, req) { // initiate player join event
-	onJoin(wss, ws, req)
+// utility functions available in every script
+global.broadcast = function(type, message) {
+    Logger.debug(`Broadcasted message to every client with type "${type}": "${message}"`)
+    wss.clients.forEach((client) => {
+        client.send(JSON.stringify({
+            "type": type,
+            "timestamp": Date.now(),
+            "message": message
+        }))
+    })
+}
+
+wss.on("connection", (ws, req) => { onJoin(ws, req) })
+wss.on("listening", () => {
+    Logger.log("Listening on port " + config.port || process.env.PORT)
+    console.log("---------------------------------------------")
+})
+process.on("uncaughtException", (err) => {
+    Logger.error("Uncaught exception occured! Error:")
+    Logger.rawerror(err)
 })

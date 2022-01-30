@@ -1,96 +1,86 @@
-import { send, broadcast } from "./messages.js"
-import { log, debug } from "./logger.js"
-import { Player } from "../classes/player.js"
+import Player from "../classes/Player.js"
+import Client from "../classes/Client.js"
 
-export function onJoin(wss, ws, req) { // fired when a player joins
-	playerID += 1
-	log(`Client connected! ID: "${playerID}" IP: "${req.socket.remoteAddress}"`)
-	ws.data = {
-		id: playerID,
-		ip: req.socket.remoteAddress,
-		req: req,
-		lastShot: 0 // timestamp of when the player last shot their weapon
-	}
-	ws.playerController = new Player(ws)
-	players.push(ws)
+export function onJoin(ws, req) { // fired when a player joins
+	playerID++
+	ws.client = new Client(ws, req, playerID)
+	ws.player = new Player(ws.client)
+
+	Logger.log(`Client connected! ID: "${playerID}" IP: "${ws.client.ip}"`)
+	clients.push(ws.client)
 
 	let playerArray = []
-	for (const player of players) {
-		if (typeof player == "undefined") continue // player doesn't exist..?
+	for (const client of clients) {
 		playerArray.push({
-			"id": player.data.id,
-			"position": player.data.position
+			"id": client.id,
+			"position": client.fetchPlayer().position
 		})
 	}
 
-	broadcast(wss, "system_message", ws.data.id + " connected")
-	send(ws, "player_initalize", { // update the player with all currently connected clients and the map
-		"id": ws.data.id,
+	broadcast("system_message", ws.player.name + " connected")
+	ws.client.send("player_initalize", {
+		"id": ws.client.id,
 		"players": playerArray
 	})
-	broadcast(wss, "player_connect", {
-		"id": ws.data.id
+	broadcast("player_connect", {
+		"id": ws.client.id
 	})
 	map.send(ws)
 
 	// events
-	ws.on("message", function incoming(message) { onMessage(wss, ws, message) }) // on message event
-	ws.on("close", function incoming(message) {
-		onClose(wss, ws)
-	})
+	ws.on("message", (msg) => { onMessage(ws, msg) }) // on message event
+	ws.on("close", () => { onClose(ws, ws) })
+
+	// ping
 	setInterval(function() {
-		send(ws, "ping", 0)
-	}, 1)
+		ws.client.send("ping", { timestamp: Date.now() })
+	}, config.pingInterval)
 }
 
-export function onMessage(wss, ws, message) { // fired when we get a message
-	debug("Raw message: " +  message.toString())
-	try { var data = JSON.parse(message.toString()) } catch (error) {
-		return console.log(error)
+export function onMessage(ws, message) { // fired when we get a message
+	Logger.debug(`Raw message received from client #${ws.client.id}: "${message.toString()}"`)
+	try { var data = JSON.parse(message.toString()) } catch (err) {
+		return Logger.error(`Failed to parse data received from client #${ws.client.id}! Error: ${err}`)
 	}
 
-	switch (data.type) {
+	switch (data.type) {	 
 		case "player_move":
-			broadcast(wss, "player_move", {
-				"id": ws.data.id,
+			broadcast("player_move", {
+				"id": ws.client.id,
 				"x": data.message.x,
 				"y": data.message.y,
 				"animation": data.message.animation,
 				"animationframe": data.message.animationframe
 			})
-			ws.data.position = [data.message.x, data.message.y]
+			ws.player.move(data.message.x, data.message.y)
 			break
 		case "send_message":
-			broadcast(wss, "receive_message", {
-				"name": ws.data.id.toString(),
+			broadcast("receive_message", {
+				"name": ws.player.name,
 				"message": data.message.slice(0,256)
 			})
 			break
 		case "player_shoot":
-			if (Date.now() - ws.data.lastShot > 250) {
-				broadcast(wss, "player_shoot", {
-					"id": ws.data.id,
+			if (Date.now() - ws.player.lastShot > config.shootCooldown) {
+				broadcast("player_shoot", {
+					"id": ws.client.id,
 					"rotation": data.message.direction,
-					"position": ws.data.position
+					"position": ws.player.position
 				})
-				ws.data.lastShot = Date.now()
+				ws.player.lastShot = Date.now()
 			}
 			break
-		default:
-			return console.warn(`Player packet didn't contain "type" value!`)
 	}
 }
 
-export function onClose(wss, ws) {
-	broadcast(wss, "system_message", ws.data.id + " disconnected")
-	log(`Client disconnected! ID: "${ws.data.id}" IP: "${ws.data.ip}"`)
+export function onClose(ws) {
+	broadcast( "system_message", ws.player.name + " disconnected")
+	Logger.log(`Client #${ws.client.id} disconnected!"`)
 	
-	broadcast(wss, "player_disconnect", {
-		"id": ws.data.id
-	})
+	broadcast("player_disconnect", ws.client.id)
 
-	var player = players.find(plr => { return plr.data.id == ws.data.id })
-		players.splice(players.indexOf(player), 1)
+	var player = clients.find(plr => { return plr.id == ws.client.id })
+		clients.splice(clients.indexOf(player), 1)
 	
 	ws.terminate()
 }

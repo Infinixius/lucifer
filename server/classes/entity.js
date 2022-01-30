@@ -1,4 +1,4 @@
-export class Entity {
+export default class Entity {
 	constructor(pos, size, rotation) {
 		this.position = pos || [0, 0]
 		this.size = size || [0, 0]

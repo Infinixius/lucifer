@@ -1,7 +1,11 @@
 {
 	"port": 8080,
+	"dev": true,
 
-	"logs_format": "[%time][%TYPE] - %log",
-	"logs_file_format": "./logs/%date-%time.log",
-	"logs_enable_debug": true
+	"pingInterval": 150,
+	"shootCooldown": 150,
+
+	"logsFormat": "[%time][%TYPE] - %log",
+	"logsFolder": "./logs",
+	"logsFileFormat": "./logs/%date-%time.log"
 }

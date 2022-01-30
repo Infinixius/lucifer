@@ -1,27 +1,36 @@
 import { log } from "../modules/logger.js"
-import { send } from "../modules/messages.js"
 
-export class Player {
-	constructor(ws) {
-		this.ws = ws
-		this.ws.data.health = 150
-		this.ws.data.maxhealth = 150
-		this.ws.data.position = [0,0]
+const names = ["testname1", "testname2", "testname3", "testname4", "testname5"]
+
+export default class Player {
+	constructor(client) {
+		this.client = client
+		this.name = names.random()
+
+		this.health = 150
+		this.maxhealth = 150
+		this.position = [0,0]
+
+		this.lastShot = 0
 	}
+
 	hurt(hp, reason) {
 		var remaining = Math.round(this.ws.data.health - hp)
 		if (remaining < 0) {
-			this.ws.data.health = 0
+			this.health = 0
 			this.kill(reason)
 		} else {
-			this.ws.data.health = remaining
+			this.health = remaining
 		}
 
-		send(this.ws, "player_update", {
+		this.client.send("player_update", {
 			hp: remaining
 		})
 	}
 	kill(reason) {
 		log(`Killed player id ${this.ws.data.id} for reason ${reason}`)
+	}
+	move(x,y) {
+		this.position = [x, y]
 	}
 }

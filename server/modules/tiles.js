@@ -25,7 +25,8 @@ export const tiles = {
 	"floor": 9,
 	"wall": 10,
 	"floor_burnt": 11,
-	"floor_mossy": 12
+	"floor_mossy": 12,
+	"floor_grasspatch": 13
 }
 
 export function getTile(tile) {
