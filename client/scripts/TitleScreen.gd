@@ -21,7 +21,7 @@ func _on_Connect_pressed():
 var transparency = 1.0
 func _process(delta):
 	if FadeIn.visible == true and transparency > 0.0:
-		transparency -= 0.01
+		transparency -= 0.005
 		FadeIn.color = Color(0,0,0, transparency)
 	elif transparency < 0.0:
 		FadeIn.visible = false
@@ -35,6 +35,8 @@ func _on_Options_pressed():
 
 
 func _on_About_pressed():
-	var about_menu = load("res://scenes/game/AboutMenu.tscn").instance()
-	$CanvasLayer.add_child(about_menu)
-	$CanvasLayer/AboutMenu.connect("CloseAboutMenu", self,("CloseAboutMenu"))
+	pass
+
+
+func _on_Exit_pressed():
+	get_tree().quit()

@@ -1,31 +1,29 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://assets/meta/background.png" type="Texture" id=1]
 [ext_resource path="res://assets/meta/title.png" type="Texture" id=2]
-[ext_resource path="res://assets/ui/backarrow.png" type="Texture" id=3]
+[ext_resource path="res://assets/ui/icons/backarrow.png" type="Texture" id=3]
 [ext_resource path="res://scripts/TitleScreen.gd" type="Script" id=4]
-[ext_resource path="res://assets/fonts/Jost-Medium.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://assets/fonts/Jost-Light.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://assets/fonts/Jost-Bold.ttf" type="DynamicFontData" id=7]
-[ext_resource path="res://assets/fonts/Jost-Regular.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://assets/ui/fonts/Jost-Medium.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://assets/ui/fonts/Jost-Light.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://assets/ui/fonts/Jost-Bold.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://assets/ui/fonts/Jost-Regular.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://assets/ui/mainmenu/background.png" type="Texture" id=9]
+[ext_resource path="res://assets/ui/themes/mainmenu.theme" type="Theme" id=10]
+[ext_resource path="res://assets/ui/icons/connect.png" type="Texture" id=11]
+[ext_resource path="res://assets/ui/icons/options.png" type="Texture" id=12]
+[ext_resource path="res://assets/ui/icons/exit.png" type="Texture" id=13]
+[ext_resource path="res://assets/ui/icons/about.png" type="Texture" id=14]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=2]
-font_data = ExtResource( 6 )
-
-[sub_resource type="DynamicFontData" id=3]
-font_path = "res://assets/fonts/Jost-Light.ttf"
-
-[sub_resource type="DynamicFont" id=4]
-size = 14
-font_data = SubResource( 3 )
-
 [sub_resource type="DynamicFont" id=5]
+size = 24
 font_data = ExtResource( 7 )
 
 [sub_resource type="DynamicFont" id=6]
+size = 24
 font_data = ExtResource( 8 )
 
 [sub_resource type="DynamicFont" id=7]
@@ -37,8 +35,17 @@ script = ExtResource( 4 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Background" type="TextureRect" parent="CanvasLayer"]
-margin_right = 1280.0
-margin_bottom = 720.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+texture = ExtResource( 9 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackgroundGradient" type="TextureRect" parent="CanvasLayer"]
+margin_right = 1920.0
+margin_bottom = 1080.0
 texture = ExtResource( 1 )
 expand = true
 __meta__ = {
@@ -46,10 +53,10 @@ __meta__ = {
 }
 
 [node name="Version" type="Label" parent="CanvasLayer"]
-margin_left = 1232.0
-margin_top = 696.0
-margin_right = 1282.0
-margin_bottom = 720.0
+margin_left = 1870.0
+margin_top = 1056.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 1 )
 __meta__ = {
@@ -59,8 +66,8 @@ __meta__ = {
 [node name="Logo" type="TextureRect" parent="CanvasLayer"]
 margin_left = 144.0
 margin_top = 40.0
-margin_right = 651.0
-margin_bottom = 256.0
+margin_right = 895.0
+margin_bottom = 360.0
 texture = ExtResource( 2 )
 expand = true
 __meta__ = {
@@ -69,23 +76,11 @@ __meta__ = {
 
 [node name="Play" type="Control" parent="CanvasLayer"]
 margin_left = 176.0
-margin_top = 288.0
-margin_right = 511.0
-margin_bottom = 552.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Input_IP" type="TextEdit" parent="CanvasLayer/Play"]
-anchor_top = 0.212
-anchor_right = 0.764
-anchor_bottom = 0.333
-margin_top = 0.0319977
-margin_right = 0.0599823
-margin_bottom = 0.0879974
-rect_pivot_offset = Vector2( -32, 24 )
-custom_fonts/font = SubResource( 2 )
-text = "localhost"
+margin_top = 434.0
+margin_right = 757.0
+margin_bottom = 984.0
+rect_pivot_offset = Vector2( -2117, 145 )
+theme = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -98,24 +93,8 @@ margin_top = 0.0559978
 margin_right = 0.0199966
 margin_bottom = -0.064003
 rect_pivot_offset = Vector2( -32, 48 )
-custom_fonts/font = SubResource( 4 )
+theme = ExtResource( 10 )
 text = "IP Address"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Input_Port" type="TextEdit" parent="CanvasLayer/Play"]
-anchor_left = 0.812
-anchor_top = 0.212
-anchor_right = 0.979
-anchor_bottom = 0.333
-margin_left = -0.0200195
-margin_top = 0.0319977
-margin_right = 0.0350037
-margin_bottom = 0.0879974
-rect_pivot_offset = Vector2( -32, 24 )
-custom_fonts/font = SubResource( 2 )
-text = "8080"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -129,31 +108,39 @@ margin_left = -0.0200195
 margin_top = 0.0559978
 margin_bottom = -0.064003
 rect_pivot_offset = Vector2( -32, 48 )
-custom_fonts/font = SubResource( 4 )
 text = "Port"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Connect" type="Button" parent="CanvasLayer/Play"]
-anchor_top = 0.727
-anchor_right = 0.215
-anchor_bottom = 0.841
-margin_top = 0.071991
-margin_right = -0.0250015
-margin_bottom = -0.0240021
+anchor_left = 0.004
+anchor_top = 0.611
+anchor_right = 0.344
+anchor_bottom = 0.702
+margin_left = -2.324
+margin_top = -0.0499878
+margin_right = 0.135986
+margin_bottom = -0.100006
+theme = ExtResource( 10 )
+custom_constants/hseparation = 7
 custom_fonts/font = SubResource( 5 )
 text = "Connect"
+icon = ExtResource( 11 )
+align = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Error" type="Label" parent="CanvasLayer/Play"]
-anchor_top = 0.848
-anchor_right = 0.764
-anchor_bottom = 1.0
-margin_top = 0.127991
-margin_right = 0.0599823
+anchor_left = -0.019
+anchor_top = 0.34
+anchor_right = 0.745
+anchor_bottom = 0.492
+margin_left = 0.0390005
+margin_top = -0.0599976
+margin_right = 0.098938
+margin_bottom = -0.187988
 custom_colors/font_color = Color( 0.811765, 0.113725, 0.113725, 1 )
 custom_fonts/font = SubResource( 6 )
 __meta__ = {
@@ -174,45 +161,101 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Options" type="Button" parent="CanvasLayer"]
-anchor_left = 0.137
-anchor_top = 0.729
-anchor_right = 0.194
-anchor_bottom = 0.771
-margin_left = 0.639984
-margin_top = 0.119995
-margin_right = -0.320007
-margin_bottom = -0.119995
-custom_fonts/font = SubResource( 5 )
-text = "Options"
+[node name="Input_IP" type="LineEdit" parent="CanvasLayer/Play"]
+anchor_top = 0.211
+anchor_right = 0.764
+anchor_bottom = 0.333
+margin_top = 0.150993
+margin_right = 0.115967
+margin_bottom = 0.153
+rect_pivot_offset = Vector2( 363, 45 )
+theme = ExtResource( 10 )
+text = "http://localhost"
+placeholder_text = "http://localhost"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="About" type="Button" parent="CanvasLayer"]
-anchor_left = 0.137
-anchor_top = 0.729
-anchor_right = 0.194
-anchor_bottom = 0.771
-margin_left = 0.640015
-margin_top = 45.12
-margin_right = -0.319992
-margin_bottom = 44.88
+[node name="Input_Port" type="LineEdit" parent="CanvasLayer/Play"]
+anchor_left = 0.806
+anchor_top = 0.211
+anchor_right = 0.95
+anchor_bottom = 0.333
+margin_left = -0.286041
+margin_top = 0.150993
+margin_right = -0.950012
+margin_bottom = 0.153
+rect_pivot_offset = Vector2( 363, 45 )
+theme = ExtResource( 10 )
+text = "8080"
+placeholder_text = "8080"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Options" type="Button" parent="CanvasLayer/Play"]
+anchor_top = 0.707
+anchor_right = 0.344
+anchor_bottom = 0.798
+margin_top = 0.149994
+margin_right = 0.135986
+margin_bottom = 0.0999756
+theme = ExtResource( 10 )
+custom_constants/hseparation = 7
+custom_fonts/font = SubResource( 5 )
+text = "Options"
+icon = ExtResource( 12 )
+align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="About" type="Button" parent="CanvasLayer/Play"]
+anchor_top = 0.807
+anchor_right = 0.344
+anchor_bottom = 0.898
+margin_top = 0.149963
+margin_right = 0.135986
+margin_bottom = 0.0999756
+theme = ExtResource( 10 )
+custom_constants/hseparation = 7
 custom_fonts/font = SubResource( 5 )
 text = "About"
+icon = ExtResource( 14 )
+align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Exit" type="Button" parent="CanvasLayer/Play"]
+anchor_top = 0.907
+anchor_right = 0.344
+anchor_bottom = 0.998
+margin_top = 0.149963
+margin_right = 0.135986
+margin_bottom = 0.0999756
+theme = ExtResource( 10 )
+custom_constants/hseparation = 7
+custom_fonts/font = SubResource( 5 )
+text = "Exit"
+icon = ExtResource( 13 )
+align = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="FadeIn" type="ColorRect" parent="CanvasLayer"]
 visible = false
-margin_right = 1280.0
-margin_bottom = 720.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Tween" type="Tween" parent="."]
+
 [connection signal="pressed" from="CanvasLayer/Play/Connect" to="." method="_on_Connect_pressed"]
-[connection signal="pressed" from="CanvasLayer/Options" to="." method="_on_Options_pressed"]
-[connection signal="pressed" from="CanvasLayer/About" to="." method="_on_About_pressed"]
+[connection signal="pressed" from="CanvasLayer/Play/Options" to="." method="_on_Options_pressed"]
+[connection signal="pressed" from="CanvasLayer/Play/About" to="." method="_on_About_pressed"]
+[connection signal="pressed" from="CanvasLayer/Play/Exit" to="." method="_on_Exit_pressed"]
