@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/ui/fonts/super_impacto/Super Impacto.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/ui/fonts/Jost-Black.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/ui/Button_Pressed.png" type="Texture" id=3]
+[ext_resource path="res://assets/ui/MenuBackground.png" type="Texture" id=4]
+[ext_resource path="res://assets/ui/Button_Unpressed.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 22
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 2 )
+
+[node name="AboutMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -200.0
+margin_right = 300.0
+margin_bottom = 200.0
+texture = ExtResource( 4 )
+patch_margin_left = 30
+patch_margin_top = 38
+patch_margin_right = 30
+patch_margin_bottom = 36
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="NinePatchRect2"]
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 592.0
+margin_bottom = 387.0
+custom_fonts/mono_font = SubResource( 1 )
+custom_fonts/normal_font = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton" type="TextureButton" parent="."]
+margin_left = 828.0
+margin_top = 518.0
+margin_right = 928.0
+margin_bottom = 548.0
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="TextureButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -12.0
+margin_right = 20.0
+margin_bottom = 12.0
+custom_fonts/font = SubResource( 3 )
+text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}

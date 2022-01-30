@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://assets/animations/player_animations.res" type="SpriteFrames" id=1]
+[ext_resource path="res://assets/data/animations/player_animations.res" type="SpriteFrames" id=1]
 [ext_resource path="res://assets/items/pistol.png" type="Texture" id=4]
 [ext_resource path="res://assets/effects/bullet_spark.png" type="Texture" id=12]
-[ext_resource path="res://assets/light.png" type="Texture" id=19]
+[ext_resource path="res://assets/effects/light.png" type="Texture" id=19]
 [ext_resource path="res://assets/sfx/step_stone.mp3" type="AudioStream" id=20]
 [ext_resource path="res://scripts/AudioStreamPlayer.gd" type="Script" id=21]
 [ext_resource path="res://scripts/Player.gd" type="Script" id=22]
@@ -48,13 +48,13 @@ position = Vector2( 16, 16 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 1 )
 animation = "walk_down"
-frame = 2
+frame = 3
 speed_scale = 1.5
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="AnimatedSprite"]
 current = true
-zoom = Vector2( 1.25, 1.25 )
+zoom = Vector2( 0.85, 0.85 )
 
 [node name="Light2D" type="Light2D" parent="AnimatedSprite"]
 modulate = Color( 1, 1, 1, 0 )

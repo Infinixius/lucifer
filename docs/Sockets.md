@@ -59,7 +59,7 @@ Sent to a player upon connecting to the server. Includes information about the c
 
 ## > player_move
 
-Sent upon a player moving. Collision is handled on the client of the player who's moving.
+Sent upon a player moving. Collision is handled on the client of the player who's moving. Also updates
 
 - **id** -- ID of the player movement
 - **x** - The new X coordinate of the player.

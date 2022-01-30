@@ -15,3 +15,7 @@ We decided to release the code, open-sourced here on GitHub in the hope that som
 The server is written in [Node.JS](https://nodejs.org) and doesn't need to be built. Just run `npm install` in the `server` folder. Edit `config.json` and run `npm start` or `node --experimental-json-modules index` and you're good to go!
 
 The game itself is written in [Godot](https://godotengine.org/)'s GDScript. You can get the latest version [here](https://godotengine.org/download). Open up the project in the `client` folder inside of Godot and hit F5 to run the project. To actually build it, head to the top left and hit **Project > Export**.
+
+## License
+
+The game is licensed under the [MIT License](https://mit-license.org/). This 

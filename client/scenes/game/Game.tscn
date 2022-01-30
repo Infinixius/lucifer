@@ -1,32 +1,32 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://scripts/Global.gd" type="Script" id=1]
 [ext_resource path="res://assets/effects/vignette.png" type="Texture" id=2]
-[ext_resource path="res://assets/Health_Bkg.png" type="Texture" id=3]
+[ext_resource path="res://assets/ui/ingame/Health_Bkg.png" type="Texture" id=3]
 [ext_resource path="res://assets/tiles/floor_burnt.png" type="Texture" id=4]
 [ext_resource path="res://assets/tiles/floor.png" type="Texture" id=5]
 [ext_resource path="res://assets/tiles/meta_light.png" type="Texture" id=6]
 [ext_resource path="res://assets/tiles/floor_mossy.png" type="Texture" id=7]
 [ext_resource path="res://assets/tiles/wall.png" type="Texture" id=8]
 [ext_resource path="res://assets/tiles/meta_spawnpoint.png" type="Texture" id=9]
-[ext_resource path="res://assets/MenuBackground.png" type="Texture" id=10]
-[ext_resource path="res://assets/Button_Pressed.png" type="Texture" id=11]
+[ext_resource path="res://assets/tiles/floor_grasspatch.png" type="Texture" id=10]
+[ext_resource path="res://assets/ui/MenuBackground.png" type="Texture" id=11]
 [ext_resource path="res://assets/tiles/meta_light_block.png" type="Texture" id=12]
 [ext_resource path="res://assets/tiles/void.png" type="Texture" id=13]
 [ext_resource path="res://assets/tiles/missing.png" type="Texture" id=14]
 [ext_resource path="res://assets/tiles/meta.png" type="Texture" id=15]
 [ext_resource path="res://assets/tiles/meta_clip.png" type="Texture" id=16]
-[ext_resource path="res://assets/Button_Unpressed.png" type="Texture" id=17]
+[ext_resource path="res://assets/ui/Button_Unpressed.png" type="Texture" id=17]
 [ext_resource path="res://assets/tiles/meta_kill.png" type="Texture" id=18]
 [ext_resource path="res://assets/tiles/meta_spawnpoint_enemy.png" type="Texture" id=19]
-[ext_resource path="res://assets/Health_Progress.png" type="Texture" id=20]
+[ext_resource path="res://assets/ui/ingame/Health_Progress.png" type="Texture" id=20]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=21]
 [ext_resource path="res://scripts/CanvasLayer.gd" type="Script" id=22]
 [ext_resource path="res://scripts/Multiplayer.gd" type="Script" id=23]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=25]
-[ext_resource path="res://assets/fonts/Jost-SemiBold.ttf" type="DynamicFontData" id=26]
-[ext_resource path="res://assets/fonts/Jost-Light.ttf" type="DynamicFontData" id=27]
-[ext_resource path="res://assets/fonts/Jost-Bold.ttf" type="DynamicFontData" id=28]
+[ext_resource path="res://assets/ui/fonts/Jost-SemiBold.ttf" type="DynamicFontData" id=26]
+[ext_resource path="res://assets/ui/fonts/Jost-Light.ttf" type="DynamicFontData" id=27]
+[ext_resource path="res://assets/ui/fonts/Jost-Bold.ttf" type="DynamicFontData" id=28]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -225,6 +225,20 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 12/shape_one_way_margin = 0.0
 12/shapes = [  ]
 12/z_index = 0
+13/name = "floor_grasspatch.png 13"
+13/texture = ExtResource( 10 )
+13/tex_offset = Vector2( 0, 0 )
+13/modulate = Color( 1, 1, 1, 1 )
+13/region = Rect2( 0, 0, 32, 32 )
+13/tile_mode = 0
+13/occluder_offset = Vector2( 0, 0 )
+13/navigation_offset = Vector2( 0, 0 )
+13/shape_offset = Vector2( 0, 0 )
+13/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+13/shape_one_way = false
+13/shape_one_way_margin = 0.0
+13/shapes = [  ]
+13/z_index = 0
 
 [sub_resource type="Shader" id=4]
 code = "shader_type canvas_item;
@@ -241,6 +255,12 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=5]
 shader = SubResource( 4 )
 shader_param/vignette = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=11]
+font_data = ExtResource( 27 )
+
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
 
 [sub_resource type="DynamicFont" id=6]
 font_data = ExtResource( 28 )
@@ -284,76 +304,95 @@ position = Vector2( 129, 132 )
 script = ExtResource( 22 )
 
 [node name="Vignette" type="Sprite" parent="CanvasLayer"]
-visible = false
 material = SubResource( 5 )
-position = Vector2( 640, 360 )
-scale = Vector2( 10, 5.625 )
+position = Vector2( 960, 540 )
+scale = Vector2( 15, 8.4375 )
 texture = ExtResource( 2 )
 
 [node name="Debug" type="Control" parent="CanvasLayer"]
-anchor_left = 1.0
+anchor_left = 0.868
 anchor_right = 1.0
-margin_left = -190.0
-margin_bottom = 99.0
+anchor_bottom = 0.153
+margin_left = -0.560059
+margin_bottom = -0.240005
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="position_text" type="Label" parent="CanvasLayer/Debug"]
-margin_right = 56.0
-margin_bottom = 14.0
+anchor_right = 0.397
+anchor_bottom = 0.104
+margin_right = 1.023
+margin_bottom = 6.84
+custom_fonts/font = SubResource( 11 )
 text = "Position:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="fps_text" type="Label" parent="CanvasLayer/Debug"]
-margin_left = 0.864838
-margin_top = 26.7933
-margin_right = 56.8648
-margin_bottom = 40.7933
+anchor_top = 0.198
+anchor_right = 0.397
+anchor_bottom = 0.302
+margin_top = 5.33
+margin_right = 0.0229607
+margin_bottom = 12.17
+custom_fonts/font = SubResource( 11 )
 text = "FPS:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="rawposition_text" type="Label" parent="CanvasLayer/Debug"]
-margin_top = 14.0
-margin_right = 85.0
-margin_bottom = 28.0
+anchor_top = 0.104
+anchor_right = 0.603
+anchor_bottom = 0.207
+margin_top = 1.84
+margin_right = 2.977
+margin_bottom = 8.845
+custom_fonts/font = SubResource( 11 )
 text = "Raw Position:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="velocity_text" type="Label" parent="CanvasLayer/Debug"]
-margin_left = 2.38523
-margin_top = 40.8421
-margin_right = 61.3852
-margin_bottom = 54.8421
+anchor_top = 0.303
+anchor_right = 0.418
+anchor_bottom = 0.406
+margin_top = 7.005
+margin_right = 4.062
+margin_bottom = 14.01
 rect_pivot_offset = Vector2( 45.1321, -34.5946 )
+custom_fonts/font = SubResource( 11 )
 text = "Velocity: "
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="latency_text" type="Label" parent="CanvasLayer/Debug"]
-margin_left = 2.0
-margin_top = 94.0166
-margin_right = 61.0
-margin_bottom = 108.017
+anchor_top = 0.696
+anchor_right = 0.418
+anchor_bottom = 0.8
+margin_top = -16.84
+margin_right = 0.0619965
+margin_bottom = -9.99998
 rect_pivot_offset = Vector2( 36.6277, 1.84822 )
+custom_fonts/font = SubResource( 11 )
 text = "Latency:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="connected_text" type="Label" parent="CanvasLayer/Debug"]
-margin_left = 2.15749
-margin_top = 80.0
-margin_right = 97.1575
-margin_bottom = 94.0
+anchor_top = 0.593
+anchor_right = 0.674
+anchor_bottom = 0.696
+margin_top = -15.845
+margin_right = 7.966
+margin_bottom = -8.84
 rect_pivot_offset = Vector2( 36.6277, 1.84822 )
+custom_fonts/font = SubResource( 11 )
 text = "Not Connected"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -363,34 +402,34 @@ __meta__ = {
 anchor_top = 0.743
 anchor_right = 0.31
 anchor_bottom = 1.0
-margin_top = -445.8
-margin_right = -277.44
-margin_bottom = -560.0
+margin_top = -4.43994
+margin_right = -2.20001
+margin_bottom = -1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Messages" type="RichTextLabel" parent="CanvasLayer/Chat"]
-margin_top = 450.0
-margin_right = 299.0
-margin_bottom = 566.0
+margin_right = 467.0
+margin_bottom = 239.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Message" type="TextEdit" parent="CanvasLayer/Chat"]
-margin_top = 602.0
+margin_top = 253.0
 margin_right = 227.0
-margin_bottom = 631.0
+margin_bottom = 282.0
+custom_styles/normal = SubResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Send" type="Button" parent="CanvasLayer/Chat"]
 margin_left = 227.0
-margin_top = 601.0
+margin_top = 252.0
 margin_right = 299.0
-margin_bottom = 631.0
+margin_bottom = 282.0
 custom_fonts/font = SubResource( 6 )
 text = "Send"
 __meta__ = {
@@ -398,6 +437,7 @@ __meta__ = {
 }
 
 [node name="HUD" type="Control" parent="CanvasLayer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -455,10 +495,6 @@ __meta__ = {
 
 [node name="GameMenu" type="Control" parent="CanvasLayer"]
 visible = false
-margin_left = 540.0
-margin_top = 220.0
-margin_right = 540.0
-margin_bottom = 220.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -466,34 +502,36 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/GameMenu"]
 margin_left = -540.0
 margin_top = -220.0
-margin_right = 740.0
-margin_bottom = 500.0
+margin_right = 1380.0
+margin_bottom = 860.0
 color = Color( 0, 0, 0, 0.784314 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/GameMenu"]
-margin_right = 200.0
-margin_bottom = 200.0
+margin_left = 860.0
+margin_top = 440.0
+margin_right = 1060.0
+margin_bottom = 640.0
 rect_scale = Vector2( 0.958061, 1 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameMenu"]
-margin_left = -4.0
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameMenu/NinePatchRect"]
+margin_left = 11.0
 margin_top = 16.0
-margin_right = 196.0
+margin_right = 189.0
 margin_bottom = 192.0
 rect_scale = Vector2( 0.997914, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="CanvasLayer/GameMenu/VBoxContainer"]
-margin_right = 200.0
+[node name="Label" type="Label" parent="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer"]
+margin_right = 178.0
 margin_bottom = 24.0
 custom_fonts/font = SubResource( 8 )
 text = "Menu"
@@ -501,22 +539,22 @@ align = 1
 valign = 1
 uppercase = true
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/GameMenu/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer"]
 margin_top = 28.0
-margin_right = 200.0
+margin_right = 178.0
 margin_bottom = 28.0
 
-[node name="Resume" type="TextureButton" parent="CanvasLayer/GameMenu/VBoxContainer"]
-margin_left = 50.0
+[node name="Resume" type="TextureButton" parent="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer"]
+margin_left = 39.0
 margin_top = 32.0
-margin_right = 150.0
+margin_right = 139.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 100, 30 )
 size_flags_horizontal = 4
 texture_normal = ExtResource( 17 )
 texture_pressed = ExtResource( 11 )
 
-[node name="Label" type="Label" parent="CanvasLayer/GameMenu/VBoxContainer/Resume"]
+[node name="Label" type="Label" parent="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer/Resume"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -533,17 +571,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Options" type="TextureButton" parent="CanvasLayer/GameMenu/VBoxContainer"]
-margin_left = 50.0
+[node name="Options" type="TextureButton" parent="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer"]
+margin_left = 39.0
 margin_top = 66.0
-margin_right = 150.0
+margin_right = 139.0
 margin_bottom = 96.0
 rect_min_size = Vector2( 100, 30 )
 size_flags_horizontal = 4
 texture_normal = ExtResource( 17 )
 texture_pressed = ExtResource( 11 )
 
-[node name="Label" type="Label" parent="CanvasLayer/GameMenu/VBoxContainer/Options"]
+[node name="Label" type="Label" parent="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer/Options"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_fonts/font = SubResource( 9 )
@@ -554,17 +592,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Exit_to_menu" type="TextureButton" parent="CanvasLayer/GameMenu/VBoxContainer"]
-margin_left = 50.0
+[node name="Exit_to_menu" type="TextureButton" parent="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer"]
+margin_left = 39.0
 margin_top = 100.0
-margin_right = 150.0
+margin_right = 139.0
 margin_bottom = 130.0
 rect_min_size = Vector2( 100, 30 )
 size_flags_horizontal = 4
 texture_normal = ExtResource( 17 )
 texture_pressed = ExtResource( 11 )
 
-[node name="Label" type="Label" parent="CanvasLayer/GameMenu/VBoxContainer/Exit_to_menu"]
+[node name="Label" type="Label" parent="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer/Exit_to_menu"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -2.0
@@ -592,6 +630,6 @@ script = ExtResource( 1 )
 environment = SubResource( 10 )
 
 [connection signal="pressed" from="CanvasLayer/Chat/Send" to="Players" method="_on_Send_pressed"]
-[connection signal="pressed" from="CanvasLayer/GameMenu/VBoxContainer/Resume" to="." method="_on_Resume_pressed"]
-[connection signal="pressed" from="CanvasLayer/GameMenu/VBoxContainer/Options" to="CanvasLayer" method="_on_Options_pressed"]
-[connection signal="pressed" from="CanvasLayer/GameMenu/VBoxContainer/Exit_to_menu" to="CanvasLayer" method="_on_Exit_to_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer/Resume" to="." method="_on_Resume_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer/Options" to="CanvasLayer" method="_on_Options_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer/Exit_to_menu" to="CanvasLayer" method="_on_Exit_to_menu_pressed"]
