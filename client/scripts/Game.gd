@@ -19,4 +19,10 @@ func _process(fl):
 
 
 func _on_Resume_pressed():
-	get_node("CanvasLayer/GameMenu").queue_free()
+	get_node("CanvasLayer/GameMenu").visible = false
+
+func _input(event):
+	if event.is_action_pressed("chat"):
+		$CanvasLayer/Chat/Message.grab_focus()
+	if event.is_action_pressed("sendchat"):
+		$Players.sendChatMessage()
