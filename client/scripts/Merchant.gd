@@ -2,8 +2,6 @@ extends Node2D
 
 export var health = 1000
 
-
-
 func _on_Area2D_area_entered(area):
 	if area.name == "Hit":
 		pass
