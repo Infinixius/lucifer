@@ -13,6 +13,7 @@ export default class Client {
     fetchPlayer() {
         return this.ws.player
     }
+    
     send(type, message) {
         this.ws.send(JSON.stringify({
             "type": type,
