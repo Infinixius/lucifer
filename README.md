@@ -18,4 +18,4 @@ The game itself is written in [Godot](https://godotengine.org/)'s GDScript. You 
 
 ## License
 
-The game is licensed under the [MIT License](https://mit-license.org/). This 
+The game is licensed under the [MIT License](https://github.com/Infinixius/lucifer/blob/main/LICENSE). This allows you to modify and distribute the source code as long as you include the license.
