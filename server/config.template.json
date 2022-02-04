@@ -3,7 +3,8 @@
 	"dev": false,
 
 	"pingInterval": 150,
-	"shootCooldown": 0,
+	"shootCooldown": 150,
+	"bulletLifespan": 5000,
 
 	"logs_format": "[%time][%TYPE] - %log",
 	"logs_file_format": "./logs/%date-%time.log",
