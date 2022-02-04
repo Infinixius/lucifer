@@ -128,14 +128,7 @@ func movement_update(): # called in KinematicBody2D.gd to update position
 
 func shoot(direction):
 	var angle = 0
-	if direction == "down":
-		angle = 0
-	elif direction == "left":
-		angle = 90
-	elif direction == "up":
-		angle = 180
-	elif direction == "right":
-		angle = 270
+	angle = rad2deg(direction) - 90
 	if client.get_peer(1).is_connected_to_host():
 		client.get_peer(1).put_packet(JSON.print({
 			"type": "player_shoot",
@@ -160,6 +153,8 @@ func _process(delta):
 		connectedtext.text = "Connected to " + str(client.get_peer(1).get_connected_host()) + ":" + str(client.get_peer(1).get_connected_port())
 	
 	client.poll()
+	
+	
 
 
 func _on_Send_pressed(): # firedwhen the send message is pressed

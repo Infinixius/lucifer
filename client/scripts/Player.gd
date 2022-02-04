@@ -12,42 +12,46 @@ onready var camera = $AnimatedSprite/Camera2D
 
 var velocity = Vector2()
 var speedvel = 1000
-var direction = "right"
+var direction = 0
+var direction_walk = "right"
 
 func get_input():
 	velocity = Vector2()
 	
 	if Input.is_action_pressed("right"):
 		velocity.x += speedvel
-		direction = "right"
+		check_direction_walk()
 		
 		bulletspawn.position.x = 32
 		bulletspawn.position.y = 16
 		bulletspawn.rotation_degrees = 0
 	if Input.is_action_pressed("left"):
 		velocity.x -= speedvel
-		direction = "left"
+		check_direction_walk()
 		
 		bulletspawn.position.x = 0
 		bulletspawn.position.y = 16
 		bulletspawn.rotation_degrees = 180
 	if Input.is_action_pressed("down"):
 		velocity.y += speedvel
-		direction = "down"
+		check_direction_walk()
 		
 		bulletspawn.position.x = 16
 		bulletspawn.position.y = 32
 		bulletspawn.rotation_degrees = 90
 	if Input.is_action_pressed("up"):
 		velocity.y -= speedvel
-		direction = "up"
+		check_direction_walk()
 		
 		bulletspawn.position.x = 16
 		bulletspawn.position.y = 0
 		bulletspawn.rotation_degrees = -90
 	if Input.is_action_pressed("shoot"):
+		direction = get_angle_to(get_global_mouse_position())
 		if $"/root/Game/CanvasLayer/GameMenu".visible == false:
 			Multiplayer.shoot(direction)
+		check_direction_walk()
+		print(rad2deg(direction))
 	if Input.is_action_just_released("zoom_in"):
 		if camera.zoom > Vector2(0.15, 0.15):
 			camera.zoom = camera.zoom - Vector2(0.15, 0.15)
@@ -56,7 +60,7 @@ func get_input():
 			camera.zoom = camera.zoom + Vector2(0.15, 0.15)
 	
 	velocity = velocity.normalized() * speed
-	sprite.play("walk_" + direction)
+	sprite.play("walk_" + direction_walk)
 	if velocity != Vector2(0,0) and sprite.frame == 0:
 		sprite.frame = 1
 		
@@ -78,3 +82,14 @@ func _physics_process(delta):
 	if velocity != Vector2(0,0): # loop every 0.015 seconds
 		Multiplayer.movement_update()
 		time = 0
+	
+
+func check_direction_walk():
+	if rad2deg(direction) >= -45 and rad2deg(direction) <= 45:
+		direction_walk = "right"
+	elif rad2deg(direction) >= 45 and rad2deg(direction) <= 135:
+		direction_walk = "down"
+	elif rad2deg(direction) >= 135 or rad2deg(direction) <= -135:
+		direction_walk = "left"
+	elif rad2deg(direction) >= -135 and rad2deg(direction) <= -45:
+		direction_walk = "up"
