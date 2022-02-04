@@ -2,6 +2,6 @@ extends Node
 
 var IP = "localhost"
 var PORT = "8000"
-var VERSION = "0.2.1"
-var VERSIONNUM = 9
+var VERSION = "0.3"
+var VERSIONNUM = 10
 var error = ""
