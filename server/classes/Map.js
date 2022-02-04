@@ -78,6 +78,20 @@ export default class Map {
 			}
 		}
 	}
+	networkUpdate() {
+		global.clients.forEach(client => {
+			for (const tilex of this.tiles.tiles) {
+				for (const tiley in tilex) {
+					if (isNaN(tilex[tiley])) continue
+					client.send("tile_update", {
+						"x": this.tiles.tiles.indexOf(tilex),
+						"y": Number(tiley),
+						"tile": tilex[tiley] 
+					})
+				}
+			}
+		})
+	}
 }
 
 export function getAdjacentRoom(rooms) {
