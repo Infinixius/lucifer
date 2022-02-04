@@ -45,14 +45,13 @@ export function onMessage(ws, message) { // fired when we get a message
 
 	switch (data.type) {	 
 		case "player_move":
-			broadcast("player_move", {
-				"id": ws.client.id,
-				"x": data.message.x,
-				"y": data.message.y,
-				"animation": data.message.animation,
-				"animationframe": data.message.animationframe
-			})
 			ws.player.move(data.message.x, data.message.y)
+			ws.player.animation = {
+				name: data.message.animation,
+				frame: data.message.animationframe
+			}
+
+			ws.player.networkUpdate()
 			break
 		case "send_message":
 			broadcast("receive_message", {
@@ -61,21 +60,18 @@ export function onMessage(ws, message) { // fired when we get a message
 			})
 			break
 		case "player_shoot":
-			if (Date.now() - ws.player.lastShot > config.shootCooldown) {
-				broadcast("player_shoot", {
-					"id": ws.client.id,
-					"rotation": data.message.direction,
-					"position": ws.player.position
-				})
-				ws.player.lastShot = Date.now()
-			}
+			ws.player.bullets.createBullet(
+				ws.player.position,
+				data.message.direction
+			)
+			ws.player.bullets.networkUpdate()
 			break
 	}
 }
 
 export function onClose(ws) {
-	broadcast( "system_message", ws.player.name + " disconnected")
-	Logger.log(`Client #${ws.client.id} disconnected!"`)
+	broadcast("system_message", `${ws.player.name} disconnected!`)
+	Logger.log(`Client #${ws.client.id} disconnected!`)
 	
 	broadcast("player_disconnect", ws.client.id)
 
