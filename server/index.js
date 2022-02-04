@@ -3,6 +3,7 @@ import config from "./config.json"
 import "./assets/keylimepie.js"
 
 import * as Logger from "./modules/logger.js"
+import { consoleCommand 	} from "./modules/commands.js"
 import { onJoin } from "./modules/events.js"
 import Map from "./classes/map.js"
 
@@ -17,6 +18,7 @@ global.config = config
 global.Logger = Logger
 
 global.playerID = 0
+global.uid = 0 // a unique identifier used for enemies, bullets, etc
 global.clients = []
 global.map = new Map(300, 300, 32)
 
@@ -36,6 +38,7 @@ wss.on("connection", (ws, req) => { onJoin(ws, req) })
 wss.on("listening", () => {
     Logger.log("Listening on port " + config.port || process.env.PORT)
     console.log("---------------------------------------------")
+	consoleCommand() // initalize the console command listener
 })
 process.on("uncaughtException", (err) => {
     Logger.error("Uncaught exception occured! Error:")
