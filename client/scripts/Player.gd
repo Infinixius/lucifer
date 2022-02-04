@@ -22,32 +22,19 @@ func get_input():
 		velocity.x += speedvel
 		check_direction_walk()
 		
-		bulletspawn.position.x = 32
-		bulletspawn.position.y = 16
-		bulletspawn.rotation_degrees = 0
 	if Input.is_action_pressed("left"):
 		velocity.x -= speedvel
 		check_direction_walk()
 		
-		bulletspawn.position.x = 0
-		bulletspawn.position.y = 16
-		bulletspawn.rotation_degrees = 180
 	if Input.is_action_pressed("down"):
 		velocity.y += speedvel
 		check_direction_walk()
 		
-		bulletspawn.position.x = 16
-		bulletspawn.position.y = 32
-		bulletspawn.rotation_degrees = 90
 	if Input.is_action_pressed("up"):
 		velocity.y -= speedvel
 		check_direction_walk()
 		
-		bulletspawn.position.x = 16
-		bulletspawn.position.y = 0
-		bulletspawn.rotation_degrees = -90
 	if Input.is_action_pressed("shoot"):
-		direction = get_angle_to(get_global_mouse_position())
 		if $"/root/Game/CanvasLayer/GameMenu".visible == false:
 			Multiplayer.shoot(direction)
 		check_direction_walk()
@@ -82,14 +69,32 @@ func _physics_process(delta):
 	if velocity != Vector2(0,0): # loop every 0.015 seconds
 		Multiplayer.movement_update()
 		time = 0
+	direction = get_angle_to(get_global_mouse_position())
+	check_direction_walk()
 	
 
 func check_direction_walk():
 	if rad2deg(direction) >= -45 and rad2deg(direction) <= 45:
 		direction_walk = "right"
+		
+		bulletspawn.position.x = 32
+		bulletspawn.position.y = 16
+		bulletspawn.rotation_degrees = 0
 	elif rad2deg(direction) >= 45 and rad2deg(direction) <= 135:
 		direction_walk = "down"
+		
+		bulletspawn.position.x = 16
+		bulletspawn.position.y = 32
+		bulletspawn.rotation_degrees = 90
 	elif rad2deg(direction) >= 135 or rad2deg(direction) <= -135:
 		direction_walk = "left"
+		
+		bulletspawn.position.x = 0
+		bulletspawn.position.y = 16
+		bulletspawn.rotation_degrees = 180
 	elif rad2deg(direction) >= -135 and rad2deg(direction) <= -45:
 		direction_walk = "up"
+		
+		bulletspawn.position.x = 16
+		bulletspawn.position.y = 0
+		bulletspawn.rotation_degrees = -90
