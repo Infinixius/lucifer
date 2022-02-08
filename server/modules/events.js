@@ -38,7 +38,11 @@ export function onJoin(ws, req) { // fired when a player joins
 }
 
 export function onMessage(ws, message) { // fired when we get a message
-	Logger.debug(`Raw message received from client #${ws.client.id}: "${message.toString()}"`)
+	if (typeof message == "object") {
+		Logger.debug(`Raw message received from client #${ws.client.id}: "${JSON.stringify(message.toString())}"`)
+	} else {
+		Logger.debug(`Raw message received from client #${ws.client.id}: "${message.toString()}"`)
+	}
 	try { var data = JSON.parse(message.toString()) } catch (err) {
 		return Logger.error(`Failed to parse data received from client #${ws.client.id}! Error: ${err}`)
 	}

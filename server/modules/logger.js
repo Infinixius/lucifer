@@ -32,6 +32,7 @@ console.log(`Logging to file "${name}"`)
 console.log("---------------------------------------------")
 
 export function advlog(message, type) {
+	if (message.includes(`message with type "ping":`)) return // do not log pings
 	if (!type) var type = "log"
 
 	let log = config.logsFormat

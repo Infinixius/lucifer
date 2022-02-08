@@ -20,6 +20,10 @@ export default class Client {
             "timestamp": Date.now(),
             "message": message
         }))
-        Logger.debug(`Sent client #${this.id} message with type "${type}": "${message}"`)
+        if (typeof message == "object") {
+			Logger.debug(`Sent client #${this.id} message with type "${type}": "${JSON.stringify(message)}"`)
+		} else {
+			Logger.debug(`Sent client #${this.id} message with type "${type}": "${message}"`)
+		}
     }
 }
