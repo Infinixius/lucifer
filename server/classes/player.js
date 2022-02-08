@@ -5,21 +5,22 @@ const names = ["testname1", "testname2", "testname3", "testname4", "testname5"]
 
 export default class Player {
 	constructor(client) {
-		this.client = client
-		this.name = names.random()
+		this.client = client // The client is another class, that includes information such as the player's IP address.
+		this.name = names.random() // Chooses a random name from a predefined list that the player can change later.
 
 		this.health = 150
 		this.maxhealth = 150
-		this.position = [0,0]
+		this.position = [0,0] // X, Y coordinates of the player
 
-		this.animation = {
+		this.animation = { // The current animation name and frame of the player.
 			"name": "walk_up",
 			"frame": 0
 		}
-		this.bullets = new BulletFactory(this)
+		
+		this.bullets = new BulletFactory(this) // A "BulletFactory" is a class that simplifes the creation of Bullet entities.
 	}
 
-	hurt(hp, reason) {
+	hurt(hp, reason) { // The hurt function allows us to hurt the player, taking away some of their health.
 		var remaining = Math.round(this.ws.data.health - hp)
 		if (remaining < 0) {
 			this.health = 0
@@ -32,10 +33,10 @@ export default class Player {
 			hp: remaining
 		})
 	}
-	kill(reason) {
+	kill(reason) { // The kill function will kill the player with a specific reason, such as "burned to death".
 		log(`Killed player ${this.name} for reason ${reason}`)
 	}
-	move(x,y) {
+	move(x,y) { // The move function moves a player to a specific position.
 		this.position = [x, y]
 	}
 	networkUpdate() {
