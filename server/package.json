@@ -1,7 +1,7 @@
 {
 	"name": "lucifer-ylp",
-	"version": "0.3",
-	"versionNum": 10,
+	"version": "0.4",
+	"versionNum": 11,
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/infinixius/lucifer.git"

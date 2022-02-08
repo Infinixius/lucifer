@@ -24,7 +24,12 @@ global.map = new Map(300, 300, 32)
 
 // utility functions available in every script
 global.broadcast = function(type, message) {
-    Logger.debug(`Broadcasted message to every client with type "${type}": "${message}"`)
+	if (typeof message == "object") {
+		Logger.debug(`Broadcasted message to every client with type "${type}": "${JSON.stringify(message)}"`)
+	} else {
+		Logger.debug(`Broadcasted message to every client with type "${type}": "${message}"`)
+	}
+	
     wss.clients.forEach((client) => {
         client.send(JSON.stringify({
             "type": type,
