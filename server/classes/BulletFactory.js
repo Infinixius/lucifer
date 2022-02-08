@@ -19,6 +19,10 @@ export default class BulletFactory {
 		this.bullets.forEach((bullet, id) => {
 			if (Date.now() - bullet.createdAt >= config.bulletLifespan) {
 				this.bullets.delete(id)
+				broadcast("entity_update", {
+					id: id,
+					deleted: true
+				})
 				return
 			}
 			broadcast("entity_update", bullet)

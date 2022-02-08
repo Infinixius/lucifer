@@ -13,5 +13,7 @@ export class Entity {
 }
 
 export const EntityTypes = {
-	Bullet: 2
+	Player: 1,
+	Bullet: 2,
+	Enemy: 3
 }
