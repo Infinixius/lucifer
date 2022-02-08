@@ -38,7 +38,6 @@ func get_input():
 		if $"/root/Game/CanvasLayer/GameMenu".visible == false:
 			Multiplayer.shoot(direction)
 		check_direction_walk()
-		print(rad2deg(direction))
 	if Input.is_action_just_released("zoom_in"):
 		if camera.zoom > Vector2(0.15, 0.15):
 			camera.zoom = camera.zoom - Vector2(0.15, 0.15)

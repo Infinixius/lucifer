@@ -17,7 +17,6 @@ func _process(fl):
 	rawpos_text.text = "Raw Position: X: " + str(floor(rawpos.x)) + " Y: " + str(floor(rawpos.y))
 	fpstext.text =  "FPS: " + str(Engine.get_frames_per_second())
 
-
 func _on_Resume_pressed():
 	get_node("CanvasLayer/GameMenu").visible = false
 

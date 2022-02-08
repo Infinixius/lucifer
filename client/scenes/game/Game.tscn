@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://scripts/Global.gd" type="Script" id=1]
 [ext_resource path="res://assets/effects/vignette.png" type="Texture" id=2]
@@ -23,10 +23,12 @@
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=21]
 [ext_resource path="res://scripts/CanvasLayer.gd" type="Script" id=22]
 [ext_resource path="res://scripts/Multiplayer.gd" type="Script" id=23]
+[ext_resource path="res://scripts/MultiplayerPackets.gd" type="Script" id=24]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=25]
 [ext_resource path="res://assets/ui/fonts/Jost-SemiBold.ttf" type="DynamicFontData" id=26]
 [ext_resource path="res://assets/ui/fonts/Jost-Light.ttf" type="DynamicFontData" id=27]
 [ext_resource path="res://assets/ui/fonts/Jost-Bold.ttf" type="DynamicFontData" id=28]
+[ext_resource path="res://scripts/Entities.gd" type="Script" id=29]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -628,6 +630,12 @@ script = ExtResource( 1 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 10 )
+
+[node name="Packets" type="Node" parent="."]
+script = ExtResource( 24 )
+
+[node name="Entities" type="Node" parent="."]
+script = ExtResource( 29 )
 
 [connection signal="pressed" from="CanvasLayer/Chat/Send" to="Players" method="_on_Send_pressed"]
 [connection signal="pressed" from="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer/Resume" to="." method="_on_Resume_pressed"]

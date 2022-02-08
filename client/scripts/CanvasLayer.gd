@@ -14,13 +14,6 @@ func _input(event):
 		get_node("GameMenu").show()
 	if Input.is_action_pressed("debug"):
 		$"../CanvasLayer/Debug".visible = !$"../CanvasLayer/Debug".visible
-	if Input.is_action_just_pressed("SpawnEnemy"):
-		SpawnEnemy()
-
-func SpawnEnemy():
-	var e = Enemy.instance()
-	owner.add_child(e)
-	e.transform = enemyspawn.transform
 
 #Options menu opens
 func _on_Options_pressed():
