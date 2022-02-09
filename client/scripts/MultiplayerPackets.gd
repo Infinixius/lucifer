@@ -3,13 +3,15 @@ extends Node
 onready var chatbox = $"../CanvasLayer/Chat/Messages"
 onready var latencytext = $"../CanvasLayer/Debug/latency_text"
 
+var id = 0
+
 func processPacket(data, msg, id):
 	if data.type == "player_connect":
 		if msg.id != id: # we don't want to update ourselves
 			var player = AnimatedSprite.new()
 			player.scale = Vector2(2,2)
 			player.frames = load("res://assets/animations/player_animations.res")
-			player.name = str(msg.id)
+			player.set_name(str(msg.id))
 			$"../Players".add_child(player)
 	
 	elif data.type == "player_disconnect":

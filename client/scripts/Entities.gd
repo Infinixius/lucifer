@@ -9,15 +9,19 @@ func update():
 		pass
 
 func spawnEntity(type, id, pos, size, rot, velocity):
-	if type == Entities.Bullet:
-		var bullet = Bullet.instance()
-		bullet.name = str(id)
-		bullet.position = bullet.get_global_position()
-		bullet.position.x = pos[0] + 16 # offset by 16
-		bullet.position.y = pos[1] + 16 # offset by 16
-		bullet.rotation_degrees = rot
-		$".".add_child(bullet)
+	var entity = $".".get_node(str(id))
+	if !entity:
+		if type == Entities.Bullet:
+			var bullet = Bullet.instance()
+			bullet.set_name(str(id))
+			bullet.position = bullet.get_global_position()
+			bullet.position.x = pos[0] + 16 # offset by 16
+			bullet.position.y = pos[1] + 16 # offset by 16
+			bullet.rotation_degrees = rot
+			$".".add_child(bullet)
 
 func deleteEntity(id):
-	var entity = get_node(str(id))
-	entity.queue_free() # delete the node
+	var entity = $".".get_node(str(id))
+	if entity:
+		entity.scale = Vector2(2,2)
+		#entity.queue_free() # delete the node
