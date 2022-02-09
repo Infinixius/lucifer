@@ -23,9 +23,9 @@ export default class BulletFactory {
 					id: id,
 					deleted: true
 				})
-				return
+			} else {
+				broadcast("entity_update", bullet)
 			}
-			broadcast("entity_update", bullet)
 		})
 	}
 }
