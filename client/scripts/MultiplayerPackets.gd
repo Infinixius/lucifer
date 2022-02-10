@@ -16,7 +16,7 @@ func processPacket(data, msg, id):
 	
 	elif data.type == "player_disconnect":
 		print(">>:: " + str(msg))
-		var player = get_node(str(msg))
+		var player = $"../Players".get_node(str(msg))
 		player.queue_free() # delete the node
 	
 	elif data.type == "player_move":
