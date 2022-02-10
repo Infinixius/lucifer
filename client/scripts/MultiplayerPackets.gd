@@ -10,11 +10,12 @@ func processPacket(data, msg, id):
 		if msg.id != id: # we don't want to update ourselves
 			var player = AnimatedSprite.new()
 			player.scale = Vector2(2,2)
-			player.frames = load("res://assets/animations/player_animations.res")
-			player.set_name(str(msg.id))
+			player.frames = load("res://assets/data/animations/player_animations.res")
+			player.name = str(msg.id)
 			$"../Players".add_child(player)
 	
 	elif data.type == "player_disconnect":
+		print(">>:: " + str(msg))
 		var player = get_node(str(msg))
 		player.queue_free() # delete the node
 	
@@ -39,7 +40,7 @@ func processPacket(data, msg, id):
 				player.position = player.get_global_position()
 				player.position.x = plr.position[0]
 				player.position.y = plr.position[1]
-				self.add_child(player)
+				$"../Players"..add_child(player)
 	
 	elif data.type == "ping":
 		latencytext.text = "Latency: " + str(OS.get_system_time_msecs() - data.timestamp)
@@ -54,6 +55,9 @@ func processPacket(data, msg, id):
 	
 	elif data.type == "tile_update":
 		$"../TileMap".set_cell(msg.x, msg.y, msg.tile)
+	
+	elif data.type == "tile_reset":
+		$"../TileMap".clear()
 	
 	elif data.type == "player_update":
 		if msg.hp:
