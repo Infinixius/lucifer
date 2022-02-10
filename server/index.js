@@ -6,6 +6,7 @@ import * as Logger from "./modules/logger.js"
 import { consoleCommand 	} from "./modules/commands.js"
 import { onJoin } from "./modules/events.js"
 import Map from "./classes/map.js"
+import EnemyFactory from "./classes/EnemyFactory.js"
 
 if (lime) { Logger.log(`Loaded keylimepie v${lime.version}!`) } else { Logger.error("Failed to load keylimepie!!!") }
 Logger.log(`Debugging mode is currently ${config.dev ? "enabled" : "disabled"}`)
@@ -21,6 +22,16 @@ global.playerID = 0
 global.uid = 0 // a unique identifier used for enemies, bullets, etc
 global.clients = []
 global.map = new Map(300, 300, 32)
+global.enemies = new EnemyFactory()
+
+setInterval(() => {
+	global.enemies.networkUpdate()
+	clients.forEach(client => {
+		var player = client.fetchPlayer()
+		player.networkUpdate()
+		player.bullets.networkUpdate()
+	})
+}, config.tickRate)
 
 // utility functions available in every script
 global.broadcast = function(type, message) {

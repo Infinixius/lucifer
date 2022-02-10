@@ -32,6 +32,9 @@ export function command(string) {
 			global.map = new Map(300, 300, 32)
 			global.map.networkUpdate()
 			break
+		case "ce":
+			global.enemies.createEnemy([8,8])
+			break
 		default:
 			Logger.log(`Unknown command "${commandName}".`)
 	}
