@@ -15,15 +15,17 @@ export default class Client {
     }
     
     send(type, message) {
-        this.ws.send(JSON.stringify({
-            "type": type,
-            "timestamp": Date.now(),
-            "message": message
-        }))
-        if (typeof message == "object") {
-			Logger.debug(`Sent client #${this.id} message with type "${type}": "${JSON.stringify(message)}"`)
-		} else {
-			Logger.debug(`Sent client #${this.id} message with type "${type}": "${message}"`)
-		}
+        setTimeout(() => {
+			this.ws.send(JSON.stringify({
+				"type": type,
+				"timestamp": Date.now(),
+				"message": message
+			}))
+			if (typeof message == "object") {
+				Logger.debug(`Sent client #${this.id} message with type "${type}": "${JSON.stringify(message)}"`)
+			} else {
+				Logger.debug(`Sent client #${this.id} message with type "${type}": "${message}"`)
+			}
+		}, config.fakeLag)
     }
 }
