@@ -43,7 +43,7 @@ func processPacket(data, msg, id):
 				$"../Players".add_child(player)
 	
 	elif data.type == "ping":
-		latencytext.text = "Latency: " + str(OS.get_system_time_msecs() - data.timestamp)
+		latencytext.text = "Latency: " + str(data.timestamp - OS.get_unix_time())
 	
 	elif data.type == "receive_message":
 		chatbox.text = chatbox.text + "\n[ " + msg.name + " ] " + msg.message
