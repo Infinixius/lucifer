@@ -10,6 +10,13 @@ export class Entity {
 		this.id = global.uid
 		this.createdAt = Date.now()
 	}
+	move(x, y) {
+		var oldPos = this.position
+		this.position = [oldPos[0] + x, oldPos[1] + y]
+	}
+	moveTo(x, y) {
+		this.position = [x, y]
+	}
 }
 
 export const EntityTypes = {

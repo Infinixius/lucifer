@@ -36,7 +36,10 @@ export default class Player {
 	kill(reason) { // The kill function will kill the player with a specific reason, such as "burned to death".
 		log(`Killed player ${this.name} for reason ${reason}`)
 	}
-	move(x,y) { // The move function moves a player to a specific position.
+	move(x, y) {
+		this.position = [this.position[0] + x, this.position[1] + y]
+	}
+	moveTo(x, y) { // The move function moves a player to a specific position.
 		this.position = [x, y]
 	}
 	networkUpdate() {

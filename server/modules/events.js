@@ -49,7 +49,7 @@ export function onMessage(ws, message) { // fired when we get a message
 
 	switch (data.type) {	 
 		case "player_move":
-			ws.player.move(data.message.x, data.message.y)
+			ws.player.moveTo(data.message.x, data.message.y)
 			ws.player.animation = {
 				name: data.message.animation,
 				frame: data.message.animationframe
@@ -58,6 +58,7 @@ export function onMessage(ws, message) { // fired when we get a message
 			ws.player.networkUpdate()
 			break
 		case "send_message":
+			Logger.log(`${ws.player.name} (${ws.client.id}) said: ${data.message.slice(0,256)}`)
 			broadcast("receive_message", {
 				"name": ws.player.name,
 				"message": data.message.slice(0,256)
