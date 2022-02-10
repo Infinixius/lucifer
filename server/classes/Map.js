@@ -80,6 +80,7 @@ export default class Map {
 	}
 	networkUpdate() {
 		global.clients.forEach(client => {
+			client.send("tile_reset", true)
 			for (const tilex of this.tiles.tiles) {
 				for (const tiley in tilex) {
 					if (isNaN(tilex[tiley])) continue

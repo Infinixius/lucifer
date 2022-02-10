@@ -2,6 +2,8 @@
 	"port": 8080,
 	"dev": false,
 
+	"fakeLag": 0,
+
 	"pingInterval": 150,
 	"shootCooldown": 150,
 	"bulletLifespan": 5000,

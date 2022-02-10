@@ -1,11 +1,23 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/data/animations/player_animations.res" type="SpriteFrames" id=1]
-[ext_resource path="res://scenes/BulletSpawn.gd" type="Script" id=2]
 [ext_resource path="res://assets/items/pistol.png" type="Texture" id=4]
 [ext_resource path="res://assets/effects/bullet_spark.png" type="Texture" id=12]
 [ext_resource path="res://assets/effects/light.png" type="Texture" id=19]
 [ext_resource path="res://scripts/Player.gd" type="Script" id=22]
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends Position2D
+
+onready var mouse_position = get_global_mouse_position()
+onready var bulletspawn = $BulletSpawn
+
+func _physics_process(delta):
+	pass
+
+func get_input():
+	pass
+"
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 1.98936
@@ -26,7 +38,7 @@ script = ExtResource( 22 )
 modulate = Color( 0.99, 0.99, 0.99, 0.99 )
 position = Vector2( 16, 32 )
 rotation = 1.5708
-script = ExtResource( 2 )
+script = SubResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="BulletSpawn"]
 position = Vector2( 5.04057, 0.0638332 )
@@ -60,7 +72,7 @@ position = Vector2( 16, 16 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 1 )
 animation = "walk_down"
-frame = 1
+frame = 3
 speed_scale = 1.5
 playing = true
 
