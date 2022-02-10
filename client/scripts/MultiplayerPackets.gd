@@ -35,7 +35,7 @@ func processPacket(data, msg, id):
 			if plr.id != id: # we don't want to update ourselves
 				var player = AnimatedSprite.new()
 				player.scale = Vector2(2,2)
-				player.frames = load("res://assets/animations/player_animations.res")
+				player.frames = load("res://assets/data/animations/player_animations.res")
 				player.name = str(plr.id)
 				player.position = player.get_global_position()
 				player.position.x = plr.position[0]
