@@ -40,7 +40,7 @@ func processPacket(data, msg, id):
 				player.position = player.get_global_position()
 				player.position.x = plr.position[0]
 				player.position.y = plr.position[1]
-				$"../Players"..add_child(player)
+				$"../Players".add_child(player)
 	
 	elif data.type == "ping":
 		latencytext.text = "Latency: " + str(OS.get_system_time_msecs() - data.timestamp)
