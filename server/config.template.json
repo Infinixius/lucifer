@@ -3,6 +3,7 @@
 	"dev": false,
 
 	"fakeLag": 0,
+	"tickRate": 15,
 
 	"pingInterval": 150,
 	"shootCooldown": 150,
