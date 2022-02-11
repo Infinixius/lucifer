@@ -71,6 +71,9 @@ export function onMessage(ws, message) { // fired when we get a message
 			)
 			ws.player.bullets.networkUpdate()
 			break
+		case "bullet_hit":
+			ws.player.bullets.hit(data.message)
+			break
 	}
 }
 

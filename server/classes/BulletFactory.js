@@ -15,9 +15,17 @@ export default class BulletFactory {
 		var bullet = new Bullet(pos, direction)
 		this.bullets.set(bullet.id, bullet)
 	}
+	hit(id) {
+		if (this.bullets.get(Number(id))) {
+			this.bullets.get(Number(id)).deleted = true
+		}
+	}
 	networkUpdate() {
 		this.bullets.forEach((bullet, id) => {
 			if (Date.now() - bullet.createdAt >= config.bulletLifespan) {
+				bullet.deleted = true
+			}
+			if (bullet.deleted  == true) {
 				this.bullets.delete(id)
 				broadcast("entity_update", {
 					id: id,
