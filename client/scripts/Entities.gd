@@ -34,8 +34,7 @@ func spawnEntity(type, id, pos, _size, rot, _velocity):
 func deleteEntity(id):
 	var entity = $".".get_node(str(id))
 	if entity:
-		entity.scale = Vector2(2,2)
-		#entity.queue_free() # delete the node
+		entity.queue_free() # delete the node
 
 func updateEntity(id, pos):
 	var entity = $".".get_node(str(id))
