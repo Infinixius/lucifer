@@ -9,6 +9,10 @@ func _physics_process(delta):
 	position += transform.y * speed * delta
 	if time > airtime:
 		queue_free()
+	if Global.settings.lighting == true:
+		$Sprite/Light2D.visible = true
+	else:
+		$Sprite/Light2D.visible = false
 
 
 func _on_Bullet_body_entered(body):

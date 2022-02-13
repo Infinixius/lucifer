@@ -59,6 +59,23 @@ func _physics_process(delta):
 		velocity = move_and_slide(velocity, Vector2(0, 0))
 		velocitytext.text = "Velocity: " + str(velocity)
 	
+	$CollisionShape2D.disabled = Global.settings.noclip
+	if Global.settings.lighting == true:
+		$AnimatedSprite/Light2D.enabled = true
+		$"../CanvasModulate".color = Color8(81, 81, 81)
+		$"../CanvasLayer/Vignette".visible = true
+	else:
+		$AnimatedSprite/Light2D.enabled = false
+		$"../CanvasModulate".color = Color8(255, 255, 255)
+		$"../CanvasLayer/Vignette".visible = false
+	
+	var space_state = get_world_2d().direct_space_state
+	for entity in $"../Entities".get_children():
+		if entity.get_node_or_null("Enemy"):
+			var result = space_state.intersect_ray(self.position, entity.position, [self])
+			if result.size() == 0:
+				$"../Players".send("enemy_seen", entity.name)
+	
 	if velocity == Vector2(0,0):
 		sprite.stop()
 		sprite.frame = 0
