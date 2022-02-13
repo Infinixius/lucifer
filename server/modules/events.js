@@ -81,6 +81,14 @@ export function onMessage(ws, message) { // fired when we get a message
 				}
 			}
 			break
+		case "enemy_seen":
+			var enemy = enemies.enemies.get(Number(data.message))
+			if (enemy) {
+				if (enemy.asleep == true) {
+					enemy.awaken()
+				}
+			}
+			break
 	}
 }
 
