@@ -72,7 +72,14 @@ export function onMessage(ws, message) { // fired when we get a message
 			ws.player.bullets.networkUpdate()
 			break
 		case "bullet_hit":
-			ws.player.bullets.hit(data.message)
+			if (data.message.type == "wall") {
+				ws.player.bullets.hit(data.message.id)
+			} else if (data.message.type == "enemy") {
+				var enemy = enemies.enemies.get(data.message.id)
+				if (enemy) {
+					enemy.hurt(5)
+				}
+			}
 			break
 	}
 }

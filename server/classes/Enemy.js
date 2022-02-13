@@ -7,4 +7,16 @@ export default class Enemy extends Entity {
 
 		this.health = 50
 	}
+	hurt(hp) {
+		var remaining = Math.round(this.health - hp)
+		if (remaining < 0) {
+			this.health = 0
+			this.kill()
+		} else {
+			this.health = remaining
+		}
+	}
+	kill() {
+		this.deleted = true
+	}
 }
