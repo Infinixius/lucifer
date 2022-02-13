@@ -25,6 +25,7 @@ export default class Enemy extends Entity {
 	awaken(playerID) {
 		this.asleep = false
 		this.owner = playerID
+		this.lastSeen = Date.now()
 	}
 	networkUpdate() {
 		if (!this.asleep) {

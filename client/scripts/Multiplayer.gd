@@ -15,7 +15,7 @@ func _ready():
 	client.connect("data_received", self, "on_data")
 
 	# Initiate connection to the given URL.
-	var err = client.connect_to_url(Global.IP + ":" + Global.PORT)
+	client.connect_to_url(Global.IP + ":" + Global.PORT)
 	
 	yield(get_tree().create_timer(1), "timeout")
 	
@@ -30,7 +30,7 @@ func closed(was_clean):
 	get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
 	set_process(false)
 
-func connected(proto):
+func connected(_proto):
 	print("Connected to server!")
 	movement_update()
 	# you MUST always use get_peer(1).put_packet to send data to server, and not put_packet directly
@@ -79,7 +79,7 @@ func sendChatMessage():
 	send("send_message", messagebox.text)
 	messagebox.text = ""
 
-func _process(delta):
+func _process(_delta):
 	if !client.get_peer(1).is_connected_to_host():
 		connectedtext.text = "Not connected"
 	else:

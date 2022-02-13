@@ -23,7 +23,7 @@ func update_activity() -> void:
 	if result != Discord.Result.Ok:
 		push_error(str(result))
 
-func _process(fl):
+func _process(_delta):
 	# update the position text
 	var pos = tile_map.world_to_map(body.position)
 	var rawpos = body.position

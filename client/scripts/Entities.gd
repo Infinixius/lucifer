@@ -10,7 +10,7 @@ func update():
 		pass
 
 func spawnEntity(type, id, pos, _size, rot, _velocity):
-	var entity = $".".get_node(str(id))
+	var entity = $".".get_node_or_null(str(id))
 	if !entity:
 		if type == Entities.Bullet:
 			var bullet = Bullet.instance()
@@ -32,7 +32,7 @@ func spawnEntity(type, id, pos, _size, rot, _velocity):
 		updateEntity(id, pos)
 
 func deleteEntity(id):
-	var entity = $".".get_node(str(id))
+	var entity = $".".get_node_or_null(str(id))
 	if entity:
 		entity.queue_free() # delete the node
 

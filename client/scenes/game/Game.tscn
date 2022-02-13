@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://scripts/Global.gd" type="Script" id=1]
 [ext_resource path="res://assets/effects/vignette.png" type="Texture" id=2]
@@ -30,6 +30,11 @@
 [ext_resource path="res://assets/ui/fonts/Jost-Bold.ttf" type="DynamicFontData" id=28]
 [ext_resource path="res://scripts/Entities.gd" type="Script" id=29]
 [ext_resource path="res://assets/ui/Button_Pressed.png" type="Texture" id=30]
+[ext_resource path="res://assets/sfx/laserShoot.wav" type="AudioStream" id=31]
+[ext_resource path="res://scripts/Sounds.gd" type="Script" id=32]
+[ext_resource path="res://assets/sfx/walk.wav" type="AudioStream" id=33]
+[ext_resource path="res://assets/sfx/wallhit.wav" type="AudioStream" id=34]
+[ext_resource path="res://assets/sfx/enemyhit.wav" type="AudioStream" id=35]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -285,6 +290,9 @@ glow_intensity = 1.0
 glow_strength = 0.95
 glow_blend_mode = 1
 adjustment_enabled = true
+
+[sub_resource type="AudioStreamRandomPitch" id=13]
+audio_stream = ExtResource( 31 )
 
 [node name="Game" type="Node2D"]
 position = Vector2( -1, 0 )
@@ -633,6 +641,21 @@ script = ExtResource( 24 )
 
 [node name="Entities" type="Node" parent="."]
 script = ExtResource( 29 )
+
+[node name="Sounds" type="Node" parent="."]
+script = ExtResource( 32 )
+
+[node name="Shoot" type="AudioStreamPlayer" parent="Sounds"]
+stream = SubResource( 13 )
+
+[node name="Walk" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 33 )
+
+[node name="WallHit" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 34 )
+
+[node name="EnemyHit" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 35 )
 
 [connection signal="pressed" from="CanvasLayer/Chat/Send" to="Players" method="_on_Send_pressed"]
 [connection signal="pressed" from="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer/Resume" to="." method="_on_Resume_pressed"]

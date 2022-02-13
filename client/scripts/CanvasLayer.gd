@@ -4,7 +4,6 @@ var Bullet = load("res://scenes/entities/Bullet.tscn")
 var Enemy = load("res://scenes/entities/Enemy.tscn")
 
 onready var bulletspawn = $"../Player/BulletSpawn"
-onready var enemyspawn = $"../EnemyDevSpawn"
 onready var spark = $"../Player/BulletSpawn/Spark"
 
 var shootCooldown = false
