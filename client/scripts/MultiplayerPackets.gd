@@ -9,20 +9,19 @@ var id = 0
 func processPacket(data, msg, id):
 	if data.type == "player_connect":
 		if msg.id != id: # we don't want to update ourselves
-			var player = AnimatedSprite.new()
-			player.scale = Vector2(2,2)
-			player.frames = load("res://assets/data/animations/player_animations.res")
-			player.name = str(msg.id)
-			$"../Players".add_child(player)
+			var plr = AnimatedSprite.new()
+			plr.scale = Vector2(2,2)
+			plr.frames = load("res://assets/data/animations/player_animations.res")
+			plr.name = str(msg.id)
+			$"../Players".add_child(plr)
 	
 	elif data.type == "player_disconnect":
-		print(">>:: " + str(msg))
-		var player = $"../Players".get_node(str(msg))
-		player.queue_free() # delete the node
+		var plr = $"../Players".get_node(str(msg))
+		plr.queue_free() # delete the node
 	
 	elif data.type == "player_move":
 		if !msg.id == id: # we don't want to update ourselves
-			var plr = $"../Players".get_node(str(msg.id))
+			var plr = $"../Players".get_node_or_null(str(msg.id))
 			if plr:
 				plr.position = plr.get_global_position()
 				plr.position.x = msg.x + 16
@@ -39,7 +38,6 @@ func processPacket(data, msg, id):
 				plr.scale = Vector2(2,2)
 				plr.frames = load("res://assets/data/animations/player_animations.res")
 				plr.name = str(plrl.id)
-				plr.position = plr.get_global_position()
 				plr.position.x = plr.position[0]
 				plr.position.y = plr.position[1]
 				$"../Players".add_child(plr)
@@ -60,6 +58,13 @@ func processPacket(data, msg, id):
 	
 	elif data.type == "tile_reset":
 		$"../TileMap".clear()
+	
+	elif data.type == "tile_update_done":
+		var tween = $"../Player/AnimatedSprite/Camera2D/Tween"
+		tween.interpolate_property($"../Player/AnimatedSprite/Camera2D", "zoom",
+				Vector2(20, 20), Vector2(1, 1), 1,
+				Tween.TRANS_QUART, Tween.EASE_IN)
+		tween.start()
 	
 	elif data.type == "player_update":
 		if "hp" in msg:
