@@ -29,9 +29,7 @@ export default class Player {
 			this.health = remaining
 		}
 
-		this.client.send("player_update", {
-			hp: remaining
-		})
+		this.networkUpdate(true)
 	}
 	kill(reason) { // The kill function will kill the player with a specific reason, such as "burned to death".
 		log(`Killed player ${this.name} for reason ${reason}`)
@@ -42,7 +40,16 @@ export default class Player {
 	moveTo(x, y) { // The move function moves a player to a specific position.
 		this.position = [x, y]
 	}
-	networkUpdate() {
+	networkUpdate(updatePosition) {
+		this.client.send("player_update", {
+			hp: this.health
+		})
+		if (updatePosition) {
+			this.client.send("player_update", {
+				position: [this.position[0], this.position[1]]
+			})
+		}
+
 		broadcast("player_move", {
 			"id": this.client.id,
 			"x": this.position[0],
