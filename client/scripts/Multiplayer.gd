@@ -30,7 +30,7 @@ func closed(was_clean):
 	get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
 	set_process(false)
 
-func connected():
+func connected(proto):
 	print("Connected to server!")
 	movement_update()
 	# you MUST always use get_peer(1).put_packet to send data to server, and not put_packet directly

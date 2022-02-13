@@ -31,4 +31,5 @@ range_z_max = 256
 position = Vector2( 0, 26.5 )
 shape = SubResource( 1 )
 
+[connection signal="area_entered" from="Bullet" to="Bullet" method="_on_Bullet_area_entered"]
 [connection signal="body_entered" from="Bullet" to="Bullet" method="_on_Bullet_body_entered"]

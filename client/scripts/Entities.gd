@@ -38,6 +38,7 @@ func deleteEntity(id):
 
 func updateEntity(id, pos):
 	var entity = $".".get_node(str(id))
-	entity.position = entity.get_global_position()
-	entity.position.x = pos[0]
-	entity.position.y = pos[1]
+	if entity:
+		entity.position = entity.get_global_position()
+		entity.position.x = pos[0]
+		entity.position.y = pos[1]

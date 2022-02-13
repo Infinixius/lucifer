@@ -10,7 +10,7 @@ export default class Player {
 
 		this.health = 150
 		this.maxhealth = 150
-		this.position = [0,0] // X, Y coordinates of the player
+		this.position = [4, 4] // X, Y coordinates of the player
 
 		this.animation = { // The current animation name and frame of the player.
 			"name": "walk_up",
