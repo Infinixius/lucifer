@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/step_stone.wav-7f27597fb1060b92b5278b59d4ac15ff.sample"
+path="res://.import/hitHurt.wav-744365aa0fc98bc233ae8b3611af5785.sample"
 
 [deps]
 
-source_file="res://assets/sfx/step_stone.wav"
-dest_files=[ "res://.import/step_stone.wav-7f27597fb1060b92b5278b59d4ac15ff.sample" ]
+source_file="res://assets/sfx/hitHurt.wav"
+dest_files=[ "res://.import/hitHurt.wav-744365aa0fc98bc233ae8b3611af5785.sample" ]
 
 [params]
 

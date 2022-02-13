@@ -79,6 +79,8 @@ func _physics_process(delta):
 	if velocity == Vector2(0,0):
 		sprite.stop()
 		sprite.frame = 0
+	else:
+		$"../Sounds".play("Walk")
 	#elif sprite.frame == 0:
 	#	sprite.frame = 1 # fixes a bug where the animation wouldnt play for a splitsecond after moving
 	

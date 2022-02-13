@@ -13,9 +13,10 @@ func spawnEntity(type, id, pos, _size, rot, _velocity):
 	var entity = $".".get_node_or_null(str(id))
 	if !entity:
 		if type == Entities.Bullet:
+			$"../Sounds".play("Shoot")
 			var bullet = Bullet.instance()
 			bullet.set_name(str(id))
-			bullet.position = bullet.get_global_position()
+			#bullet.position = bullet.get_global_position()
 			bullet.position.x = pos[0]
 			bullet.position.y = pos[1]
 			bullet.rotation_degrees = rot
