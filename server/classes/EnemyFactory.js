@@ -10,8 +10,8 @@ export default class EnemyFactory {
 	}
 	networkUpdate() {
 		this.enemies.forEach((enemy, id) => {
-			enemy.move(1, 1)
-			if (enemy.deleted  == true) {
+			enemy.networkUpdate()
+			if (enemy.deleted == true) {
 				this.enemies.delete(id)
 				broadcast("entity_update", {
 					id: id,

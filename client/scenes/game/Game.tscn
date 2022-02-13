@@ -296,9 +296,6 @@ tile_set = SubResource( 3 )
 cell_size = Vector2( 32, 32 )
 cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
 format = 1
-tile_data = PoolIntArray( 65545, 10, 0, 65546, 10, 0, 65550, 10, 0, 65551, 10, 0, 131081, 10, 0, 131082, 9, 0, 131083, 9, 0, 131084, 9, 0, 131085, 9, 0, 131086, 9, 0, 131087, 10, 0, 196618, 9, 0, 196619, 9, 0, 196620, 9, 0, 196621, 9, 0, 196622, 9, 0, 262154, 9, 0, 262155, 9, 0, 262156, 9, 0, 262157, 9, 0, 262158, 9, 0, 327690, 9, 0, 327691, 9, 0, 327692, 9, 0, 327693, 9, 0, 327694, 9, 0, 393225, 10, 0, 393226, 9, 0, 393227, 9, 0, 393228, 9, 0, 393229, 9, 0, 393230, 9, 0, 393231, 10, 0, 458761, 10, 0, 458762, 10, 0, 458766, 10, 0, 458767, 10, 0 )
-
-[node name="EnemyDevSpawn" type="Position2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource( 21 )]
 position = Vector2( 129, 132 )
@@ -307,6 +304,7 @@ position = Vector2( 129, 132 )
 script = ExtResource( 22 )
 
 [node name="Vignette" type="Sprite" parent="CanvasLayer"]
+visible = false
 material = SubResource( 5 )
 position = Vector2( 960, 540 )
 scale = Vector2( 15, 8.4375 )

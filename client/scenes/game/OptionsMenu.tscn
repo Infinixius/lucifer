@@ -41,45 +41,47 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="Main" type="VBoxContainer" parent="."]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 584.0
 margin_bottom = 384.0
-custom_constants/separation = 10
+size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Column1" type="VBoxContainer" parent="HBoxContainer"]
-margin_right = 185.0
-margin_bottom = 376.0
-size_flags_horizontal = 3
-
-[node name="Column2" type="VBoxContainer" parent="HBoxContainer"]
-margin_left = 195.0
-margin_right = 380.0
-margin_bottom = 376.0
-size_flags_horizontal = 3
-
-[node name="Column3" type="VBoxContainer" parent="HBoxContainer"]
-margin_left = 390.0
+[node name="Noclip" type="CheckButton" parent="Main"]
 margin_right = 576.0
-margin_bottom = 376.0
-size_flags_horizontal = 3
-alignment = 2
+margin_bottom = 40.0
+text = "Noclip"
 
-[node name="Exit" type="TextureButton" parent="HBoxContainer/Column3"]
-margin_left = 43.0
-margin_top = 342.0
-margin_right = 143.0
-margin_bottom = 372.0
+[node name="Lighting" type="CheckButton" parent="Main"]
+margin_top = 44.0
+margin_right = 576.0
+margin_bottom = 84.0
+pressed = true
+text = "Lighting/Visual Effects"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Exit" type="TextureButton" parent="."]
+margin_left = 12.0
+margin_top = 350.0
+margin_right = 112.0
+margin_bottom = 380.0
 rect_min_size = Vector2( 100, 30 )
 size_flags_horizontal = 4
 texture_normal = ExtResource( 3 )
 texture_pressed = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Label" type="Label" parent="HBoxContainer/Column3/Exit"]
+[node name="Label" type="Label" parent="Exit"]
+anchor_left = -0.01
+anchor_top = 0.0333333
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_fonts/font = SubResource( 1 )
@@ -90,12 +92,6 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Column3"]
-margin_top = 376.0
-margin_right = 186.0
-margin_bottom = 376.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[connection signal="pressed" from="HBoxContainer/Column3/Exit" to="." method="_on_Exit_pressed"]
+[connection signal="toggled" from="Main/Noclip" to="." method="_on_Noclip_toggled"]
+[connection signal="toggled" from="Main/Lighting" to="." method="_on_Lighting_toggled"]
+[connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]

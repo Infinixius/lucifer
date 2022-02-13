@@ -28,16 +28,13 @@ func _process(delta):
 		FadeIn.visible = false
 
 
-
 func _on_Options_pressed():
 	var options_menu = load("res://scenes/game/OptionsMenu.tscn").instance()
 	$CanvasLayer.add_child(options_menu)
 	$CanvasLayer/OptionsMenu.connect("CloseOptionsMenu", self,("CloseOptionsMenu"))
 
-
 func _on_About_pressed():
 	pass
-
 
 func _on_Exit_pressed():
 	get_tree().quit()
