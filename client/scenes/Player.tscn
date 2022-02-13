@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/data/animations/player_animations.res" type="SpriteFrames" id=1]
-[ext_resource path="res://assets/items/pistol.png" type="Texture" id=4]
 [ext_resource path="res://assets/effects/bullet_spark.png" type="Texture" id=12]
 [ext_resource path="res://assets/effects/light.png" type="Texture" id=19]
 [ext_resource path="res://scripts/Player.gd" type="Script" id=22]
@@ -42,7 +41,6 @@ script = SubResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="BulletSpawn"]
 position = Vector2( 5.04057, 0.0638332 )
-texture = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="BulletSpawn/Sprite"]
 position = Vector2( 8, 0 )
@@ -72,6 +70,7 @@ position = Vector2( 16, 16 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 1 )
 animation = "walk_down"
+frame = 1
 speed_scale = 1.5
 playing = true
 
@@ -98,5 +97,3 @@ position = Vector2( 16, 16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hit"]
 shape = SubResource( 3 )
-
-[connection signal="area_entered" from="Hit" to="." method="_on_Area2D_area_entered"]
