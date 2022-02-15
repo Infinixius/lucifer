@@ -32,8 +32,19 @@ export function command(string) {
 			global.map = new Map(300, 300, 32)
 			global.map.networkUpdate()
 			break
-		case "ce":
-			global.enemies.createEnemy([8,8])
+		case "summon":
+			global.enemies.createEnemy([12 * 16, 12 * 16])
+			break
+		case "teleport":
+			var client = clients.find(client => client.id == Number(args[0]))
+			if (client) {
+				var player = client.fetchPlayer()
+				player.moveTo(Number(args[1]) * 16, Number(args[2]) * 16)
+				player.networkUpdate()
+				Logger.log(`Teleported "${player.name}" (${client.id}) to ${args[1]}, ${args[2]}`)
+			} else {
+				Logger.log(`Couldn't find player ID #${args[0]}`)
+			}
 			break
 		default:
 			Logger.log(`Unknown command "${commandName}".`)

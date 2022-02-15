@@ -21,8 +21,10 @@ global.Logger = Logger
 global.playerID = 0
 global.uid = 0 // a unique identifier used for enemies, bullets, etc
 global.clients = []
-global.map = new Map(300, 300, 32)
+global.map = new Map(500, 500, 32)
 global.enemies = new EnemyFactory()
+
+enemies.createEnemy([5, 5])
 
 setInterval(() => {
 	global.enemies.networkUpdate()

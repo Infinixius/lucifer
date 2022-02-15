@@ -2,6 +2,8 @@
 
 This document is to be used for an eventual credits/works cited page.
 
+- https://www.youtube.com/watch?v=tUskxXXTh7s
+
 ## Main Tools used
 
 - [Visual Studio Code](https://code.visualstudio.com/)

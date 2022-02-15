@@ -77,6 +77,7 @@ export default class Map {
 				})
 			}
 		}
+		ws.client.send("tile_update_done", true)
 	}
 	networkUpdate() {
 		global.clients.forEach(client => {

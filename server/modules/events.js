@@ -71,6 +71,25 @@ export function onMessage(ws, message) { // fired when we get a message
 			)
 			ws.player.bullets.networkUpdate()
 			break
+		case "bullet_hit":
+			if (data.message.type == "wall") {
+				ws.player.bullets.hit(data.message.id)
+			} else if (data.message.type == "enemy") {
+				var enemy = enemies.enemies.get(data.message.id)
+				if (enemy) {
+					ws.player.bullets.hit(data.message.bullet)
+					enemy.hurt(5)
+				}
+			}
+			break
+		case "enemy_seen":
+			var enemy = enemies.enemies.get(Number(data.message))
+			if (enemy) {
+				if (enemy.asleep == true) {
+					enemy.awaken()
+				}
+			}
+			break
 	}
 }
 

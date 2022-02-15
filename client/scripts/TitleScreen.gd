@@ -8,6 +8,7 @@ func _ready():
 	$CanvasLayer/Version.text = "v" + Global.VERSION
 	
 	FadeIn.visible = true
+	update_activity()
 	
 	if Global.error != "":
 		$CanvasLayer/Play/Error.text = Global.error
@@ -27,16 +28,26 @@ func _process(delta):
 		FadeIn.visible = false
 
 
-
 func _on_Options_pressed():
 	var options_menu = load("res://scenes/game/OptionsMenu.tscn").instance()
 	$CanvasLayer.add_child(options_menu)
 	$CanvasLayer/OptionsMenu.connect("CloseOptionsMenu", self,("CloseOptionsMenu"))
 
-
 func _on_About_pressed():
 	pass
 
-
 func _on_Exit_pressed():
 	get_tree().quit()
+
+func update_activity() -> void:
+	var activity = Discord.Activity.new()
+	activity.set_type(Discord.ActivityType.Playing)
+	activity.set_state("In the main menu")
+	
+	var assets = activity.get_assets()
+	assets.set_large_image("icon")
+	assets.set_large_text("Lucifer")
+	
+	var result = yield(Discord.activity_manager.update_activity(activity), "result").result
+	if result != Discord.Result.Ok:
+		push_error(str(result))

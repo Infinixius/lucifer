@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://scripts/Global.gd" type="Script" id=1]
 [ext_resource path="res://assets/effects/vignette.png" type="Texture" id=2]
@@ -30,6 +30,11 @@
 [ext_resource path="res://assets/ui/fonts/Jost-Bold.ttf" type="DynamicFontData" id=28]
 [ext_resource path="res://scripts/Entities.gd" type="Script" id=29]
 [ext_resource path="res://assets/ui/Button_Pressed.png" type="Texture" id=30]
+[ext_resource path="res://assets/sfx/laserShoot.wav" type="AudioStream" id=31]
+[ext_resource path="res://scripts/Sounds.gd" type="Script" id=32]
+[ext_resource path="res://assets/sfx/walk.wav" type="AudioStream" id=33]
+[ext_resource path="res://assets/sfx/wallhit.wav" type="AudioStream" id=34]
+[ext_resource path="res://assets/sfx/enemyhit.wav" type="AudioStream" id=35]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -286,6 +291,9 @@ glow_strength = 0.95
 glow_blend_mode = 1
 adjustment_enabled = true
 
+[sub_resource type="AudioStreamRandomPitch" id=13]
+audio_stream = ExtResource( 31 )
+
 [node name="Game" type="Node2D"]
 position = Vector2( -1, 0 )
 script = ExtResource( 25 )
@@ -296,9 +304,6 @@ tile_set = SubResource( 3 )
 cell_size = Vector2( 32, 32 )
 cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
 format = 1
-tile_data = PoolIntArray( 65545, 10, 0, 65546, 10, 0, 65550, 10, 0, 65551, 10, 0, 131081, 10, 0, 131082, 9, 0, 131083, 9, 0, 131084, 9, 0, 131085, 9, 0, 131086, 9, 0, 131087, 10, 0, 196618, 9, 0, 196619, 9, 0, 196620, 9, 0, 196621, 9, 0, 196622, 9, 0, 262154, 9, 0, 262155, 9, 0, 262156, 9, 0, 262157, 9, 0, 262158, 9, 0, 327690, 9, 0, 327691, 9, 0, 327692, 9, 0, 327693, 9, 0, 327694, 9, 0, 393225, 10, 0, 393226, 9, 0, 393227, 9, 0, 393228, 9, 0, 393229, 9, 0, 393230, 9, 0, 393231, 10, 0, 458761, 10, 0, 458762, 10, 0, 458766, 10, 0, 458767, 10, 0 )
-
-[node name="EnemyDevSpawn" type="Position2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource( 21 )]
 position = Vector2( 129, 132 )
@@ -307,6 +312,7 @@ position = Vector2( 129, 132 )
 script = ExtResource( 22 )
 
 [node name="Vignette" type="Sprite" parent="CanvasLayer"]
+visible = false
 material = SubResource( 5 )
 position = Vector2( 960, 540 )
 scale = Vector2( 15, 8.4375 )
@@ -635,6 +641,21 @@ script = ExtResource( 24 )
 
 [node name="Entities" type="Node" parent="."]
 script = ExtResource( 29 )
+
+[node name="Sounds" type="Node" parent="."]
+script = ExtResource( 32 )
+
+[node name="Shoot" type="AudioStreamPlayer" parent="Sounds"]
+stream = SubResource( 13 )
+
+[node name="Walk" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 33 )
+
+[node name="WallHit" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 34 )
+
+[node name="EnemyHit" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 35 )
 
 [connection signal="pressed" from="CanvasLayer/Chat/Send" to="Players" method="_on_Send_pressed"]
 [connection signal="pressed" from="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer/Resume" to="." method="_on_Resume_pressed"]

@@ -14,6 +14,7 @@ export function datestamp() {
 }
 
 // splash
+console.log(".__                  .__   _____                \n|  |   __ __   ____  |__|_/ ____\\ ____ _______  \n|  |  |  |  \\_/ ___\\ |  |\\   __\\_/ __ \\\\_  __ \\ \n|  |__|  |  /\\  \\___ |  | |  |  \\  ___/ |  | \\/ \n|____/|____/  \\___  >|__| |__|   \\___  >|__|    \n                  \\/                 \\/         \n                                                ")
 console.log(`lucifer dedicated server - version v${npmpackage.version}`)
 console.log("made with <3 by infinixius, R3ggo, and ASSASSIN22")
 console.log("-------------------------------------------------")
