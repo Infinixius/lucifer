@@ -625,7 +625,7 @@ __meta__ = {
 }
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color( 0.317647, 0.317647, 0.317647, 1 )
+color = Color( 0.482353, 0.482353, 0.482353, 1 )
 
 [node name="Players" type="Node" parent="."]
 script = ExtResource( 23 )

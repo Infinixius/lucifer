@@ -22,7 +22,9 @@ func _on_Options_pressed():
 
 func CloseOptionsMenu():
 	get_node("OptionsMenu").queue_free()
-	print("asf")
 
 func _on_Exit_to_menu_pressed():
 	get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
+
+func _process(_delta):
+	$Debug.visible = Global.settings.devOptions

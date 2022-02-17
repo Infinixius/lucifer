@@ -69,19 +69,37 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Main"]
+[node name="Discord" type="CheckButton" parent="Main"]
 margin_top = 88.0
 margin_right = 576.0
-margin_bottom = 102.0
+margin_bottom = 128.0
+text = "Discord Rich Presence"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DevOptions" type="CheckButton" parent="Main"]
+margin_top = 132.0
+margin_right = 576.0
+margin_bottom = 172.0
+text = "Developer Options"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Main"]
+margin_top = 176.0
+margin_right = 576.0
+margin_bottom = 190.0
 text = "  Volume"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Volume" type="HSlider" parent="Main"]
-margin_top = 106.0
+margin_top = 194.0
 margin_right = 576.0
-margin_bottom = 122.0
+margin_bottom = 210.0
 max_value = 1.0
 step = 0.01
 value = 0.5
@@ -114,6 +132,8 @@ __meta__ = {
 
 [connection signal="toggled" from="Main/Noclip" to="." method="_on_Noclip_toggled"]
 [connection signal="toggled" from="Main/Lighting" to="." method="_on_Lighting_toggled"]
+[connection signal="toggled" from="Main/Discord" to="." method="_on_Discord_toggled"]
+[connection signal="toggled" from="Main/DevOptions" to="." method="_on_DevOptions_toggled"]
 [connection signal="resized" from="Main/Volume" to="." method="release_focus"]
 [connection signal="value_changed" from="Main/Volume" to="." method="_on_Volume_value_changed"]
 [connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]

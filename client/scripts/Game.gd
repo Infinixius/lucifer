@@ -8,20 +8,8 @@ onready var fpstext = $CanvasLayer/Debug/fps_text
 
 func _ready():
 	$CanvasLayer/Vignette.visible = true # the vignette is disabled in the editor to make it easier to see things, this enables it in the game.
-	update_activity()
-
-func update_activity() -> void:
-	var activity = Discord.Activity.new()
-	activity.set_type(Discord.ActivityType.Playing)
-	activity.set_state("In a game")
-	
-	var assets = activity.get_assets()
-	assets.set_large_image("icon")
-	assets.set_large_text("Lucifer")
-	
-	var result = yield(Discord.activity_manager.update_activity(activity), "result").result
-	if result != Discord.Result.Ok:
-		push_error(str(result))
+	Global.ingame = true
+	Global.updateDiscordRPC()
 
 func _process(_delta):
 	# update the position text

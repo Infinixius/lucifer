@@ -7,8 +7,9 @@ onready var FadeIn = $CanvasLayer/FadeIn
 func _ready():
 	$CanvasLayer/Version.text = "v" + Global.VERSION
 	
+	Global.ingame = false
 	FadeIn.visible = true
-	update_activity()
+	Global.updateDiscordRPC()
 	
 	if Global.error != "":
 		$CanvasLayer/Play/Error.text = Global.error
