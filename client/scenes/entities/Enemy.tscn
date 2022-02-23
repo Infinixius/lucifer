@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
+[ext_resource path="res://scenes/entities/EnemyAI.gd" type="Script" id=1]
 [ext_resource path="res://assets/entities/enemy/enemy.png" type="Texture" id=2]
+[ext_resource path="res://scenes/entities/Enemy.gd" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 20.0
@@ -8,6 +10,7 @@ radius = 20.0
 [node name="Node2D" type="Node2D"]
 
 [node name="Enemy" type="Node2D" parent="."]
+script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="Enemy"]
 light_mask = 2
@@ -17,3 +20,6 @@ texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Area2D"]
 shape = SubResource( 1 )
+
+[node name="EnemyAI" type="Node2D" parent="Enemy"]
+script = ExtResource( 1 )

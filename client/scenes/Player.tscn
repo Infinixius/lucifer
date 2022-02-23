@@ -1,12 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/data/animations/player_animations.res" type="SpriteFrames" id=1]
 [ext_resource path="res://assets/effects/bullet_spark.png" type="Texture" id=12]
 [ext_resource path="res://assets/effects/light.png" type="Texture" id=19]
 [ext_resource path="res://scripts/Player.gd" type="Script" id=22]
-
-[sub_resource type="CircleShape2D" id=4]
-radius = 1.98936
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 12.4334, 12.6273 )
@@ -31,12 +28,6 @@ position = Vector2( 5.04057, 0.0638332 )
 [node name="Sprite" type="Sprite" parent="BulletSpawn/Sprite"]
 position = Vector2( 8, 0 )
 
-[node name="Area2D" type="Area2D" parent="BulletSpawn/Sprite"]
-position = Vector2( 8, 0 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletSpawn/Sprite/Area2D"]
-shape = SubResource( 4 )
-
 [node name="Spark" type="Sprite" parent="BulletSpawn"]
 visible = false
 modulate = Color( 0.99, 0.99, 0.99, 0.99 )
@@ -56,6 +47,7 @@ position = Vector2( 16, 16 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 1 )
 animation = "walk_down"
+frame = 2
 speed_scale = 1.5
 playing = true
 
