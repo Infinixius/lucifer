@@ -28,9 +28,6 @@ export default class Enemy extends Entity {
 		this.lastSeen = Date.now()
 	}
 	networkUpdate() {
-		if (!this.asleep) {
-			this.move(1, 1)
-		}
 		if (Date.now() - this.lastSeen > config.enemyForgetTime) {
 			this.asleep = true
 		}

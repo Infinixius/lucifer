@@ -9,6 +9,12 @@ onready var Multiplayer = $"../Players"
 onready var velocitytext = $"../CanvasLayer/Debug/velocity_text"
 onready var bulletspawn = $BulletSpawn
 onready var camera = $AnimatedSprite/Camera2D
+onready var enemy = $"../Enemy"
+
+onready var angle_x = 0
+onready var angle_y = 0
+onready var enemyid = 0
+onready var enemy_angle = 0
 
 var velocity = Vector2()
 var speedvel = 1000
@@ -49,7 +55,6 @@ func get_input():
 	sprite.play("walk_" + direction_walk)
 	if velocity != Vector2(0,0) and sprite.frame == 0:
 		sprite.frame = 1
-		
 
 var time = 0
 func _physics_process(delta):
@@ -73,6 +78,7 @@ func _physics_process(delta):
 	for entity in $"../Entities".get_children():
 		if entity.get_node_or_null("Enemy"):
 			var result = space_state.intersect_ray(self.position, entity.position, [self])
+			print(result)
 			if result.size() == 0:
 				$"../Players".send("enemy_seen", entity.name)
 	
@@ -89,7 +95,6 @@ func _physics_process(delta):
 		time = 0
 	direction = get_angle_to(get_global_mouse_position())
 	check_direction_walk()
-	
 
 func check_direction_walk():
 	if rad2deg(direction) >= -45 and rad2deg(direction) <= 45:
@@ -114,5 +119,5 @@ func check_direction_walk():
 		direction_walk = "up"
 		
 		bulletspawn.position.x = 16
-		bulletspawn.position.y = 0
+		bulletspawn.position.y = 0	
 		bulletspawn.rotation_degrees = -90

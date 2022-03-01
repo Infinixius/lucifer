@@ -1,5 +1,6 @@
 import Player from "../classes/Player.js"
 import Client from "../classes/Client.js"
+import Enemy from "../classes/Enemy.js"
 
 export function onJoin(ws, req) { // fired when a player joins
 	playerID++
@@ -88,6 +89,12 @@ export function onMessage(ws, message) { // fired when we get a message
 				if (enemy.asleep == true) {
 					enemy.awaken()
 				}
+			}
+			break
+		case "enemy_ai":
+			var enemy = enemies.enemies.get(Number(data.message.id))
+			if (enemy) {
+				enemy.move(data.message.x, data.message.y)
 			}
 			break
 	}

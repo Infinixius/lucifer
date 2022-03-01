@@ -75,7 +75,10 @@ func processPacket(data, msg, id):
 			player.position.y = msg.position[1]
 	
 	elif data.type == "entity_update":
+		print(msg)
 		if msg.deleted == false:
 			$"../Entities".spawnEntity(msg.type, msg.id, msg.position, msg.size, msg.rotation, msg.velocity)
+			if msg.type == 3:
+				$"../Entities".get_node(str(msg.id)).get_node("Enemy").set("asleep", msg.asleep)
 		else:
 			$"../Entities".deleteEntity(msg.id)

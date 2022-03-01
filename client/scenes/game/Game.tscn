@@ -303,6 +303,7 @@ modulate = Color( 0.99, 0.99, 0.99, 1 )
 tile_set = SubResource( 3 )
 cell_size = Vector2( 32, 32 )
 cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+show_collision = true
 format = 1
 
 [node name="Player" parent="." instance=ExtResource( 21 )]

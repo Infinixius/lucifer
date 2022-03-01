@@ -24,8 +24,6 @@ global.clients = []
 global.map = new Map(500, 500, 32)
 global.enemies = new EnemyFactory()
 
-enemies.createEnemy([5, 5])
-
 setInterval(() => {
 	global.enemies.networkUpdate()
 	clients.forEach(client => {
