@@ -20,19 +20,12 @@ export default class BulletFactory {
 			this.bullets.get(Number(id)).deleted = true
 		}
 	}
-	networkUpdate() {
+	networkUpdate(skipCache) {
 		this.bullets.forEach((bullet, id) => {
-			if (Date.now() - bullet.createdAt >= config.bulletLifespan) {
-				bullet.deleted = true
-			}
-			if (bullet.deleted  == true) {
+			bullet.networkUpdate(skipCache)
+			if (bullet.deleted == true) {
 				this.bullets.delete(id)
-				broadcast("entity_update", {
-					id: id,
-					deleted: true
-				})
-			} else {
-				broadcast("entity_update", bullet)
+				return
 			}
 		})
 	}

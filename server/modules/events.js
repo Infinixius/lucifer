@@ -1,6 +1,5 @@
 import Player from "../classes/Player.js"
 import Client from "../classes/Client.js"
-import Enemy from "../classes/Enemy.js"
 
 export function onJoin(ws, req) { // fired when a player joins
 	playerID++
@@ -23,6 +22,7 @@ export function onJoin(ws, req) { // fired when a player joins
 		"id": ws.client.id,
 		"players": playerArray
 	})
+	enemies.networkUpdate(true)
 	broadcast("player_connect", {
 		"id": ws.client.id
 	})
@@ -87,14 +87,22 @@ export function onMessage(ws, message) { // fired when we get a message
 			var enemy = enemies.enemies.get(Number(data.message))
 			if (enemy) {
 				if (enemy.asleep == true) {
-					enemy.awaken()
+					enemy.awaken(ws.client.id)
 				}
+			}
+			break
+		case "enemy_sleep":
+			var enemy = enemies.enemies.get(Number(data.message))
+			console.log(`sleeping ${data.message}`)
+			console.log(enemies.enemies)
+			if (enemy) {
+				enemy.goToSleep()
 			}
 			break
 		case "enemy_ai":
 			var enemy = enemies.enemies.get(Number(data.message.id))
 			if (enemy) {
-				enemy.move(data.message.x, data.message.y)
+				enemy.moveTo(data.message.x, data.message.y)
 			}
 			break
 	}

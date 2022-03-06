@@ -1,6 +1,6 @@
 import Jimp from "jimp"
 import { log, error } from "../modules/logger.js"
-import { getTile, TileMap } from "../modules/tiles.js"
+import { getTile, TileMap } from "./TileMap.js"
 
 const ROOMDATA_IMAGE_ROWLENGTH = 4 // length of rows in rooms.png
 const ROOMDATA_ROOMS = 10 // amount of rooms in rooms.png

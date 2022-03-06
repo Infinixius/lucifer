@@ -21,7 +21,7 @@ global.Logger = Logger
 global.playerID = 0
 global.uid = 0 // a unique identifier used for enemies, bullets, etc
 global.clients = []
-global.map = new Map(500, 500, 32)
+global.map = new Map(500, 500, 32, 50)
 global.enemies = new EnemyFactory()
 
 setInterval(() => {
@@ -43,6 +43,25 @@ global.broadcast = function(type, message) {
 		}
 		
 		wss.clients.forEach((client) => {
+			client.send(JSON.stringify({
+				"type": type,
+				"timestamp": Date.now(),
+				"message": message
+			}))
+		})
+	}, config.fakeLag)
+}
+
+global.shadowBroadcast = function(id, type, message) { // send a message to every client except one
+	setTimeout(() => {
+		if (typeof message == "object") {
+			Logger.debug(`Shadowbroadcasted message to every client (except #${id}) with type "${type}": "${JSON.stringify(message)}"`)
+		} else {
+			Logger.debug(`Shadowbroadcasted message to every client (except #${id}) with type "${type}": "${message}"`)
+		}
+		
+		wss.clients.forEach((client) => {
+			if (client.id == id) return
 			client.send(JSON.stringify({
 				"type": type,
 				"timestamp": Date.now(),

@@ -31,6 +31,7 @@ func processPacket(data, msg, id):
 	
 	elif data.type == "player_initalize":
 		id = msg.id
+		Global.id = msg.id
 		$"../Players".id = msg.id
 		for plrl in msg.players:
 			if plrl.id != id: # we don't want to update ourselves
@@ -43,7 +44,7 @@ func processPacket(data, msg, id):
 				$"../Players".add_child(plr)
 	
 	elif data.type == "ping":
-		latencytext.text = "Latency: " + str(data.timestamp - OS.get_unix_time())
+		latencytext.text = "Latency: " + str(data.timestamp - (OS.get_unix_time() + OS.get_ticks_msec() % 1000))
 	
 	elif data.type == "receive_message":
 		chatbox.text = chatbox.text + "\n[ " + msg.name + " ] " + msg.message
@@ -76,10 +77,7 @@ func processPacket(data, msg, id):
 			player.position.y = msg.position[1]
 	
 	elif data.type == "entity_update":
-		print(msg)
 		if msg.deleted == false:
-			$"../Entities".spawnEntity(msg.type, msg.id, msg.position, msg.size, msg.rotation, msg.velocity)
-			if msg.type == 3:
-				$"../Entities".get_node(str(msg.id)).get_node("Enemy").set("asleep", msg.asleep)
+			$"../Entities".spawnEntity(msg.type, msg.id, msg.position, msg.size, msg.rotation, msg.velocity, msg)
 		else:
 			$"../Entities".deleteEntity(msg.id)

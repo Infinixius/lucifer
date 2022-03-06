@@ -15,6 +15,7 @@ func _ready():
 	client.connect("data_received", self, "on_data")
 
 	# Initiate connection to the given URL.
+	yield(get_tree().create_timer(2), "timeout")
 	client.connect_to_url(Global.IP + ":" + Global.PORT)
 	
 	yield(get_tree().create_timer(1), "timeout")
@@ -24,8 +25,8 @@ func _ready():
 		get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
 		set_process(false)
 
-func closed(was_clean):
-	print("Closed, clean: ", was_clean)
+func closed(_was_clean):
+	print("Closed, clean: ")
 	Global.error = "Connection closed"
 	get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
 	set_process(false)

@@ -6,6 +6,8 @@ var VERSION = "0.7"
 var VERSIONNUM = 22
 var error = ""
 var ingame = false
+var TICKRATE = 0.5
+var id = 0
 var discordActivity
 var settings = {
 	"noclip": false,
