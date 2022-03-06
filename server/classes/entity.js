@@ -1,3 +1,5 @@
+import { CacheManager } from "./CacheManager.js"
+
 export class Entity {
 	constructor(type, pos, size, rotation) {
 		this.type = type
@@ -9,6 +11,7 @@ export class Entity {
 		global.uid++
 		this.id = global.uid
 		this.createdAt = Date.now()
+		this.cache = new CacheManager(this)
 	}
 	move(x, y) {
 		var oldPos = this.position
