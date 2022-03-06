@@ -60,6 +60,7 @@ func processPacket(data, msg, id):
 		$"../TileMap".clear()
 	
 	elif data.type == "tile_update_done":
+		$"../CanvasLayer/Loading".visible = false
 		var tween = $"../Player/AnimatedSprite/Camera2D/Tween"
 		tween.interpolate_property($"../Player/AnimatedSprite/Camera2D", "zoom",
 				Vector2(20, 20), Vector2(1, 1), 1,

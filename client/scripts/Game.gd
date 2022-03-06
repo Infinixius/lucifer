@@ -8,6 +8,7 @@ onready var fpstext = $CanvasLayer/Debug/fps_text
 
 func _ready():
 	$CanvasLayer/Vignette.visible = true # the vignette is disabled in the editor to make it easier to see things, this enables it in the game.
+	$CanvasLayer/Loading.visible = true # same as above
 	Global.ingame = true
 	Global.updateDiscordRPC()
 
