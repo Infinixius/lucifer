@@ -58,6 +58,7 @@ size = 30
 font_data = ExtResource( 7 )
 
 [node name="TitleScreen" type="Node2D"]
+position = Vector2( -2, 0 )
 script = ExtResource( 4 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

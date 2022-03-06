@@ -2,8 +2,8 @@ extends Node
 
 var IP = "localhost"
 var PORT = "8000"
-var VERSION = "0.6.2"
-var VERSIONNUM = 21
+var VERSION = "0.7"
+var VERSIONNUM = 22
 var error = ""
 var ingame = false
 var discordActivity

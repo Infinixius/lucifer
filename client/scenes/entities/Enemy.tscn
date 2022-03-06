@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/entities/enemy/enemy.png" type="Texture" id=2]
-[ext_resource path="res://scenes/entities/Enemy.gd" type="Script" id=3]
+[ext_resource path="res://scripts/Enemy.gd" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 20.0
+radius = 20.6519
 
 [node name="Node2D" type="Node2D"]
 
@@ -16,4 +16,5 @@ light_mask = 2
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+position = Vector2( 1.5, 0.5 )
 shape = SubResource( 1 )
