@@ -79,7 +79,7 @@ export function onMessage(ws, message) { // fired when we get a message
 				var enemy = enemies.enemies.get(data.message.id)
 				if (enemy) {
 					ws.player.bullets.hit(data.message.bullet)
-					enemy.hurt(5)
+					enemy.hurt(5, ws.player)
 				}
 			}
 			break

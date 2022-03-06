@@ -12,6 +12,9 @@ export default class Player {
 		this.maxhealth = 150
 		this.position = [4, 4] // X, Y coordinates of the player
 
+		this.coins = 0
+		this.kills = 0
+
 		this.animation = { // The current animation name and frame of the player.
 			"name": "walk_up",
 			"frame": 0
@@ -46,15 +49,20 @@ export default class Player {
 	}
 	networkUpdate(updatePosition) {
 		this.client.send("player_update", {
-			hp: this.health
+			hp: this.health,
+			maxhp: this.maxhealth,
+			coins: this.coins,
+			kills: this.kills,
+			remaining: enemies.enemies.size
 		})
+
 		if (updatePosition) {
 			this.client.send("player_update", {
 				position: [this.position[0], this.position[1]]
 			})
 		}
 
-		broadcast("player_move", {
+		shadowBroadcast(this.client.id, "player_move", {
 			"id": this.client.id,
 			"x": this.position[0],
 			"y": this.position[1],

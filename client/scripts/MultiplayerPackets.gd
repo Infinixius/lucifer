@@ -71,6 +71,15 @@ func processPacket(data, msg, id):
 	elif data.type == "player_update":
 		if "hp" in msg:
 			$"../CanvasLayer/HUD/HealthBar/TextureProgress".value = int(msg.hp)
+		if "maxhp" in msg:
+			$"../CanvasLayer/HUD/HealthBar/TextureProgress".max_value = int(msg.maxhp)
+		if "coins" in msg:
+			$"../CanvasLayer/HUD/Stats/Coins".text = "Coins: " + str(msg.coins)
+		if "kills" in msg:
+			$"../CanvasLayer/HUD/Stats/Kills".text = "Enemies Killed: " + str(msg.kills)
+		if "remaining" in msg:
+			$"../CanvasLayer/HUD/Stats/Enemies".text = "Enemies Left: " + str(msg.remaining)
+		
 		if "position" in msg:
 			player.position = player.get_global_position()
 			player.position.x = msg.position[0]
