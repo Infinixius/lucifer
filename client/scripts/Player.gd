@@ -9,12 +9,6 @@ onready var Multiplayer = $"../Players"
 onready var velocitytext = $"../CanvasLayer/Debug/velocity_text"
 onready var bulletspawn = $BulletSpawn
 onready var camera = $AnimatedSprite/Camera2D
-onready var enemy = $"../Enemy"
-
-onready var angle_x = 0
-onready var angle_y = 0
-onready var enemyid = 0
-onready var enemy_angle = 0
 
 var velocity = Vector2()
 var speedvel = 1000
@@ -77,10 +71,11 @@ func _physics_process(delta):
 	var space_state = get_world_2d().direct_space_state
 	for entity in $"../Entities".get_children():
 		if entity.get_node_or_null("Enemy"):
-			var result = space_state.intersect_ray(self.position, entity.position, [self])
-			print(result)
-			if result.size() == 0:
-				$"../Players".send("enemy_seen", entity.name)
+			var enemyPos = Vector2(entity.get_node("Enemy").position.x + 16, entity.get_node("Enemy").position.y + 16)
+			if enemyPos.distance_to(self.position) < 512:
+				var result = space_state.intersect_ray(self.position, enemyPos, [self, entity.get_node("Enemy")])
+				if result.size() == 0:
+					$"../Players".send("enemy_seen", entity.name)
 	
 	if velocity == Vector2(0,0):
 		sprite.stop()
