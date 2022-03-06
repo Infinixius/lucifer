@@ -46,6 +46,19 @@ export function command(string) {
 				Logger.log(`Couldn't find player ID #${args[0]}`)
 			}
 			break
+		case "eval":
+			var code = args.join(" ")
+			var result
+			
+			try {
+				result = eval(code)
+			} catch(err) {
+				result = err
+			}
+
+			if (!result) result = "No result"
+			Logger.log(result.toString())
+			break
 		default:
 			Logger.log(`Unknown command "${commandName}".`)
 	}
