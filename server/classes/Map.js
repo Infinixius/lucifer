@@ -26,7 +26,8 @@ export default class Map {
 			this.rooms.push(getAdjacentRoom(this.rooms))
 		}
 
-		Jimp.read("./assets/rooms.png", (err, image) => {
+		var imagePath = path.join(path.dirname(fileURLToPath(import.meta.url)), "/../assets/rooms.png") // this weird trick is required because you can't normally read rooms.png when a lan game is started from the client
+		Jimp.read(imagePath, (err, image) => {
 			if (err) return error(`Failed to load rooms.png!!! Level cannot be generated Error: "${err}"`)
 			
 			for (const room of this.rooms) {

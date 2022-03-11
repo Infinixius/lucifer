@@ -23,6 +23,9 @@ func _ready():
 	FadeIn.visible = true
 	Global.updateDiscordRPC()
 	
+	if Global.langameprocess != 0:
+		OS.kill(Global.langameprocess)
+	
 	if Global.error != "":
 		$CanvasLayer/Play/Error.text = Global.error
 		Global.error = ""
@@ -42,27 +45,27 @@ func _process(delta):
 	elif transparency < 0.0:
 		FadeIn.visible = false
 
+func _input(event):
+	if event.is_action_pressed("sendchat"):
+		FadeIn.visible = false
+		transparency = 0.0
 
 func _on_Options_pressed():
 	var options_menu = load("res://scenes/game/OptionsMenu.tscn").instance()
 	$CanvasLayer.add_child(options_menu)
 	$CanvasLayer/OptionsMenu.connect("CloseOptionsMenu", self,("CloseOptionsMenu"))
 
-func _on_About_pressed():
-	pass
-
 func _on_Exit_pressed():
 	get_tree().quit()
 
-func update_activity() -> void:
-	var activity = Discord.Activity.new()
-	activity.set_type(Discord.ActivityType.Playing)
-	activity.set_state("In the main menu")
-	
-	var assets = activity.get_assets()
-	assets.set_large_image("icon")
-	assets.set_large_text("Lucifer")
-	
-	var result = yield(Discord.activity_manager.update_activity(activity), "result").result
-	if result != Discord.Result.Ok:
-		push_error(str(result))
+func _on_Input_Name_text_changed(new_text):
+	Global.settings.name = NAME.text
+	Global.saveSettings()
+
+func _on_StartLAN_pressed():
+	Global.langameprocess = OS.execute("node", ["--experimental-json-modules", "C:\\Users\\infi\\Development\\Projects\\lucifer\\server\\index.js"], false)
+	Global.IP = "http://localhost"
+	Global.PORT = "6666"
+	Global.settings.name = NAME.text
+	Global.saveSettings()
+	get_tree().change_scene("res://scenes/game/Game.tscn")
