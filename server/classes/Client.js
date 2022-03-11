@@ -4,10 +4,17 @@ export default class Client {
         this.req = req
         this.id = id
         this.ip = req.socket.remoteAddress
+		this.kicked = false
 
         if (req.headers["x-forwarded-for"]) {
             this.ip = req.headers["x-forwarded-for"].split(",")[0].trim() // x-forwarded-for must be used if the server is running behind a reverse proxy
         }
+
+		setInterval(() => {
+			if (Date.now() - this.lastMessage > config.playerIdleTime) {
+				this.kick("Timed out")
+			}
+		}, config.tickRate)
 	}
 
     fetchPlayer() {
@@ -28,4 +35,11 @@ export default class Client {
 			}
 		}, config.fakeLag)
     }
+
+	kick(message) {
+		if (this.kicked) return
+		this.kicked = true
+		this.ws.close(1000, message ?? "No message provided.")
+		Logger.log(`Client #${this.id} was kicked for reason "${message ?? "No message provided."}"`)
+	}
 }

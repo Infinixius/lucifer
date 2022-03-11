@@ -1,18 +1,24 @@
 import Player from "../classes/Player.js"
 import Client from "../classes/Client.js"
+import npmpackage from "../package.json"
 
 export function onJoin(ws, req) { // fired when a player joins
 	playerID++
 	ws.client = new Client(ws, req, playerID)
-	ws.player = new Player(ws.client)
+	ws.player = new Player(ws.client, ws.client.options.get("username"))
 
 	Logger.log(`Client connected! ID: "${playerID}" IP: "${ws.client.ip}"`)
+
+	if (ws.client.options.get("version") != npmpackage.version) {
+		return ws.client.kick(`Mismatched version. This server is on ${npmpackage.version}.`)
+	}
 	clients.push(ws.client)
 
 	let playerArray = []
 	for (const client of clients) {
 		playerArray.push({
 			"id": client.id,
+			"name": client.fetchPlayer().name,
 			"position": client.fetchPlayer().position
 		})
 	}
@@ -24,7 +30,8 @@ export function onJoin(ws, req) { // fired when a player joins
 	})
 	enemies.networkUpdate(true)
 	broadcast("player_connect", {
-		"id": ws.client.id
+		"id": ws.client.id,
+		"name": ws.player.name
 	})
 	map.send(ws)
 
@@ -38,15 +45,13 @@ export function onJoin(ws, req) { // fired when a player joins
 	}, config.pingInterval)
 }
 
-export function onMessage(ws, message) { // fired when we get a message
-	if (typeof message == "object") {
-		Logger.debug(`Raw message received from client #${ws.client.id}: "${JSON.stringify(message.toString())}"`)
-	} else {
-		Logger.debug(`Raw message received from client #${ws.client.id}: "${message.toString()}"`)
-	}
+export function onMessage(ws, message) { // fired when we get a message//
+	Logger.debug(`Raw message received from client #${ws.client.id}: "${message.toString()}"`)
 	try { var data = JSON.parse(message.toString()) } catch (err) {
-		return Logger.error(`Failed to parse data received from client #${ws.client.id}! Error: ${err}`)
+		return Logger.error(`Failed to parse data received from client #${ws.client.id}! Data: "${message.toString()}" Error: ${err}`)
 	}
+
+	ws.client.lastMessage = Date.now()
 
 	switch (data.type) {	 
 		case "player_move":
@@ -79,7 +84,7 @@ export function onMessage(ws, message) { // fired when we get a message
 				var enemy = enemies.enemies.get(data.message.id)
 				if (enemy) {
 					ws.player.bullets.hit(data.message.bullet)
-					enemy.hurt(5, ws.player)
+					enemy.hurt(15, ws.player.id)
 				}
 			}
 			break

@@ -6,6 +6,7 @@ onready var messagebox = $"../CanvasLayer/Chat/Message"
 onready var connectedtext = $"../CanvasLayer/Debug/connected_text"
 
 var id = 0 # our client's id, sent to us form the server with player_initalize
+var kicked = false
 var client = WebSocketClient.new()
 
 func _ready():
@@ -13,6 +14,7 @@ func _ready():
 	client.connect("connection_error", self, "closed")
 	client.connect("connection_established", self, "connected")
 	client.connect("data_received", self, "on_data")
+	client.connect("server_close_request", self, "kicked")
 
 	# Initiate connection to the given URL.
 	yield(get_tree().create_timer(2), "timeout")
@@ -25,11 +27,18 @@ func _ready():
 		get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
 		set_process(false)
 
-func closed(_was_clean):
-	print("Closed, clean: ")
-	Global.error = "Connection closed"
+func kicked(code, reason):
+	kicked = true
+	Global.error = "Kicked from server: " + str(reason)
 	get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
 	set_process(false)
+
+func closed(_was_clean):
+	if not kicked:
+		print("Connection closed!")
+		Global.error = "Connection closed"
+		get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
+		set_process(false)
 
 func connected(_proto):
 	print("Connected to server!")
