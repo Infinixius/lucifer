@@ -1,3 +1,5 @@
+import { avoidCircularReference } from "../modules/utils.js"
+
 export default class Client {
 	constructor(ws, req, id) {
 		this.ws = ws
@@ -31,13 +33,14 @@ export default class Client {
     
     send(type, message) {
         setTimeout(() => {
-			this.ws.send(JSON.stringify({
+			var toSerialize = {
 				"type": type,
 				"timestamp": Date.now(),
 				"message": message
-			}))
+			}
+			this.ws.send(JSON.stringify(toSerialize, avoidCircularReference(toSerialize)))
 			if (typeof message == "object") {
-				Logger.debug(`Sent client #${this.id} message with type "${type}": "${JSON.stringify(message)}"`)
+				Logger.debug(`Sent client #${this.id} message with type "${type}": "${JSON.stringify(message, avoidCircularReference(message))}"`)
 			} else {
 				Logger.debug(`Sent client #${this.id} message with type "${type}": "${message}"`)
 			}

@@ -1,4 +1,5 @@
 import { WebSocketServer } from "ws"
+import { avoidCircularReference } from "./modules/utils.js"
 import config from "./config.json"
 import "./assets/keylimepie.js"
 
@@ -37,17 +38,26 @@ setInterval(() => {
 global.broadcast = function(type, message) {
 	setTimeout(() => {
 		if (typeof message == "object") {
-			Logger.debug(`Broadcasted message to every client with type "${type}": "${JSON.stringify(message)}"`)
+			try {
+				Logger.debug(`Broadcasted message to every client with type "${type}": "${JSON.stringify(message, avoidCircularReference(message))}"`)
+			} catch (err) {
+				Logger.debug(`Broadcasted message to every client with type "${type}": "${message}"`)
+			}
 		} else {
 			Logger.debug(`Broadcasted message to every client with type "${type}": "${message}"`)
 		}
 		
 		wss.clients.forEach((client) => {
-			client.send(JSON.stringify({
-				"type": type,
-				"timestamp": Date.now(),
-				"message": message
-			}))
+			try {
+				var toSerialize = {
+					"type": type,
+					"timestamp": Date.now(),
+					"message": message
+				}
+				client.send(JSON.stringify(toSerialize, avoidCircularReference(toSerialize)))
+			} catch (err) {
+				Logger.warn(`Failed to send message to all clients! Message: ${toSerialize}`)
+			}
 		})
 	}, config.fakeLag)
 }
@@ -55,18 +65,23 @@ global.broadcast = function(type, message) {
 global.shadowBroadcast = function(id, type, message) { // send a message to every client except one
 	setTimeout(() => {
 		if (typeof message == "object") {
-			Logger.debug(`Shadowbroadcasted message to every client (except #${id}) with type "${type}": "${JSON.stringify(message)}"`)
+			Logger.debug(`Shadowbroadcasted message to every client (except #${id}) with type "${type}": "${JSON.stringify(message, avoidCircularReference(message))}"`)
 		} else {
 			Logger.debug(`Shadowbroadcasted message to every client (except #${id}) with type "${type}": "${message}"`)
 		}
 		
 		wss.clients.forEach((client) => {
 			if (client.id == id) return
-			client.send(JSON.stringify({
-				"type": type,
-				"timestamp": Date.now(),
-				"message": message
-			}))
+			try {
+				var toSerialize = {
+					"type": type,
+					"timestamp": Date.now(),
+					"message": message
+				}
+				client.send(JSON.stringify(toSerialize, avoidCircularReference(toSerialize)))
+			} catch (err) {
+				Logger.warn(`Failed to send message to all clients! Message: ${toSerialize}`)
+			}
 		})
 	}, config.fakeLag)
 }

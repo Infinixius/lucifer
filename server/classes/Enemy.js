@@ -11,6 +11,7 @@ export default class Enemy extends Entity {
 		this.health = 50
 	}
 	hurt(hp, killer) {
+		this.awaken(killer)
 		var remaining = Math.round(this.health - hp)
 		if (remaining < 0) {
 			this.health = 0
@@ -22,8 +23,12 @@ export default class Enemy extends Entity {
 	kill(killer) {
 		if (this.deleted) return
 		this.deleted = true
-		killer.coins += lime.random(1,5)
-		killer.kills ++
+
+		var client = clients.find(client => client.id == killer)
+		if (!client) return
+
+		client.player.coins += lime.random(1,5)
+		client.player.kills ++
 	}
 	awaken(playerID) {
 		this.asleep = false

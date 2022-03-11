@@ -2,7 +2,6 @@ import Bullet from "./Bullet.js"
 
 export default class BulletFactory {
 	constructor(player) {
-		this.player = player
 		this.bullets = new Map()
 
 		this.lastShot = 0
