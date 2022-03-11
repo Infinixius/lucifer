@@ -4,7 +4,15 @@ export default class Client {
         this.req = req
         this.id = id
         this.ip = req.socket.remoteAddress
+		this.options = null
+		this.lastMessage = Date.now()
 		this.kicked = false
+
+		try {
+			this.options = new URL(req.url, `http://${req.headers.host}`).searchParams
+		} catch (err) {
+			Logger.error(`Failed to process options for player #${this.id}! URL: "${req.url}" Error: ${err}`)
+		}
 
         if (req.headers["x-forwarded-for"]) {
             this.ip = req.headers["x-forwarded-for"].split(",")[0].trim() // x-forwarded-for must be used if the server is running behind a reverse proxy

@@ -1,12 +1,10 @@
 import { log } from "../modules/logger.js"
 import BulletFactory from "./BulletFactory.js"
 
-const names = ["testname1", "testname2", "testname3", "testname4", "testname5"]
-
 export default class Player {
-	constructor(client) {
+	constructor(client, name) {
 		this.client = client // The client is another class, that includes information such as the player's IP address.
-		this.name = names.random() // Chooses a random name from a predefined list that the player can change later.
+		this.name = name
 
 		this.health = 150
 		this.maxhealth = 150

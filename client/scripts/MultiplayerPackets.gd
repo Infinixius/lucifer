@@ -3,16 +3,16 @@ extends Node
 onready var chatbox = $"../CanvasLayer/Chat/Messages"
 onready var latencytext = $"../CanvasLayer/Debug/latency_text"
 onready var player = $"../Player"
+var NetworkPlayer = load("res://scenes/entities/NetworkPlayer.tscn")
 
 var id = 0
 
 func processPacket(data, msg, id):
 	if data.type == "player_connect":
 		if msg.id != id: # we don't want to update ourselves
-			var plr = AnimatedSprite.new()
-			plr.scale = Vector2(2,2)
-			plr.frames = load("res://assets/data/animations/player_animations.res")
+			var plr = NetworkPlayer.instance()
 			plr.name = str(msg.id)
+			plr.get_node("AnimatedSprite").get_node("Name").text = str(msg.name)
 			$"../Players".add_child(plr)
 	
 	elif data.type == "player_disconnect":
@@ -23,11 +23,9 @@ func processPacket(data, msg, id):
 		if !msg.id == id: # we don't want to update ourselves
 			var plr = $"../Players".get_node_or_null(str(msg.id))
 			if plr:
-				plr.position = plr.get_global_position()
-				plr.position.x = msg.x + 16
-				plr.position.y = msg.y + 16
-				plr.animation = msg.animation
-				plr.frame = msg.animationframe
+				plr.position = Vector2(msg.x + 16, msg.y + 16)
+				plr.get_node("AnimatedSprite").animation = msg.animation
+				plr.get_node("AnimatedSprite").frame = msg.animationframe
 	
 	elif data.type == "player_initalize":
 		id = msg.id
@@ -35,12 +33,10 @@ func processPacket(data, msg, id):
 		$"../Players".id = msg.id
 		for plrl in msg.players:
 			if plrl.id != id: # we don't want to update ourselves
-				var plr = AnimatedSprite.new()
-				plr.scale = Vector2(2,2)
-				plr.frames = load("res://assets/data/animations/player_animations.res")
+				var plr = NetworkPlayer.instance()
 				plr.name = str(plrl.id)
-				plr.position.x = plr.position[0]
-				plr.position.y = plr.position[1]
+				plr.get_node("AnimatedSprite").get_node("Name").text = str(plrl.name)
+				plr.position = Vector2(plrl.position[0], plrl.position[1])
 				$"../Players".add_child(plr)
 	
 	elif data.type == "ping":
@@ -57,6 +53,10 @@ func processPacket(data, msg, id):
 	elif data.type == "tile_update":
 		$"../TileMap".set_cell(msg.x, msg.y, msg.tile)
 	
+	elif data.type == "tile_update_chunk":
+		for tile in msg.tiles:
+			$"../TileMap".set_cell(tile.x, tile.y, tile.tile)
+	
 	elif data.type == "tile_reset":
 		$"../TileMap".clear()
 	
@@ -64,7 +64,7 @@ func processPacket(data, msg, id):
 		$"../CanvasLayer/Loading".visible = false
 		var tween = $"../Player/AnimatedSprite/Camera2D/Tween"
 		tween.interpolate_property($"../Player/AnimatedSprite/Camera2D", "zoom",
-				Vector2(20, 20), Vector2(1, 1), 1,
+				Vector2(20, 20), Vector2(0.6, 0.6), 1,
 				Tween.TRANS_QUART, Tween.EASE_IN)
 		tween.start()
 	
