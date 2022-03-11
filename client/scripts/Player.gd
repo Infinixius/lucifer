@@ -68,14 +68,15 @@ func _physics_process(delta):
 		$"../CanvasModulate".color = Color8(255, 255, 255)
 		$"../CanvasLayer/Vignette".visible = false
 	
-	var space_state = get_world_2d().direct_space_state
-	for entity in $"../Entities".get_children():
-		if entity.get_node_or_null("Enemy"):
-			var enemyPos = Vector2(entity.get_node("Enemy").position.x + 16, entity.get_node("Enemy").position.y + 16)
-			if enemyPos.distance_to(self.position) < 512:
-				var result = space_state.intersect_ray(self.position, enemyPos, [self, entity.get_node("Enemy")])
-				if result.size() == 0:
-					$"../Players".send("enemy_seen", entity.name)
+	if not Global.settings.silent:
+		var space_state = get_world_2d().direct_space_state
+		for entity in $"../Entities".get_children():
+			if entity.get_node_or_null("Enemy"):
+				var enemyPos = Vector2(entity.get_node("Enemy").position.x + 16, entity.get_node("Enemy").position.y + 16)
+				if enemyPos.distance_to(self.position) < 512:
+					var result = space_state.intersect_ray(self.position, enemyPos, [self, entity.get_node("Enemy")])
+					if result.size() == 0:
+						$"../Players".send("enemy_seen", entity.name)
 	
 	if velocity == Vector2(0,0):
 		sprite.stop()

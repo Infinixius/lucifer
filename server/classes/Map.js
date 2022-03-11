@@ -1,3 +1,5 @@
+import path from "path"
+import { fileURLToPath } from "url"
 import Jimp from "jimp"
 import { log, error } from "../modules/logger.js"
 import { getTile, TileMap } from "./TileMap.js"
@@ -64,7 +66,7 @@ export default class Map {
 				}
 			}
 			log(`Generated map with ${this.tiles.all().length} tiles in ${Date.now() - timestamp}ms!`)
-			enemies.spawnEnemies(this, 250)
+			enemies.spawnEnemies(this, 50)
 		})
 	}
 	send(ws) {

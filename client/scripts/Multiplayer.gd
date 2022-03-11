@@ -18,9 +18,9 @@ func _ready():
 
 	# Initiate connection to the given URL.
 	yield(get_tree().create_timer(2), "timeout")
-	client.connect_to_url(Global.IP + ":" + Global.PORT)
+	client.connect_to_url(Global.IP + ":" + Global.PORT + "/?username=" + Global.settings.name + "&version=" + Global.VERSION)
 	
-	yield(get_tree().create_timer(1), "timeout")
+	yield(get_tree().create_timer(5), "timeout")
 	
 	if id == 0:
 		Global.error = "Can't connect"
@@ -53,10 +53,13 @@ func on_data():
 	var raw = client.get_peer(1).get_packet().get_string_from_utf8()
 	var json = JSON.parse(raw)
 	var data = json.result
-	var msg = data.message
-	
 	if json.error == OK:
-		$"../Packets".processPacket(data, msg, id)
+		if "message" in data:
+			var msg = data.message
+			$"../Packets".processPacket(data, msg, id)
+		else:
+			var msg = data[0]
+			$"../Packets".processPacket(data, msg, id)
 	else:
 		print(json.error)
 		print("Error Line: ", json.error_line)
