@@ -59,6 +59,19 @@ export function command(string) {
 			if (!result) result = "No result"
 			Logger.log(result.toString())
 			break
+		case "config":
+			var option = args[0]
+			if (config[option]) {
+				args.shift()
+
+				var result = args.join(" ")
+				config[option] = result
+
+				Logger.log(`Set ${option} to ${result}`)
+			} else {
+				Logger.log("No such config option exists!")
+			}
+			break
 		default:
 			Logger.log(`Unknown command "${commandName}".`)
 	}
