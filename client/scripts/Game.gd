@@ -4,7 +4,7 @@ onready var body = $Player
 onready var tile_map = $TileMap
 onready var pos_text = $CanvasLayer/Debug/position_text
 onready var rawpos_text = $CanvasLayer/Debug/rawposition_text
-onready var fpstext = $CanvasLayer/Debug/fps_text
+onready var fpstext = $CanvasLayer/HUD/FPS
 
 func _ready():
 	$CanvasLayer/Vignette.visible = true # the vignette is disabled in the editor to make it easier to see things, this enables it in the game.

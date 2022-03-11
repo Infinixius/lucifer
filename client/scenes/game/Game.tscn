@@ -340,48 +340,38 @@ scale = Vector2( 15, 8.4375 )
 texture = ExtResource( 2 )
 
 [node name="Debug" type="Control" parent="CanvasLayer"]
-anchor_left = 0.868
+anchor_left = 0.87
+anchor_top = 0.021
 anchor_right = 1.0
-anchor_bottom = 0.153
-margin_left = -0.560059
-margin_bottom = -0.240005
-__meta__ = {
-"_edit_use_anchors_": false
-}
+anchor_bottom = 0.171
+margin_left = -4.40015
+margin_top = 0.319998
+margin_bottom = 0.319992
 
 [node name="position_text" type="Label" parent="CanvasLayer/Debug"]
 anchor_right = 0.397
 anchor_bottom = 0.104
-margin_right = 1.023
-margin_bottom = 6.84
+margin_left = 147.0
+margin_top = 2.0
+margin_right = 148.023
+margin_bottom = 9.152
+grow_horizontal = 0
 custom_fonts/font = SubResource( 11 )
 text = "Position:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="fps_text" type="Label" parent="CanvasLayer/Debug"]
-anchor_top = 0.198
-anchor_right = 0.397
-anchor_bottom = 0.302
-margin_top = 5.33
-margin_right = 0.0229607
-margin_bottom = 12.17
-custom_fonts/font = SubResource( 11 )
-text = "FPS:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+align = 2
 
 [node name="rawposition_text" type="Label" parent="CanvasLayer/Debug"]
 anchor_top = 0.104
 anchor_right = 0.603
 anchor_bottom = 0.207
-margin_top = 1.84
-margin_right = 2.977
-margin_bottom = 8.845
+margin_left = 93.0
+margin_top = 7.152
+margin_right = 95.977
+margin_bottom = 14.466
+grow_horizontal = 0
 custom_fonts/font = SubResource( 11 )
 text = "Raw Position:"
+align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -390,12 +380,15 @@ __meta__ = {
 anchor_top = 0.303
 anchor_right = 0.418
 anchor_bottom = 0.406
-margin_top = 7.005
-margin_right = 4.062
-margin_bottom = 14.01
+margin_left = 139.0
+margin_top = -2.086
+margin_right = 143.062
+margin_bottom = 5.228
+grow_horizontal = 0
 rect_pivot_offset = Vector2( 45.1321, -34.5946 )
 custom_fonts/font = SubResource( 11 )
 text = "Velocity: "
+align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -404,12 +397,15 @@ __meta__ = {
 anchor_top = 0.696
 anchor_right = 0.418
 anchor_bottom = 0.8
-margin_top = -16.84
-margin_right = 0.0619965
-margin_bottom = -9.99998
+margin_left = 143.0
+margin_top = 0.248001
+margin_right = 143.062
+margin_bottom = 7.39999
+grow_horizontal = 0
 rect_pivot_offset = Vector2( 36.6277, 1.84822 )
 custom_fonts/font = SubResource( 11 )
 text = "Latency:"
+align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -418,12 +414,15 @@ __meta__ = {
 anchor_top = 0.593
 anchor_right = 0.674
 anchor_bottom = 0.696
-margin_top = -15.845
-margin_right = 7.966
-margin_bottom = -8.84
+margin_left = 70.0
+margin_top = -6.06599
+margin_right = 77.966
+margin_bottom = 1.24801
+grow_horizontal = 0
 rect_pivot_offset = Vector2( 36.6277, 1.84822 )
 custom_fonts/font = SubResource( 11 )
 text = "Not Connected"
+align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -469,9 +468,6 @@ __meta__ = {
 [node name="HUD" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HealthBar" type="Control" parent="CanvasLayer/HUD"]
 anchor_right = 0.056
@@ -521,6 +517,19 @@ margin_bottom = 73.0
 custom_colors/font_color = Color( 0.568627, 0.72549, 1, 1 )
 custom_fonts/font = SubResource( 16 )
 text = "Enemies Left: 0"
+
+[node name="FPS" type="Label" parent="CanvasLayer/HUD"]
+anchor_top = 0.198
+anchor_right = 0.397
+anchor_bottom = 0.302
+margin_left = 1846.0
+margin_top = -213.84
+margin_right = 1157.76
+margin_bottom = -301.16
+grow_horizontal = 0
+custom_fonts/font = SubResource( 11 )
+text = "FPS:"
+align = 2
 
 [node name="GameMenu" type="Control" parent="CanvasLayer"]
 visible = false
@@ -704,6 +713,8 @@ stream = ExtResource( 34 )
 
 [node name="EnemyHit" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 35 )
+
+[node name="Tween" type="Tween" parent="."]
 
 [connection signal="pressed" from="CanvasLayer/Chat/Send" to="Players" method="_on_Send_pressed"]
 [connection signal="pressed" from="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer/Resume" to="." method="_on_Resume_pressed"]

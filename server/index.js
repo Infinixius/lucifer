@@ -3,7 +3,7 @@ import config from "./config.json"
 import "./assets/keylimepie.js"
 
 import * as Logger from "./modules/logger.js"
-import { consoleCommand 	} from "./modules/commands.js"
+import { consoleCommand } from "./modules/commands.js"
 import { onJoin } from "./modules/events.js"
 import Map from "./classes/map.js"
 import EnemyFactory from "./classes/EnemyFactory.js"
@@ -21,7 +21,7 @@ global.Logger = Logger
 global.playerID = 0
 global.uid = 0 // a unique identifier used for enemies, bullets, etc
 global.clients = []
-global.map = new Map(500, 500, 32, 50)
+global.map = new Map(1000, 1000, 64, 50)
 global.enemies = new EnemyFactory()
 
 setInterval(() => {

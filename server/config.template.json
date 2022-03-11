@@ -1,15 +1,18 @@
 {
-	"port": 8080,
+	"port": 6666,
 	"dev": false,
 
 	"fakeLag": 0,
-	"tickRate": 15,
+	"tickRate": 150,
 
 	"pingInterval": 150,
-	"shootCooldown": 150,
+	"shootCooldown": 350,
 	"bulletLifespan": 5000,
+	"enemyForgetTime": 5000,
+	"playerIdleTime": 10000,
 
-	"logs_format": "[%time][%TYPE] - %log",
-	"logs_file_format": "./logs/%date-%time.log",
-	"logs_enable_debug": true
+	"logsFolder": "./logs",
+	"logsFormat": "[%time][%TYPE] - %log",
+	"logsFileFormat": "./logs/%date-%time.log",
+	"logsEnableDebug": true
 }

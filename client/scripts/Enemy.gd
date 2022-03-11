@@ -19,7 +19,7 @@ func _process(delta):
 	else:
 		get_node("Sprite").modulate = Color(0,1,0)
 	
-	if time > Global.TICKRATE and ownerID == Global.id:
+	if time > Global.settings.tickRate and ownerID == Global.id:
 		update()
 		time = 0
 

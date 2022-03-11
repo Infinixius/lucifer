@@ -1,12 +1,17 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/ui/MenuBackground.png" type="Texture" id=1]
 [ext_resource path="res://assets/ui/Button_Pressed.png" type="Texture" id=2]
 [ext_resource path="res://assets/ui/Button_Unpressed.png" type="Texture" id=3]
 [ext_resource path="res://scripts/OptionsMenu.gd" type="Script" id=4]
 [ext_resource path="res://assets/ui/fonts/Jost-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://assets/ui/fonts/Jost-Bold.ttf" type="DynamicFontData" id=6]
 
 [sub_resource type="Theme" id=2]
+
+[sub_resource type="DynamicFont" id=3]
+size = 24
+font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 5 )
@@ -40,69 +45,109 @@ patch_margin_left = 30
 patch_margin_top = 38
 patch_margin_right = 30
 patch_margin_bottom = 36
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Main" type="VBoxContainer" parent="."]
-margin_left = 8.0
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_left = 9.0
 margin_top = 8.0
 margin_right = 584.0
-margin_bottom = 384.0
+margin_bottom = 351.0
+
+[node name="Main" type="VBoxContainer" parent="ScrollContainer"]
+margin_right = 563.0
+margin_bottom = 414.0
 size_flags_horizontal = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Noclip" type="CheckButton" parent="Main"]
-margin_right = 576.0
-margin_bottom = 40.0
-text = "Noclip"
+[node name="Label2" type="Label" parent="ScrollContainer/Main"]
+margin_right = 563.0
+margin_bottom = 35.0
+custom_fonts/font = SubResource( 3 )
+text = "Options"
 
-[node name="Lighting" type="CheckButton" parent="Main"]
-margin_top = 44.0
-margin_right = 576.0
-margin_bottom = 84.0
+[node name="Fullscreen" type="CheckButton" parent="ScrollContainer/Main"]
+margin_top = 39.0
+margin_right = 563.0
+margin_bottom = 79.0
+pressed = true
+text = "Fullscreen"
+
+[node name="Lighting" type="CheckButton" parent="ScrollContainer/Main"]
+margin_top = 83.0
+margin_right = 563.0
+margin_bottom = 123.0
 pressed = true
 text = "Lighting/Visual Effects"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Discord" type="CheckButton" parent="Main"]
-margin_top = 88.0
-margin_right = 576.0
-margin_bottom = 128.0
+[node name="Discord" type="CheckButton" parent="ScrollContainer/Main"]
+margin_top = 127.0
+margin_right = 563.0
+margin_bottom = 167.0
 text = "Discord Rich Presence"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DevOptions" type="CheckButton" parent="Main"]
-margin_top = 132.0
-margin_right = 576.0
-margin_bottom = 172.0
+[node name="DevOptions" type="CheckButton" parent="ScrollContainer/Main"]
+margin_top = 171.0
+margin_right = 563.0
+margin_bottom = 211.0
 text = "Developer Options"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Main"]
-margin_top = 176.0
-margin_right = 576.0
-margin_bottom = 190.0
+[node name="Label" type="Label" parent="ScrollContainer/Main"]
+margin_top = 215.0
+margin_right = 563.0
+margin_bottom = 229.0
 text = "  Volume"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Volume" type="HSlider" parent="Main"]
-margin_top = 194.0
-margin_right = 576.0
-margin_bottom = 210.0
+[node name="Volume" type="HSlider" parent="ScrollContainer/Main"]
+margin_top = 233.0
+margin_right = 563.0
+margin_bottom = 249.0
 max_value = 1.0
 step = 0.01
 value = 0.5
+
+[node name="Label3" type="Label" parent="ScrollContainer/Main"]
+margin_top = 253.0
+margin_right = 563.0
+margin_bottom = 267.0
+text = "  Client-Side Tickrate"
+
+[node name="TickRate" type="HSlider" parent="ScrollContainer/Main"]
+margin_top = 271.0
+margin_right = 563.0
+margin_bottom = 287.0
+min_value = 0.01
+max_value = 0.99
+step = 0.01
+value = 0.5
+
+[node name="Label4" type="Label" parent="ScrollContainer/Main"]
+margin_top = 291.0
+margin_right = 563.0
+margin_bottom = 326.0
+custom_fonts/font = SubResource( 3 )
+text = "Cheats"
+
+[node name="Noclip" type="CheckButton" parent="ScrollContainer/Main"]
+margin_top = 330.0
+margin_right = 563.0
+margin_bottom = 370.0
+text = "Noclip"
+
+[node name="Silent" type="CheckButton" parent="ScrollContainer/Main"]
+margin_top = 374.0
+margin_right = 563.0
+margin_bottom = 414.0
+text = "Silent Monsters"
 
 [node name="Exit" type="TextureButton" parent="."]
 margin_left = 12.0
@@ -130,10 +175,12 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[connection signal="toggled" from="Main/Noclip" to="." method="_on_Noclip_toggled"]
-[connection signal="toggled" from="Main/Lighting" to="." method="_on_Lighting_toggled"]
-[connection signal="toggled" from="Main/Discord" to="." method="_on_Discord_toggled"]
-[connection signal="toggled" from="Main/DevOptions" to="." method="_on_DevOptions_toggled"]
-[connection signal="resized" from="Main/Volume" to="." method="release_focus"]
-[connection signal="value_changed" from="Main/Volume" to="." method="_on_Volume_value_changed"]
+[connection signal="toggled" from="ScrollContainer/Main/Fullscreen" to="." method="_on_Fullscreen_toggled"]
+[connection signal="toggled" from="ScrollContainer/Main/Lighting" to="." method="_on_Lighting_toggled"]
+[connection signal="toggled" from="ScrollContainer/Main/Discord" to="." method="_on_Discord_toggled"]
+[connection signal="toggled" from="ScrollContainer/Main/DevOptions" to="." method="_on_DevOptions_toggled"]
+[connection signal="value_changed" from="ScrollContainer/Main/Volume" to="." method="_on_Volume_value_changed"]
+[connection signal="value_changed" from="ScrollContainer/Main/TickRate" to="." method="_on_TickRate_value_changed"]
+[connection signal="toggled" from="ScrollContainer/Main/Noclip" to="." method="_on_Noclip_toggled"]
+[connection signal="toggled" from="ScrollContainer/Main/Silent" to="." method="_on_Silent_toggled"]
 [connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]

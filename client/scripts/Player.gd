@@ -39,11 +39,11 @@ func get_input():
 			Multiplayer.shoot(direction)
 		check_direction_walk()
 	if Input.is_action_just_released("zoom_in"):
-		if camera.zoom > Vector2(0.15, 0.15):
-			camera.zoom = camera.zoom - Vector2(0.15, 0.15)
+		if camera.zoom > Vector2(0.1, 0.1):
+			camera.zoom = camera.zoom - Vector2(0.1, 0.1)
 	if Input.is_action_just_released("zoom_out"):
 		if camera.zoom < Vector2(1, 1):
-			camera.zoom = camera.zoom + Vector2(0.15, 0.15)
+			camera.zoom = camera.zoom + Vector2(0.1, 0.1)
 	
 	velocity = velocity.normalized() * speed
 	sprite.play("walk_" + direction_walk)

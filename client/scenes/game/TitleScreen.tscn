@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://assets/meta/background.png" type="Texture" id=1]
 [ext_resource path="res://assets/meta/title.png" type="Texture" id=2]
@@ -17,6 +17,190 @@
 [ext_resource path="res://assets/ui/Button_Pressed.png" type="Texture" id=15]
 [ext_resource path="res://assets/ui/MenuBackground.png" type="Texture" id=16]
 [ext_resource path="res://assets/ui/Button_Unpressed.png" type="Texture" id=17]
+[ext_resource path="res://assets/data/bganimation3.png" type="Texture" id=18]
+[ext_resource path="res://assets/data/bganimation7.png" type="Texture" id=19]
+[ext_resource path="res://scripts/BGAnimation.gd" type="Script" id=20]
+[ext_resource path="res://assets/data/bganimation1.png" type="Texture" id=21]
+[ext_resource path="res://assets/data/bganimation5.png" type="Texture" id=22]
+[ext_resource path="res://assets/data/bganimation8.png" type="Texture" id=23]
+[ext_resource path="res://assets/data/bganimation9.png" type="Texture" id=24]
+[ext_resource path="res://assets/data/bganimation6.png" type="Texture" id=25]
+[ext_resource path="res://assets/data/bganimation10.png" type="Texture" id=26]
+[ext_resource path="res://assets/data/bganimation2.png" type="Texture" id=27]
+[ext_resource path="res://assets/data/bganimation4.png" type="Texture" id=28]
+[ext_resource path="res://assets/data/bganimation11.png" type="Texture" id=29]
+[ext_resource path="res://assets/data/bganimation12.png" type="Texture" id=30]
+[ext_resource path="res://assets/ui/fonts/Jost-ExtraLight.ttf" type="DynamicFontData" id=31]
+
+[sub_resource type="TileSet" id=11]
+0/name = "bganimation1.png 0"
+0/texture = ExtResource( 21 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 32, 32 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "bganimation2.png 1"
+1/texture = ExtResource( 27 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 32, 32 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
+2/name = "bganimation3.png 2"
+2/texture = ExtResource( 18 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 1, 1, 1 )
+2/region = Rect2( 0, 0, 32, 32 )
+2/tile_mode = 0
+2/occluder_offset = Vector2( 0, 0 )
+2/navigation_offset = Vector2( 0, 0 )
+2/shape_offset = Vector2( 0, 0 )
+2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape_one_way = false
+2/shape_one_way_margin = 0.0
+2/shapes = [  ]
+2/z_index = 0
+3/name = "bganimation4.png 3"
+3/texture = ExtResource( 28 )
+3/tex_offset = Vector2( 0, 0 )
+3/modulate = Color( 1, 1, 1, 1 )
+3/region = Rect2( 0, 0, 32, 32 )
+3/tile_mode = 0
+3/occluder_offset = Vector2( 0, 0 )
+3/navigation_offset = Vector2( 0, 0 )
+3/shape_offset = Vector2( 0, 0 )
+3/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+3/shape_one_way = false
+3/shape_one_way_margin = 0.0
+3/shapes = [  ]
+3/z_index = 0
+4/name = "bganimation5.png 4"
+4/texture = ExtResource( 22 )
+4/tex_offset = Vector2( 0, 0 )
+4/modulate = Color( 1, 1, 1, 1 )
+4/region = Rect2( 0, 0, 32, 32 )
+4/tile_mode = 0
+4/occluder_offset = Vector2( 0, 0 )
+4/navigation_offset = Vector2( 0, 0 )
+4/shape_offset = Vector2( 0, 0 )
+4/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+4/shape_one_way = false
+4/shape_one_way_margin = 0.0
+4/shapes = [  ]
+4/z_index = 0
+5/name = "bganimation6.png 5"
+5/texture = ExtResource( 25 )
+5/tex_offset = Vector2( 0, 0 )
+5/modulate = Color( 1, 1, 1, 1 )
+5/region = Rect2( 0, 0, 32, 32 )
+5/tile_mode = 0
+5/occluder_offset = Vector2( 0, 0 )
+5/navigation_offset = Vector2( 0, 0 )
+5/shape_offset = Vector2( 0, 0 )
+5/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+5/shape_one_way = false
+5/shape_one_way_margin = 0.0
+5/shapes = [  ]
+5/z_index = 0
+6/name = "bganimation7.png 6"
+6/texture = ExtResource( 19 )
+6/tex_offset = Vector2( 0, 0 )
+6/modulate = Color( 1, 1, 1, 1 )
+6/region = Rect2( 0, 0, 32, 32 )
+6/tile_mode = 0
+6/occluder_offset = Vector2( 0, 0 )
+6/navigation_offset = Vector2( 0, 0 )
+6/shape_offset = Vector2( 0, 0 )
+6/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+6/shape_one_way = false
+6/shape_one_way_margin = 0.0
+6/shapes = [  ]
+6/z_index = 0
+7/name = "bganimation8.png 7"
+7/texture = ExtResource( 23 )
+7/tex_offset = Vector2( 0, 0 )
+7/modulate = Color( 1, 1, 1, 1 )
+7/region = Rect2( 0, 0, 32, 32 )
+7/tile_mode = 0
+7/occluder_offset = Vector2( 0, 0 )
+7/navigation_offset = Vector2( 0, 0 )
+7/shape_offset = Vector2( 0, 0 )
+7/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+7/shape_one_way = false
+7/shape_one_way_margin = 0.0
+7/shapes = [  ]
+7/z_index = 0
+8/name = "bganimation9.png 8"
+8/texture = ExtResource( 24 )
+8/tex_offset = Vector2( 0, 0 )
+8/modulate = Color( 1, 1, 1, 1 )
+8/region = Rect2( 0, 0, 32, 32 )
+8/tile_mode = 0
+8/occluder_offset = Vector2( 0, 0 )
+8/navigation_offset = Vector2( 0, 0 )
+8/shape_offset = Vector2( 0, 0 )
+8/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+8/shape_one_way = false
+8/shape_one_way_margin = 0.0
+8/shapes = [  ]
+8/z_index = 0
+9/name = "bganimation10.png 9"
+9/texture = ExtResource( 26 )
+9/tex_offset = Vector2( 0, 0 )
+9/modulate = Color( 1, 1, 1, 1 )
+9/region = Rect2( 0, 0, 32, 32 )
+9/tile_mode = 0
+9/occluder_offset = Vector2( 0, 0 )
+9/navigation_offset = Vector2( 0, 0 )
+9/shape_offset = Vector2( 0, 0 )
+9/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+9/shape_one_way = false
+9/shape_one_way_margin = 0.0
+9/shapes = [  ]
+9/z_index = 0
+10/name = "bganimation11.png 10"
+10/texture = ExtResource( 29 )
+10/tex_offset = Vector2( 0, 0 )
+10/modulate = Color( 1, 1, 1, 1 )
+10/region = Rect2( 0, 0, 32, 32 )
+10/tile_mode = 0
+10/occluder_offset = Vector2( 0, 0 )
+10/navigation_offset = Vector2( 0, 0 )
+10/shape_offset = Vector2( 0, 0 )
+10/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+10/shape_one_way = false
+10/shape_one_way_margin = 0.0
+10/shapes = [  ]
+10/z_index = 0
+11/name = "bganimation12.png 11"
+11/texture = ExtResource( 30 )
+11/tex_offset = Vector2( 0, 0 )
+11/modulate = Color( 1, 1, 1, 1 )
+11/region = Rect2( 0, 0, 32, 32 )
+11/tile_mode = 0
+11/occluder_offset = Vector2( 0, 0 )
+11/navigation_offset = Vector2( 0, 0 )
+11/shape_offset = Vector2( 0, 0 )
+11/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+11/shape_one_way = false
+11/shape_one_way_margin = 0.0
+11/shapes = [  ]
+11/z_index = 0
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 6 )
@@ -31,6 +215,10 @@ font_data = ExtResource( 8 )
 
 [sub_resource type="DynamicFont" id=7]
 font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 20
+font_data = ExtResource( 31 )
 
 [sub_resource type="GDScript" id=10]
 script/source = "extends Control
@@ -61,6 +249,15 @@ font_data = ExtResource( 7 )
 position = Vector2( -2, 0 )
 script = ExtResource( 4 )
 
+[node name="TileMap" type="TileMap" parent="."]
+rotation = -0.191986
+tile_set = SubResource( 11 )
+cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+format = 1
+tile_data = PoolIntArray( 65535, 0, 0, 0, 0, 0 )
+script = ExtResource( 20 )
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Background" type="TextureRect" parent="CanvasLayer"]
@@ -68,18 +265,12 @@ margin_right = 1920.0
 margin_bottom = 1080.0
 texture = ExtResource( 9 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BackgroundGradient" type="TextureRect" parent="CanvasLayer"]
 margin_right = 1920.0
 margin_bottom = 1080.0
 texture = ExtResource( 1 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Version" type="Label" parent="CanvasLayer"]
 margin_left = 1870.0
@@ -99,29 +290,23 @@ margin_right = 895.0
 margin_bottom = 360.0
 texture = ExtResource( 2 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Play" type="Control" parent="CanvasLayer"]
-margin_left = 176.0
-margin_top = 434.0
-margin_right = 757.0
-margin_bottom = 984.0
+margin_left = 184.0
+margin_top = 322.0
+margin_right = 765.0
+margin_bottom = 872.0
 rect_pivot_offset = Vector2( -2117, 145 )
 theme = ExtResource( 10 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="CanvasLayer/Play"]
 anchor_top = 0.121
 anchor_right = 0.188
 anchor_bottom = 0.201
-margin_top = 0.0559978
+margin_top = 0.0559998
 margin_right = 0.0199966
 margin_bottom = -0.064003
-rect_pivot_offset = Vector2( -32, 48 )
+rect_pivot_offset = Vector2( -391, -14.606 )
 theme = ExtResource( 10 )
 text = "IP Address"
 __meta__ = {
@@ -147,10 +332,10 @@ anchor_left = 0.004
 anchor_top = 0.611
 anchor_right = 0.344
 anchor_bottom = 0.702
-margin_left = -2.324
-margin_top = -0.0499878
-margin_right = 0.135986
-margin_bottom = -0.100006
+margin_left = -7.324
+margin_top = 143.95
+margin_right = -4.86401
+margin_bottom = 143.9
 theme = ExtResource( 10 )
 custom_constants/hseparation = 7
 custom_fonts/font = SubResource( 5 )
@@ -162,14 +347,14 @@ __meta__ = {
 }
 
 [node name="Error" type="Label" parent="CanvasLayer/Play"]
-anchor_left = -0.019
-anchor_top = 0.34
-anchor_right = 0.745
-anchor_bottom = 0.492
-margin_left = 0.0390005
-margin_top = -0.0599976
-margin_right = 0.098938
-margin_bottom = -0.187988
+anchor_left = -0.026
+anchor_top = 0.582
+anchor_right = 0.935
+anchor_bottom = 0.684
+margin_left = 0.106
+margin_top = -0.100006
+margin_right = -0.235046
+margin_bottom = -0.200012
 custom_colors/font_color = Color( 0.811765, 0.113725, 0.113725, 1 )
 custom_fonts/font = SubResource( 6 )
 __meta__ = {
@@ -197,13 +382,38 @@ anchor_bottom = 0.333
 margin_top = 0.150993
 margin_right = 0.115967
 margin_bottom = 0.153
-rect_pivot_offset = Vector2( 363, 45 )
+rect_pivot_offset = Vector2( -391, -64.201 )
 theme = ExtResource( 10 )
 text = "http://localhost"
 placeholder_text = "http://localhost"
+
+[node name="Label3" type="Label" parent="CanvasLayer/Play"]
+anchor_top = 0.36
+anchor_right = 0.181
+anchor_bottom = 0.44
+margin_left = -8.0
+margin_top = 0.999985
+margin_right = -3.91301
+margin_bottom = 0.87999
+rect_pivot_offset = Vector2( -391, -14.606 )
+theme = ExtResource( 10 )
+text = "Username"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Input_Name" type="LineEdit" parent="CanvasLayer/Play"]
+anchor_top = 0.451
+anchor_right = 0.95
+anchor_bottom = 0.573
+margin_left = -8.0
+margin_top = 0.949997
+margin_right = -3.95001
+margin_bottom = 0.850006
+rect_pivot_offset = Vector2( -391, -64.201 )
+theme = ExtResource( 10 )
+text = "http://localhost"
+placeholder_text = "http://localhost"
 
 [node name="Input_Port" type="LineEdit" parent="CanvasLayer/Play"]
 anchor_left = 0.806
@@ -226,9 +436,10 @@ __meta__ = {
 anchor_top = 0.707
 anchor_right = 0.344
 anchor_bottom = 0.798
-margin_top = 0.149994
-margin_right = 0.135986
-margin_bottom = 0.0999756
+margin_left = -5.0
+margin_top = 144.15
+margin_right = -4.86401
+margin_bottom = 144.1
 theme = ExtResource( 10 )
 custom_constants/hseparation = 7
 custom_fonts/font = SubResource( 5 )
@@ -240,12 +451,13 @@ __meta__ = {
 }
 
 [node name="About" type="Button" parent="CanvasLayer/Play"]
-anchor_top = 0.807
-anchor_right = 0.344
-anchor_bottom = 0.898
-margin_top = 0.149963
-margin_right = 0.135986
-margin_bottom = 0.0999756
+anchor_top = 1.069
+anchor_right = 0.336
+anchor_bottom = 1.16
+margin_left = -5.0
+margin_top = 0.0499878
+margin_right = -0.216019
+margin_bottom = -6.10352e-05
 theme = ExtResource( 10 )
 custom_constants/hseparation = 7
 custom_fonts/font = SubResource( 5 )
@@ -260,18 +472,24 @@ __meta__ = {
 anchor_top = 0.907
 anchor_right = 0.344
 anchor_bottom = 0.998
-margin_top = 0.149963
-margin_right = 0.135986
-margin_bottom = 0.0999756
+margin_left = -5.0
+margin_top = 144.15
+margin_right = -4.86401
+margin_bottom = 144.1
 theme = ExtResource( 10 )
 custom_constants/hseparation = 7
 custom_fonts/font = SubResource( 5 )
 text = "Exit"
 icon = ExtResource( 13 )
 align = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="StartLAN" type="LinkButton" parent="CanvasLayer/Play"]
+margin_left = 414.0
+margin_top = 321.0
+margin_right = 543.0
+margin_bottom = 351.0
+custom_fonts/font = SubResource( 12 )
+text = "Start LAN Game"
 
 [node name="FadeIn" type="ColorRect" parent="CanvasLayer"]
 visible = false
@@ -358,8 +576,9 @@ text = "Back"
 [node name="Tween" type="Tween" parent="."]
 
 [connection signal="pressed" from="CanvasLayer/Play/Connect" to="." method="_on_Connect_pressed"]
+[connection signal="text_changed" from="CanvasLayer/Play/Input_Name" to="." method="_on_Input_Name_text_changed"]
 [connection signal="pressed" from="CanvasLayer/Play/Options" to="." method="_on_Options_pressed"]
-[connection signal="pressed" from="CanvasLayer/Play/About" to="." method="_on_About_pressed"]
 [connection signal="pressed" from="CanvasLayer/Play/About" to="CanvasLayer/AboutMenu" method="_on_About_pressed"]
 [connection signal="pressed" from="CanvasLayer/Play/Exit" to="." method="_on_Exit_pressed"]
+[connection signal="pressed" from="CanvasLayer/Play/StartLAN" to="." method="_on_StartLAN_pressed"]
 [connection signal="pressed" from="CanvasLayer/AboutMenu/NinePatchRect2/TextureButton" to="CanvasLayer/AboutMenu" method="_on_TextureButton_pressed"]
