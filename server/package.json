@@ -1,7 +1,7 @@
 {
 	"name": "lucifer-ylp",
-	"version": "0.8",
-	"versionNum": 23,
+	"version": "0.9",
+	"versionNum": 24,
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/infinixius/lucifer.git"
@@ -20,7 +20,12 @@
 	},
 	"type": "commonjs",
 	"main": "index.js",
+	"bin": "index.js",
 	"scripts": {
-		"start": "node --experimental-json-modules index.js"
+		"start": "node --experimental-json-modules index.js",
+		"build": "pkg ."
+	},
+	"pkg": {
+		"outputPath": "builds"
 	}
 }

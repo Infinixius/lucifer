@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://assets/meta/background.png" type="Texture" id=1]
 [ext_resource path="res://assets/meta/title.png" type="Texture" id=2]
@@ -14,9 +14,6 @@
 [ext_resource path="res://assets/ui/icons/options.png" type="Texture" id=12]
 [ext_resource path="res://assets/ui/icons/exit.png" type="Texture" id=13]
 [ext_resource path="res://assets/ui/icons/about.png" type="Texture" id=14]
-[ext_resource path="res://assets/ui/Button_Pressed.png" type="Texture" id=15]
-[ext_resource path="res://assets/ui/MenuBackground.png" type="Texture" id=16]
-[ext_resource path="res://assets/ui/Button_Unpressed.png" type="Texture" id=17]
 [ext_resource path="res://assets/data/bganimation3.png" type="Texture" id=18]
 [ext_resource path="res://assets/data/bganimation7.png" type="Texture" id=19]
 [ext_resource path="res://scripts/BGAnimation.gd" type="Script" id=20]
@@ -31,6 +28,7 @@
 [ext_resource path="res://assets/data/bganimation11.png" type="Texture" id=29]
 [ext_resource path="res://assets/data/bganimation12.png" type="Texture" id=30]
 [ext_resource path="res://assets/ui/fonts/Jost-ExtraLight.ttf" type="DynamicFontData" id=31]
+[ext_resource path="res://assets/sfx/hover.wav" type="AudioStream" id=32]
 
 [sub_resource type="TileSet" id=11]
 0/name = "bganimation1.png 0"
@@ -220,31 +218,6 @@ font_data = ExtResource( 5 )
 size = 20
 font_data = ExtResource( 31 )
 
-[sub_resource type="GDScript" id=10]
-script/source = "extends Control
-
-
-
-func _ready():
-	pass # Replace with function body.
-
-
-func _on_About_pressed():
-	self.visible = true
-
-
-func _on_TextureButton_pressed():
-	self.visible = false
-"
-
-[sub_resource type="DynamicFont" id=8]
-size = 45
-font_data = ExtResource( 6 )
-
-[sub_resource type="DynamicFont" id=9]
-size = 30
-font_data = ExtResource( 7 )
-
 [node name="TitleScreen" type="Node2D"]
 position = Vector2( -2, 0 )
 script = ExtResource( 4 )
@@ -328,14 +301,13 @@ __meta__ = {
 }
 
 [node name="Connect" type="Button" parent="CanvasLayer/Play"]
-anchor_left = 0.004
-anchor_top = 0.611
-anchor_right = 0.344
-anchor_bottom = 0.702
-margin_left = -7.324
-margin_top = 143.95
-margin_right = -4.86401
-margin_bottom = 143.9
+anchor_top = 0.873
+anchor_right = 0.336
+anchor_bottom = 0.964
+margin_left = -5.0
+margin_top = -0.150024
+margin_right = -0.216019
+margin_bottom = -0.200012
 theme = ExtResource( 10 )
 custom_constants/hseparation = 7
 custom_fonts/font = SubResource( 5 )
@@ -348,18 +320,15 @@ __meta__ = {
 
 [node name="Error" type="Label" parent="CanvasLayer/Play"]
 anchor_left = -0.026
-anchor_top = 0.582
-anchor_right = 0.935
-anchor_bottom = 0.684
-margin_left = 0.106
-margin_top = -0.100006
-margin_right = -0.235046
-margin_bottom = -0.200012
+anchor_top = 0.644
+anchor_right = 0.931
+anchor_bottom = 0.745
+margin_left = -1.894
+margin_top = -0.200043
+margin_right = 0.0889282
+margin_bottom = 0.249969
 custom_colors/font_color = Color( 0.811765, 0.113725, 0.113725, 1 )
 custom_fonts/font = SubResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Back" type="Button" parent="CanvasLayer/Play"]
 visible = false
@@ -433,22 +402,19 @@ __meta__ = {
 }
 
 [node name="Options" type="Button" parent="CanvasLayer/Play"]
-anchor_top = 0.707
-anchor_right = 0.344
-anchor_bottom = 0.798
+anchor_top = 0.969
+anchor_right = 0.336
+anchor_bottom = 1.06
 margin_left = -5.0
-margin_top = 144.15
-margin_right = -4.86401
-margin_bottom = 144.1
+margin_top = 0.0499878
+margin_right = -0.216019
+margin_bottom = -6.10352e-05
 theme = ExtResource( 10 )
 custom_constants/hseparation = 7
 custom_fonts/font = SubResource( 5 )
 text = "Options"
 icon = ExtResource( 12 )
 align = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="About" type="Button" parent="CanvasLayer/Play"]
 anchor_top = 1.069
@@ -464,18 +430,15 @@ custom_fonts/font = SubResource( 5 )
 text = "About"
 icon = ExtResource( 14 )
 align = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Exit" type="Button" parent="CanvasLayer/Play"]
-anchor_top = 0.907
-anchor_right = 0.344
-anchor_bottom = 0.998
+anchor_top = 1.169
+anchor_right = 0.336
+anchor_bottom = 1.26
 margin_left = -5.0
-margin_top = 144.15
-margin_right = -4.86401
-margin_bottom = 144.1
+margin_top = 0.0499878
+margin_right = -0.216019
+margin_bottom = -6.10352e-05
 theme = ExtResource( 10 )
 custom_constants/hseparation = 7
 custom_fonts/font = SubResource( 5 )
@@ -500,85 +463,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AboutMenu" type="Control" parent="CanvasLayer"]
-visible = false
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 20.0
-margin_bottom = 20.0
-script = SubResource( 10 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="NinePatchRect2" type="NinePatchRect" parent="CanvasLayer/AboutMenu"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -600.0
-margin_top = -400.0
-margin_right = 600.0
-margin_bottom = 400.0
-texture = ExtResource( 16 )
-patch_margin_left = 30
-patch_margin_top = 38
-patch_margin_right = 30
-patch_margin_bottom = 36
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/AboutMenu/NinePatchRect2"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -575.0
-margin_top = -375.0
-margin_right = 575.0
-margin_bottom = 299.0
-custom_fonts/mono_font = SubResource( 8 )
-custom_fonts/normal_font = SubResource( 8 )
-text = "Lucifer is a multiplayer roguelite hack 'n slash dungeon crawler created for our school's 2021-2022 year long project. We were tasked with creating a full game in the span of a year.
-
-Lucifer is a game about good souls sent to hell unjustly. You play as one of those good souls who decides to revolt against Lucifer and escape Hell."
-
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/AboutMenu/NinePatchRect2"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -87.5
-margin_top = -100.0
-margin_right = 87.5
-margin_bottom = -30.0
-texture_normal = ExtResource( 17 )
-texture_pressed = ExtResource( 15 )
-expand = true
-
-[node name="Label" type="Label" parent="CanvasLayer/AboutMenu/NinePatchRect2/TextureButton"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -34.0
-margin_top = -22.5
-margin_right = 34.0
-margin_bottom = 22.5
-custom_fonts/font = SubResource( 9 )
-text = "Back"
-
 [node name="Tween" type="Tween" parent="."]
 
+[node name="HoverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 32 )
+
+[connection signal="mouse_entered" from="CanvasLayer/Play/Connect" to="." method="_on_Button_Hover"]
 [connection signal="pressed" from="CanvasLayer/Play/Connect" to="." method="_on_Connect_pressed"]
 [connection signal="text_changed" from="CanvasLayer/Play/Input_Name" to="." method="_on_Input_Name_text_changed"]
+[connection signal="mouse_entered" from="CanvasLayer/Play/Options" to="." method="_on_Button_Hover"]
 [connection signal="pressed" from="CanvasLayer/Play/Options" to="." method="_on_Options_pressed"]
-[connection signal="pressed" from="CanvasLayer/Play/About" to="CanvasLayer/AboutMenu" method="_on_About_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/Play/About" to="." method="_on_Button_Hover"]
+[connection signal="pressed" from="CanvasLayer/Play/About" to="." method="_on_About_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/Play/Exit" to="." method="_on_Button_Hover"]
 [connection signal="pressed" from="CanvasLayer/Play/Exit" to="." method="_on_Exit_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/Play/StartLAN" to="." method="_on_Button_Hover"]
 [connection signal="pressed" from="CanvasLayer/Play/StartLAN" to="." method="_on_StartLAN_pressed"]
-[connection signal="pressed" from="CanvasLayer/AboutMenu/NinePatchRect2/TextureButton" to="CanvasLayer/AboutMenu" method="_on_TextureButton_pressed"]

@@ -1,5 +1,6 @@
 client/builds
 client/logs
+server/builds
 server/logs
 server/node_modules
 server/config.json
