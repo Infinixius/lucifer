@@ -1,7 +1,7 @@
-import { log } from "../modules/logger.js"
-import BulletFactory from "./BulletFactory.js"
+const { log } = require("../modules/logger.js")
+const { BulletFactory } = require("./BulletFactory.js")
 
-export default class Player {
+module.exports.Player = class Player {
 	constructor(client, name) {
 		this.client = client // The client is another class, that includes information such as the player's IP address.
 		this.name = name

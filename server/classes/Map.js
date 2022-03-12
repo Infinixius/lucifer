@@ -1,15 +1,15 @@
-import path from "path"
-import { fileURLToPath } from "url"
-import Jimp from "jimp"
-import { log, error } from "../modules/logger.js"
-import { getTile, TileMap } from "./TileMap.js"
+const path = require("path")
+const { fileURLToPath } = require("url")
+const Jimp = require("jimp")
+const { log, error } = require("../modules/logger.js")
+const { getTile, TileMap } = require("./TileMap.js")
 
 const ROOMDATA_IMAGE_ROWLENGTH = 4 // length of rows in rooms.png
 const ROOMDATA_ROOMS = 10 // amount of rooms in rooms.png
 const ROOM_SIZE = 32 // size of an individual room
 const ROOMS = 11 // total amount of rooms
 
-export default class Map {
+module.exports.Map = class Map {
 	constructor (x, y, roomAmount) {
 		this.x = x
 		this.y = y
@@ -26,7 +26,7 @@ export default class Map {
 			this.rooms.push(getAdjacentRoom(this.rooms))
 		}
 
-		var imagePath = path.join(path.dirname(fileURLToPath(import.meta.url)), "/../assets/rooms.png") // this weird trick is required because you can't normally read rooms.png when a lan game is started from the client
+		var imagePath = path.join(__dirname, "/../assets/rooms.png") // this weird trick is required because you can't normally read rooms.png when a lan game is started from the client
 		Jimp.read(imagePath, (err, image) => {
 			if (err) return error(`Failed to load rooms.png!!! Level cannot be generated Error: "${err}"`)
 			
@@ -100,7 +100,7 @@ export default class Map {
 	}
 }
 
-export function getAdjacentRoom(rooms) {
+function getAdjacentRoom(rooms) {
 	var randomRoom = rooms[rooms.length - Math.floor(Math.random() * 5)] //rooms[Math.floor(Math.random() * rooms.length)]
 	if (!randomRoom) randomRoom = rooms[rooms.length - 1]
 	var room
@@ -142,7 +142,7 @@ export function getAdjacentRoom(rooms) {
 	return room
 }
 
-export function surroundMap(tiles) { // surrounds the map with a wall
+function surroundMap(tiles) { // surrounds the map with a wall
 	for (const tile of tiles.all()) {
 		if (tile.tile != getTile("floor")) return
 
@@ -158,7 +158,7 @@ export function surroundMap(tiles) { // surrounds the map with a wall
 	}
 }
 
-export function tileModifier() {
+function tileModifier() {
 	const rand = lime.random(0,1000)
 	if (rand > 993) {
 		return 11 // burnt

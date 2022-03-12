@@ -1,6 +1,6 @@
-import { CacheManager } from "./CacheManager.js"
+const { CacheManager } = require("./CacheManager.js")
 
-export class Entity {
+module.exports.Entity = class Entity {
 	constructor(type, pos, size, rotation) {
 		this.type = type
 		this.position = pos || [0, 0]
@@ -22,7 +22,7 @@ export class Entity {
 	}
 }
 
-export const EntityTypes = {
+module.exports.EntityTypes = {
 	Player: 1,
 	Bullet: 2,
 	Enemy: 3

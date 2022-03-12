@@ -1,6 +1,6 @@
-import { avoidCircularReference } from "../modules/utils.js"
+const { avoidCircularReference } = require("../modules/utils.js")
 
-export default class Client {
+module.exports.Client = class Client {
 	constructor(ws, req, id) {
 		this.ws = ws
         this.req = req

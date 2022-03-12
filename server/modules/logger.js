@@ -1,17 +1,20 @@
-import fs from "fs"
-import config from "../config.json"
-import npmpackage from "../package.json"
+const fs = require("fs")
+const config = require("../config.json")
+const npmpackage = require("../package.json")
 
 if (!fs.existsSync(config.logsFolder)) {
 	fs.mkdirSync(config.logsFolder)
 }
 
-export function timestamp() {
+function timestamp() {
 	return new Date().toLocaleTimeString()
 }
-export function datestamp() {
+function datestamp() {
 	return new Date().toLocaleDateString()
 }
+
+module.exports.timestamp = timestamp
+module.exports.datestamp = datestamp
 
 // splash
 console.log(".__                  .__   _____                \n|  |   __ __   ____  |__|_/ ____\\ ____ _______  \n|  |  |  |  \\_/ ___\\ |  |\\   __\\_/ __ \\\\_  __ \\ \n|  |__|  |  /\\  \\___ |  | |  |  \\  ___/ |  | \\/ \n|____/|____/  \\___  >|__| |__|   \\___  >|__|    \n                  \\/                 \\/         \n                                                ")
@@ -32,7 +35,9 @@ file.write("---------------------------------------------\n")
 console.log(`Logging to file "${name}"`)
 console.log("---------------------------------------------")
 
-export function advlog(message, type) {
+/* functions */
+
+function advlog(message, type) {
 	if (message.includes(`message with type "ping":`)) return // do not log pings
 	if (!type) var type = "log"
 
@@ -49,13 +54,22 @@ export function advlog(message, type) {
 	file.write("\n"+log)
 }
 
-export function log(message) { advlog(message, "log") }
-export function error(message) { advlog(message, "error") }
-export function warn(message) { advlog(message, "warn") }
-export function debug(message) { advlog(message, "debug") }
+function log(message) { advlog(message, "log") }
+function error(message) { advlog(message, "error") }
+function warn(message) { advlog(message, "warn") }
+function debug(message) { advlog(message, "debug") }
 
-export function rawerror(error) {
+function rawerror(error) {
 	console.log(error)
 	file.write(error+"\n")
 	file.write(error.stack+"\n")
 }
+
+module.exports.advlog = advlog
+
+module.exports.log = log
+module.exports.error = error
+module.exports.warn = warn
+module.exports.debug = debug
+
+module.exports.rawerror = rawerror

@@ -1,19 +1,19 @@
-import readline from "readline"
-import Map from "../classes/Map.js"
+const readline = require("readline")
+const Map = require("../classes/Map.js")
 
 const rl = readline.createInterface({
 	input: process.stdin,
 	output: process.stdout
 })
 
-export function consoleCommand() {
+module.exports.consoleCommand = function() {
 	rl.question("", message => {
 		command(message)
 		consoleCommand()
 	})
 }
 
-export function command(string) {
+module.exports.command = function(string) {
 	const args = string.trim().split(/ +/)
 	const commandName = args.shift().toLowerCase()
 

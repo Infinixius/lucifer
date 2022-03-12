@@ -1,8 +1,8 @@
-import Player from "../classes/Player.js"
-import Client from "../classes/Client.js"
-import npmpackage from "../package.json"
+const { Player } = require("../classes/Player.js")
+const { Client } = require("../classes/Client.js")
+const npmpackage = require("../package.json")
 
-export function onJoin(ws, req) { // fired when a player joins
+module.exports.onJoin = function(ws, req) { // fired when a player joins
 	playerID++
 	ws.client = new Client(ws, req, playerID)
 	ws.player = new Player(ws.client, ws.client.options.get("username"))
@@ -45,7 +45,7 @@ export function onJoin(ws, req) { // fired when a player joins
 	}, config.pingInterval)
 }
 
-export function onMessage(ws, message) { // fired when we get a message//
+function onMessage(ws, message) { /* fired when we get a message */
 	Logger.debug(`Raw message received from client #${ws.client.id}: "${message.toString()}"`)
 	try { var data = JSON.parse(message.toString()) } catch (err) {
 		return Logger.error(`Failed to parse data received from client #${ws.client.id}! Data: "${message.toString()}" Error: ${err}`)
@@ -112,8 +112,9 @@ export function onMessage(ws, message) { // fired when we get a message//
 			break
 	}
 }
+module.exports.onMessage = onMessage
 
-export function onClose(ws) {
+function onClose(ws) {
 	broadcast("system_message", `${ws.player.name} disconnected!`)
 	Logger.log(`Client #${ws.client.id} disconnected!`)
 	
@@ -124,3 +125,4 @@ export function onClose(ws) {
 	
 	ws.terminate()
 }
+module.exports.onClose = onClose

@@ -1,6 +1,6 @@
-import Bullet from "./Bullet.js"
+const { Bullet } = require("./Bullet.js")
 
-export default class BulletFactory {
+module.exports.BulletFactory = class BulletFactory {
 	constructor(player) {
 		this.bullets = new Map()
 
