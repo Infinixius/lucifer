@@ -1,0 +1,200 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/ui/Button_Unpressed.png" type="Texture" id=1]
+[ext_resource path="res://assets/ui/Button_Pressed.png" type="Texture" id=2]
+[ext_resource path="res://assets/ui/MenuBackground.png" type="Texture" id=3]
+[ext_resource path="res://assets/ui/fonts/Jost-Black.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/ui/fonts/Jost-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://assets/ui/Plus_pressed.png" type="Texture" id=6]
+[ext_resource path="res://assets/ui/Plus_unpressed.png" type="Texture" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 23
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 5 )
+
+[node name="UpgradeMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 228, -295 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -200.0
+margin_right = 300.0
+margin_bottom = 200.0
+texture = ExtResource( 3 )
+patch_margin_left = 30
+patch_margin_top = 38
+patch_margin_right = 30
+patch_margin_bottom = 36
+
+[node name="PointsDisplay" type="Label" parent="."]
+margin_left = 672.0
+margin_top = 352.0
+margin_right = 1248.0
+margin_bottom = 397.0
+custom_fonts/font = SubResource( 1 )
+text = "Skill points: idk"
+
+[node name="strength" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="strength"]
+margin_left = 672.0
+margin_top = 400.0
+margin_right = 770.0
+margin_bottom = 434.0
+custom_fonts/font = SubResource( 3 )
+text = "Strength"
+
+[node name="TextureButton2" type="TextureButton" parent="strength"]
+margin_left = 995.0
+margin_top = 392.0
+margin_right = 1027.0
+margin_bottom = 424.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 6 )
+
+[node name="Label2" type="Label" parent="strength"]
+margin_left = 1060.0
+margin_top = 410.0
+margin_right = 1100.0
+margin_bottom = 434.0
+custom_fonts/font = SubResource( 4 )
+text = "69"
+
+[node name="TextureButton" type="TextureButton" parent="strength"]
+margin_left = 1086.0
+margin_top = 392.0
+margin_right = 1118.0
+margin_bottom = 424.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 6 )
+
+[node name="Speed" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="Speed"]
+margin_left = 672.0
+margin_top = 450.0
+margin_right = 770.0
+margin_bottom = 484.0
+custom_fonts/font = SubResource( 3 )
+text = "Speed"
+
+[node name="TextureButton2" type="TextureButton" parent="Speed"]
+margin_left = 995.0
+margin_top = 442.0
+margin_right = 1027.0
+margin_bottom = 474.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 6 )
+
+[node name="Label2" type="Label" parent="Speed"]
+margin_left = 1060.0
+margin_top = 460.0
+margin_right = 1100.0
+margin_bottom = 484.0
+custom_fonts/font = SubResource( 4 )
+text = "69"
+
+[node name="TextureButton" type="TextureButton" parent="Speed"]
+margin_left = 1086.0
+margin_top = 442.0
+margin_right = 1118.0
+margin_bottom = 474.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 6 )
+
+[node name="strength2" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="strength2"]
+margin_left = 672.0
+margin_top = 500.0
+margin_right = 770.0
+margin_bottom = 534.0
+custom_fonts/font = SubResource( 3 )
+text = "Dodge"
+
+[node name="TextureButton2" type="TextureButton" parent="strength2"]
+margin_left = 995.0
+margin_top = 492.0
+margin_right = 1027.0
+margin_bottom = 524.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 6 )
+
+[node name="Label2" type="Label" parent="strength2"]
+margin_left = 1060.0
+margin_top = 510.0
+margin_right = 1100.0
+margin_bottom = 534.0
+custom_fonts/font = SubResource( 4 )
+text = "69"
+
+[node name="TextureButton" type="TextureButton" parent="strength2"]
+margin_left = 1086.0
+margin_top = 492.0
+margin_right = 1118.0
+margin_bottom = 524.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+
+[node name="Main" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -288.0
+margin_top = -188.0
+margin_right = 288.0
+margin_bottom = 188.0
+size_flags_horizontal = 3
+
+[node name="Exit" type="TextureButton" parent="."]
+margin_left = 684.0
+margin_top = 688.0
+margin_right = 784.0
+margin_bottom = 718.0
+rect_min_size = Vector2( 100, 30 )
+size_flags_horizontal = 4
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="Exit"]
+anchor_left = -0.01
+anchor_top = 0.0333333
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 2 )
+text = "Back"
+align = 1
+valign = 1
