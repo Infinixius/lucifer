@@ -1,76 +1,122 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://assets/ui/fonts/super_impacto/Super Impacto.otf" type="DynamicFontData" id=1]
-[ext_resource path="res://assets/ui/fonts/Jost-Black.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/ui/fonts/Jost-Light.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/ui/fonts/Jost-Bold.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/ui/Button_Pressed.png" type="Texture" id=3]
-[ext_resource path="res://assets/ui/MenuBackground.png" type="Texture" id=4]
+[ext_resource path="res://assets/meta/title_white.png" type="Texture" id=4]
 [ext_resource path="res://assets/ui/Button_Unpressed.png" type="Texture" id=5]
+[ext_resource path="res://scripts/AboutMenu.gd" type="Script" id=6]
 
-[sub_resource type="DynamicFont" id=1]
-font_data = ExtResource( 1 )
+[sub_resource type="Shader" id=7]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform int blurSize : hint_range(0,100);
+
+void fragment()
+{
+COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV, float(blurSize)/10.0);
+}"
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 7 )
+shader_param/blurSize = 75
+
+[sub_resource type="DynamicFont" id=4]
 
 [sub_resource type="DynamicFont" id=2]
-size = 22
+size = 34
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=3]
+size = 30
 font_data = ExtResource( 2 )
 
 [node name="AboutMenu" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+anchor_left = 0.08
+anchor_top = 0.066
+anchor_right = 0.944
+anchor_bottom = 0.953
+margin_left = -0.599991
+margin_top = 999.72
+margin_right = 0.52002
+margin_bottom = 999.76
+script = ExtResource( 6 )
 
-[node name="NinePatchRect2" type="NinePatchRect" parent="."]
+[node name="Blur" type="ColorRect" parent="."]
+material = SubResource( 6 )
+margin_left = -153.0
+margin_top = -71.0
+margin_right = 1767.0
+margin_bottom = 1009.0
+color = Color( 0.168627, 0.168627, 0.168627, 1 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -300.0
-margin_top = -200.0
-margin_right = 300.0
-margin_bottom = 200.0
-texture = ExtResource( 4 )
-patch_margin_left = 30
-patch_margin_top = 38
-patch_margin_right = 30
-patch_margin_bottom = 36
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RichTextLabel" type="RichTextLabel" parent="NinePatchRect2"]
-margin_left = 12.0
-margin_top = 12.0
-margin_right = 592.0
-margin_bottom = 387.0
-custom_fonts/mono_font = SubResource( 1 )
+margin_left = -827.996
+margin_top = -309.499
+margin_right = 827.996
+margin_bottom = 309.499
+custom_fonts/mono_font = SubResource( 4 )
 custom_fonts/normal_font = SubResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+bbcode_enabled = true
+bbcode_text = "[center]
+Lucifer is a multiplayer roguelite hack 'n slash dungeon crawler created for our school's 2021-2022 year long project. We were tasked with creating a full game in the span of a year.
+
+You play as a good soul, who was sent to hell unjustly. Your goal is to revolt against Lucifer, the god of the underworld, and escape Hell.
+
+The game was made using [url=https://godotengine.org/]Godot Engine[/url], and the server was written in [url=https://nodejs.org]NodeJS[/url]. Communication between the two is powered by [url=https://en.wikipedia.org/wiki/WebSocket]WebSockets[/url].
+
+The game is fully open-source on [url=https://github.com/Infinixius/lucifer]GitHub![/url]! Feel free to contribute or leave a star!
+[/center]"
+text = "
+Lucifer is a multiplayer roguelite hack 'n slash dungeon crawler created for our school's 2021-2022 year long project. We were tasked with creating a full game in the span of a year.
+
+You play as a good soul, who was sent to hell unjustly. Your goal is to revolt against Lucifer, the god of the underworld, and escape Hell.
+
+The game was made using Godot Engine, and the server was written in NodeJS. Communication between the two is powered by WebSockets.
+
+The game is fully open-source on GitHub!! Feel free to contribute or leave a star!
+"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -152.0
+margin_right = 152.0
+margin_bottom = 127.0
+texture = ExtResource( 4 )
+expand = true
 
 [node name="TextureButton" type="TextureButton" parent="."]
-margin_left = 828.0
-margin_top = 518.0
-margin_right = 928.0
-margin_bottom = 548.0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -88.0
+margin_top = -67.0
+margin_right = 88.0
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 3 )
+expand = true
 
 [node name="Label" type="Label" parent="TextureButton"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -12.0
-margin_right = 20.0
-margin_bottom = 12.0
+margin_left = -33.5
+margin_top = -22.0
+margin_right = 37.5
+margin_bottom = 23.0
 custom_fonts/font = SubResource( 3 )
 text = "Back"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="meta_clicked" from="RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]

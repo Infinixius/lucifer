@@ -1,7 +1,7 @@
-import Enemy from "./Enemy.js"
-import { tiles } from "./TileMap.js"
+const { Enemy } = require("./Enemy.js")
+const { tiles } = require("./TileMap.js")
 
-export default class EnemyFactory {
+module.exports.EnemyFactory = class EnemyFactory {
 	constructor() {
 		this.enemies = new Map()
 	}
@@ -16,7 +16,6 @@ export default class EnemyFactory {
 			var pos = [lime.random(0, map.x), lime.random(0, map.y)]
 			var tile = map.tiles.get(Number(pos[0]), Number(pos[1]))
 			if (!tile) continue
-			console.log(`${tile} = ${pos}`)
 
 			if (tile == tiles["floor"]) {
 				enemiesLeft--

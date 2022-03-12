@@ -1,4 +1,4 @@
-export class Game {
+module.exports.Game = class Game {
 	constructor() {
 		
 	}

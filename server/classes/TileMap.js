@@ -10,7 +10,7 @@ Array.prototype.range = function(amount) {
 	return array
 }
 
-export const tiles = {
+const tiles = {
 	"missing": 0,
 	"void": 1,
 
@@ -28,16 +28,18 @@ export const tiles = {
 	"floor_mossy": 12,
 	"floor_grasspatch": 13
 }
+module.exports.tiles = tiles
 
-export function getTile(tile) {
+function getTile(tile) {
 	if (tiles[tile]) {
 		return tiles[tile]
 	} else {
 		return tiles["missing"]
 	}
 }
+module.exports.getTile = getTile
 
-export class TileMap {
+module.exports.TileMap = class TileMap {
 	constructor (xSize, ySize, defaultTile) {
 		this.tiles = []
 

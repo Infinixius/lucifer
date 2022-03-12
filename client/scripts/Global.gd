@@ -2,8 +2,8 @@ extends Node
 
 var IP = "localhost"
 var PORT = "8000"
-var VERSION = "0.8"
-var VERSIONNUM = 23
+var VERSION = "0.9"
+var VERSIONNUM = 24
 var error = ""
 var ingame = false
 var id = 0
@@ -80,3 +80,18 @@ func updateDiscordRPC():
 		
 		if result.result != Discord.Result.Ok:
 			print("Failed to set Discord RPC! Error: " + str(result))
+
+func StartLANGame(name):
+	match OS.get_name():
+		"Windows", "UWP":
+			Global.langameprocess = OS.execute("./lan/windows.exe", ["--LANGAME"], false)
+		"macOS":
+			Global.langameprocess = OS.execute("./lan/mac", ["--LANGAME"], false)
+		"Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD":
+			Global.langameprocess = OS.execute("./lan/linux", ["--LANGAME"], false)
+
+	Global.IP = "http://localhost"
+	Global.PORT = "6666"
+	Global.settings.name = name
+	Global.saveSettings()
+	get_tree().change_scene("res://scenes/game/Game.tscn")

@@ -53,7 +53,11 @@ func _input(event):
 func _on_Options_pressed():
 	var options_menu = load("res://scenes/game/OptionsMenu.tscn").instance()
 	$CanvasLayer.add_child(options_menu)
-	$CanvasLayer/OptionsMenu.connect("CloseOptionsMenu", self,("CloseOptionsMenu"))
+	#$CanvasLayer/OptionsMenu.connect("CloseOptionsMenu", self,("CloseOptionsMenu"))
+
+func _on_About_pressed():
+	var about_menu = load("res://scenes/game/AboutMenu.tscn").instance()
+	$CanvasLayer.add_child(about_menu)
 
 func _on_Exit_pressed():
 	get_tree().quit()
@@ -63,9 +67,9 @@ func _on_Input_Name_text_changed(new_text):
 	Global.saveSettings()
 
 func _on_StartLAN_pressed():
-	Global.langameprocess = OS.execute("node", ["--experimental-json-modules", "C:\\Users\\infi\\Development\\Projects\\lucifer\\server\\index.js"], false)
-	Global.IP = "http://localhost"
-	Global.PORT = "6666"
-	Global.settings.name = NAME.text
-	Global.saveSettings()
-	get_tree().change_scene("res://scenes/game/Game.tscn")
+	Global.StartLANGame(NAME.text)
+
+func _on_Button_Hover():
+	$HoverSound.stop()
+	$HoverSound.play()
+

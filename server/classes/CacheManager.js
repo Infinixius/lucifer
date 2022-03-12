@@ -1,6 +1,6 @@
-import {parse, stringify, toJSON, fromJSON} from "flatted"
+const { parse, stringify, toJSON, fromJSON } = require("flatted")
 
-export class CacheManager {
+module.exports.CacheManager = class CacheManager {
 	constructor(object) {
 		this.cachedObject = null
 	}
