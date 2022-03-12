@@ -4,6 +4,9 @@ export (bool) var asleep = true
 export (int) var speed = 10000
 export (int) var ownerID = 0
 
+func _ready():
+	add_collision_exception_with($"../../../Player")
+
 func update():
 	$"../../../Players".send("enemy_ai", {
 			"x": self.position.x,
