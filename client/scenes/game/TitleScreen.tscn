@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://assets/meta/background.png" type="Texture" id=1]
 [ext_resource path="res://assets/meta/title.png" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://assets/ui/icons/options.png" type="Texture" id=12]
 [ext_resource path="res://assets/ui/icons/exit.png" type="Texture" id=13]
 [ext_resource path="res://assets/ui/icons/about.png" type="Texture" id=14]
+[ext_resource path="res://assets/meta/splash.webm" type="VideoStream" id=15]
 [ext_resource path="res://assets/data/bganimation3.png" type="Texture" id=18]
 [ext_resource path="res://assets/data/bganimation7.png" type="Texture" id=19]
 [ext_resource path="res://scripts/BGAnimation.gd" type="Script" id=20]
@@ -462,6 +463,14 @@ color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="VideoPlayer" type="VideoPlayer" parent="CanvasLayer"]
+visible = false
+margin_left = -2.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+stream = ExtResource( 15 )
+autoplay = true
 
 [node name="Tween" type="Tween" parent="."]
 

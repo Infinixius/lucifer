@@ -5,7 +5,10 @@ onready var PORT = $CanvasLayer/Play/Input_Port
 onready var NAME = $CanvasLayer/Play/Input_Name
 onready var FadeIn = $CanvasLayer/FadeIn
 
+var fading = false
+
 func _ready():
+	$CanvasLayer/VideoPlayer.visible = true # hidden in the editor
 	$CanvasLayer/Version.text = "v" + Global.VERSION
 	if Global.settings.name != "":
 		NAME.text = Global.settings.name
@@ -29,6 +32,15 @@ func _ready():
 	if Global.error != "":
 		$CanvasLayer/Play/Error.text = Global.error
 		Global.error = ""
+	
+	if Global.firstLaunch == true:
+		yield(get_tree().create_timer(16), "timeout")
+		$CanvasLayer/VideoPlayer.queue_free()
+		fading = true
+		Global.firstLaunch = false
+	else:
+		fading = true
+		$CanvasLayer/VideoPlayer.queue_free()
 
 func _on_Connect_pressed():
 	Global.IP = IP.text
@@ -39,21 +51,23 @@ func _on_Connect_pressed():
 
 var transparency = 1.0
 func _process(delta):
-	if FadeIn.visible == true and transparency > 0.0:
-		transparency -= 0.005
-		FadeIn.color = Color(0,0,0, transparency)
-	elif transparency < 0.0:
-		FadeIn.visible = false
+	if fading:
+		if FadeIn.visible == true and transparency > 0.0:
+			transparency -= 0.005
+			FadeIn.color = Color(0,0,0, transparency)
+		elif transparency < 0.0:
+			FadeIn.visible = false
 
 func _input(event):
 	if event.is_action_pressed("sendchat"):
 		FadeIn.visible = false
 		transparency = 0.0
+		#$CanvasLayer/VideoPlayer.queue_free()
+		Global.firstLaunch = false
 
 func _on_Options_pressed():
 	var options_menu = load("res://scenes/game/OptionsMenu.tscn").instance()
 	$CanvasLayer.add_child(options_menu)
-	#$CanvasLayer/OptionsMenu.connect("CloseOptionsMenu", self,("CloseOptionsMenu"))
 
 func _on_About_pressed():
 	var about_menu = load("res://scenes/game/AboutMenu.tscn").instance()

@@ -1,9 +1,10 @@
 extends Node
 
+var firstLaunch = true
 var IP = "localhost"
 var PORT = "8000"
-var VERSION = "0.9"
-var VERSIONNUM = 24
+var VERSION = "0.10"
+var VERSIONNUM = 25
 var error = ""
 var ingame = false
 var id = 0
@@ -95,3 +96,12 @@ func StartLANGame(name):
 	Global.settings.name = name
 	Global.saveSettings()
 	get_tree().change_scene("res://scenes/game/Game.tscn")
+
+func change_scene_async(path):
+	var gamescene = load(path)
+	get_tree().call_deferred("change_scene_to", gamescene)
+
+func loadSceneAsync(path):
+	var thread = Thread.new()
+	thread.start(self, "change_scene_async", path)
+	
