@@ -24,6 +24,7 @@ global.uid = 0 // a unique identifier used for enemies, bullets, etc
 global.clients = []
 global.map = new Map(1000, 1000, 32, 50)
 global.enemies = new EnemyFactory()
+global.lan = false
 
 setInterval(() => {
 	global.enemies.networkUpdate()

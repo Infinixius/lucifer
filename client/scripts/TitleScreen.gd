@@ -62,7 +62,7 @@ func _input(event):
 	if event.is_action_pressed("sendchat"):
 		FadeIn.visible = false
 		transparency = 0.0
-		#$CanvasLayer/VideoPlayer.queue_free()
+		$CanvasLayer/VideoPlayer.visible = false
 		Global.firstLaunch = false
 
 func _on_Options_pressed():

@@ -85,11 +85,11 @@ func updateDiscordRPC():
 func StartLANGame(name):
 	match OS.get_name():
 		"Windows", "UWP":
-			Global.langameprocess = OS.execute("./lan/windows.exe", ["--LANGAME"], false)
+			Global.langameprocess = OS.execute("./lan/windows.exe", ["--langame"], false)
 		"macOS":
-			Global.langameprocess = OS.execute("./lan/mac", ["--LANGAME"], false)
+			Global.langameprocess = OS.execute("./lan/mac", ["--langame"], false)
 		"Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD":
-			Global.langameprocess = OS.execute("./lan/linux", ["--LANGAME"], false)
+			Global.langameprocess = OS.execute("./lan/linux", ["--langame"], false)
 
 	Global.IP = "http://localhost"
 	Global.PORT = "6666"

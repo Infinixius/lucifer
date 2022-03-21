@@ -1,5 +1,4 @@
 const path = require("path")
-const { fileURLToPath } = require("url")
 const Jimp = require("jimp")
 const { log, error } = require("../modules/logger.js")
 const { getTile, TileMap } = require("./TileMap.js")
