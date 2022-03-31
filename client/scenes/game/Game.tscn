@@ -25,7 +25,7 @@
 [ext_resource path="res://scripts/Multiplayer.gd" type="Script" id=23]
 [ext_resource path="res://scripts/MultiplayerPackets.gd" type="Script" id=24]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=25]
-[ext_resource path="res://assets/ui/fonts/Jost-Medium.ttf" type="DynamicFontData" id=26]
+[ext_resource path="res://assets/ui/fonts/Jost-Regular.ttf" type="DynamicFontData" id=26]
 [ext_resource path="res://assets/ui/fonts/Jost-Light.ttf" type="DynamicFontData" id=27]
 [ext_resource path="res://assets/ui/fonts/Jost-Bold.ttf" type="DynamicFontData" id=28]
 [ext_resource path="res://scripts/Entities.gd" type="Script" id=29]
@@ -42,12 +42,17 @@
 [ext_resource path="res://assets/ui/menus/connecting4.png" type="Texture" id=40]
 [ext_resource path="res://assets/sfx/hover.wav" type="AudioStream" id=41]
 [ext_resource path="res://assets/effects/shaders/Distort.material" type="Material" id=42]
+[ext_resource path="res://assets/sfx/upgrade.wav" type="AudioStream" id=43]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
+
+[sub_resource type="NavigationPolygon" id=17]
+vertices = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
 
 [sub_resource type="TileSet" id=3]
 0/name = "missing.png 0"
@@ -184,6 +189,7 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 9/tile_mode = 0
 9/occluder_offset = Vector2( 0, 0 )
 9/navigation_offset = Vector2( 0, 0 )
+9/navigation = SubResource( 17 )
 9/shape_offset = Vector2( 0, 0 )
 9/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 9/shape_one_way = false
@@ -255,22 +261,6 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 13/shapes = [  ]
 13/z_index = 0
 
-[sub_resource type="Shader" id=17]
-code = "shader_type canvas_item;
-
-uniform sampler2D vignette;
-
-void fragment() {
-	vec3 vignette_color = texture(vignette, UV).rgb;
-	// Screen texture stores gaussian blurred copies on mipmaps.
-	COLOR.rgb = textureLod(SCREEN_TEXTURE, SCREEN_UV, (1.0 - vignette_color.r) * 4.0).rgb;
-	COLOR.rgb *= texture(vignette, UV).rgb;
-}"
-
-[sub_resource type="ShaderMaterial" id=5]
-shader = SubResource( 17 )
-shader_param/vignette = ExtResource( 2 )
-
 [sub_resource type="DynamicFont" id=11]
 font_data = ExtResource( 27 )
 
@@ -281,6 +271,8 @@ bg_color = Color( 0.6, 0.6, 0.6, 0 )
 font_data = ExtResource( 28 )
 
 [sub_resource type="DynamicFont" id=16]
+size = 22
+use_filter = true
 font_data = ExtResource( 26 )
 
 [sub_resource type="DynamicFont" id=8]
@@ -317,7 +309,9 @@ audio_stream = ExtResource( 31 )
 position = Vector2( -1, 0 )
 script = ExtResource( 25 )
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="Navigation2D" type="Navigation2D" parent="."]
+
+[node name="TileMap" type="TileMap" parent="Navigation2D"]
 modulate = Color( 0.99, 0.99, 0.99, 1 )
 tile_set = SubResource( 3 )
 cell_size = Vector2( 32, 32 )
@@ -327,27 +321,20 @@ format = 1
 
 [node name="Player" parent="." instance=ExtResource( 21 )]
 position = Vector2( 129, 132 )
+speed = 500
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource( 22 )
 
-[node name="BackBufferCopy" type="BackBufferCopy" parent="CanvasLayer"]
-copy_mode = 2
-
-[node name="Distort" type="ColorRect" parent="CanvasLayer/BackBufferCopy"]
+[node name="Distort" type="ColorRect" parent="CanvasLayer"]
 material = ExtResource( 42 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -0.000183105
+margin_right = -0.000244141
 
-[node name="Vignette" type="BackBufferCopy" parent="CanvasLayer"]
+[node name="Vignette" type="Sprite" parent="CanvasLayer"]
 position = Vector2( 960, 540 )
-scale = Vector2( 9.6, 5.4 )
-copy_mode = 2
-
-[node name="Vignette" type="Sprite" parent="CanvasLayer/Vignette"]
-material = SubResource( 5 )
-position = Vector2( -2.90573e-06, -1.42306e-06 )
-scale = Vector2( 1.5625, 1.5625 )
 texture = ExtResource( 2 )
 
 [node name="Debug" type="Control" parent="CanvasLayer"]
@@ -479,24 +466,30 @@ __meta__ = {
 [node name="HUD" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 201, 71 )
 
 [node name="HealthBar" type="Control" parent="CanvasLayer/HUD"]
-anchor_right = 0.056
+anchor_right = 0.099
 anchor_bottom = 0.036
-margin_right = 0.479996
-margin_bottom = 0.119999
+margin_right = -0.0800171
+margin_bottom = 0.120003
 
 [node name="TextureProgress" type="TextureProgress" parent="CanvasLayer/HUD/HealthBar"]
-anchor_right = 0.394
+anchor_right = 1.0
 anchor_bottom = 0.974
-margin_right = 0.0439911
 margin_bottom = 0.0139999
 value = 100.0
 texture_under = ExtResource( 3 )
 texture_progress = ExtResource( 20 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="Number" type="Label" parent="CanvasLayer/HUD/HealthBar/TextureProgress"]
+margin_left = 48.0
+margin_top = 7.0
+margin_right = 140.0
+margin_bottom = 31.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 16 )
+text = "HP: 100/100"
 
 [node name="Stats" type="Control" parent="CanvasLayer/HUD"]
 anchor_top = 0.035
@@ -505,13 +498,6 @@ anchor_bottom = 0.073
 margin_top = 0.200001
 margin_right = -0.360001
 margin_bottom = 0.159996
-
-[node name="Coins" type="Label" parent="CanvasLayer/HUD/Stats"]
-margin_right = 40.0
-margin_bottom = 14.0
-custom_colors/font_color = Color( 1, 0.964706, 0.568627, 1 )
-custom_fonts/font = SubResource( 16 )
-text = "Coins: 0"
 
 [node name="Kills" type="Label" parent="CanvasLayer/HUD/Stats"]
 margin_top = 24.0
@@ -529,6 +515,13 @@ custom_colors/font_color = Color( 0.568627, 0.72549, 1, 1 )
 custom_fonts/font = SubResource( 16 )
 text = "Enemies Left: 0"
 
+[node name="Coins" type="Label" parent="CanvasLayer/HUD/Stats"]
+margin_right = 60.0
+margin_bottom = 24.0
+custom_colors/font_color = Color( 1, 0.964706, 0.568627, 1 )
+custom_fonts/font = SubResource( 16 )
+text = "Coins: 0"
+
 [node name="FPS" type="Label" parent="CanvasLayer/HUD"]
 anchor_top = 0.198
 anchor_right = 0.397
@@ -541,6 +534,17 @@ grow_horizontal = 0
 custom_fonts/font = SubResource( 11 )
 text = "FPS:"
 align = 2
+
+[node name="Level" type="Label" parent="CanvasLayer/HUD"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -85.0
+margin_right = 85.0
+margin_bottom = 44.0
+custom_colors/font_color = Color( 0.945098, 0.945098, 0.945098, 1 )
+custom_fonts/font = SubResource( 16 )
+text = "Level 1"
+align = 1
 
 [node name="GameMenu" type="Control" parent="CanvasLayer"]
 visible = false
@@ -712,6 +716,9 @@ script = ExtResource( 32 )
 
 [node name="Hover" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 41 )
+
+[node name="Upgrade" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 43 )
 
 [node name="Shoot" type="AudioStreamPlayer" parent="Sounds"]
 stream = SubResource( 13 )
