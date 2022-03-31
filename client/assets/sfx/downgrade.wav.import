@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/downgrade.wav-e87a9fe4eeccf199c10b019b6149137b.sample"
+
+[deps]
+
+source_file="res://assets/sfx/downgrade.wav"
+dest_files=[ "res://.import/downgrade.wav-e87a9fe4eeccf199c10b019b6149137b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
