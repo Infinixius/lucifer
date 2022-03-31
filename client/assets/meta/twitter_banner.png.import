@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/github_socialpreview.png-1b559c842518f39af65d098039b68a37.stex"
+path="res://.import/twitter_banner.png-8955c8c07b0f4dffd651fce571e42007.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/meta/github_socialpreview.png"
-dest_files=[ "res://.import/github_socialpreview.png-1b559c842518f39af65d098039b68a37.stex" ]
+source_file="res://assets/meta/twitter_banner.png"
+dest_files=[ "res://.import/twitter_banner.png-8955c8c07b0f4dffd651fce571e42007.stex" ]
 
 [params]
 
