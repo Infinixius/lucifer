@@ -3,10 +3,13 @@ extends Node
 var firstLaunch = true
 var IP = "localhost"
 var PORT = "8000"
-var VERSION = "0.10"
+var VERSION = "0.11"
 var VERSIONNUM = 25
 var error = ""
 var ingame = false
+var inserver = false
+var isplaying = true
+var pathfinding
 var id = 0
 var langameprocess = 0
 var discordActivity
