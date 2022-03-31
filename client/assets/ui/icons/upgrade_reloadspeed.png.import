@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Health_Progress.png-a3d2d178c5708039156e6120d122e3cf.stex"
+path="res://.import/upgrade_reloadspeed.png-2e326bfc76cb6fca92731d7c0141b46a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/ingame/Health_Progress.png"
-dest_files=[ "res://.import/Health_Progress.png-a3d2d178c5708039156e6120d122e3cf.stex" ]
+source_file="res://assets/ui/icons/upgrade_reloadspeed.png"
+dest_files=[ "res://.import/upgrade_reloadspeed.png-2e326bfc76cb6fca92731d7c0141b46a.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

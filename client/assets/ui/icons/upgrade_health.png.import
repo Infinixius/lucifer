@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Health_Progress.png-a3d2d178c5708039156e6120d122e3cf.stex"
+path="res://.import/upgrade_health.png-f089730b8332d0a2e880780031237e35.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/ingame/Health_Progress.png"
-dest_files=[ "res://.import/Health_Progress.png-a3d2d178c5708039156e6120d122e3cf.stex" ]
+source_file="res://assets/ui/icons/upgrade_health.png"
+dest_files=[ "res://.import/upgrade_health.png-f089730b8332d0a2e880780031237e35.stex" ]
 
 [params]
 
