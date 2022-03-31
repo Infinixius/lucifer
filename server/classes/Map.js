@@ -66,7 +66,7 @@ module.exports.Map = class Map {
 				}
 			}
 			log(`Generated map with ${this.tiles.all().length} tiles in ${Date.now() - timestamp}ms!`)
-			enemies.spawnEnemies(this, 50)
+			enemies.spawnEnemies(this, 1)
 		})
 	}
 	send(ws) {

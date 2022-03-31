@@ -22,11 +22,13 @@ global.Logger = Logger
 global.playerID = 0
 global.uid = 0 // a unique identifier used for enemies, bullets, etc
 global.clients = []
-global.map = new Map(1000, 1000, 32, 50)
+global.map = new Map(1000, 1000, 3, 50)
 global.enemies = new EnemyFactory()
 global.lan = false
+global.ticks = 0
 
 setInterval(() => {
+	global.ticks ++
 	global.enemies.networkUpdate()
 	clients.forEach(client => {
 		var player = client.fetchPlayer()

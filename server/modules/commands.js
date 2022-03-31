@@ -8,8 +8,8 @@ const rl = readline.createInterface({
 
 module.exports.consoleCommand = function() {
 	rl.question("", message => {
-		command(message)
-		consoleCommand()
+		module.exports.command(message)
+		module.exports.consoleCommand()
 	})
 }
 

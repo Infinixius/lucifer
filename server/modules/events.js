@@ -73,7 +73,7 @@ function onMessage(ws, message) { /* fired when we get a message */
 		case "player_shoot":
 			ws.player.bullets.createBullet(
 				ws.player.position,
-				data.message.direction
+				data.message.direction + lime.random(-25, 50)
 			)
 			ws.player.bullets.networkUpdate()
 			break
@@ -84,7 +84,9 @@ function onMessage(ws, message) { /* fired when we get a message */
 				var enemy = enemies.enemies.get(data.message.id)
 				if (enemy) {
 					ws.player.bullets.hit(data.message.bullet)
-					enemy.hurt(15, ws.player.id)
+
+					var damage = lime.random(5, 10) * ws.player.upgrades.skills.strength 
+					enemy.hurt(damage, ws.player.client.id)
 				}
 			}
 			break
@@ -110,6 +112,8 @@ function onMessage(ws, message) { /* fired when we get a message */
 				enemy.moveTo(data.message.x, data.message.y)
 			}
 			break
+		case "player_shop":
+			if (data.message.type == "upgrade") ws.player.upgrade(data.message.item)
 	}
 }
 module.exports.onMessage = onMessage

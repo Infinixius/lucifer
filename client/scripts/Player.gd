@@ -3,7 +3,7 @@ extends KinematicBody2D
 export (int) var speed = 350
 
 onready var sprite = $AnimatedSprite
-onready var tile_map = $"../TileMap"
+onready var tile_map = $"../Navigation2D/TileMap"
 onready var player = self
 onready var Multiplayer = $"../Players"
 onready var velocitytext = $"../CanvasLayer/Debug/velocity_text"
@@ -53,7 +53,7 @@ func get_input():
 var time = 0
 func _physics_process(delta):
 	time += delta
-	if $"/root/Game/CanvasLayer/GameMenu".visible == false: # prevent moving while in the menu
+	if $"/root/Game/CanvasLayer/GameMenu".visible == false and Global.isplaying: # prevent moving while in the menu
 		get_input()
 		velocity = move_and_slide(velocity, Vector2(0, 0))
 		velocitytext.text = "Velocity: " + str(velocity)
@@ -78,18 +78,19 @@ func _physics_process(delta):
 					if result.size() == 0:
 						$"../Players".send("enemy_seen", entity.name)
 	
-	if velocity == Vector2(0,0):
-		sprite.stop()
-		sprite.frame = 0
-	else:
-		$"../Sounds".play("Walk")
-	#elif sprite.frame == 0:
-	#	sprite.frame = 1 # fixes a bug where the animation wouldnt play for a splitsecond after moving
-	
-	if velocity != Vector2(0,0): # loop every 0.015 seconds
-		Multiplayer.movement_update()
-		time = 0
-	direction = get_angle_to(get_global_mouse_position())
+	if Global.isplaying:
+		if velocity == Vector2(0,0):
+			sprite.stop()
+			sprite.frame = 0
+		else:
+			$"../Sounds".play("Walk")
+		#elif sprite.frame == 0:
+		#	sprite.frame = 1 # fixes a bug where the animation wouldnt play for a splitsecond after moving
+		
+		if velocity != Vector2(0,0): # loop every 0.015 seconds
+			Multiplayer.movement_update()
+			time = 0
+		direction = get_angle_to(get_global_mouse_position() - Vector2(16,16))
 	check_direction_walk()
 
 func check_direction_walk():

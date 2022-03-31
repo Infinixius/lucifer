@@ -6,8 +6,8 @@ module.exports.Player = class Player {
 		this.client = client // The client is another class, that includes information such as the player's IP address.
 		this.name = name
 
-		this.health = 150
-		this.maxhealth = 150
+		this.health = 100
+		this.maxhealth = 100
 		this.position = [4, 4] // X, Y coordinates of the player
 
 		this.coins = 0
@@ -16,6 +16,18 @@ module.exports.Player = class Player {
 		this.animation = { // The current animation name and frame of the player.
 			"name": "walk_up",
 			"frame": 0
+		}
+
+		this.upgrades = {
+			skills: {
+				health: 1,
+				speed: 1,
+				strength: 1,
+				luck: 1
+			},
+			upgrades: {
+				"piercing": false
+			}
 		}
 		
 		this.bullets = new BulletFactory(this) // A "BulletFactory" is a class that simplifes the creation of Bullet entities.
@@ -45,13 +57,32 @@ module.exports.Player = class Player {
 
 		this.networkUpdate(true)
 	}
+	upgrade(skill) {
+		const cost = this.upgrades.skills[skill] * 100
+		if (this.upgrades.skills[skill] > 10) return this.client.send("system_message", `You've already maxed out this skill!`)
+		if (this.coins < cost) return this.client.send("system_message", `You can't afford that! You need ${cost - this.coins} more coins!`)
+
+		this.upgrades.skills[skill] ++
+		this.coins -= cost
+
+		switch (skill) {
+			case "health":
+				this.health += 50
+				this.maxhealth += 50
+		}
+
+		this.client.send("shop_success", true)
+		return this.client.send("system_message", `Successfully upgraded ${skill} to Level ${this.upgrades.skills[skill]}. You were charged ${cost} coins.`)
+
+	}
 	networkUpdate(updatePosition) {
 		this.client.send("player_update", {
 			hp: this.health,
 			maxhp: this.maxhealth,
 			coins: this.coins,
 			kills: this.kills,
-			remaining: enemies.enemies.size
+			remaining: enemies.enemies.size,
+			upgrades: this.upgrades
 		})
 
 		if (updatePosition) {

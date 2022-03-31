@@ -26,9 +26,10 @@ module.exports.Enemy = class Enemy extends Entity {
 
 		var client = clients.find(client => client.id == killer)
 		if (!client) return
+		var player = client.fetchPlayer()
 
-		client.player.coins += lime.random(1,5)
-		client.player.kills ++
+		player.coins += lime.random(5, 20) * player.upgrades.skills.luck
+		player.kills ++
 	}
 	awaken(playerID) {
 		this.asleep = false

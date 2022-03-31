@@ -79,15 +79,25 @@ func processPacket(data, msg, id):
 	elif data.type == "player_update":
 		if "hp" in msg:
 			$"../CanvasLayer/HUD/HealthBar/TextureProgress".value = int(msg.hp)
+			$"../CanvasLayer/HUD/HealthBar/TextureProgress/Number".text = "HP: " + str(msg.hp) + "/" + str(msg.maxhp)
 		if "maxhp" in msg:
 			$"../CanvasLayer/HUD/HealthBar/TextureProgress".max_value = int(msg.maxhp)
 		if "coins" in msg:
 			$"../CanvasLayer/HUD/Stats/Coins".text = "Coins: " + str(msg.coins)
+			if get_node_or_null("../CanvasLayer/UpgradesMenu"):
+				$"../CanvasLayer/UpgradesMenu/Coins".text = "Coins: " + str(msg.coins)
 		if "kills" in msg:
 			$"../CanvasLayer/HUD/Stats/Kills".text = "Enemies Killed: " + str(msg.kills)
 		if "remaining" in msg:
 			$"../CanvasLayer/HUD/Stats/Enemies".text = "Enemies Left: " + str(msg.remaining)
 		
+		if "upgrades" in msg:
+			if get_node_or_null("../CanvasLayer/UpgradesMenu"):
+				$"../CanvasLayer/UpgradesMenu/ScrollContainer/Main/Health/TextureProgress".value = int(msg.upgrades.skills.health)
+				$"../CanvasLayer/UpgradesMenu/ScrollContainer/Main/Strength/TextureProgress".value = int(msg.upgrades.skills.strength)
+				$"../CanvasLayer/UpgradesMenu/ScrollContainer/Main/Speed/TextureProgress".value = int(msg.upgrades.skills.speed)
+				
+				$"../Player".speed = 500 + (50 * int(msg.upgrades.skills.speed))
 		if "position" in msg:
 			player.position = player.get_global_position()
 			player.position.x = msg.position[0]
@@ -98,3 +108,5 @@ func processPacket(data, msg, id):
 			$"../Entities".spawnEntity(msg.type, msg.id, msg.position, msg.size, msg.rotation, msg.velocity, msg)
 		else:
 			$"../Entities".deleteEntity(msg.id)
+	elif data.type == "shop_success":
+		$"../Sounds".play("Upgrade")

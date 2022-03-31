@@ -42,6 +42,7 @@ func closed(_was_clean):
 
 func connected(_proto):
 	print("Connected to server!")
+	Global.inserver = true
 	movement_update()
 	# you MUST always use get_peer(1).put_packet to send data to server, and not put_packet directly
 	client.get_peer(1).put_packet(JSON.print({
@@ -100,5 +101,11 @@ func _process(_delta):
 	
 	client.poll()
 
-func _on_Send_pressed(): # firedwhen the send message is pressed
+func _on_Send_pressed(): # fired when the send message is pressed
 	sendChatMessage()
+
+func shop(type, item):
+	send("player_shop", {
+		"type": type,
+		"item": item
+	})

@@ -59,10 +59,11 @@ func _process(delta):
 			FadeIn.visible = false
 
 func _input(event):
-	if event.is_action_pressed("sendchat"):
+	if event.is_action_pressed("sendchat") or event.is_action_pressed("GameMenu"):
 		FadeIn.visible = false
 		transparency = 0.0
-		$CanvasLayer/VideoPlayer.visible = false
+		if get_node_or_null("CanvasLayer/VideoPlayer"):
+			$CanvasLayer/VideoPlayer.visible = false
 		Global.firstLaunch = false
 
 func _on_Options_pressed():

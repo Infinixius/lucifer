@@ -9,8 +9,11 @@ onready var spark = $"../Player/BulletSpawn/Spark"
 var shootCooldown = false
 
 func _input(event):
-	if event.is_action_pressed("GameMenu"):
-		get_node("GameMenu").show()
+	if event.is_action_pressed("GameMenu") and Global.isplaying:
+		if $GameMenu.visible:
+			$GameMenu.visible = false
+		else:
+			$GameMenu.visible = true
 	if Input.is_action_pressed("debug"):
 		$"../CanvasLayer/Debug".visible = !$"../CanvasLayer/Debug".visible
 
