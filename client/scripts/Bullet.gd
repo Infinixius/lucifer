@@ -12,7 +12,7 @@ func _physics_process(delta):
 		$Sprite/Light2D.visible = false
 
 func _on_Bullet_body_entered(body):
-	if body == $"/root/Game/TileMap":
+	if body == $"/root/Game/Navigation2D/TileMap":
 		$"../../../Sounds".play("WallHit")
 		$"/root/Game/Players".send("bullet_hit", {
 			"type": "wall",

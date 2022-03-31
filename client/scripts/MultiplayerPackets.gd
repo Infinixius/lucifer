@@ -51,17 +51,25 @@ func processPacket(data, msg, id):
 		chatbox.scroll_to_line(chatbox.text.count("\n", 0, 0)) # count gets the amount of lines, to scroll to the bottom
 	
 	elif data.type == "tile_update":
-		$"../TileMap".set_cell(msg.x, msg.y, msg.tile)
+		$"../Navigation2D/TileMap".set_cell(msg.x, msg.y, msg.tile)
 	
 	elif data.type == "tile_update_chunk":
 		for tile in msg.tiles:
-			$"../TileMap".set_cell(tile.x, tile.y, tile.tile)
+			$"../Navigation2D/TileMap".set_cell(tile.x, tile.y, tile.tile)
 	
 	elif data.type == "tile_reset":
-		$"../TileMap".clear()
+		$"../Navigation2D/TileMap".clear()
 	
 	elif data.type == "tile_update_done":
 		$"../CanvasLayer/Loading".visible = false
+		$"../Navigation2D/TileMap".update_dirty_quadrants()
+		
+		Global.pathfinding = AStar2D.new()
+		var points = 1
+		for tile in $"../Navigation2D/TileMap".get_used_cells_by_id(9):
+			points += 1
+			Global.pathfinding.add_point(points, tile)
+		
 		var tween = $"../Player/AnimatedSprite/Camera2D/Tween"
 		tween.interpolate_property($"../Player/AnimatedSprite/Camera2D", "zoom",
 				Vector2(20, 20), Vector2(0.6, 0.6), 1,

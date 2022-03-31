@@ -1,7 +1,7 @@
 extends Node2D
 
 onready var body = $Player
-onready var tile_map = $TileMap
+onready var tile_map = $Navigation2D/TileMap
 onready var pos_text = $CanvasLayer/Debug/position_text
 onready var rawpos_text = $CanvasLayer/Debug/rawposition_text
 onready var fpstext = $CanvasLayer/HUD/FPS
@@ -28,3 +28,8 @@ func _input(event):
 		$CanvasLayer/Chat/Message.grab_focus()
 	if event.is_action_pressed("sendchat"):
 		$Players.sendChatMessage()
+	if event.is_action_pressed("GameMenu") and not Global.inserver:
+		get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
+	if event.is_action_pressed("upgrade") and not get_node_or_null("CanvasLayer/UpgradesMenu"):
+		var upgrades_menu = load("res://scenes/game/UpgradeMenu.tscn").instance()
+		$CanvasLayer.add_child(upgrades_menu)
