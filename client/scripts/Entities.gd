@@ -44,7 +44,8 @@ func updateEntity(id, pos, data):
 			entity.get_node("Enemy").set("ownerID", data.owner)
 			if data.owner != Global.id: # dont update enemy positions we already know, to prevent rubberbanding
 				var newPos = Vector2(pos[0], pos[1])
-				entity.get_node("Enemy").position = newPos
+				entity.get_node("Enemy").movingTo = newPos
+				
 	else:
 		entity.position = entity.get_global_position()
 		entity.position.x = pos[0]

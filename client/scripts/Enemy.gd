@@ -3,6 +3,7 @@ extends KinematicBody2D
 export (bool) var asleep = true
 export (int) var speed = 10000
 export (int) var ownerID = 0
+export (Vector2) var movingTo = Vector2(0,0)
 
 func _ready():
 	add_collision_exception_with($"../../../Player")
@@ -29,6 +30,11 @@ func _process(delta):
 func _physics_process(delta):
 	if asleep == false and ownerID == Global.id:
 		var enemy_angle = get_angle_to($"../../../Player".position)
+		var vector_angle = Vector2(round(cos(enemy_angle)), round(sin(enemy_angle)))
+		
+		move_and_slide(vector_angle * speed * delta)
+	elif asleep == false and not ownerID == Global.id:
+		var enemy_angle = get_angle_to(movingTo)
 		var vector_angle = Vector2(round(cos(enemy_angle)), round(sin(enemy_angle)))
 		
 		move_and_slide(vector_angle * speed * delta)
