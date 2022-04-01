@@ -73,7 +73,7 @@ function onMessage(ws, message) { /* fired when we get a message */
 		case "player_shoot":
 			ws.player.bullets.createBullet(
 				ws.player.position,
-				data.message.direction + lime.random(-25, 50)
+				data.message.direction
 			)
 			ws.player.bullets.networkUpdate()
 			break
