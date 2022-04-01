@@ -3,7 +3,7 @@ extends Node
 var firstLaunch = true
 var IP = "localhost"
 var PORT = "8000"
-var VERSION = "0.11"
+var VERSION = "0.11.1"
 var VERSIONNUM = 25
 var error = ""
 var ingame = false
