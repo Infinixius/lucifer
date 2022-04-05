@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://scripts/Global.gd" type="Script" id=1]
 [ext_resource path="res://assets/effects/vignette.png" type="Texture" id=2]
@@ -43,6 +43,7 @@
 [ext_resource path="res://assets/sfx/hover.wav" type="AudioStream" id=41]
 [ext_resource path="res://assets/effects/shaders/Distort.material" type="Material" id=42]
 [ext_resource path="res://assets/sfx/upgrade.wav" type="AudioStream" id=43]
+[ext_resource path="res://stain.mp3" type="AudioStream" id=44]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -270,6 +271,11 @@ bg_color = Color( 0.6, 0.6, 0.6, 0 )
 [sub_resource type="DynamicFont" id=6]
 font_data = ExtResource( 28 )
 
+[sub_resource type="DynamicFont" id=18]
+size = 18
+use_filter = true
+font_data = ExtResource( 26 )
+
 [sub_resource type="DynamicFont" id=16]
 size = 22
 use_filter = true
@@ -483,12 +489,12 @@ texture_under = ExtResource( 3 )
 texture_progress = ExtResource( 20 )
 
 [node name="Number" type="Label" parent="CanvasLayer/HUD/HealthBar/TextureProgress"]
-margin_left = 48.0
-margin_top = 7.0
-margin_right = 140.0
-margin_bottom = 31.0
+margin_left = 42.0
+margin_top = 5.0
+margin_right = 144.0
+margin_bottom = 32.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 18 )
 text = "HP: 100/100"
 
 [node name="Stats" type="Control" parent="CanvasLayer/HUD"]
@@ -733,6 +739,9 @@ stream = ExtResource( 34 )
 stream = ExtResource( 35 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 44 )
 
 [connection signal="pressed" from="CanvasLayer/Chat/Send" to="Players" method="_on_Send_pressed"]
 [connection signal="pressed" from="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer/Resume" to="." method="_on_Resume_pressed"]

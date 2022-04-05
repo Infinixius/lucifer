@@ -476,6 +476,7 @@ autoplay = true
 
 [node name="HoverSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 32 )
+volume_db = -50.0
 
 [connection signal="mouse_entered" from="CanvasLayer/Play/Connect" to="." method="_on_Button_Hover"]
 [connection signal="pressed" from="CanvasLayer/Play/Connect" to="." method="_on_Connect_pressed"]

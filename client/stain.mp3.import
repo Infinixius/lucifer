@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/stain.mp3-87334c083c4a6f1a8b3b021fad997c0c.mp3str"
+
+[deps]
+
+source_file="res://stain.mp3"
+dest_files=[ "res://.import/stain.mp3-87334c083c4a6f1a8b3b021fad997c0c.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

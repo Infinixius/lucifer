@@ -1,5 +1,4 @@
 const readline = require("readline")
-const Map = require("../classes/Map.js")
 
 const rl = readline.createInterface({
 	input: process.stdin,
@@ -28,12 +27,9 @@ module.exports.command = function(string) {
 			})
 			Logger.log(`List of players: (${global.clients.length} total): ${names.slice(0, -2)}`)
 			break
-		case "regenerate":
-			global.map = new Map(300, 300, 32)
-			global.map.networkUpdate()
-			break
 		case "summon":
-			global.enemies.createEnemy([12 * 16, 12 * 16])
+			if (!config.cheats) return Logger.log("Cheats must be enabled to use this command!")
+			global.enemies.spawnEnemies(global.map, Number(args[0] ?? 1))
 			break
 		case "teleport":
 			var client = clients.find(client => client.id == Number(args[0]))
@@ -57,7 +53,7 @@ module.exports.command = function(string) {
 			}
 
 			if (!result) result = "No result"
-			Logger.log(result.toString())
+			Logger.log(result)
 			break
 		case "config":
 			var option = args[0]
@@ -70,6 +66,42 @@ module.exports.command = function(string) {
 				Logger.log(`Set ${option} to ${result}`)
 			} else {
 				Logger.log("No such config option exists!")
+			}
+			break
+		case "setcoins":
+			if (!config.cheats) return Logger.log("Cheats must be enabled to use this command!")
+			var client = clients.find(client => client.id == Number(args[0]))
+			if (client) {
+				var player = client.fetchPlayer()
+				player.coins = Number(args[1])
+				player.networkUpdate()
+				Logger.log(`Set "${player.name}" (${client.id})'s coins to ${args[1]}`)
+			} else {
+				Logger.log(`Couldn't find player ID #${args[0]}`)
+			}
+			break
+		case "heal":
+			if (!config.cheats) return Logger.log("Cheats must be enabled to use this command!")
+			var client = clients.find(client => client.id == Number(args[0]))
+			if (client) {
+				var player = client.fetchPlayer()
+				player.heal(Number(args[1]))
+				player.networkUpdate()
+				Logger.log(`Set "${player.name}" (${client.id})'s health to ${player.health}`)
+			} else {
+				Logger.log(`Couldn't find player ID #${args[0]}`)
+			}
+			break
+		case "hurt":
+			if (!config.cheats) return Logger.log("Cheats must be enabled to use this command!")
+			var client = clients.find(client => client.id == Number(args[0]))
+			if (client) {
+				var player = client.fetchPlayer()
+				player.hurt(Number(args[1]), "Attacked from a command.")
+				player.networkUpdate()
+				Logger.log(`Set "${player.name}" (${client.id})'s health to ${player.health}`)
+			} else {
+				Logger.log(`Couldn't find player ID #${args[0]}`)
 			}
 			break
 		default:

@@ -33,7 +33,15 @@ func _on_Tween_tween_completed(object, key):
 		queue_free()
 
 func _on_Downgrade(type):
-	$"/root/Players".shop("downgrade", type)
+	$"/root/Game/Players".shop("downgrade", type)
 
 func _on_Upgrade(type):
 	$"/root/Game/Players".shop("upgrade", type)
+
+
+func _on_Downgrade_Ability(type):
+	$"/root/Game/Players".shop("downgrade_ability", type)
+
+
+func _on_Upgrade_Ability(type):
+	$"/root/Game/Players".shop("upgrade_ability", type)

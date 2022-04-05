@@ -79,13 +79,18 @@ function onMessage(ws, message) { /* fired when we get a message */
 			break
 		case "bullet_hit":
 			if (data.message.type == "wall") {
-				ws.player.bullets.hit(data.message.id)
+				ws.player.bullets.hit(data.message.id, data.message.collision)
 			} else if (data.message.type == "enemy") {
 				var enemy = enemies.enemies.get(data.message.id)
 				if (enemy) {
-					ws.player.bullets.hit(data.message.bullet)
+					if (!ws.player.upgrades.abilities.piercing) {
+						ws.player.bullets.hit(data.message.bullet)
+					}
 
-					var damage = lime.random(5, 10) * ws.player.upgrades.skills.strength 
+					var damage = lime.random(5, 10) * ws.player.upgrades.skills.strength
+					if (ws.player.upgrades.abilities.rejuvenation) {
+						ws.player.heal(damage / 10)
+					}
 					enemy.hurt(damage, ws.player.client.id)
 				}
 			}
@@ -100,8 +105,6 @@ function onMessage(ws, message) { /* fired when we get a message */
 			break
 		case "enemy_sleep":
 			var enemy = enemies.enemies.get(Number(data.message))
-			console.log(`sleeping ${data.message}`)
-			console.log(enemies.enemies)
 			if (enemy) {
 				enemy.goToSleep()
 			}
@@ -113,7 +116,17 @@ function onMessage(ws, message) { /* fired when we get a message */
 			}
 			break
 		case "player_shop":
-			if (data.message.type == "upgrade") ws.player.upgrade(data.message.item)
+			if (data.message.type == "upgrade") {
+				ws.player.upgrade(data.message.item)
+			} else if (data.message.type == "upgrade_ability") {
+				ws.player.upgradeAbility(data.message.item)
+			}
+			break
+		case "enemy_attack":
+			var enemy = enemies.enemies.get(Number(data.message.id))
+			if (enemy) {
+				enemy.attack(ws.player, data.message.type)
+			}
 	}
 }
 module.exports.onMessage = onMessage

@@ -1,13 +1,40 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/effects/light.png" type="Texture" id=1]
 [ext_resource path="res://assets/ui/fonts/Jost-Light.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/data/animations/player_animations.res" type="SpriteFrames" id=3]
 
+[sub_resource type="ParticlesMaterial" id=2]
+flag_disable_z = true
+gravity = Vector3( 0, 100, 0 )
+angular_velocity = 231.24
+angular_velocity_random = 0.93
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = -75.0
+scale = 2.0
+color = Color( 0.45098, 0.380392, 0.34902, 1 )
+
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 2 )
 
 [node name="Player" type="Node2D"]
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( 13, 24 )
+scale = Vector2( 4, 4 )
+amount = 5
+lifetime = 0.7
+local_coords = false
+process_material = SubResource( 2 )
+
+[node name="Particles2D2" type="Particles2D" parent="."]
+position = Vector2( 19.105, 24 )
+scale = Vector2( 4, 4 )
+amount = 5
+lifetime = 0.7
+local_coords = false
+process_material = SubResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 16, 16 )

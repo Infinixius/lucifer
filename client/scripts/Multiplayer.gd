@@ -109,3 +109,9 @@ func shop(type, item):
 		"type": type,
 		"item": item
 	})
+
+func enemyAttack(type, id):
+	send("enemy_attack", {
+		"type": type,
+		"id": id
+	})

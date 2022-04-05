@@ -13,8 +13,10 @@ func _ready():
 	$ScrollContainer/Main/DevOptions.pressed = Global.settings.devOptions
 	$ScrollContainer/Main/Silent.pressed = Global.settings.silent
 	$ScrollContainer/Main/Fullscreen.pressed = Global.settings.fullscreen
-	$ScrollContainer/Main/Volume.value = db2linear(AudioServer.get_bus_volume_db(bus))
+	$ScrollContainer/Main/Volume.value = Global.settings.volume
+	AudioServer.set_bus_volume_db(bus, linear2db(Global.settings.volume))
 	$ScrollContainer/Main/TickRate.value = Global.settings.tickRate
+	$ScrollContainer/Main/Volume.value = Global.settings.volume	
 	
 	tween.interpolate_property(self, "rect_position",
 		Vector2(0, 1080), Vector2(0, 0), 0.5,
@@ -55,6 +57,7 @@ func _on_DevOptions_toggled(button_pressed):
 
 func _on_Volume_value_changed(value):
 	AudioServer.set_bus_volume_db(bus, linear2db(value))
+	Global.settings.volume = value
 
 func _on_Silent_toggled(button_pressed):
 	Global.settings.silent = button_pressed
@@ -64,7 +67,6 @@ func _on_TickRate_value_changed(value):
 
 func _on_Fullscreen_toggled(button_pressed):
 	Global.settings.fullscreen = button_pressed
-
 
 func _on_Tween_tween_completed(object, key):
 	if todelete:
