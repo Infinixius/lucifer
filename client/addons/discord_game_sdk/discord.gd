@@ -256,7 +256,7 @@ func _ready():
 	#else:
 	#	OS.set_environment("DISCORD_INSTANCE_ID", "0")
 	
-	discore_core_ = DiscordCore.new()
+	discore_core_ = null #DiscordCore.new()
 	if discore_core_:
 		discore_core_.create(942203877816696863, CreateFlags.NoRequireDiscord)
 		

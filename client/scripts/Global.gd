@@ -17,7 +17,7 @@ var settingsFile = ConfigFile.new()
 var settings = {
 	"noclip": false,
 	"lighting": true,
-	"discord": true,
+	"discord": false,
 	"devOptions": false,
 	"silent": false,
 	"tickRate": 0.25,
@@ -79,7 +79,7 @@ func updateDiscordRPC():
 		var result = yield(Discord.activity_manager.update_activity(discordActivity), "result").result
 		if result != Discord.Result.Ok:
 			print("Failed to set Discord RPC! Error: " + str(result))
-	else:
+	elif Discord.activity_manager:
 		var result = Discord.activity_manager.clear_activity()
 		
 		if result.result != Discord.Result.Ok:
