@@ -1,6 +1,6 @@
 extends Area2D
 
-export (int) var speed = 750
+export (int) var speed = 500
 
 var time = 0
 func _physics_process(delta):

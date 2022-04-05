@@ -1,6 +1,7 @@
 {
 	"port": 6666,
 	"dev": false,
+	"cheats": false,
 
 	"fakeLag": 0,
 	"tickRate": 150,
@@ -9,6 +10,7 @@
 	"shootCooldown": 350,
 	"bulletLifespan": 5000,
 	"enemyForgetTime": 5000,
+	"enemyAttackTime": 1000,
 	"playerIdleTime": 10000,
 
 	"logsFolder": "./logs",

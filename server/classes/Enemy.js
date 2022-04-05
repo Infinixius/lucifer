@@ -7,11 +7,13 @@ module.exports.Enemy = class Enemy extends Entity {
 		this.asleep = true
 		this.owner = 0
 		this.lastSeen = 0
+		this.lastAttack = Date.now()
 
 		this.health = 50
 	}
 	hurt(hp, killer) {
 		this.awaken(killer)
+		broadcast("enemy_hurt", this.id)
 		var remaining = Math.round(this.health - hp)
 		if (remaining < 0) {
 			this.health = 0
@@ -40,6 +42,12 @@ module.exports.Enemy = class Enemy extends Entity {
 		this.asleep = true
 		this.owner = 0
 		this.lastSeen = 0
+	}
+	attack(player) {
+		if (Date.now() - this.lastAttack > config.enemyAttackTime) {
+			player.hurt(10, "Attacked by an enemy.")
+			this.lastAttack = Date.now()
+		}
 	}
 	networkUpdate(skipCache) {
 		if (Date.now() - this.lastSeen > config.enemyForgetTime) {

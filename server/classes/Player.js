@@ -9,6 +9,7 @@ module.exports.Player = class Player {
 		this.health = 100
 		this.maxhealth = 100
 		this.position = [4, 4] // X, Y coordinates of the player
+		this.killed = false
 
 		this.coins = 0
 		this.kills = 0
@@ -23,10 +24,13 @@ module.exports.Player = class Player {
 				health: 1,
 				speed: 1,
 				strength: 1,
-				luck: 1
+				luck: 1,
+				reload: 1,
+				bulletspeed: 1
 			},
-			upgrades: {
-				"piercing": false
+			abilities: {
+				"piercing": false,
+				"rejuvenation": false,
 			}
 		}
 		
@@ -34,7 +38,7 @@ module.exports.Player = class Player {
 	}
 
 	hurt(hp, reason) { // The hurt function allows us to hurt the player, taking away some of their health.
-		var remaining = Math.round(this.ws.data.health - hp)
+		var remaining = Math.round(this.health - hp)
 		if (remaining < 0) {
 			this.health = 0
 			this.kill(reason)
@@ -44,8 +48,21 @@ module.exports.Player = class Player {
 
 		this.networkUpdate()
 	}
+	heal(hp) {
+		var remaining = Math.round(this.health + hp)
+		if (remaining > this.maxhealth) {
+			this.health = this.maxhealth
+		} else {
+			this.health = remaining
+		}
+
+		this.networkUpdate()
+	}
 	kill(reason) { // The kill function will kill the player with a specific reason, such as "burned to death".
-		log(`Killed player ${this.name} for reason ${reason}`)
+		if (!this.killed) {
+			this.killed = true
+			log(`Killed player ${this.name} for reason ${reason}`)
+		}
 	}
 	move(x, y) {
 		this.position = [this.position[0] + x, this.position[1] + y]
@@ -59,7 +76,7 @@ module.exports.Player = class Player {
 	}
 	upgrade(skill) {
 		const cost = this.upgrades.skills[skill] * 100
-		if (this.upgrades.skills[skill] > 10) return this.client.send("system_message", `You've already maxed out this skill!`)
+		if (this.upgrades.skills[skill] > 9) return this.client.send("system_message", `You've already maxed out this skill!`)
 		if (this.coins < cost) return this.client.send("system_message", `You can't afford that! You need ${cost - this.coins} more coins!`)
 
 		this.upgrades.skills[skill] ++
@@ -74,6 +91,16 @@ module.exports.Player = class Player {
 		this.client.send("shop_success", true)
 		return this.client.send("system_message", `Successfully upgraded ${skill} to Level ${this.upgrades.skills[skill]}. You were charged ${cost} coins.`)
 
+	}
+	upgradeAbility(ability) {
+		if (this.upgrades.abilities[ability] == true) return this.client.send("system_message", "You already own this ability!")
+		if (this.coins < 100) return this.client.send("system_message", `You cant't afford that! You need ${100 - this.coins} more coins!`)
+	
+		this.upgrades.abilities[ability] = true
+		this.coins -= 100
+
+		this.client.send("shop_success", true)
+		return this.client.send("system_message", `Successfully upgraded ${ability}! You were charged 100 coins.`)
 	}
 	networkUpdate(updatePosition) {
 		this.client.send("player_update", {

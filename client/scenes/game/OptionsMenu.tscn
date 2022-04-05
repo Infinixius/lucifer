@@ -116,9 +116,9 @@ margin_top = 240.0
 margin_right = 1587.0
 margin_bottom = 256.0
 theme = ExtResource( 1 )
-max_value = 1.0
+max_value = 0.5
 step = 0.01
-value = 0.5
+value = 0.2
 
 [node name="Label5" type="Label" parent="ScrollContainer/Main"]
 margin_top = 260.0

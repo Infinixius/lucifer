@@ -64,12 +64,6 @@ func processPacket(data, msg, id):
 		$"../CanvasLayer/Loading".visible = false
 		$"../Navigation2D/TileMap".update_dirty_quadrants()
 		
-		Global.pathfinding = AStar2D.new()
-		var points = 1
-		for tile in $"../Navigation2D/TileMap".get_used_cells_by_id(9):
-			points += 1
-			Global.pathfinding.add_point(points, tile)
-		
 		var tween = $"../Player/AnimatedSprite/Camera2D/Tween"
 		tween.interpolate_property($"../Player/AnimatedSprite/Camera2D", "zoom",
 				Vector2(20, 20), Vector2(0.6, 0.6), 1,
@@ -96,6 +90,12 @@ func processPacket(data, msg, id):
 				$"../CanvasLayer/UpgradesMenu/ScrollContainer/Main/Health/TextureProgress".value = int(msg.upgrades.skills.health)
 				$"../CanvasLayer/UpgradesMenu/ScrollContainer/Main/Strength/TextureProgress".value = int(msg.upgrades.skills.strength)
 				$"../CanvasLayer/UpgradesMenu/ScrollContainer/Main/Speed/TextureProgress".value = int(msg.upgrades.skills.speed)
+				$"../CanvasLayer/UpgradesMenu/ScrollContainer/Main/Luck/TextureProgress".value = int(msg.upgrades.skills.luck)
+				$"../CanvasLayer/UpgradesMenu/ScrollContainer/Main/Reload/TextureProgress".value = int(msg.upgrades.skills.reload)
+				$"../CanvasLayer/UpgradesMenu/ScrollContainer/Main/BulletSpeed/TextureProgress".value = int(msg.upgrades.skills.bulletspeed)
+				
+				$"../CanvasLayer/UpgradesMenu/ScrollContainer/Main/Piercing/TextureProgress".value = int(msg.upgrades.abilities.piercing)
+				$"../CanvasLayer/UpgradesMenu/ScrollContainer/Main/Rejuvenation/TextureProgress".value = int(msg.upgrades.abilities.rejuvenation)
 				
 				$"../Player".speed = 500 + (50 * int(msg.upgrades.skills.speed))
 		if "position" in msg:
@@ -110,3 +110,7 @@ func processPacket(data, msg, id):
 			$"../Entities".deleteEntity(msg.id)
 	elif data.type == "shop_success":
 		$"../Sounds".play("Upgrade")
+	elif data.type == "enemy_hurt":
+		var enemy = $"../Entities".get_node_or_null(str(msg))
+		if enemy:
+			enemy.get_node("Enemy").get_node("Sprite").modulate = Color(1,0,0,1)

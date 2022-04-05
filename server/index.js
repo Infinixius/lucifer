@@ -11,6 +11,7 @@ const { EnemyFactory } = require("./classes/EnemyFactory.js")
 
 if (lime) { Logger.log(`Loaded keylimepie v${lime.version}!`) } else { Logger.error("Failed to load keylimepie!!!") }
 Logger.log(`Debugging mode is currently ${config.dev ? "enabled" : "disabled"}`)
+Logger.log(`Cheats are currently ${config.cheats ? "enabled" : "disabled"}`)
 
 const wss = new WebSocketServer({ port: process.env.PORT || config.port || 8080 })
 

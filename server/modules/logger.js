@@ -1,4 +1,5 @@
 const fs = require("fs")
+const util = require("util")
 const config = require("../config.json")
 const npmpackage = require("../package.json")
 
@@ -39,7 +40,7 @@ console.log("---------------------------------------------")
 /* functions */
 
 function advlog(message, type) {
-	if (message.includes(`message with type "ping":`)) return // do not log pings
+	if (message.toString().includes(`message with type "ping":`)) return // do not log pings
 	if (!type) var type = "log"
 
 	let log = config.logsFormat
@@ -49,7 +50,7 @@ function advlog(message, type) {
 	log = log.replace("%type", type)
 	log = log.replace("%TYPE", type.toUpperCase())
 
-	log = log.replace("%log", message)
+	log = log.replace("%log", util.format(message))
 
 	if (type != "debug") console.log(log) // do not console.log debug messages
 	file.write("\n"+log)

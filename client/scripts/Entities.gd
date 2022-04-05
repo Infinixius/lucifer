@@ -9,7 +9,7 @@ func update():
 	for i in self.get_children():
 		pass
 
-func spawnEntity(type, id, pos, _size, rot, _velocity, data):
+func spawnEntity(type, id, pos, _size, rot, velocity, data):
 	var entity = $".".get_node_or_null(str(id))
 	if !entity:
 		if type == Entities.Bullet:
@@ -19,6 +19,7 @@ func spawnEntity(type, id, pos, _size, rot, _velocity, data):
 			bullet.position.x = pos[0]
 			bullet.position.y = pos[1]
 			bullet.rotation_degrees = rot
+			bullet.get_node("Bullet").speed = velocity
 			$".".add_child(bullet)
 		elif type == Entities.Enemy:
 			var enemy = Enemy.instance()
@@ -50,3 +51,4 @@ func updateEntity(id, pos, data):
 		entity.position = entity.get_global_position()
 		entity.position.x = pos[0]
 		entity.position.y = pos[1]
+		entity.rotation = data.rotation

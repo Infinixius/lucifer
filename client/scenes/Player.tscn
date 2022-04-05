@@ -1,9 +1,20 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/data/animations/player_animations.res" type="SpriteFrames" id=1]
 [ext_resource path="res://assets/effects/bullet_spark.png" type="Texture" id=12]
 [ext_resource path="res://assets/effects/light.png" type="Texture" id=19]
 [ext_resource path="res://scripts/Player.gd" type="Script" id=22]
+
+[sub_resource type="ParticlesMaterial" id=4]
+flag_disable_z = true
+gravity = Vector3( 0, 100, 0 )
+angular_velocity = 231.24
+angular_velocity_random = 0.93
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = -75.0
+scale = 2.0
+color = Color( 0.45098, 0.380392, 0.34902, 1 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 12.4334, 12.6273 )
@@ -41,6 +52,22 @@ texture = ExtResource( 19 )
 color = Color( 0.933333, 0.905882, 0.27451, 1 )
 range_z_min = -512
 range_z_max = 512
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( 14.2449, 23 )
+scale = Vector2( 2, 2 )
+amount = 5
+lifetime = 0.7
+local_coords = false
+process_material = SubResource( 4 )
+
+[node name="Particles2D2" type="Particles2D" parent="."]
+position = Vector2( 17.2974, 23 )
+scale = Vector2( 2, 2 )
+amount = 5
+lifetime = 0.7
+local_coords = false
+process_material = SubResource( 4 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 16, 16 )

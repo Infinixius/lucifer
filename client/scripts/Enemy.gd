@@ -18,10 +18,9 @@ func update():
 var time = 0
 func _process(delta):
 	time = time + delta
-	if asleep:
-		get_node("Sprite").modulate = Color(0,0,1)
-	else:
-		get_node("Sprite").modulate = Color(0,1,0)
+	if get_node("Sprite").modulate.g < 1:
+		get_node("Sprite").modulate.g += 0.05
+		get_node("Sprite").modulate.b += 0.05
 	
 	if time > Global.settings.tickRate and ownerID == Global.id:
 		update()
@@ -33,6 +32,9 @@ func _physics_process(delta):
 		var vector_angle = Vector2(round(cos(enemy_angle)), round(sin(enemy_angle)))
 		
 		move_and_slide(vector_angle * speed * delta)
+		
+		if position.distance_to($"../../../Player".position) < 16:
+			$"../../../Players".enemyAttack("melee", get_parent().name)
 	elif asleep == false and not ownerID == Global.id:
 		var enemy_angle = get_angle_to(movingTo)
 		var vector_angle = Vector2(round(cos(enemy_angle)), round(sin(enemy_angle)))

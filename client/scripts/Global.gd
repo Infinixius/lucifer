@@ -1,9 +1,11 @@
 extends Node
 
+onready var bus = AudioServer.get_bus_index("Master")
+
 var firstLaunch = true
 var IP = "localhost"
 var PORT = "8000"
-var VERSION = "0.11.1"
+var VERSION = "1.0"
 var VERSIONNUM = 25
 var error = ""
 var ingame = false
@@ -22,7 +24,8 @@ var settings = {
 	"silent": false,
 	"tickRate": 0.25,
 	"fullscreen": false,
-	"name": ""
+	"name": "",
+	"volume": 0.5
 }
 
 func _ready():
@@ -37,6 +40,9 @@ func _ready():
 		settings.tickRate = settingsFile.get_value("settings", "tickRate", 0.25)
 		settings.fullscreen = settingsFile.get_value("settings", "fullscreen", false)
 		settings.name = settingsFile.get_value("settings", "name", "Default")
+		settings.volume = settingsFile.get_value("settings", "volume", 0.5)
+		
+		AudioServer.set_bus_volume_db(bus, linear2db(settings.volume))
 	else:
 		print("Failed to load data! Error: " + str(err))
 
@@ -57,6 +63,7 @@ func saveSettings():
 	settingsFile.set_value("settings", "tickRate", settings.tickRate)
 	settingsFile.set_value("settings", "fullscreen", settings.fullscreen)
 	settingsFile.set_value("settings", "name", settings.name)
+	settingsFile.set_value("settings", "volume", settings.volume)
 	
 	var err = settingsFile.save("user://settings.cfg")
 	
