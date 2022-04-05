@@ -5,8 +5,7 @@ onready var bus = AudioServer.get_bus_index("Master")
 var firstLaunch = true
 var IP = "localhost"
 var PORT = "8000"
-var VERSION = "1.0"
-var VERSIONNUM = 25
+var VERSION = "1.0.1"
 var error = ""
 var ingame = false
 var inserver = false
@@ -83,9 +82,10 @@ func updateDiscordRPC():
 		assets.set_large_image("icon")
 		assets.set_large_text("Lucifer")
 		
-		var result = yield(Discord.activity_manager.update_activity(discordActivity), "result").result
-		if result != Discord.Result.Ok:
-			print("Failed to set Discord RPC! Error: " + str(result))
+		if Discord.activity_manager != null:
+			var result = yield(Discord.activity_manager.update_activity(discordActivity), "result").result
+			if result != Discord.Result.Ok:
+				print("Failed to set Discord RPC! Error: " + str(result))
 	elif Discord.activity_manager:
 		var result = Discord.activity_manager.clear_activity()
 		

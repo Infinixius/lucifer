@@ -36,6 +36,14 @@ position = Vector2( 0, 17.5 )
 position = Vector2( 0, -18.5 )
 script = ExtResource( 1 )
 
+[node name="Particles2D" type="Particles2D" parent="Bullet"]
+position = Vector2( 0, 54 )
+rotation = 3.14159
+amount = 50
+lifetime = 3.0
+preprocess = 1.0
+process_material = SubResource( 4 )
+
 [node name="Sprite" type="Sprite" parent="Bullet"]
 position = Vector2( 0, 54 )
 rotation = 3.14159
@@ -48,12 +56,6 @@ color = Color( 0.921569, 0.27451, 0.27451, 1 )
 energy = 0.72
 range_z_min = -256
 range_z_max = 256
-
-[node name="Particles2D" type="Particles2D" parent="Bullet/Sprite"]
-amount = 50
-lifetime = 3.0
-preprocess = 1.0
-process_material = SubResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet"]
 visible = false
