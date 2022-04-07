@@ -9,6 +9,7 @@ var fading = false
 
 func _ready():
 	$CanvasLayer/VideoPlayer.visible = true # hidden in the editor
+	$CanvasLayer/VideoPlayerBackground.visible = true
 	$CanvasLayer/Version.text = "v" + Global.VERSION
 	if Global.settings.name != "":
 		NAME.text = Global.settings.name
@@ -36,11 +37,13 @@ func _ready():
 	if Global.firstLaunch == true:
 		yield(get_tree().create_timer(16), "timeout")
 		$CanvasLayer/VideoPlayer.queue_free()
+		$CanvasLayer/VideoPlayerBackground.queue_free()
 		fading = true
 		Global.firstLaunch = false
 	else:
 		fading = true
 		$CanvasLayer/VideoPlayer.queue_free()
+		$CanvasLayer/VideoPlayerBackground.queue_free()
 
 func _on_Connect_pressed():
 	Global.IP = IP.text
@@ -64,6 +67,7 @@ func _input(event):
 		transparency = 0.0
 		if get_node_or_null("CanvasLayer/VideoPlayer"):
 			$CanvasLayer/VideoPlayer.visible = false
+			$CanvasLayer/VideoPlayerBackground.visible = false
 		Global.firstLaunch = false
 
 func _on_Options_pressed():
