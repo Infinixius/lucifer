@@ -5,7 +5,7 @@ onready var bus = AudioServer.get_bus_index("Master")
 var firstLaunch = true
 var IP = "localhost"
 var PORT = "8000"
-var VERSION = "1.0.1"
+var VERSION = "1.0.2"
 var error = ""
 var ingame = false
 var inserver = false
@@ -24,7 +24,8 @@ var settings = {
 	"tickRate": 0.25,
 	"fullscreen": false,
 	"name": "",
-	"volume": 0.5
+	"volume": 0.5,
+	"fpscap": 60
 }
 
 func _ready():
@@ -40,6 +41,7 @@ func _ready():
 		settings.fullscreen = settingsFile.get_value("settings", "fullscreen", false)
 		settings.name = settingsFile.get_value("settings", "name", "Default")
 		settings.volume = settingsFile.get_value("settings", "volume", 0.5)
+		settings.fpscap = settingsFile.get_value("settings", "fpscap", 60)
 		
 		AudioServer.set_bus_volume_db(bus, linear2db(settings.volume))
 	else:
@@ -63,6 +65,7 @@ func saveSettings():
 	settingsFile.set_value("settings", "fullscreen", settings.fullscreen)
 	settingsFile.set_value("settings", "name", settings.name)
 	settingsFile.set_value("settings", "volume", settings.volume)
+	settingsFile.set_value("settings", "fpscap", settings.fpscap)
 	
 	var err = settingsFile.save("user://settings.cfg")
 	

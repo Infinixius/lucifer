@@ -93,11 +93,17 @@ func sendChatMessage():
 	send("send_message", messagebox.text)
 	messagebox.text = ""
 
-func _process(_delta):
+var time = 0
+func _process(delta):
 	if !client.get_peer(1).is_connected_to_host():
 		connectedtext.text = "Not connected"
 	else:
 		connectedtext.text = "Connected to " + str(client.get_peer(1).get_connected_host()) + ":" + str(client.get_peer(1).get_connected_port())
+	
+	time += delta
+	if time > 1:
+		time = 0
+		send("clientping", delta)
 	
 	client.poll()
 

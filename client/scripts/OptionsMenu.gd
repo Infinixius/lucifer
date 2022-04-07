@@ -13,10 +13,18 @@ func _ready():
 	$ScrollContainer/Main/DevOptions.pressed = Global.settings.devOptions
 	$ScrollContainer/Main/Silent.pressed = Global.settings.silent
 	$ScrollContainer/Main/Fullscreen.pressed = Global.settings.fullscreen
+	
 	$ScrollContainer/Main/Volume.value = Global.settings.volume
 	AudioServer.set_bus_volume_db(bus, linear2db(Global.settings.volume))
+	
 	$ScrollContainer/Main/TickRate.value = Global.settings.tickRate
-	$ScrollContainer/Main/Volume.value = Global.settings.volume	
+	$ScrollContainer/Main/Label3.text = "Client-Side Tickrate (currently " + str(Global.settings.tickRate) + " ticks)"
+	
+	$ScrollContainer/Main/FPSCap.value = Global.settings.fpscap
+	$ScrollContainer/Main/Label2.text = "FPS Cap (currently " + str(Global.settings.fpscap) + "FPS)"
+	Engine.set_target_fps(Global.settings.fpscap)
+	
+	$ScrollContainer/Main/Volume.value = Global.settings.volume
 	
 	tween.interpolate_property(self, "rect_position",
 		Vector2(0, 1080), Vector2(0, 0), 0.5,
@@ -73,3 +81,9 @@ func _on_Tween_tween_completed(object, key):
 		if Global.ingame:
 			Global.isplaying = true
 		queue_free()
+
+
+func _on_FPSCap_value_changed(value):
+	Global.settings.fpscap = value
+	Engine.set_target_fps(value)
+	$ScrollContainer/Main/Label2.text = "FPS Cap (currently " + str(value) + "FPS)"

@@ -22,7 +22,7 @@ module.exports.Client = class Client {
 
 		setInterval(() => {
 			if (Date.now() - this.lastMessage > config.playerIdleTime) {
-				//this.kick("Timed out")
+				this.kick("Timed out")
 			}
 		}, config.tickRate)
 	}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://scripts/Global.gd" type="Script" id=1]
 [ext_resource path="res://assets/effects/vignette.png" type="Texture" id=2]
@@ -265,12 +265,6 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
 [sub_resource type="DynamicFont" id=11]
 font_data = ExtResource( 27 )
 
-[sub_resource type="StyleBoxFlat" id=12]
-bg_color = Color( 0.6, 0.6, 0.6, 0 )
-
-[sub_resource type="DynamicFont" id=6]
-font_data = ExtResource( 28 )
-
 [sub_resource type="DynamicFont" id=18]
 size = 18
 use_filter = true
@@ -444,30 +438,7 @@ __meta__ = {
 
 [node name="Messages" type="RichTextLabel" parent="CanvasLayer/Chat"]
 margin_right = 467.0
-margin_bottom = 239.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Message" type="TextEdit" parent="CanvasLayer/Chat"]
-margin_top = 253.0
-margin_right = 227.0
 margin_bottom = 282.0
-custom_styles/normal = SubResource( 12 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Send" type="Button" parent="CanvasLayer/Chat"]
-margin_left = 227.0
-margin_top = 252.0
-margin_right = 299.0
-margin_bottom = 282.0
-custom_fonts/font = SubResource( 6 )
-text = "Send"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HUD" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0
@@ -743,7 +714,6 @@ stream = ExtResource( 35 )
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 44 )
 
-[connection signal="pressed" from="CanvasLayer/Chat/Send" to="Players" method="_on_Send_pressed"]
 [connection signal="pressed" from="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer/Resume" to="." method="_on_Resume_pressed"]
 [connection signal="pressed" from="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer/Options" to="CanvasLayer" method="_on_Options_pressed"]
 [connection signal="pressed" from="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer/Exit_to_menu" to="CanvasLayer" method="_on_Exit_to_menu_pressed"]

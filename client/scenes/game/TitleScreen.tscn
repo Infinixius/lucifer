@@ -14,7 +14,7 @@
 [ext_resource path="res://assets/ui/icons/options.png" type="Texture" id=12]
 [ext_resource path="res://assets/ui/icons/exit.png" type="Texture" id=13]
 [ext_resource path="res://assets/ui/icons/about.png" type="Texture" id=14]
-[ext_resource path="res://assets/meta/splash.webm" type="VideoStream" id=15]
+[ext_resource path="res://assets/meta/splashmini.webm" type="VideoStream" id=15]
 [ext_resource path="res://assets/data/bganimation3.png" type="Texture" id=18]
 [ext_resource path="res://assets/data/bganimation7.png" type="Texture" id=19]
 [ext_resource path="res://scripts/BGAnimation.gd" type="Script" id=20]
@@ -464,11 +464,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VideoPlayer" type="VideoPlayer" parent="CanvasLayer"]
+[node name="VideoPlayerBackground" type="ColorRect" parent="CanvasLayer"]
 visible = false
-margin_left = -2.0
 margin_right = 1920.0
 margin_bottom = 1080.0
+rect_pivot_offset = Vector2( 3471, 0 )
+color = Color( 0, 0, 0, 1 )
+
+[node name="VideoPlayer" type="VideoPlayer" parent="CanvasLayer"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -442.0
+margin_top = -442.0
+margin_right = 442.0
+margin_bottom = 442.0
 stream = ExtResource( 15 )
 autoplay = true
 

@@ -24,10 +24,6 @@ func _on_Resume_pressed():
 	get_node("CanvasLayer/GameMenu").visible = false
 
 func _input(event):
-	if event.is_action_pressed("chat"):
-		$CanvasLayer/Chat/Message.grab_focus()
-	if event.is_action_pressed("sendchat"):
-		$Players.sendChatMessage()
 	if event.is_action_pressed("GameMenu") and not Global.inserver:
 		get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
 	if event.is_action_pressed("upgrade") and not get_node_or_null("CanvasLayer/UpgradesMenu"):
