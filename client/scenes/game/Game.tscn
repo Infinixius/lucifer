@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://scripts/Global.gd" type="Script" id=1]
 [ext_resource path="res://assets/effects/vignette.png" type="Texture" id=2]
@@ -43,7 +43,11 @@
 [ext_resource path="res://assets/sfx/hover.wav" type="AudioStream" id=41]
 [ext_resource path="res://assets/effects/shaders/Distort.material" type="Material" id=42]
 [ext_resource path="res://assets/sfx/upgrade.wav" type="AudioStream" id=43]
-[ext_resource path="res://stain.mp3" type="AudioStream" id=44]
+[ext_resource path="res://assets/sfx/konami.wav" type="AudioStream" id=44]
+[ext_resource path="res://assets/tiles/torch_right.png" type="Texture" id=45]
+[ext_resource path="res://assets/tiles/torch_left.png" type="Texture" id=46]
+[ext_resource path="res://assets/tiles/torch_down.png" type="Texture" id=47]
+[ext_resource path="res://assets/tiles/torch_up.png" type="Texture" id=48]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -261,6 +265,62 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
 13/shape_one_way_margin = 0.0
 13/shapes = [  ]
 13/z_index = 0
+14/name = "torch_down.png 14"
+14/texture = ExtResource( 47 )
+14/tex_offset = Vector2( 0, 0 )
+14/modulate = Color( 1, 1, 1, 1 )
+14/region = Rect2( 0, 0, 32, 32 )
+14/tile_mode = 0
+14/occluder_offset = Vector2( 0, 0 )
+14/navigation_offset = Vector2( 0, 0 )
+14/shape_offset = Vector2( 0, 0 )
+14/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+14/shape_one_way = false
+14/shape_one_way_margin = 0.0
+14/shapes = [  ]
+14/z_index = 0
+15/name = "torch_left.png 15"
+15/texture = ExtResource( 46 )
+15/tex_offset = Vector2( 0, 0 )
+15/modulate = Color( 1, 1, 1, 1 )
+15/region = Rect2( 0, 0, 32, 32 )
+15/tile_mode = 0
+15/occluder_offset = Vector2( 0, 0 )
+15/navigation_offset = Vector2( 0, 0 )
+15/shape_offset = Vector2( 0, 0 )
+15/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+15/shape_one_way = false
+15/shape_one_way_margin = 0.0
+15/shapes = [  ]
+15/z_index = 0
+16/name = "torch_right.png 16"
+16/texture = ExtResource( 45 )
+16/tex_offset = Vector2( 0, 0 )
+16/modulate = Color( 1, 1, 1, 1 )
+16/region = Rect2( 0, 0, 32, 32 )
+16/tile_mode = 0
+16/occluder_offset = Vector2( 0, 0 )
+16/navigation_offset = Vector2( 0, 0 )
+16/shape_offset = Vector2( 0, 0 )
+16/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+16/shape_one_way = false
+16/shape_one_way_margin = 0.0
+16/shapes = [  ]
+16/z_index = 0
+17/name = "torch_up.png 17"
+17/texture = ExtResource( 48 )
+17/tex_offset = Vector2( 0, 0 )
+17/modulate = Color( 1, 1, 1, 1 )
+17/region = Rect2( 0, 0, 32, 32 )
+17/tile_mode = 0
+17/occluder_offset = Vector2( 0, 0 )
+17/navigation_offset = Vector2( 0, 0 )
+17/shape_offset = Vector2( 0, 0 )
+17/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+17/shape_one_way = false
+17/shape_one_way_margin = 0.0
+17/shapes = [  ]
+17/z_index = 0
 
 [sub_resource type="DynamicFont" id=11]
 font_data = ExtResource( 27 )
@@ -313,6 +373,7 @@ script = ExtResource( 25 )
 
 [node name="TileMap" type="TileMap" parent="Navigation2D"]
 modulate = Color( 0.99, 0.99, 0.99, 1 )
+z_index = -22
 tile_set = SubResource( 3 )
 cell_size = Vector2( 32, 32 )
 cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
@@ -694,6 +755,9 @@ script = ExtResource( 32 )
 [node name="Hover" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 41 )
 
+[node name="Konami" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 44 )
+
 [node name="Upgrade" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 43 )
 
@@ -710,9 +774,6 @@ stream = ExtResource( 34 )
 stream = ExtResource( 35 )
 
 [node name="Tween" type="Tween" parent="."]
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 44 )
 
 [connection signal="pressed" from="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer/Resume" to="." method="_on_Resume_pressed"]
 [connection signal="pressed" from="CanvasLayer/GameMenu/NinePatchRect/VBoxContainer/Options" to="CanvasLayer" method="_on_Options_pressed"]

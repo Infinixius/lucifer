@@ -56,6 +56,7 @@ range_z_max = 512
 [node name="Particles2D" type="Particles2D" parent="."]
 position = Vector2( 14.2449, 23 )
 scale = Vector2( 2, 2 )
+z_index = -2
 amount = 5
 lifetime = 0.7
 local_coords = false
@@ -64,6 +65,7 @@ process_material = SubResource( 4 )
 [node name="Particles2D2" type="Particles2D" parent="."]
 position = Vector2( 17.2974, 23 )
 scale = Vector2( 2, 2 )
+z_index = -2
 amount = 5
 lifetime = 0.7
 local_coords = false
@@ -72,9 +74,9 @@ process_material = SubResource( 4 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 16, 16 )
 scale = Vector2( 2, 2 )
+z_index = -1
 frames = ExtResource( 1 )
 animation = "walk_down"
-frame = 2
 speed_scale = 1.5
 playing = true
 
@@ -91,8 +93,11 @@ modulate = Color( 1, 1, 1, 0 )
 position = Vector2( -1.89504, 2 )
 texture = ExtResource( 19 )
 color = Color( 0.917647, 0.870588, 0.768627, 1 )
+energy = 0.5
 shadow_enabled = true
-shadow_gradient_length = 0.5
+shadow_gradient_length = 1.3
+shadow_filter = 3
+shadow_filter_smooth = 11.1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
