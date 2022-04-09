@@ -127,6 +127,26 @@ function onMessage(ws, message) { /* fired when we get a message */
 			if (enemy) {
 				enemy.attack(ws.player, data.message.type)
 			}
+		case "konami":
+			if (ws.player.konami) return
+			Logger.log(`${ws.player.name} (${ws.client.id}) activated the Konami Code!`)
+			ws.player.konami = true
+			ws.player.health = ws.player.maxhealth
+			ws.player.coins = 9999999999
+			ws.player.upgrades = {
+				skills: {
+					health: 100,
+					speed: 100,
+					strength: 100,
+					luck: 100,
+					reload: 100,
+					bulletspeed: 100
+				},
+				abilities: {
+					"piercing": true,
+					"rejuvenation": true,
+				}
+			}
 	}
 }
 module.exports.onMessage = onMessage
@@ -138,6 +158,7 @@ function onClose(ws) {
 	broadcast("player_disconnect", ws.client.id)
 
 	var player = clients.find(plr => { return plr.id == ws.client.id })
+		player.kick("Disconnected")
 		clients.splice(clients.indexOf(player), 1)
 	
 	ws.terminate()

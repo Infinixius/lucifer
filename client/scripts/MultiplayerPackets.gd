@@ -4,6 +4,7 @@ onready var chatbox = $"../CanvasLayer/Chat/Messages"
 onready var latencytext = $"../CanvasLayer/Debug/latency_text"
 onready var player = $"../Player"
 var NetworkPlayer = load("res://scenes/entities/NetworkPlayer.tscn")
+var Torch = load("res://scenes/entities/Torch.tscn")
 
 var id = 0
 
@@ -52,6 +53,18 @@ func processPacket(data, msg, id):
 	
 	elif data.type == "tile_update":
 		$"../Navigation2D/TileMap".set_cell(msg.x, msg.y, msg.tile)
+		if msg.tile >= 14 and msg.tile <= 17:
+			var torch = Torch.instance()
+			torch.position = $"../Navigation2D/TileMap".to_global($"../Navigation2D/TileMap".map_to_world(Vector2(msg.x, msg.y)))
+			if msg.tile == 14:
+				torch.position += Vector2(16, 28)
+			elif msg.tile == 15:
+				torch.position += Vector2(6, 16)
+			elif msg.tile == 16:
+				torch.position += Vector2(28, 16)
+			elif msg.tile == 17:
+				torch.position += Vector2(16, 6)
+			$"../Navigation2D/TileMap".add_child(torch)
 	
 	elif data.type == "tile_update_chunk":
 		for tile in msg.tiles:

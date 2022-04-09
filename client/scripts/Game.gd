@@ -23,7 +23,25 @@ func _process(_delta):
 func _on_Resume_pressed():
 	get_node("CanvasLayer/GameMenu").visible = false
 
+var code = []
+var konamiCode = ["Up", "Up", "Down", "Down", "Left", "Right", "Left", "Right", "B", "A"]
+func handleKey(event):
+	if konamiCode.has(OS.get_scancode_string(event.physical_scancode)):
+		code.append(OS.get_scancode_string(event.physical_scancode))
+		if code.size() > 10:
+			code.pop_front()
+	else:
+		code.clear()
+	
+	if code == konamiCode:
+		$"/root/Game/Players".send("konami", true)
+		$"/root/Game/Sounds".play("Konami")
+
 func _input(event):
+	if event.get_class() == "InputEventKey":
+		if event.pressed and Global.ingame and Global.inserver:
+			handleKey(event)
+	
 	if event.is_action_pressed("GameMenu") and not Global.inserver:
 		get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
 	if event.is_action_pressed("upgrade") and not get_node_or_null("CanvasLayer/UpgradesMenu"):

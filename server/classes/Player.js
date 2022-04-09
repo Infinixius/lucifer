@@ -10,6 +10,7 @@ module.exports.Player = class Player {
 		this.maxhealth = 100
 		this.position = [4, 4] // X, Y coordinates of the player
 		this.killed = false
+		this.konami = false
 
 		this.coins = 0
 		this.kills = 0
