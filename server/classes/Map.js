@@ -65,6 +65,7 @@ module.exports.Map = class Map {
 					}
 				}
 			}
+			torches(this.tiles)
 			log(`Generated map with ${this.tiles.all().length} tiles in ${Date.now() - timestamp}ms!`)
 			enemies.spawnEnemies(this, global.level * 25)
 		})
@@ -154,6 +155,32 @@ function surroundMap(tiles) { // surrounds the map with a wall
 		if (!tile_right) tiles.set(tile.x + 1, tile.y, "wall")
 		if (!tile_down) tiles.set(tile.x, tile.y + 1, "wall")
 		if (!tile_left) tiles.set(tile.x - 1, tile.y, "wall")
+	}
+}
+
+function torches(tiles) {
+	for (const tile of tiles.all()) {
+		if (tile.tile != getTile("wall")) continue
+		const rand = lime.random(0,1000)
+		if (rand < 975) continue
+
+		var tile_up = tiles.get(tile.x, tile.y - 1)
+		var tile_right = tiles.get(tile.x + 1, tile.y)
+		var tile_down = tiles.get(tile.x, tile.y + 1)
+		var tile_left = tiles.get(tile.x - 1, tile.y)
+
+		if (tile_up) {
+			if (tile_up == getTile("floor")) tiles.set(tile.x, tile.y - 1, "torch_down")
+		}
+		if (tile_right) {
+			if (tile_right == getTile("floor")) tiles.set(tile.x + 1, tile.y, "torch_left")
+		}
+		if (tile_down) {
+			if (tile_down == getTile("floor")) tiles.set(tile.x, tile.y + 1, "torch_up")
+		}
+		if (tile_left) {
+			if (tile_left == getTile("floor")) tiles.set(tile.x - 1, tile.y, "torch_right")
+		}
 	}
 }
 

@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/effects/light.png" type="Texture" id=1]
+[ext_resource path="res://scripts/Torch.gd" type="Script" id=2]
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0, 0.533865, 1 )
+colors = PoolColorArray( 1, 0, 0, 1, 1, 0.539063, 0, 1, 1, 0.9375, 0, 1 )
+
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -2.36636, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 1
+emission_sphere_radius = 4.0
+flag_disable_z = true
+spread = 0.0
+gravity = Vector3( 0, -98, 0 )
+angular_velocity = 315.33
+angular_velocity_random = 0.61
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 4.0
+scale_curve = SubResource( 2 )
+color_ramp = SubResource( 5 )
+
+[node name="Particles2D" type="Particles2D"]
+amount = 10
+process_material = SubResource( 3 )
+script = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="."]
+texture = ExtResource( 1 )
+color = Color( 0.956863, 0.309804, 0.113725, 1 )
+energy = 0.85

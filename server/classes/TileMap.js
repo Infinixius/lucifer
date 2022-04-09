@@ -26,7 +26,12 @@ const tiles = {
 	"wall": 10,
 	"floor_burnt": 11,
 	"floor_mossy": 12,
-	"floor_grasspatch": 13
+	"floor_grasspatch": 13,
+
+	"torch_down": 14,
+	"torch_left": 15,
+	"torch_right": 16,
+	"torch_up": 17	
 }
 module.exports.tiles = tiles
 
