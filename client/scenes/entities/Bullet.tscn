@@ -52,8 +52,8 @@ texture = ExtResource( 2 )
 [node name="Light2D" type="Light2D" parent="Bullet/Sprite"]
 position = Vector2( 2.00001, -4.99999 )
 texture = ExtResource( 3 )
-color = Color( 0.921569, 0.27451, 0.27451, 1 )
-energy = 0.72
+color = Color( 1, 0, 0, 1 )
+energy = 1.25
 range_z_min = -256
 range_z_max = 256
 

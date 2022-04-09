@@ -62,12 +62,18 @@ func _physics_process(delta):
 	$CollisionShape2D.disabled = Global.settings.noclip
 	if Global.settings.lighting == true:
 		$AnimatedSprite/Light2D.enabled = true
+		$Particles2D.visible = true
+		$Particles2D2.visible = true
 		$"../CanvasModulate".color = Color8(81, 81, 81)
 		$"../CanvasLayer/Vignette".visible = true
+		$"../CanvasLayer/Distort".visible = true
 	else:
 		$AnimatedSprite/Light2D.enabled = false
+		$Particles2D.visible = false
+		$Particles2D2.visible = false
 		$"../CanvasModulate".color = Color8(255, 255, 255)
 		$"../CanvasLayer/Vignette".visible = false
+		$"../CanvasLayer/Distort".visible = false
 	
 	if not Global.settings.silent:
 		var space_state = get_world_2d().direct_space_state

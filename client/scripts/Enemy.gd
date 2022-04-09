@@ -25,6 +25,11 @@ func _process(delta):
 	if time > Global.settings.tickRate and ownerID == Global.id:
 		update()
 		time = 0
+	
+	if Global.settings.lighting == true:
+		$Light2D.visible = true
+	else:
+		$Light2D.visible = false
 
 func _physics_process(delta):
 	if asleep == false and ownerID == Global.id:
