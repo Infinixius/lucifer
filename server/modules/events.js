@@ -127,6 +127,7 @@ function onMessage(ws, message) { /* fired when we get a message */
 			if (enemy) {
 				enemy.attack(ws.player, data.message.type)
 			}
+			break
 		case "konami":
 			if (ws.player.konami) return
 			Logger.log(`${ws.player.name} (${ws.client.id}) activated the Konami Code!`)
@@ -135,12 +136,12 @@ function onMessage(ws, message) { /* fired when we get a message */
 			ws.player.coins = 9999999999
 			ws.player.upgrades = {
 				skills: {
-					health: 100,
-					speed: 100,
-					strength: 100,
-					luck: 100,
-					reload: 100,
-					bulletspeed: 100
+					health: 10,
+					speed: 10,
+					strength: 10,
+					luck: 10,
+					reload: 10,
+					bulletspeed: 10
 				},
 				abilities: {
 					"piercing": true,
