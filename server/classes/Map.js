@@ -6,7 +6,7 @@ const { getTile, TileMap } = require("./TileMap.js")
 const ROOMDATA_IMAGE_ROWLENGTH = 4 // length of rows in rooms.png
 const ROOMDATA_ROOMS = 10 // amount of rooms in rooms.png
 const ROOM_SIZE = 32 // size of an individual room
-const ROOMS = 11 // total amount of rooms
+const ROOMS = 16 // total amount of rooms
 
 module.exports.Map = class Map {
 	constructor (x, y, roomAmount) {
@@ -16,6 +16,8 @@ module.exports.Map = class Map {
 		var timestamp = Date.now() // used to track how long it took to generate the map
 
 		this.tiles = new TileMap(x, y)
+
+		this.enemySpawners = []
 		
 		this.rooms = [
 			{type: 0, coords: [0, 0]} // starting room
@@ -24,6 +26,8 @@ module.exports.Map = class Map {
 		for (var room = 0; room < roomAmount; room++) { // generate rooms
 			this.rooms.push(getAdjacentRoom(this.rooms))
 		}
+
+		this.rooms.push(getAdjacentRoom(this.rooms, true))
 
 		var imagePath = path.join(__dirname, "/../assets/rooms.png") // this weird trick is required because you can't normally read rooms.png when a lan game is started from the client
 		Jimp.read(imagePath, (err, image) => {
@@ -55,6 +59,35 @@ module.exports.Map = class Map {
 								room.coords[1] * ROOM_SIZE + y + 1,
 								"wall"
 							)
+						} else if (pixel.r == 100 && pixel.g == 100 && pixel.b == 100 && pixel.a == 255) { // gray
+							this.tiles.set(
+								room.coords[0] * ROOM_SIZE + x + 1,
+								room.coords[1] * ROOM_SIZE + y + 1,
+								"exit"
+							)
+						} else if (pixel.r == 255 && pixel.g == 0 && pixel.b == 0 && pixel.a == 255) {
+							this.tiles.set(
+								room.coords[0] * ROOM_SIZE + x + 1,
+								room.coords[1] * ROOM_SIZE + y + 1,
+								"keydoorred"
+							)
+						} else if (pixel.r == 255 && pixel.g == 255 && pixel.b == 0 && pixel.a == 255) {
+							this.tiles.set(
+								room.coords[0] * ROOM_SIZE + x + 1,
+								room.coords[1] * ROOM_SIZE + y + 1,
+								"keydooryellow"
+							)
+						} else if (pixel.r == 0 && pixel.g == 0 && pixel.b == 255 && pixel.a == 255) {
+							this.tiles.set(
+								room.coords[0] * ROOM_SIZE + x + 1,
+								room.coords[1] * ROOM_SIZE + y + 1,
+								"keydoorblue"
+							)
+						} else if (pixel.r == 0 && pixel.g == 255 && pixel.b == 255 && pixel.a == 255) {
+							this.enemySpawners.push([
+								room.coords[0] * ROOM_SIZE + x + 1,
+								room.coords[1] * ROOM_SIZE + y + 1
+							])
 						} else {
 							this.tiles.set(
 								room.coords[0] * ROOM_SIZE + x + 1,
@@ -66,8 +99,15 @@ module.exports.Map = class Map {
 				}
 			}
 			torches(this.tiles)
-			log(`Generated map with ${this.tiles.all().length} tiles in ${Date.now() - timestamp}ms!`)
-			enemies.spawnEnemies(this, global.level * 25)
+
+			Logger.log(`Level ${global.level}`)
+			Logger.log("------------------------")
+			log(`Generated map with ${this.tiles.all().length} tiles and ${this.rooms.length} rooms in ${Date.now() - timestamp}ms`)
+			enemies.spawnEnemies(this, this.enemySpawners)
+
+			clients.forEach(client => {
+				this.send(client.ws)
+			})
 		})
 	}
 	send(ws) {
@@ -100,13 +140,18 @@ module.exports.Map = class Map {
 	}
 }
 
-function getAdjacentRoom(rooms) {
+function getAdjacentRoom(rooms, exit) {
 	var randomRoom = rooms[rooms.length - Math.floor(Math.random() * 5)] //rooms[Math.floor(Math.random() * rooms.length)]
 	if (!randomRoom) randomRoom = rooms[rooms.length - 1]
+
 	var room
 	var random = Math.floor(Math.random() * 3) // get random cardinal direction
+	
 	var type = Math.floor(Math.random() * ROOMS)
-	if (type == 0) type = 1 // ignore the starting room
+	if (type == 0) type = 2 // ignore the starting room
+	if (type == 1) type = 2 // ignore the exit room
+
+	if (exit) type = 1
 
 	switch (random) {
 		case 0: // north
@@ -136,7 +181,7 @@ function getAdjacentRoom(rooms) {
 	}
 
 	if (rooms.find(x => x.coords[0] == room.coords[0] && x.coords[1] == room.coords[1] )) { // room already exists
-		room = getAdjacentRoom(rooms)
+		room = getAdjacentRoom(rooms, exit)
 	}
 
 	return room

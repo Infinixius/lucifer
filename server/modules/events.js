@@ -148,6 +148,10 @@ function onMessage(ws, message) { /* fired when we get a message */
 					"rejuvenation": true,
 				}
 			}
+			break
+		case "player_exit":
+			ws.player.leaving = data.message
+			break
 	}
 }
 module.exports.onMessage = onMessage
