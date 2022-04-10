@@ -37,6 +37,20 @@ setInterval(() => {
 		player.networkUpdate()
 		player.bullets.networkUpdate()
 	})
+
+	if (clients.length > 0 && clients.every(client => client.fetchPlayer().leaving)) {
+		clients.forEach(client => { client.fetchPlayer().leaving = false })
+		broadcast("newlevel", true)
+
+		setTimeout(() => {
+			global.level ++
+			global.map = new Map(1000, 1000, global.level * 10)
+			global.enemies = new EnemyFactory()
+			clients.forEach(client => {
+				client.fetchPlayer().moveTo(128, 128)
+			})
+		}, 2000)
+	}
 }, config.tickRate)
 
 // utility functions available in every script

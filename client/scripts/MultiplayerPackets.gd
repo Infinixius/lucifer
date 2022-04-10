@@ -5,6 +5,7 @@ onready var latencytext = $"../CanvasLayer/Debug/latency_text"
 onready var player = $"../Player"
 var NetworkPlayer = load("res://scenes/entities/NetworkPlayer.tscn")
 var Torch = load("res://scenes/entities/Torch.tscn")
+var Exit = load("res://scenes/entities/Exit.tscn")
 
 var id = 0
 
@@ -65,6 +66,10 @@ func processPacket(data, msg, id):
 			elif msg.tile == 17:
 				torch.position += Vector2(16, 6)
 			$"../Navigation2D/TileMap".add_child(torch)
+		elif msg.tile == 18:
+			var exit = Exit.instance()
+			exit.position = $"../Navigation2D/TileMap".to_global($"../Navigation2D/TileMap".map_to_world(Vector2(msg.x, msg.y))) + Vector2(16, 16)
+			$"../Navigation2D/TileMap".add_child(exit)
 	
 	elif data.type == "tile_update_chunk":
 		for tile in msg.tiles:
@@ -80,6 +85,20 @@ func processPacket(data, msg, id):
 		var tween = $"../Player/AnimatedSprite/Camera2D/Tween"
 		tween.interpolate_property($"../Player/AnimatedSprite/Camera2D", "zoom",
 				Vector2(20, 20), Vector2(0.6, 0.6), 1,
+				Tween.TRANS_QUART, Tween.EASE_IN)
+		tween.start()
+	
+	elif data.type == "newlevel":
+		for entity in $"../Entities".get_children():
+			entity.queue_free()
+		for mapentity in $"../Navigation2D/TileMap".get_children():
+			mapentity.queue_free()
+		
+		$"../Navigation2D/TileMap".clear()
+		
+		var tween = $"../Player/AnimatedSprite/Camera2D/Tween"
+		tween.interpolate_property($"../Player/AnimatedSprite/Camera2D", "zoom",
+				Vector2(0.6, 0.6), Vector2(20, 20), 2,
 				Tween.TRANS_QUART, Tween.EASE_IN)
 		tween.start()
 	

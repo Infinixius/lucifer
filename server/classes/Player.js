@@ -11,6 +11,7 @@ module.exports.Player = class Player {
 		this.position = [4, 4] // X, Y coordinates of the player
 		this.killed = false
 		this.konami = false
+		this.leaving = false
 
 		this.coins = 0
 		this.kills = 0

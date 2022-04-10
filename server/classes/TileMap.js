@@ -31,7 +31,13 @@ const tiles = {
 	"torch_down": 14,
 	"torch_left": 15,
 	"torch_right": 16,
-	"torch_up": 17	
+	"torch_up": 17,
+
+	"exit": 18,
+	"keydoor": 19,
+	"keydoorblue": 20,
+	"keydoorred": 21,
+	"keydooryellow": 22
 }
 module.exports.tiles = tiles
 
