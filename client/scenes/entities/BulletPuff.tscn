@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scripts/BulletPuff.gd" type="Script" id=1]
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0.741036, 1 )
+colors = PoolColorArray( 1, 0, 0, 1, 0.423529, 0.0627451, 0.0627451, 0.482353 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=1]
+lifetime_randomness = 0.89
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 75.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 5.0
+color = Color( 1, 0.352941, 0.352941, 1 )
+color_ramp = SubResource( 3 )
+
+[node name="BulletPuff" type="Particles2D"]
+amount = 25
+lifetime = 0.35
+explosiveness = 1.0
+process_material = SubResource( 1 )
+script = ExtResource( 1 )

@@ -69,4 +69,7 @@ rotation = 3.14159
 scale = Vector2( 1.2, 1.2 )
 texture = ExtResource( 4 )
 
+[node name="ParticlePoint" type="Node2D" parent="Bullet"]
+position = Vector2( 0, 75 )
+
 [connection signal="body_entered" from="Bullet" to="Bullet" method="_on_Bullet_body_entered"]
