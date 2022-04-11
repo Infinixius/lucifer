@@ -24,6 +24,8 @@ func _ready():
 	Global.saveSettings()
 	
 	Global.ingame = false
+	Global.isdead = false
+	Global.inserver = false
 	FadeIn.visible = true
 	Global.updateDiscordRPC()
 	

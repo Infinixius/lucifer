@@ -9,6 +9,7 @@ onready var Multiplayer = $"../Players"
 onready var velocitytext = $"../CanvasLayer/Debug/velocity_text"
 onready var bulletspawn = $BulletSpawn
 onready var camera = $AnimatedSprite/Camera2D
+var DeathScreen = load("res://scenes/game/DeathScreen.tscn")
 
 var velocity = Vector2()
 var speedvel = 1000
@@ -34,27 +35,28 @@ func get_input():
 		velocity.y -= speedvel
 		check_direction_walk()
 		
-	if Input.is_action_pressed("shoot"):
+	if Input.is_action_pressed("shoot") and not Global.isdead:
 		if $"/root/Game/CanvasLayer/GameMenu".visible == false:
 			Multiplayer.shoot(direction)	
 			
 		check_direction_walk()
-	if Input.is_action_just_released("zoom_in"):
+	if Input.is_action_just_released("zoom_in") and not Global.isdead:
 		if camera.zoom > Vector2(0.1, 0.1):
 			camera.zoom = camera.zoom - Vector2(0.1, 0.1)
-	if Input.is_action_just_released("zoom_out"):
+	if Input.is_action_just_released("zoom_out") and not Global.isdead:
 		if camera.zoom < Vector2(1, 1):
 			camera.zoom = camera.zoom + Vector2(0.1, 0.1)
 	
-	velocity = velocity.normalized() * speed
-	sprite.play("walk_" + direction_walk)
-	if velocity != Vector2(0,0) and sprite.frame == 0:
-		sprite.frame = 1
+	if not Global.isdead:
+		velocity = velocity.normalized() * speed
+		sprite.play("walk_" + direction_walk)
+		if velocity != Vector2(0,0) and sprite.frame == 0:
+			sprite.frame = 1
 
 var time = 0
 func _physics_process(delta):
 	time += delta
-	if $"/root/Game/CanvasLayer/GameMenu".visible == false and Global.isplaying: # prevent moving while in the menu
+	if $"/root/Game/CanvasLayer/GameMenu".visible == false and Global.isplaying and not Global.isdead: # prevent moving while in the menu
 		get_input()
 		velocity = move_and_slide(velocity, Vector2(0, 0))
 		velocitytext.text = "Velocity: " + str(velocity)
@@ -75,17 +77,7 @@ func _physics_process(delta):
 		$"../CanvasLayer/Vignette".visible = false
 		$"../CanvasLayer/Distort".visible = false
 	
-	if not Global.settings.silent:
-		var space_state = get_world_2d().direct_space_state
-		for entity in $"../Entities".get_children():
-			if entity.get_node_or_null("Enemy"):
-				var enemyPos = Vector2(entity.get_node("Enemy").position.x + 16, entity.get_node("Enemy").position.y + 16)
-				if enemyPos.distance_to(self.position) < 512:
-					var result = space_state.intersect_ray(self.position, enemyPos, [self, entity.get_node("Enemy")])
-					if result.size() == 0:
-						$"../Players".send("enemy_seen", entity.name)
-	
-	if Global.isplaying:
+	if Global.isplaying and not Global.isdead:
 		if velocity == Vector2(0,0):
 			sprite.stop()
 			sprite.frame = 0
@@ -125,3 +117,7 @@ func check_direction_walk():
 		bulletspawn.position.x = 16
 		bulletspawn.position.y = 0	
 		bulletspawn.rotation_degrees = -90
+
+func died():
+	var deathscreen = DeathScreen.instance()
+	$"/root/Game/CanvasLayer".add_child(deathscreen)

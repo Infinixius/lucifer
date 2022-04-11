@@ -34,6 +34,7 @@ module.exports.onJoin = function(ws, req) { // fired when a player joins
 		"name": ws.player.name
 	})
 	map.send(ws)
+	ws.player.networkUpdate(true)
 
 	// events
 	ws.on("message", (msg) => { onMessage(ws, msg) }) // on message event
@@ -151,6 +152,12 @@ function onMessage(ws, message) { /* fired when we get a message */
 			break
 		case "player_exit":
 			ws.player.leaving = data.message
+			break
+		case "respawn":
+			const player = new Player(ws.client, ws.player.name)
+			ws.client.player = player
+			ws.player = player
+			player.networkUpdate(true)
 			break
 	}
 }

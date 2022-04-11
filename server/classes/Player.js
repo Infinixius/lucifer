@@ -8,7 +8,7 @@ module.exports.Player = class Player {
 
 		this.health = 100
 		this.maxhealth = 100
-		this.position = [4, 4] // X, Y coordinates of the player
+		this.position = [128, 128] // X, Y coordinates of the player
 		this.killed = false
 		this.konami = false
 		this.leaving = false
@@ -41,7 +41,7 @@ module.exports.Player = class Player {
 
 	hurt(hp, reason) { // The hurt function allows us to hurt the player, taking away some of their health.
 		var remaining = Math.round(this.health - hp)
-		if (remaining < 0) {
+		if (remaining < 1) {
 			this.health = 0
 			this.kill(reason)
 		} else {
@@ -63,6 +63,17 @@ module.exports.Player = class Player {
 	kill(reason) { // The kill function will kill the player with a specific reason, such as "burned to death".
 		if (!this.killed) {
 			this.killed = true
+			this.bullets.bullets = new Map()
+			global.enemies.enemies.forEach(enemy => {
+				if (enemy.owner == this.client.id)  {
+					enemy.goToSleep()
+				}
+			})
+			broadcast("player_kill", {
+				id: this.client.id,
+				reason: reason,
+				score: this.coins
+			})
 			log(`Killed player ${this.name} for reason ${reason}`)
 		}
 	}

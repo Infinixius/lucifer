@@ -4,9 +4,10 @@ export (bool) var asleep = true
 export (int) var speed = 10000
 export (int) var ownerID = 0
 export (Vector2) var movingTo = Vector2(0,0)
+onready var player = $"../../../Player"
 
 func _ready():
-	add_collision_exception_with($"../../../Player")
+	add_collision_exception_with(player)
 
 func update():
 	$"../../../Players".send("enemy_ai", {
@@ -31,8 +32,19 @@ func _process(delta):
 	else:
 		$Light2D.visible = false
 
+var seetime = 0
 func _physics_process(delta):
-	if asleep == false and ownerID == Global.id:
+	seetime += delta
+	if asleep == true and not Global.settings.silent and seetime > 1 and not Global.isdead:
+		seetime = 0
+		var space_state = get_world_2d().direct_space_state
+		var enemyPos = Vector2(position.x + 16, position.y + 16)
+		if enemyPos.distance_to(player.position) < 512:
+			var result = space_state.intersect_ray(player.position, enemyPos, [player, self])
+			if result.size() == 0:
+				$"/root/Game/Players".send("enemy_seen", get_parent().name)
+	
+	elif asleep == false and ownerID == Global.id:
 		var enemy_angle = get_angle_to($"../../../Player".position)
 		var vector_angle = Vector2(round(cos(enemy_angle)), round(sin(enemy_angle)))
 		

@@ -39,11 +39,11 @@ func handleKey(event):
 
 func _input(event):
 	if event.get_class() == "InputEventKey":
-		if event.pressed and Global.ingame and Global.inserver:
+		if event.pressed and Global.ingame and Global.inserver and not Global.isdead:
 			handleKey(event)
 	
 	if event.is_action_pressed("GameMenu") and not Global.inserver:
 		get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
-	if event.is_action_pressed("upgrade") and not get_node_or_null("CanvasLayer/UpgradesMenu"):
+	if event.is_action_pressed("upgrade") and not get_node_or_null("CanvasLayer/UpgradesMenu")  and not Global.isdead:
 		var upgrades_menu = load("res://scenes/game/UpgradeMenu.tscn").instance()
 		$CanvasLayer.add_child(upgrades_menu)

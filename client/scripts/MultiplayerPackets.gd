@@ -146,3 +146,8 @@ func processPacket(data, msg, id):
 		var enemy = $"../Entities".get_node_or_null(str(msg))
 		if enemy:
 			enemy.get_node("Enemy").get_node("Sprite").modulate = Color(1,0,0,1)
+	elif data.type == "player_kill":
+		if msg.id == id:
+			Global.isdead = true
+			Global.deathreason = msg.reason
+			player.died()
