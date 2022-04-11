@@ -56,10 +56,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -827.996
-margin_top = -309.499
-margin_right = 827.996
-margin_bottom = 309.499
+margin_left = -828.0
+margin_top = -332.0
+margin_right = 828.0
+margin_bottom = 394.0
 custom_fonts/mono_font = SubResource( 4 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
@@ -71,6 +71,8 @@ You play as a good soul, who was sent to hell unjustly. Your goal is to find oth
 The game was made using [url=https://godotengine.org/]Godot Engine[/url], and the server was written in [url=https://nodejs.org]NodeJS[/url]. Communication between the two is powered by [url=https://en.wikipedia.org/wiki/WebSocket]WebSockets[/url].
 
 The game is fully open-source on [url=https://github.com/Infinixius/lucifer]GitHub[/url]! Feel free to contribute or leave a star!
+
+If you'd like to leave us feedback or suggestions, feel free to do so [url=https://lucifer.games/feedback]here![/url]
 [/center]"
 text = "
 Lucifer is a multiplayer roguelite hack 'n slash dungeon crawler created for our school's 2021-2022 year long project. We were tasked with creating a full game in the span of a year.
@@ -80,6 +82,8 @@ You play as a good soul, who was sent to hell unjustly. Your goal is to find oth
 The game was made using Godot Engine, and the server was written in NodeJS. Communication between the two is powered by WebSockets.
 
 The game is fully open-source on GitHub! Feel free to contribute or leave a star!
+
+If you'd like to leave us feedback or suggestions, feel free to do so here!
 "
 
 [node name="TextureRect" type="TextureRect" parent="."]

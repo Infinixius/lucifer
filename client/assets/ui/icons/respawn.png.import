@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/about.png-93b4e1899dc3b70c56a270f6db7f4c13.stex"
+path="res://.import/respawn.png-028d1749a40020f381f49264b193781b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/icons/about.png"
-dest_files=[ "res://.import/about.png-93b4e1899dc3b70c56a270f6db7f4c13.stex" ]
+source_file="res://assets/ui/icons/respawn.png"
+dest_files=[ "res://.import/respawn.png-028d1749a40020f381f49264b193781b.stex" ]
 
 [params]
 

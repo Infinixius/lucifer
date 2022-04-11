@@ -18,7 +18,6 @@ func _ready():
 	AudioServer.set_bus_volume_db(bus, linear2db(Global.settings.volume))
 	
 	$ScrollContainer/Main/TickRate.value = Global.settings.tickRate
-	$ScrollContainer/Main/Label3.text = "Client-Side Tickrate (currently " + str(Global.settings.tickRate) + " ticks)"
 	
 	$ScrollContainer/Main/FPSCap.value = Global.settings.fpscap
 	$ScrollContainer/Main/Label2.text = "FPS Cap (currently " + str(Global.settings.fpscap) + "FPS)"

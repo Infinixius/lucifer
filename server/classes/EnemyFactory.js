@@ -12,7 +12,7 @@ module.exports.EnemyFactory = class EnemyFactory {
 	spawnEnemies(map, spawners) {
 		var spawnedEnemies = 0
 		for (const spawner of spawners) {
-			this.createEnemy([spawner [0] * 32, spawner [1] * 32])
+			this.createEnemy([spawner [0] * 32 + 16, spawner [1] * 32 + 16])
 			spawnedEnemies++
 		}
 		Logger.log(`Spawned in ${spawnedEnemies} enemies!`)

@@ -315,9 +315,6 @@ custom_fonts/font = SubResource( 5 )
 text = "Connect"
 icon = ExtResource( 11 )
 align = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Error" type="Label" parent="CanvasLayer/Play"]
 anchor_left = -0.026

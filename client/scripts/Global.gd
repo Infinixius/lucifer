@@ -5,11 +5,14 @@ onready var bus = AudioServer.get_bus_index("Master")
 var firstLaunch = true
 var IP = "localhost"
 var PORT = "8000"
-var VERSION = "1.1"
+var VERSION = "1.2"
 var error = ""
 var ingame = false
 var inserver = false
 var isplaying = true
+var isdead = false
+var deathreason = ""
+var deathscore = 0
 var pathfinding
 var id = 0
 var langameprocess = 0

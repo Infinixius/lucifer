@@ -35,6 +35,8 @@ func spawnEntity(type, id, pos, _size, rot, velocity, data):
 func deleteEntity(id):
 	var entity = $".".get_node_or_null(str(id))
 	if entity:
+		if entity.get_node_or_null("Enemy"):
+			$"/root/Game/Sounds".play("EnemyKill")
 		entity.queue_free() # delete the node
 
 func updateEntity(id, pos, data):
