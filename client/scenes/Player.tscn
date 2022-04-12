@@ -81,7 +81,7 @@ scale = Vector2( 2, 2 )
 z_index = -1
 frames = ExtResource( 1 )
 animation = "walk_down"
-frame = 2
+frame = 1
 speed_scale = 1.5
 playing = true
 
@@ -122,8 +122,9 @@ shape = SubResource( 3 )
 position = Vector2( 16.2799, 16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tracer"]
-position = Vector2( -1.01749, 37 )
+position = Vector2( -0.286152, 37.0313 )
 shape = SubResource( 5 )
 
+[connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
 [connection signal="body_entered" from="Tracer" to="." method="_on_Tracer_body_entered"]
 [connection signal="body_exited" from="Tracer" to="." method="_on_Tracer_body_exited"]

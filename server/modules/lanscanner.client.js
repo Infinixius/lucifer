@@ -1,5 +1,7 @@
 var dgram = require("dgram")
 
+var foundServers = []
+
 const sock = dgram.createSocket("udp4", (msg, peer) => {
 	if (peer.family != "IPv4") return
 
@@ -7,6 +9,7 @@ const sock = dgram.createSocket("udp4", (msg, peer) => {
 	var data = string.split("||")
 	
 	if (data[0] == "LuciferDiscovered") {
+		foundServers.push(data[1])
 		console.log(data[1])
 	}
 })
@@ -20,5 +23,8 @@ client.send("LuciferDiscovery", 0, "LuciferDiscovery".length, 6667, "192.168.1.2
 })
 
 setTimeout(() => {
+	if (foundServers.length == 0) {
+		console.log("NoServersFound")
+	}
 	process.exit()
 }, 5000)

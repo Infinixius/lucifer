@@ -5,7 +5,7 @@ onready var playersprite = $"../Player/AnimatedSprite"
 onready var connectedtext = $"../CanvasLayer/Debug/connected_text"
 
 var id = 0 # our client's id, sent to us form the server with player_initalize
-var kicked = false
+var iskicked = false
 var client = WebSocketClient.new()
 
 func _ready():
@@ -23,19 +23,22 @@ func _ready():
 	
 	if id == 0:
 		Global.error = "Can't connect"
+		# warning-ignore:return_value_discarded
 		get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
 		set_process(false)
 
-func kicked(code, reason):
-	kicked = true
+func kicked(_code, reason):
+	iskicked = true
 	Global.error = "Kicked from server: " + str(reason)
+	# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
 	set_process(false)
 
 func closed(_was_clean):
-	if not kicked:
+	if not iskicked:
 		print("Connection closed!")
 		Global.error = "Connection closed"
+		# warning-ignore:return_value_discarded
 		get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
 		set_process(false)
 
@@ -108,8 +111,8 @@ func shop(type, item):
 		"item": item
 	})
 
-func enemyAttack(type, id):
+func enemyAttack(type, enemyid):
 	send("enemy_attack", {
 		"type": type,
-		"id": id
+		"id": enemyid
 	})

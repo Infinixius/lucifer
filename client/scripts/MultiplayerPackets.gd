@@ -25,7 +25,8 @@ func processPacket(data, msg, id):
 		if !msg.id == id: # we don't want to update ourselves
 			var plr = $"../Players".get_node_or_null(str(msg.id))
 			if plr:
-				plr.position = Vector2(msg.x + 16, msg.y + 16)
+				plr.position = Vector2(msg.x, msg.y)
+
 				plr.get_node("AnimatedSprite").animation = msg.animation
 				plr.get_node("AnimatedSprite").frame = msg.animationframe
 	
@@ -45,10 +46,12 @@ func processPacket(data, msg, id):
 		latencytext.text = "Latency: " + str(OS.get_system_time_msecs() - data.timestamp)
 	
 	elif data.type == "receive_message":
+		Console.write_line("CHAT MESSAGE: " + " [ " + msg.name + " ] " + msg.message)
 		chatbox.text = chatbox.text + "\n[ " + msg.name + " ] " + msg.message
 		chatbox.scroll_to_line(chatbox.text.count("\n", 0, 0)) # count gets the amount of lines, to scroll to the bottom
 	
 	elif data.type == "system_message":
+		Console.write_line("SYSTEM MESSAGE: " + str(msg))
 		chatbox.text = chatbox.text + "\n" + msg
 		chatbox.scroll_to_line(chatbox.text.count("\n", 0, 0)) # count gets the amount of lines, to scroll to the bottom
 	

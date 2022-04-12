@@ -98,7 +98,6 @@ func _on_Button_Hover():
 	$HoverSound.stop()
 	$HoverSound.play()
 
-
 func _on_SearchLAN_pressed():
 	var searchforlangames = SearchForLANGames.instance()
 	$"/root/TitleScreen/CanvasLayer".add_child(searchforlangames)

@@ -5,7 +5,7 @@ onready var bus = AudioServer.get_bus_index("Master")
 var firstLaunch = true
 var IP = "localhost"
 var PORT = "8000"
-var VERSION = "1.3"
+var VERSION = "1.3.1"
 var error = ""
 var ingame = false
 var inserver = false
@@ -29,7 +29,8 @@ var settings = {
 	"fullscreen": false,
 	"name": "",
 	"volume": 0.5,
-	"fpscap": 60
+	"fpscap": 60,
+	"vsync": true
 }
 
 func _ready():
@@ -48,10 +49,18 @@ func _ready():
 		settings.name = settingsFile.get_value("settings", "name", "Default")
 		settings.volume = settingsFile.get_value("settings", "volume", 0.5)
 		settings.fpscap = settingsFile.get_value("settings", "fpscap", 60)
+		settings.vsync = settingsFile.get_value("settings", "vsync", true)
 		
 		AudioServer.set_bus_volume_db(bus, linear2db(settings.volume))
+		Engine.set_target_fps(settings.fpscap)
+		OS.set_use_vsync(settings.vsync)
 	else:
 		print("Failed to load data! Error: " + str(err))
+	
+	Console.add_command("eval", self, "command_eval")\
+		.set_description("Evaluates GDScript code. WARNING: Any errors caused by code you eval WILL crash the game!")\
+		.add_argument("code", TYPE_STRING)\
+		.register()
 
 func _input(event):
 	if event.is_action_pressed("fullscreen"):
@@ -72,6 +81,7 @@ func saveSettings():
 	settingsFile.set_value("settings", "name", settings.name)
 	settingsFile.set_value("settings", "volume", settings.volume)
 	settingsFile.set_value("settings", "fpscap", settings.fpscap)
+	settingsFile.set_value("settings", "vsync", settings.vsync)
 	
 	var err = settingsFile.save("user://settings.cfg")
 	
@@ -101,18 +111,18 @@ func updateDiscordRPC():
 		if result.result != Discord.Result.Ok:
 			print("Failed to set Discord RPC! Error: " + str(result))
 
-func StartLANGame(cheats):
+func StartLANGame(cheatsenabled):
 	var options = ["--langame"]
-	if cheats:
+	if cheatsenabled:
 		options.append("--cheats")
 	
 	match OS.get_name():
 		"Windows", "UWP":
-			Global.langameprocess = OS.execute("./lan/windows.exe", options, false)
+			Global.langameprocess = OS.execute("./lan/lucifer-ylp-win.exe", options, false)
 		"macOS":
-			Global.langameprocess = OS.execute("./lan/mac", options, false)
+			Global.langameprocess = OS.execute("./lan/lucifer-ylp-macos", options, false)
 		"Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD":
-			Global.langameprocess = OS.execute("./lan/linux", options, false)
+			Global.langameprocess = OS.execute("./lan/lucifer-ylp-linux", options, false)
 	
 	if Global.langameprocess == -1:
 		OS.alert("Failed to start LAN game! The Node.JS executable is likely missing or corrupted.", "Node.JS Executable Error")
@@ -120,6 +130,7 @@ func StartLANGame(cheats):
 		Global.IP = "http://localhost"
 		Global.PORT = "6666"
 		Global.saveSettings()
+		# warning-ignore:return_value_discarded
 		get_tree().change_scene("res://scenes/game/Game.tscn")
 
 func SearchForLANGames():
@@ -141,3 +152,14 @@ func SearchForLANGames():
 		if output[0].trim_suffix("\r").trim_suffix("\n") == "\n":
 			return []
 		return output
+
+func command_eval(code):
+	var script = GDScript.new()
+	script.set_source_code("func eval():\n\treturn " + code)
+	script.reload()
+
+	var obj = Reference.new()
+	obj.set_script(script)
+
+	Console.write_line(obj.eval())
+	print(obj.eval())
