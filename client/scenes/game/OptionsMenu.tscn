@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/ui/themes/options.theme" type="Theme" id=1]
 [ext_resource path="res://assets/ui/Button_Pressed.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scripts/OptionsMenu.gd" type="Script" id=4]
 [ext_resource path="res://assets/ui/fonts/Jost-Regular.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://assets/ui/fonts/Jost-Bold.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://assets/ui/fonts/Jost-Light.ttf" type="DynamicFontData" id=7]
 
 [sub_resource type="Theme" id=2]
 
@@ -27,6 +28,10 @@ shader_param/blurSize = 75
 [sub_resource type="DynamicFont" id=3]
 size = 42
 font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 24
+font_data = ExtResource( 7 )
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 5 )
@@ -69,12 +74,12 @@ margin_right = 793.5
 margin_bottom = 360.5
 
 [node name="Main" type="VBoxContainer" parent="ScrollContainer"]
-margin_right = 1587.0
-margin_bottom = 720.0
+margin_right = 1575.0
+margin_bottom = 759.0
 size_flags_horizontal = 3
 
 [node name="Fullscreen" type="CheckButton" parent="ScrollContainer/Main"]
-margin_right = 1587.0
+margin_right = 1575.0
 margin_bottom = 58.0
 theme = ExtResource( 1 )
 pressed = true
@@ -82,7 +87,7 @@ text = "Fullscreen"
 
 [node name="Lighting" type="CheckButton" parent="ScrollContainer/Main"]
 margin_top = 62.0
-margin_right = 1587.0
+margin_right = 1575.0
 margin_bottom = 120.0
 theme = ExtResource( 1 )
 pressed = true
@@ -93,7 +98,7 @@ __meta__ = {
 
 [node name="Discord" type="CheckButton" parent="ScrollContainer/Main"]
 margin_top = 124.0
-margin_right = 1587.0
+margin_right = 1575.0
 margin_bottom = 182.0
 theme = ExtResource( 1 )
 text = "Discord Rich Presence"
@@ -103,7 +108,7 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="ScrollContainer/Main"]
 margin_top = 186.0
-margin_right = 1587.0
+margin_right = 1575.0
 margin_bottom = 236.0
 theme = ExtResource( 1 )
 text = " Volume"
@@ -113,7 +118,7 @@ __meta__ = {
 
 [node name="Volume" type="HSlider" parent="ScrollContainer/Main"]
 margin_top = 240.0
-margin_right = 1587.0
+margin_right = 1575.0
 margin_bottom = 256.0
 theme = ExtResource( 1 )
 max_value = 0.5
@@ -122,7 +127,7 @@ value = 0.2
 
 [node name="Label2" type="Label" parent="ScrollContainer/Main"]
 margin_top = 260.0
-margin_right = 1587.0
+margin_right = 1575.0
 margin_bottom = 310.0
 theme = ExtResource( 1 )
 text = "FPS Cap (currently 60FPS)"
@@ -132,7 +137,7 @@ __meta__ = {
 
 [node name="FPSCap" type="HSlider" parent="ScrollContainer/Main"]
 margin_top = 314.0
-margin_right = 1587.0
+margin_right = 1575.0
 margin_bottom = 330.0
 theme = ExtResource( 1 )
 max_value = 144.0
@@ -140,7 +145,7 @@ value = 60.0
 
 [node name="Label5" type="Label" parent="ScrollContainer/Main"]
 margin_top = 334.0
-margin_right = 1587.0
+margin_right = 1575.0
 margin_bottom = 395.0
 theme = ExtResource( 1 )
 custom_fonts/font = SubResource( 3 )
@@ -148,7 +153,7 @@ text = "Advanced"
 
 [node name="DevOptions" type="CheckButton" parent="ScrollContainer/Main"]
 margin_top = 399.0
-margin_right = 1587.0
+margin_right = 1575.0
 margin_bottom = 457.0
 theme = ExtResource( 1 )
 text = "Developer Options"
@@ -158,14 +163,14 @@ __meta__ = {
 
 [node name="Label3" type="Label" parent="ScrollContainer/Main"]
 margin_top = 461.0
-margin_right = 1587.0
+margin_right = 1575.0
 margin_bottom = 511.0
 theme = ExtResource( 1 )
 text = " Client-Side Tickrate"
 
 [node name="TickRate" type="HSlider" parent="ScrollContainer/Main"]
 margin_top = 515.0
-margin_right = 1587.0
+margin_right = 1575.0
 margin_bottom = 531.0
 theme = ExtResource( 1 )
 min_value = 0.01
@@ -175,23 +180,31 @@ value = 0.5
 
 [node name="Label4" type="Label" parent="ScrollContainer/Main"]
 margin_top = 535.0
-margin_right = 1587.0
+margin_right = 1575.0
 margin_bottom = 596.0
 theme = ExtResource( 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Cheats"
 
-[node name="Noclip" type="CheckButton" parent="ScrollContainer/Main"]
+[node name="CheatsEnabled" type="Label" parent="ScrollContainer/Main"]
 margin_top = 600.0
-margin_right = 1587.0
-margin_bottom = 658.0
+margin_right = 1575.0
+margin_bottom = 635.0
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 7 )
+text = "You are not connected to a server."
+
+[node name="Noclip" type="CheckButton" parent="ScrollContainer/Main"]
+margin_top = 639.0
+margin_right = 1575.0
+margin_bottom = 697.0
 theme = ExtResource( 1 )
 text = "Noclip"
 
 [node name="Silent" type="CheckButton" parent="ScrollContainer/Main"]
-margin_top = 662.0
-margin_right = 1587.0
-margin_bottom = 720.0
+margin_top = 701.0
+margin_right = 1575.0
+margin_bottom = 759.0
 theme = ExtResource( 1 )
 text = "Silent Monsters"
 

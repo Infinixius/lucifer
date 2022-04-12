@@ -25,6 +25,14 @@ func _ready():
 	
 	$ScrollContainer/Main/Volume.value = Global.settings.volume
 	
+	if Global.ingame:
+		if Global.cheats == true:
+			$ScrollContainer/Main/CheatsEnabled.text = "The server you are connected to has cheats enabled. These options will work."
+		else:
+			$ScrollContainer/Main/CheatsEnabled.text = "The server you are connected to has cheats disabled. These options will NOT work!"
+	else:
+		$ScrollContainer/Main/CheatsEnabled.text = "You are not connected to a server."
+	
 	tween.interpolate_property(self, "rect_position",
 		Vector2(0, 1080), Vector2(0, 0), 0.5,
 		Tween.TRANS_QUART, Tween.EASE_OUT)

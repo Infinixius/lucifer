@@ -21,7 +21,7 @@ func _input(event):
 func _on_Options_pressed():
 	var options_menu = load("res://scenes/game/OptionsMenu.tscn").instance()
 	add_child(options_menu)
-	get_node("OptionsMenu").connect("CloseOptionsMenu", self,("CloseOptionsMenu"))
+	get_node("OptionsMenu").connect("CloseOptionsMenu", self, ("CloseOptionsMenu"))
 
 func CloseOptionsMenu():
 	get_node("OptionsMenu").queue_free()

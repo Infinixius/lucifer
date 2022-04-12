@@ -5,7 +5,7 @@ onready var bus = AudioServer.get_bus_index("Master")
 var firstLaunch = true
 var IP = "localhost"
 var PORT = "8000"
-var VERSION = "1.2"
+var VERSION = "1.3"
 var error = ""
 var ingame = false
 var inserver = false
@@ -13,6 +13,7 @@ var isplaying = true
 var isdead = false
 var deathreason = ""
 var deathscore = 0
+var cheats = false
 var pathfinding
 var id = 0
 var langameprocess = 0
@@ -32,6 +33,8 @@ var settings = {
 }
 
 func _ready():
+	OS.center_window()
+	OS.set_window_maximized(true)
 	var err = settingsFile.load("user://settings.cfg")
 
 	if err == OK:
@@ -98,26 +101,43 @@ func updateDiscordRPC():
 		if result.result != Discord.Result.Ok:
 			print("Failed to set Discord RPC! Error: " + str(result))
 
-func StartLANGame(name):
+func StartLANGame(cheats):
+	var options = ["--langame"]
+	if cheats:
+		options.append("--cheats")
+	
 	match OS.get_name():
 		"Windows", "UWP":
-			Global.langameprocess = OS.execute("./lan/windows.exe", ["--langame"], false)
+			Global.langameprocess = OS.execute("./lan/windows.exe", options, false)
 		"macOS":
-			Global.langameprocess = OS.execute("./lan/mac", ["--langame"], false)
+			Global.langameprocess = OS.execute("./lan/mac", options, false)
 		"Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD":
-			Global.langameprocess = OS.execute("./lan/linux", ["--langame"], false)
-
-	Global.IP = "http://localhost"
-	Global.PORT = "6666"
-	Global.settings.name = name
-	Global.saveSettings()
-	get_tree().change_scene("res://scenes/game/Game.tscn")
-
-func change_scene_async(path):
-	var gamescene = load(path)
-	get_tree().call_deferred("change_scene_to", gamescene)
-
-func loadSceneAsync(path):
-	var thread = Thread.new()
-	thread.start(self, "change_scene_async", path)
+			Global.langameprocess = OS.execute("./lan/linux", options, false)
 	
+	if Global.langameprocess == -1:
+		OS.alert("Failed to start LAN game! The Node.JS executable is likely missing or corrupted.", "Node.JS Executable Error")
+	else:
+		Global.IP = "http://localhost"
+		Global.PORT = "6666"
+		Global.saveSettings()
+		get_tree().change_scene("res://scenes/game/Game.tscn")
+
+func SearchForLANGames():
+	var output = []
+	var exitCode
+	
+	match OS.get_name():
+		"Windows", "UWP":
+			exitCode = OS.execute("./lan/lucifer-ylp-win.exe", ["--scan"], true, output)
+		"macOS":
+			exitCode = OS.execute("./lan/lucifer-ylp-macos", ["--scan"], true, output)
+		"Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD":
+			exitCode = OS.execute("./lan/lucifer-ylp-linux", ["--scan"], true, output)
+	
+	if exitCode != 0:
+		OS.alert("Failed to get LAN games! The Node.JS executable is likely missing or corrupted.", "Node.JS Executable Error")
+		return []
+	else:
+		if output[0].trim_suffix("\r").trim_suffix("\n") == "\n":
+			return []
+		return output

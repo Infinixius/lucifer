@@ -117,6 +117,11 @@ func processPacket(data, msg, id):
 		if "remaining" in msg:
 			$"../CanvasLayer/HUD/Stats/Enemies".text = "Enemies Left: " + str(msg.remaining)
 		
+		if "level" in msg:
+			$"../CanvasLayer/HUD/Level".text = "Level: " + str(msg.level)
+		if "cheats" in msg:
+			Global.cheats = bool(msg.cheats)
+		
 		if "upgrades" in msg:
 			if get_node_or_null("../CanvasLayer/UpgradesMenu"):
 				$"../CanvasLayer/UpgradesMenu/ScrollContainer/Main/Health/TextureProgress".value = int(msg.upgrades.skills.health)

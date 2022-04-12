@@ -1,5 +1,7 @@
 {
 	"port": 6666,
+	"discoveryPort": 6667,
+	"rediscoveryPort": 6668,
 	"dev": false,
 	"cheats": false,
 

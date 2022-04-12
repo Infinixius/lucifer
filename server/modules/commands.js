@@ -31,6 +31,13 @@ module.exports.command = function(string) {
 			if (!config.cheats) return Logger.log("Cheats must be enabled to use this command!")
 			global.enemies.spawnEnemies(global.map, Number(args[0] ?? 1))
 			break
+		case "stop":
+			Logger.log("Stopping the server!")
+			clients.forEach(client => {
+				client.kick("Server is shutting down!")
+			})
+			process.exit()
+			break
 		case "teleport":
 			var client = clients.find(client => client.id == Number(args[0]))
 			if (client) {

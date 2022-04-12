@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/data/animations/player_animations.res" type="SpriteFrames" id=1]
 [ext_resource path="res://assets/effects/bullet_spark.png" type="Texture" id=12]
@@ -21,6 +21,10 @@ extents = Vector2( 12.4334, 12.6273 )
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 16.0
+
+[sub_resource type="CapsuleShape2D" id=5]
+radius = 7.12245
+height = 43.7551
 
 [node name="Player" type="KinematicBody2D"]
 modulate = Color( 0.99, 0.99, 0.99, 0.99 )
@@ -113,3 +117,13 @@ position = Vector2( 16, 16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hit"]
 shape = SubResource( 3 )
+
+[node name="Tracer" type="Area2D" parent="."]
+position = Vector2( 16.2799, 16 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tracer"]
+position = Vector2( -1.01749, 37 )
+shape = SubResource( 5 )
+
+[connection signal="body_entered" from="Tracer" to="." method="_on_Tracer_body_entered"]
+[connection signal="body_exited" from="Tracer" to="." method="_on_Tracer_body_exited"]

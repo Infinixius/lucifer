@@ -2,7 +2,6 @@ extends Node
 
 onready var player = $"../Player"
 onready var playersprite = $"../Player/AnimatedSprite"
-onready var messagebox = $"../CanvasLayer/Chat/Message"
 onready var connectedtext = $"../CanvasLayer/Debug/connected_text"
 
 var id = 0 # our client's id, sent to us form the server with player_initalize
@@ -89,10 +88,6 @@ func shoot(direction):
 		"direction": angle
 	})
 
-func sendChatMessage():
-	send("send_message", messagebox.text)
-	messagebox.text = ""
-
 var time = 0
 func _process(delta):
 	if !client.get_peer(1).is_connected_to_host():
@@ -106,9 +101,6 @@ func _process(delta):
 		send("clientping", delta)
 	
 	client.poll()
-
-func _on_Send_pressed(): # fired when the send message is pressed
-	sendChatMessage()
 
 func shop(type, item):
 	send("player_shop", {

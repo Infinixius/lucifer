@@ -122,7 +122,10 @@ module.exports.Player = class Player {
 			coins: this.coins,
 			kills: this.kills,
 			remaining: enemies.enemies.size,
-			upgrades: this.upgrades
+			upgrades: this.upgrades,
+
+			cheats: config.cheats,
+			level: global.level
 		})
 
 		if (updatePosition) {
