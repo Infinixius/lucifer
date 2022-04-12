@@ -23,6 +23,8 @@ func _ready():
 	$ScrollContainer/Main/Label2.text = "FPS Cap (currently " + str(Global.settings.fpscap) + "FPS)"
 	Engine.set_target_fps(Global.settings.fpscap)
 	
+	$ScrollContainer/Main/VSync.pressed = Global.settings.vsync
+	
 	$ScrollContainer/Main/Volume.value = Global.settings.volume
 	
 	if Global.ingame:
@@ -94,3 +96,8 @@ func _on_FPSCap_value_changed(value):
 	Global.settings.fpscap = value
 	Engine.set_target_fps(value)
 	$ScrollContainer/Main/Label2.text = "FPS Cap (currently " + str(value) + "FPS)"
+
+
+func _on_VSync_toggled(button_pressed):
+	Global.settings.vsync = button_pressed
+	OS.set_use_vsync(button_pressed)
