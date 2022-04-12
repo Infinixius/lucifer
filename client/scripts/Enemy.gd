@@ -4,6 +4,7 @@ export (bool) var asleep = true
 export (int) var speed = 10000
 export (int) var ownerID = 0
 export (Vector2) var movingTo = Vector2(0,0)
+export (Color) var enemyColor = Color(1,1,1)
 onready var player = $"../../../Player"
 
 func _ready():
@@ -35,7 +36,7 @@ func _process(delta):
 var seetime = 0
 func _physics_process(delta):
 	seetime += delta
-	if asleep == true and not Global.settings.silent and seetime > 1 and not Global.isdead:
+	if asleep == true and not Global.settings.silent and seetime > 1 and not Global.isdead and Global.cheats:
 		seetime = 0
 		var space_state = get_world_2d().direct_space_state
 		var enemyPos = Vector2(position.x + 16, position.y + 16)

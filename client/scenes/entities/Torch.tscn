@@ -32,6 +32,7 @@ color_ramp = SubResource( 5 )
 
 [node name="Particles2D" type="Particles2D"]
 amount = 10
+visibility_rect = Rect2( -10, -45, 20, 50 )
 process_material = SubResource( 3 )
 script = ExtResource( 2 )
 

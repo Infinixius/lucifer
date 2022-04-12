@@ -452,6 +452,15 @@ margin_bottom = 351.0
 custom_fonts/font = SubResource( 12 )
 text = "Start LAN Game"
 
+[node name="SearchLAN" type="LinkButton" parent="CanvasLayer/Play"]
+margin_left = 210.0
+margin_top = 321.0
+margin_right = 398.0
+margin_bottom = 351.0
+focus_mode = 2
+custom_fonts/font = SubResource( 12 )
+text = "Search for LAN Games"
+
 [node name="FadeIn" type="ColorRect" parent="CanvasLayer"]
 visible = false
 margin_right = 1920.0
@@ -498,3 +507,5 @@ volume_db = -50.0
 [connection signal="pressed" from="CanvasLayer/Play/Exit" to="." method="_on_Exit_pressed"]
 [connection signal="mouse_entered" from="CanvasLayer/Play/StartLAN" to="." method="_on_Button_Hover"]
 [connection signal="pressed" from="CanvasLayer/Play/StartLAN" to="." method="_on_StartLAN_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/Play/SearchLAN" to="." method="_on_Button_Hover"]
+[connection signal="pressed" from="CanvasLayer/Play/SearchLAN" to="." method="_on_SearchLAN_pressed"]

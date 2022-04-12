@@ -7,7 +7,7 @@
 
 [sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0, 0.824701 )
-colors = PoolColorArray( 0.984375, 0.27301, 0.27301, 1, 0.175781, 0.0480652, 0.0480652, 1 )
+colors = PoolColorArray( 0.27301, 0.95103, 0.984375, 1, 0.175781, 0.0480652, 0.0480652, 1 )
 
 [sub_resource type="GradientTexture" id=3]
 gradient = SubResource( 2 )
@@ -39,6 +39,7 @@ script = ExtResource( 1 )
 [node name="Particles2D" type="Particles2D" parent="Bullet"]
 position = Vector2( 0, 54 )
 rotation = 3.14159
+scale = Vector2( 1.00437, 1 )
 amount = 50
 lifetime = 3.0
 preprocess = 1.0
@@ -52,8 +53,8 @@ texture = ExtResource( 2 )
 [node name="Light2D" type="Light2D" parent="Bullet/Sprite"]
 position = Vector2( 2.00001, -4.99999 )
 texture = ExtResource( 3 )
-color = Color( 1, 0, 0, 1 )
-energy = 1.25
+color = Color( 0.431373, 0.960784, 1, 1 )
+energy = 0.85
 range_z_min = -256
 range_z_max = 256
 
@@ -71,5 +72,6 @@ texture = ExtResource( 4 )
 
 [node name="ParticlePoint" type="Node2D" parent="Bullet"]
 position = Vector2( 0, 75 )
+rotation = 3.14159
 
 [connection signal="body_entered" from="Bullet" to="Bullet" method="_on_Bullet_body_entered"]

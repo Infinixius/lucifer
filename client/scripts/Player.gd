@@ -15,6 +15,7 @@ var velocity = Vector2()
 var speedvel = 1000
 var direction = 0
 var direction_walk = "right"
+var tracerOverlap = false
 
 func get_input():
 	velocity = Vector2()
@@ -37,7 +38,9 @@ func get_input():
 		
 	if Input.is_action_pressed("shoot") and not Global.isdead:
 		if $"/root/Game/CanvasLayer/GameMenu".visible == false:
-			Multiplayer.shoot(direction)	
+			print(tracerOverlap)
+			if not tracerOverlap:
+				Multiplayer.shoot(direction)
 			
 		check_direction_walk()
 	if Input.is_action_just_released("zoom_in") and not Global.isdead:
@@ -61,7 +64,13 @@ func _physics_process(delta):
 		velocity = move_and_slide(velocity, Vector2(0, 0))
 		velocitytext.text = "Velocity: " + str(velocity)
 	
-	$CollisionShape2D.disabled = Global.settings.noclip
+	$Tracer.rotation_degrees = rad2deg(direction) - 90
+	
+	if Global.settings.noclip and Global.cheats:
+		$CollisionShape2D.disabled = true
+	else:
+		$CollisionShape2D.disabled = false
+	
 	if Global.settings.lighting == true:
 		$AnimatedSprite/Light2D.enabled = true
 		$Particles2D.visible = true
@@ -121,3 +130,11 @@ func check_direction_walk():
 func died():
 	var deathscreen = DeathScreen.instance()
 	$"/root/Game/CanvasLayer".add_child(deathscreen)
+
+func _on_Tracer_body_entered(body):
+	if body == $"/root/Game/Navigation2D/TileMap":
+		tracerOverlap = true
+
+func _on_Tracer_body_exited(body):
+	if body == $"/root/Game/Navigation2D/TileMap":
+		tracerOverlap = false
