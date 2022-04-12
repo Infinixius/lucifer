@@ -15,6 +15,7 @@ var velocity = Vector2()
 var speedvel = 1000
 var direction = 0
 var direction_walk = "right"
+var last_direction = "right"
 var tracerOverlap = false
 
 func get_input():
@@ -38,7 +39,6 @@ func get_input():
 		
 	if Input.is_action_pressed("shoot") and not Global.isdead:
 		if $"/root/Game/CanvasLayer/GameMenu".visible == false:
-			print(tracerOverlap)
 			if not tracerOverlap:
 				Multiplayer.shoot(direction)
 			
@@ -55,6 +55,10 @@ func get_input():
 		sprite.play("walk_" + direction_walk)
 		if velocity != Vector2(0,0) and sprite.frame == 0:
 			sprite.frame = 1
+		
+		if last_direction != direction_walk:
+			last_direction = direction_walk
+			Multiplayer.movement_update()
 
 var time = 0
 func _physics_process(delta):
@@ -138,3 +142,6 @@ func _on_Tracer_body_entered(body):
 func _on_Tracer_body_exited(body):
 	if body == $"/root/Game/Navigation2D/TileMap":
 		tracerOverlap = false
+
+func _on_AnimatedSprite_frame_changed():
+	Multiplayer.movement_update()
