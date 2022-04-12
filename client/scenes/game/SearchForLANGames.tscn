@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/ui/themes/popup.theme" type="Theme" id=1]
+[ext_resource path="res://scripts/SearchForLANGames.gd" type="Script" id=2]
+
+[node name="SearchForLANGames" type="ConfirmationDialog"]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -195.0
+margin_top = 771.0
+margin_right = 196.0
+margin_bottom = 1236.0
+theme = ExtResource( 1 )
+window_title = "Search for LAN Games"
+dialog_text = "Click OK to search for local LAN games on your network. You must be on the same Wi-Fi network as the host to see the server here.
+
+MacOS and Linux support is experimental."
+dialog_hide_on_ok = false
+dialog_autowrap = true
+script = ExtResource( 2 )
+
+[node name="Servers" type="Control" parent="."]
+margin_left = 8.0
+margin_top = 140.0
+margin_right = 383.0
+margin_bottom = 419.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Servers"]
+margin_right = 375.0
+margin_bottom = 198.0
+custom_constants/separation = 35
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="about_to_show" from="." to="." method="_on_StartLANGame_about_to_show"]
+[connection signal="confirmed" from="." to="." method="_on_StartLANGame_confirmed"]
+[connection signal="popup_hide" from="." to="." method="_on_StartLANGame_popup_hide"]

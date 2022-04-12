@@ -3,11 +3,21 @@ const { avoidCircularReference } = require("./modules/utils.js")
 const config = require("./config.json")
 require("./assets/keylimepie.js")
 
+global.lan = process.argv.includes("--langame")
+if (process.argv.includes("--cheats")) {
+	config.cheats = true
+}
+
+if (global.lan) {
+	config.cheats = process.argv.includes("--cheats")
+}
+
 const Logger = require("./modules/logger.js")
 const { consoleCommand } = require("./modules/commands.js")
 const { onJoin } = require("./modules/events.js")
 const { Map } = require("./classes/map.js")
 const { EnemyFactory } = require("./classes/EnemyFactory.js")
+require("./modules/lanscanner.server.js")
 
 if (lime) { Logger.log(`Loaded keylimepie v${lime.version}!`) } else { Logger.error("Failed to load keylimepie!!!") }
 Logger.log(`Debugging mode is currently ${config.dev ? "enabled" : "disabled"}`)
@@ -26,7 +36,6 @@ global.clients = []
 global.level = 1
 global.map = new Map(1000, 1000, global.level * 10)
 global.enemies = new EnemyFactory()
-global.lan = false
 global.ticks = 0
 
 setInterval(() => {

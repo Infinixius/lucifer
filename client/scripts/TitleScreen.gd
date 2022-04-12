@@ -4,6 +4,8 @@ onready var IP = $CanvasLayer/Play/Input_IP
 onready var PORT = $CanvasLayer/Play/Input_Port
 onready var NAME = $CanvasLayer/Play/Input_Name
 onready var FadeIn = $CanvasLayer/FadeIn
+var StartLANGame = load("res://scenes/game/StartLANGame.tscn")
+var SearchForLANGames = load("res://scenes/game/SearchForLANGames.tscn")
 
 var fading = false
 
@@ -88,9 +90,15 @@ func _on_Input_Name_text_changed(new_text):
 	Global.saveSettings()
 
 func _on_StartLAN_pressed():
-	Global.StartLANGame(NAME.text)
+	Global.settings.name = NAME.text
+	var startlangame = StartLANGame.instance()
+	$"/root/TitleScreen/CanvasLayer".add_child(startlangame)
 
 func _on_Button_Hover():
 	$HoverSound.stop()
 	$HoverSound.play()
 
+
+func _on_SearchLAN_pressed():
+	var searchforlangames = SearchForLANGames.instance()
+	$"/root/TitleScreen/CanvasLayer".add_child(searchforlangames)
