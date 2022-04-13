@@ -122,6 +122,8 @@ module.exports.Map = class Map {
 			}
 		}
 		ws.client.send("tile_update_done", true)
+		ws.player.moveTo(128, 128)
+		ws.player.networkUpdate(true)
 	}
 	networkUpdate() {
 		global.clients.forEach(client => {

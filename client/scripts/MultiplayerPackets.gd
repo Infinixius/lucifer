@@ -14,7 +14,7 @@ func processPacket(data, msg, id):
 		if msg.id != id: # we don't want to update ourselves
 			var plr = NetworkPlayer.instance()
 			plr.name = str(msg.id)
-			plr.get_node("AnimatedSprite").get_node("Name").text = str(msg.name)
+			plr.get_node("AnimatedSprite").get_node("Node2D").get_node("Name").text = str(msg.name)
 			$"../Players".add_child(plr)
 	
 	elif data.type == "player_disconnect":
@@ -84,14 +84,17 @@ func processPacket(data, msg, id):
 	elif data.type == "tile_update_done":
 		$"../CanvasLayer/Loading".visible = false
 		$"../Navigation2D/TileMap".update_dirty_quadrants()
+		Global.isdead = false
 		
 		var tween = $"../Player/AnimatedSprite/Camera2D/Tween"
 		tween.interpolate_property($"../Player/AnimatedSprite/Camera2D", "zoom",
 				Vector2(20, 20), Vector2(0.6, 0.6), 1,
 				Tween.TRANS_QUART, Tween.EASE_IN)
 		tween.start()
+		
 	
 	elif data.type == "newlevel":
+		Global.isdead = true
 		for entity in $"../Entities".get_children():
 			entity.queue_free()
 		for mapentity in $"../Navigation2D/TileMap".get_children():
@@ -159,3 +162,7 @@ func processPacket(data, msg, id):
 			Global.isdead = true
 			Global.deathreason = msg.reason
 			player.died()
+	elif data.type == "player_respawn":
+		if msg.id == id:
+			Global.isdead = false
+			Global.deathreason = ""

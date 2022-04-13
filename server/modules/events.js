@@ -158,6 +158,7 @@ function onMessage(ws, message) { /* fired when we get a message */
 			ws.client.player = player
 			ws.player = player
 			player.networkUpdate(true)
+			player.client.send("player_respawn", { id: player.client.id })
 			break
 	}
 }
