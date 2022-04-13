@@ -41,5 +41,4 @@ func _on_Respawn_pressed():
 		
 	tween.start()
 	
-	Global.isdead = false
 	queue_free()

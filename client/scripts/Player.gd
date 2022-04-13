@@ -19,6 +19,9 @@ var last_direction = "right"
 var tracerOverlap = false
 
 func get_input():
+	if Global.isdead:
+		return
+	
 	velocity = Vector2()
 	
 	if Input.is_action_pressed("right"):
@@ -147,4 +150,5 @@ func _on_Tracer_body_exited(body):
 		tracerOverlap = false
 
 func _on_AnimatedSprite_frame_changed():
-	Multiplayer.movement_update()
+	if not Global.isdead:
+		Multiplayer.movement_update()

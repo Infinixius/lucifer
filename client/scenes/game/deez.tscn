@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/meta/deez.webm" type="VideoStream" id=1]
+[ext_resource path="res://scripts/deez.gd" type="Script" id=2]
+
+[node name="deez" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="VideoPlayer" type="VideoPlayer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -146.5
+margin_top = -146.5
+margin_right = 146.5
+margin_bottom = 146.5
+stream = ExtResource( 1 )
+volume_db = 24.0
+autoplay = true
+
+[connection signal="finished" from="VideoPlayer" to="." method="_on_VideoPlayer_finished"]

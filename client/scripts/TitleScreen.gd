@@ -10,6 +10,9 @@ var SearchForLANGames = load("res://scenes/game/SearchForLANGames.tscn")
 var fading = false
 
 func _ready():
+	if str(OS.get_cmdline_args()).find("-deez") != -1:
+		get_tree().change_scene("res://scenes/game/deez.tscn")
+	
 	$CanvasLayer/VideoPlayer.visible = true # hidden in the editor
 	$CanvasLayer/VideoPlayerBackground.visible = true
 	$CanvasLayer/Version.text = "v" + Global.VERSION

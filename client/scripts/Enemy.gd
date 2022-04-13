@@ -36,7 +36,9 @@ func _process(delta):
 var seetime = 0
 func _physics_process(delta):
 	seetime += delta
-	if asleep == true and not Global.settings.silent and seetime > 1 and not Global.isdead and Global.cheats:
+	if asleep == true and seetime > 0.5 and not Global.isdead:
+		if Global.settings.silent and Global.cheats:
+			return
 		seetime = 0
 		var space_state = get_world_2d().direct_space_state
 		var enemyPos = Vector2(position.x + 16, position.y + 16)
@@ -49,6 +51,7 @@ func _physics_process(delta):
 		var enemy_angle = get_angle_to($"../../../Player".position)
 		var vector_angle = Vector2(round(cos(enemy_angle)), round(sin(enemy_angle)))
 		
+		# warning-ignore:return_value_discarded
 		move_and_slide(vector_angle * speed * delta)
 		
 		if position.distance_to($"../../../Player".position) < 16:
@@ -57,4 +60,5 @@ func _physics_process(delta):
 		var enemy_angle = get_angle_to(movingTo)
 		var vector_angle = Vector2(round(cos(enemy_angle)), round(sin(enemy_angle)))
 		
+		# warning-ignore:return_value_discarded
 		move_and_slide(vector_angle * speed * delta)
