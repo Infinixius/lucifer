@@ -23,10 +23,9 @@ if (lime) { Logger.log(`Loaded keylimepie v${lime.version}!`) } else { Logger.er
 Logger.log(`Debugging mode is currently ${config.dev ? "enabled" : "disabled"}`)
 Logger.log(`Cheats are currently ${config.cheats ? "enabled" : "disabled"}`)
 
-const wss = new WebSocketServer({ port: process.env.PORT || config.port || 8080 })
 
 // the global object lets us access these variables from any script
-global.wss = wss
+global.wss = new WebSocketServer({ port: process.env.PORT || config.port || 8080 })
 global.config = config
 global.Logger = Logger
 
@@ -116,9 +115,13 @@ global.shadowBroadcast = function(id, type, message) { // send a message to ever
 
 wss.on("connection", (ws, req) => { onJoin(ws, req) })
 wss.on("listening", () => {
-    Logger.log("Listening on port " + config.port || process.env.PORT)
+    Logger.log("Listening on port " + process.env.PORT || config.port || 8080)
     console.log("---------------------------------------------")
 	consoleCommand() // initalize the console command listener
+})
+wss.on("error", (err) => {
+	Logger.error(`Could not open server on port ${process.env.PORT || config.port || 8080}! Error: ${err}`)
+	process.exit()
 })
 process.on("uncaughtException", (err) => {
     Logger.error("Uncaught exception occured! Error:")
