@@ -8,7 +8,6 @@ func _ready():
 	if Global.ingame:
 		Global.isplaying = false
 	$ScrollContainer/Main/Noclip.pressed = Global.settings.noclip
-	$ScrollContainer/Main/Lighting.pressed = Global.settings.lighting
 	$ScrollContainer/Main/Discord.pressed = Global.settings.discord
 	$ScrollContainer/Main/DevOptions.pressed = Global.settings.devOptions
 	$ScrollContainer/Main/Silent.pressed = Global.settings.silent
@@ -24,8 +23,11 @@ func _ready():
 	Engine.set_target_fps(Global.settings.fpscap)
 	
 	$ScrollContainer/Main/VSync.pressed = Global.settings.vsync
-	
-	$ScrollContainer/Main/Volume.value = Global.settings.volume
+
+	$ScrollContainer/Main/Shaders.pressed = Global.settings.lighting_shaders
+	$ScrollContainer/Main/Particles.pressed = Global.settings.lighting_particles
+	$ScrollContainer/Main/Lighting.pressed = Global.settings.lighting_lighting
+	$ScrollContainer/Main/Effects.pressed = Global.settings.lighting_effects
 	
 	if Global.ingame:
 		if Global.cheats == true:
@@ -61,9 +63,6 @@ func _input(event):
 
 func _on_Noclip_toggled(button_pressed):
 	Global.settings.noclip = button_pressed
-
-func _on_Lighting_toggled(button_pressed):
-	Global.settings.lighting = button_pressed
 
 func _on_Discord_toggled(button_pressed):
 	Global.settings.discord = button_pressed
@@ -101,3 +100,16 @@ func _on_FPSCap_value_changed(value):
 func _on_VSync_toggled(button_pressed):
 	Global.settings.vsync = button_pressed
 	OS.set_use_vsync(button_pressed)
+
+func _on_Shaders_toggled(button_pressed):
+	Global.settings.lighting_shaders = button_pressed
+
+func _on_Lighting_toggled(button_pressed):
+	Global.settings.lighting_lighting = button_pressed
+
+func _on_Particles_toggled(button_pressed):
+	Global.settings.lighting_particles = button_pressed
+
+
+func _on_Effects_toggled(button_pressed):
+	Global.settings.lighting_effects = button_pressed

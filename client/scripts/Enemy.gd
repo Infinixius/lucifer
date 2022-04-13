@@ -28,7 +28,7 @@ func _process(delta):
 		update()
 		time = 0
 	
-	if Global.settings.lighting == true:
+	if Global.settings.lighting_effects == true:
 		$Light2D.visible = true
 	else:
 		$Light2D.visible = false

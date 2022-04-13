@@ -75,18 +75,21 @@ func _physics_process(delta):
 	else:
 		$CollisionShape2D.disabled = false
 	
-	if Global.settings.lighting == true:
+	if Global.settings.lighting_lighting == true:
 		$AnimatedSprite/Light2D.enabled = true
 		$Particles2D.visible = true
 		$Particles2D2.visible = true
 		$"../CanvasModulate".color = Color8(81, 81, 81)
-		$"../CanvasLayer/Vignette".visible = true
-		$"../CanvasLayer/Distort".visible = true
 	else:
 		$AnimatedSprite/Light2D.enabled = false
 		$Particles2D.visible = false
 		$Particles2D2.visible = false
 		$"../CanvasModulate".color = Color8(255, 255, 255)
+	
+	if Global.settings.lighting_shaders == true:
+		$"../CanvasLayer/Vignette".visible = true
+		$"../CanvasLayer/Distort".visible = true
+	else:
 		$"../CanvasLayer/Vignette".visible = false
 		$"../CanvasLayer/Distort".visible = false
 	

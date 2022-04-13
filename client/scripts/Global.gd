@@ -5,7 +5,7 @@ onready var bus = AudioServer.get_bus_index("Master")
 var firstLaunch = true
 var IP = "localhost"
 var PORT = "8000"
-var VERSION = "1.3.1"
+var VERSION = "1.3.2"
 var error = ""
 var ingame = false
 var inserver = false
@@ -21,7 +21,6 @@ var discordActivity
 var settingsFile = ConfigFile.new()
 var settings = {
 	"noclip": false,
-	"lighting": true,
 	"discord": false,
 	"devOptions": false,
 	"silent": false,
@@ -30,7 +29,12 @@ var settings = {
 	"name": "",
 	"volume": 0.5,
 	"fpscap": 60,
-	"vsync": true
+	"vsync": true,
+
+	"lighting_shaders": true,
+	"lighting_particles": true,
+	"lighting_lighting": true,
+	"lighting_effects": true
 }
 
 func _ready():
@@ -40,7 +44,6 @@ func _ready():
 
 	if err == OK:
 		settings.noclip = settingsFile.get_value("settings", "noclip", false)
-		settings.lighting = settingsFile.get_value("settings", "lighting", true)
 		settings.discord = settingsFile.get_value("settings", "discord", true)
 		settings.devOptions = settingsFile.get_value("settings", "devOptions", false)
 		settings.silent = settingsFile.get_value("settings", "silent", false)
@@ -50,6 +53,11 @@ func _ready():
 		settings.volume = settingsFile.get_value("settings", "volume", 0.5)
 		settings.fpscap = settingsFile.get_value("settings", "fpscap", 60)
 		settings.vsync = settingsFile.get_value("settings", "vsync", true)
+
+		settings.lighting_shaders = settingsFile.get_value("settings", "lighting_shaders", true)
+		settings.lighting_particles = settingsFile.get_value("settings", "lighting_particles", true)
+		settings.lighting_lighting = settingsFile.get_value("settings", "lighting_lighting", true)
+		settings.lighting_effects = settingsFile.get_value("settings", "lighting_effects", true)
 		
 		AudioServer.set_bus_volume_db(bus, linear2db(settings.volume))
 		Engine.set_target_fps(settings.fpscap)
@@ -72,7 +80,6 @@ func _process(_delta):
 
 func saveSettings():
 	settingsFile.set_value("settings", "noclip", settings.noclip)
-	settingsFile.set_value("settings", "lighting", settings.lighting)
 	settingsFile.set_value("settings", "discord", settings.discord)
 	settingsFile.set_value("settings", "devOptions", settings.devOptions)
 	settingsFile.set_value("settings", "silent", settings.silent)
@@ -82,6 +89,11 @@ func saveSettings():
 	settingsFile.set_value("settings", "volume", settings.volume)
 	settingsFile.set_value("settings", "fpscap", settings.fpscap)
 	settingsFile.set_value("settings", "vsync", settings.vsync)
+
+	settingsFile.set_value("settings", "lighting_shaders", settings.lighting_shaders)
+	settingsFile.set_value("settings", "lighting_particles", settings.lighting_particles)
+	settingsFile.set_value("settings", "lighting_lighting", settings.lighting_lighting)
+	settingsFile.set_value("settings", "lighting_effects", settings.lighting_effects)
 	
 	var err = settingsFile.save("user://settings.cfg")
 	

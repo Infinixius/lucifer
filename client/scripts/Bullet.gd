@@ -8,11 +8,13 @@ var time = 0
 func _physics_process(delta):
 	time += delta
 	position += transform.y * speed * delta
-	if Global.settings.lighting == true:
+	if Global.settings.lighting_effects == true:
 		$Sprite/Light2D.visible = true
-		$Particles2D.visible = true
 	else:
 		$Sprite/Light2D.visible = false
+	if Global.settings.lighting_particles == true:
+		$Particles2D.visible = true
+	else:
 		$Particles2D.visible = false
 
 func _on_Bullet_body_entered(body):
@@ -20,7 +22,7 @@ func _on_Bullet_body_entered(body):
 		$"../../../Sounds".play("WallHit")
 		self.visible = false
 		
-		if Global.settings.lighting == true:
+		if Global.settings.lighting_particles == true:
 			var bulletpuff = BulletPuff.instance()
 			bulletpuff.position = $ParticlePoint.global_position
 			bulletpuff.rotation = $ParticlePoint.global_rotation
@@ -34,7 +36,7 @@ func _on_Bullet_body_entered(body):
 	elif body.name == "Enemy":
 		$"../../../Sounds".play("EnemyHit")
 		
-		if Global.settings.lighting == true:
+		if Global.settings.lighting_particles == true:
 			var bullethitpuff = BulletHitPuff.instance()
 			bullethitpuff.emitting = true
 			bullethitpuff.process_material.color = body.enemyColor
