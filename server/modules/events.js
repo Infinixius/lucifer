@@ -88,9 +88,10 @@ function onMessage(ws, message) { /* fired when we get a message */
 						ws.player.bullets.hit(data.message.bullet)
 					}
 
-					var damage = lime.random(5, 10) * ws.player.upgrades.skills.strength
+					var damage = lime.random(5, 10)
+					damage +=  damage * (ws.player.upgrades.skills.strength / 2)
 					if (ws.player.upgrades.abilities.rejuvenation) {
-						ws.player.heal(damage / 10)
+						ws.player.heal(Math.round(damage / 10))
 					}
 					enemy.hurt(damage, ws.player.client.id)
 				}
@@ -133,6 +134,7 @@ function onMessage(ws, message) { /* fired when we get a message */
 			if (ws.player.konami) return
 			Logger.log(`${ws.player.name} (${ws.client.id}) activated the Konami Code!`)
 			ws.player.konami = true
+			ws.player.maxhealth = 1000
 			ws.player.health = ws.player.maxhealth
 			ws.player.coins = 9999999999
 			ws.player.upgrades = {
@@ -146,6 +148,7 @@ function onMessage(ws, message) { /* fired when we get a message */
 				},
 				abilities: {
 					"piercing": true,
+					"regeneration": true,
 					"rejuvenation": true,
 				}
 			}

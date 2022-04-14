@@ -32,11 +32,18 @@ module.exports.Player = class Player {
 			},
 			abilities: {
 				"piercing": false,
+				"regeneration": false,
 				"rejuvenation": false,
 			}
 		}
 		
 		this.bullets = new BulletFactory(this) // A "BulletFactory" is a class that simplifes the creation of Bullet entities.
+
+		setInterval(() => {
+			if (this.upgrades.abilities.regeneration) {
+				this.heal(this.maxhealth / 100)
+			}
+		}, 1000)
 	}
 
 	hurt(hp, reason) { // The hurt function allows us to hurt the player, taking away some of their health.

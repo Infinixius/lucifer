@@ -9,7 +9,7 @@ module.exports.Enemy = class Enemy extends Entity {
 		this.lastSeen = 0
 		this.lastAttack = Date.now()
 
-		this.health = 50
+		this.health = 50 + (global.level * 10)
 	}
 	hurt(hp, killer) {
 		this.awaken(killer)
@@ -30,7 +30,7 @@ module.exports.Enemy = class Enemy extends Entity {
 		if (!client) return
 		var player = client.fetchPlayer()
 
-		player.coins += lime.random(5, 20) * player.upgrades.skills.luck
+		player.coins += Math.round(lime.random(5, 20) * (player.upgrades.skills.luck / 2))
 		player.kills ++
 	}
 	awaken(playerID) {

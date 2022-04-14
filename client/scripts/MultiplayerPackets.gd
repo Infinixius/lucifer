@@ -138,9 +138,10 @@ func processPacket(data, msg, id):
 				$"../CanvasLayer/UpgradesMenu/ScrollContainer/Main/BulletSpeed/TextureProgress".value = int(msg.upgrades.skills.bulletspeed)
 				
 				$"../CanvasLayer/UpgradesMenu/ScrollContainer/Main/Piercing/TextureProgress".value = int(msg.upgrades.abilities.piercing)
+				$"../CanvasLayer/UpgradesMenu/ScrollContainer/Main/Regeneration/TextureProgress".value = int(msg.upgrades.abilities.regeneration)
 				$"../CanvasLayer/UpgradesMenu/ScrollContainer/Main/Rejuvenation/TextureProgress".value = int(msg.upgrades.abilities.rejuvenation)
 				
-				$"../Player".speed = 500 + (50 * int(msg.upgrades.skills.speed))
+				$"../Player".speed = 500 + (25 * int(msg.upgrades.skills.speed))
 		if "position" in msg:
 			player.position = player.get_global_position()
 			player.position.x = msg.position[0]

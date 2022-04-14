@@ -47,3 +47,7 @@ func _on_Bullet_body_entered(body):
 				"id": int(body.get_parent().name),
 				"bullet": $"..".name
 			})
+
+func _on_EnemyWaker_body_entered(body):
+	if body.name == "Enemy":
+		$"/root/Game/Players".send("enemy_seen", body.get_parent().name)
