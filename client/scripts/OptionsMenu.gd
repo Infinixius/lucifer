@@ -84,7 +84,7 @@ func _on_TickRate_value_changed(value):
 func _on_Fullscreen_toggled(button_pressed):
 	Global.settings.fullscreen = button_pressed
 
-func _on_Tween_tween_completed(object, key):
+func _on_Tween_tween_completed(_object, _key):
 	if todelete:
 		if Global.ingame:
 			Global.isplaying = true

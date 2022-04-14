@@ -11,6 +11,7 @@ var fading = false
 
 func _ready():
 	if str(OS.get_cmdline_args()).find("-deez") != -1:
+		# warning-ignore:return_value_discarded
 		get_tree().change_scene("res://scenes/game/deez.tscn")
 	
 	$CanvasLayer/VideoPlayer.visible = true # hidden in the editor
@@ -35,6 +36,7 @@ func _ready():
 	Global.updateDiscordRPC()
 	
 	if Global.langameprocess != 0:
+		# warning-ignore:return_value_discarded
 		OS.kill(Global.langameprocess)
 	
 	if Global.error != "":
@@ -57,10 +59,11 @@ func _on_Connect_pressed():
 	Global.PORT = PORT.text
 	Global.settings.name = NAME.text
 	Global.saveSettings()
+	# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://scenes/game/Game.tscn")
 
 var transparency = 1.0
-func _process(delta):
+func _process(_delta):
 	if fading:
 		if FadeIn.visible == true and transparency > 0.0:
 			transparency -= 0.005
@@ -88,7 +91,7 @@ func _on_About_pressed():
 func _on_Exit_pressed():
 	get_tree().quit()
 
-func _on_Input_Name_text_changed(new_text):
+func _on_Input_Name_text_changed(_new_text):
 	Global.settings.name = NAME.text
 	Global.saveSettings()
 

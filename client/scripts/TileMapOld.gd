@@ -5,7 +5,7 @@ onready  var player = $"../KinematicBody2D"
 
 enum Tiles {Door, Floor, Void, Wall, Grass} # enum of the different tile types
 
-onready var rooms_texture_data = preload("res://assets/rooms.png").get_data() # load the rooms.png image
+onready var rooms_texture_data #preload("res://assets/rooms.png").get_data() # load the rooms.png image
 
 const LEVEL_SIZE = 30 # how many rooms should be generated
 const ROOMS_SIZE = 16 # size of an individual room
@@ -89,13 +89,13 @@ func generate_rooms(rooms_data_list: Dictionary) -> void:
 				var cell_coords = [x_pos+x, y_pos+y]
 				var wall_tile = false # if true, set to floor
 				if cell_data == Color.black:
-					#tilemap.set_cell(x_pos+x, y_pos+y, Tiles.Wall)
+					pass #tilemap.set_cell(x_pos+x, y_pos+y, Tiles.Wall)
 					#wall_tile = true
 				if !only_do_walls:
 					if cell_data == Color.red:
 						pass #spawn_locations.enemy_spawn_locations.append(cell_coords)
 					elif cell_data == Color.green:
-						#tilemap.set_cell(x_pos+x, y_pos+y, Tiles.Grass)
+						pass #tilemap.set_cell(x_pos+x, y_pos+y, Tiles.Grass)
 						#wall_tile = true
 					elif cell_data == Color.blue:
 						pass #spawn_locations.exit_coords = cell_coords

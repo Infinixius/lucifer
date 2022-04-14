@@ -29,6 +29,7 @@ func _ready():
 	tween3.start()
 
 func _on_MainMenu_pressed():
+	# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
 
 func _on_Respawn_pressed():

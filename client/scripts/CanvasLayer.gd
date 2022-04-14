@@ -21,12 +21,14 @@ func _input(event):
 func _on_Options_pressed():
 	var options_menu = load("res://scenes/game/OptionsMenu.tscn").instance()
 	add_child(options_menu)
+	# warning-ignore:return_value_discarded
 	get_node("OptionsMenu").connect("CloseOptionsMenu", self, ("CloseOptionsMenu"))
 
 func CloseOptionsMenu():
 	get_node("OptionsMenu").queue_free()
 
 func _on_Exit_to_menu_pressed():
+	# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
 
 func _process(_delta):

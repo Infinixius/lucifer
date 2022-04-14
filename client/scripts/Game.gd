@@ -43,6 +43,7 @@ func _input(event):
 			handleKey(event)
 	
 	if event.is_action_pressed("GameMenu") and not Global.inserver:
+		# warning-ignore:return_value_discarded
 		get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
 	if event.is_action_pressed("upgrade") and not get_node_or_null("CanvasLayer/UpgradesMenu")  and not Global.isdead:
 		var upgrades_menu = load("res://scenes/game/UpgradeMenu.tscn").instance()
