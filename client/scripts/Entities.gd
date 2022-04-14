@@ -2,6 +2,7 @@ extends Node
 
 var Bullet = load("res://scenes/entities/Bullet.tscn")
 var Enemy = load("res://scenes/entities/Enemy.tscn")
+var EnemyDeath = load("res://scenes/entities/EnemyDeath.tscn")
 
 enum Entities {Unknown, Player, Bullet, Enemy}
 
@@ -36,7 +37,15 @@ func deleteEntity(id):
 	var entity = $".".get_node_or_null(str(id))
 	if entity:
 		if entity.get_node_or_null("Enemy"):
+			var enemy = entity.get_node_or_null("Enemy")
 			$"/root/Game/Sounds".play("EnemyKill")
+			
+			if Global.settings.lighting_particles == true:
+				var enemydeath = EnemyDeath.instance()
+				enemydeath.global_position = enemy.global_position
+				enemydeath.process_material.color = enemy.enemyColor
+				$"/root/Game/".add_child(enemydeath)
+
 		entity.queue_free() # delete the node
 
 func updateEntity(id, pos, data):

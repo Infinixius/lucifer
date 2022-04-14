@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/Bullet.gd" type="Script" id=1]
 [ext_resource path="res://assets/entities/bullet/bullet.png" type="Texture" id=2]
@@ -28,6 +28,9 @@ color_ramp = SubResource( 3 )
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 4.80986
 height = 44.3803
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 72.2076, 2.64952 )
 
 [node name="Node2D" type="Node2D"]
 position = Vector2( 0, 17.5 )
@@ -74,4 +77,14 @@ texture = ExtResource( 4 )
 position = Vector2( 0, 75 )
 rotation = 3.14159
 
+[node name="EnemyWaker" type="Area2D" parent="Bullet"]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet/EnemyWaker"]
+position = Vector2( -1.22782e-11, 54 )
+rotation = -3.14159
+scale = Vector2( 3.66998, -95.1117 )
+shape = SubResource( 5 )
+
 [connection signal="body_entered" from="Bullet" to="Bullet" method="_on_Bullet_body_entered"]
+[connection signal="body_entered" from="Bullet/EnemyWaker" to="Bullet" method="_on_EnemyWaker_body_entered"]

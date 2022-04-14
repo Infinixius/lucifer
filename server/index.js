@@ -115,7 +115,7 @@ global.shadowBroadcast = function(id, type, message) { // send a message to ever
 
 wss.on("connection", (ws, req) => { onJoin(ws, req) })
 wss.on("listening", () => {
-    Logger.log("Listening on port " + process.env.PORT || config.port || 8080)
+    Logger.log(`Listening on port ${process.env.PORT || config.port || 8080}`)
     console.log("---------------------------------------------")
 	consoleCommand() // initalize the console command listener
 })

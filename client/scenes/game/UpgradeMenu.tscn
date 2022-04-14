@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://assets/ui/themes/options.theme" type="Theme" id=1]
 [ext_resource path="res://assets/ui/Button_Pressed.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/ui/fonts/Jost-Bold.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://assets/ui/icons/upgrade_click.png" type="Texture" id=7]
 [ext_resource path="res://assets/ui/icons/upgrade_hover.png" type="Texture" id=8]
+[ext_resource path="res://assets/ui/icons/ability_rejuv.png" type="Texture" id=9]
 [ext_resource path="res://assets/ui/icons/upgrade.png" type="Texture" id=12]
 [ext_resource path="res://assets/ui/ingame/upgradebar.png" type="Texture" id=13]
 [ext_resource path="res://assets/ui/icons/upgrade_health.png" type="Texture" id=14]
@@ -124,7 +125,7 @@ margin_bottom = 407.0
 
 [node name="Main" type="VBoxContainer" parent="ScrollContainer"]
 margin_right = 1587.0
-margin_bottom = 1486.0
+margin_bottom = 1635.0
 size_flags_horizontal = 3
 
 [node name="Label9" type="Label" parent="ScrollContainer/Main"]
@@ -579,10 +580,69 @@ theme = ExtResource( 1 )
 custom_fonts/font = SubResource( 9 )
 text = "Allows your bullets to pierce enemies."
 
-[node name="Rejuvenation" type="Control" parent="ScrollContainer/Main"]
+[node name="Regeneration" type="Control" parent="ScrollContainer/Main"]
 margin_top = 1341.0
 margin_right = 1587.0
 margin_bottom = 1441.0
+rect_min_size = Vector2( 1587, 100 )
+
+[node name="Icon" type="TextureRect" parent="ScrollContainer/Main/Regeneration"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -32.0
+margin_right = 64.0
+margin_bottom = 32.0
+texture = ExtResource( 26 )
+expand = true
+
+[node name="Label" type="Label" parent="ScrollContainer/Main/Regeneration"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 75.0
+margin_top = -25.0
+margin_right = 162.0
+margin_bottom = 25.0
+theme = ExtResource( 1 )
+text = "Regeneration"
+
+[node name="TextureProgress" type="TextureProgress" parent="ScrollContainer/Main/Regeneration"]
+anchor_right = 1.0
+anchor_bottom = 0.974
+margin_left = 340.0
+margin_top = 39.0
+margin_right = -1215.0
+margin_bottom = -26.4
+max_value = 1.0
+texture_under = ExtResource( 24 )
+texture_progress = ExtResource( 18 )
+nine_patch_stretch = true
+
+[node name="Upgrade" type="TextureButton" parent="ScrollContainer/Main/Regeneration"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -393.5
+margin_top = -25.0
+margin_right = -361.5
+margin_bottom = 7.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 12 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 8 )
+
+[node name="Label13" type="Label" parent="ScrollContainer/Main"]
+margin_top = 1445.0
+margin_right = 1587.0
+margin_bottom = 1486.0
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 9 )
+text = "Heal 1% of your health each second."
+
+[node name="Rejuvenation" type="Control" parent="ScrollContainer/Main"]
+margin_top = 1490.0
+margin_right = 1587.0
+margin_bottom = 1590.0
 rect_min_size = Vector2( 1587, 100 )
 
 [node name="Icon" type="TextureRect" parent="ScrollContainer/Main/Rejuvenation"]
@@ -591,7 +651,7 @@ anchor_bottom = 0.5
 margin_top = -32.0
 margin_right = 64.0
 margin_bottom = 32.0
-texture = ExtResource( 26 )
+texture = ExtResource( 9 )
 expand = true
 
 [node name="Label" type="Label" parent="ScrollContainer/Main/Rejuvenation"]
@@ -631,9 +691,9 @@ texture_pressed = ExtResource( 7 )
 texture_hover = ExtResource( 8 )
 
 [node name="Label12" type="Label" parent="ScrollContainer/Main"]
-margin_top = 1445.0
+margin_top = 1594.0
 margin_right = 1587.0
-margin_bottom = 1486.0
+margin_bottom = 1635.0
 theme = ExtResource( 1 )
 custom_fonts/font = SubResource( 9 )
 text = "Heal 10% of all the damage you do."
@@ -673,6 +733,7 @@ valign = 1
 [connection signal="pressed" from="ScrollContainer/Main/Reload/Upgrade" to="." method="_on_Upgrade" binds= [ "reload" ]]
 [connection signal="pressed" from="ScrollContainer/Main/BulletSpeed/Upgrade" to="." method="_on_Upgrade" binds= [ "bulletspeed" ]]
 [connection signal="pressed" from="ScrollContainer/Main/Piercing/Upgrade" to="." method="_on_Upgrade_Ability" binds= [ "piercing" ]]
+[connection signal="pressed" from="ScrollContainer/Main/Regeneration/Upgrade" to="." method="_on_Upgrade_Ability" binds= [ "regeneration" ]]
 [connection signal="pressed" from="ScrollContainer/Main/Rejuvenation/Upgrade" to="." method="_on_Upgrade_Ability" binds= [ "rejuvenation" ]]
 [connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]

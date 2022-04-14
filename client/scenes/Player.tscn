@@ -81,6 +81,7 @@ scale = Vector2( 0.5, 0.5 )
 z_index = -1
 frames = ExtResource( 1 )
 animation = "walk_down"
+frame = 1
 speed_scale = 1.5
 playing = true
 
@@ -94,9 +95,9 @@ smoothing_speed = 10.0
 [node name="Light2D" type="Light2D" parent="AnimatedSprite"]
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( -1.89504, 2 )
+scale = Vector2( 2, 2 )
 texture = ExtResource( 19 )
 color = Color( 0.917647, 0.870588, 0.768627, 1 )
-energy = 0.85
 shadow_enabled = true
 shadow_color = Color( 0, 0, 0, 0.266667 )
 shadow_gradient_length = 1.3
