@@ -232,11 +232,15 @@ function torches(tiles) {
 }
 
 function tileModifier() {
-	const rand = lime.random(0,1000)
-	if (rand > 993) {
-		return 11 // burnt
-	} else if (rand > 990) {
-		return 12 // mossy
+	const rand = lime.random(0,10000)
+	if (rand > 9995) {
+		return getTile("floor_skull")
+	} else if (rand > 9800) {
+		return getTile("floor_burnt")
+	} else if (rand > 9700) {
+		return getTile("floor_grasspatch")
+	} else if (rand > 9600) {
+		return getTile("floor_mossy")
 	} else {
 		return 9 // floor
 	}

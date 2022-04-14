@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/exit.png-ef088884030ba39bdbd4b44371996e4c.stex"
+path="res://.import/floor_skull.png-f166b4ae73c100c251731b4c8bfd0066.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tiles/exit.png"
-dest_files=[ "res://.import/exit.png-ef088884030ba39bdbd4b44371996e4c.stex" ]
+source_file="res://assets/tiles/floor_skull.png"
+dest_files=[ "res://.import/floor_skull.png-f166b4ae73c100c251731b4c8bfd0066.stex" ]
 
 [params]
 

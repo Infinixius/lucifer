@@ -82,7 +82,7 @@ func _physics_process(delta):
 		$AnimatedSprite/Light2D.enabled = true
 		$Particles2D.visible = true
 		$Particles2D2.visible = true
-		$"../CanvasModulate".color = Color8(81, 81, 81)
+		$"../CanvasModulate".color = Color8(74, 33, 33)
 	else:
 		$AnimatedSprite/Light2D.enabled = false
 		$Particles2D.visible = false

@@ -42,7 +42,6 @@ position = Vector2( 16, 16 )
 scale = Vector2( 0.5, 0.5 )
 frames = ExtResource( 3 )
 animation = "walk_down"
-frame = 1
 speed_scale = 1.5
 playing = true
 

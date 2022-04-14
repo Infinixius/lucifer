@@ -37,7 +37,9 @@ const tiles = {
 	"keydoor": 19,
 	"keydoorblue": 20,
 	"keydoorred": 21,
-	"keydooryellow": 22
+	"keydooryellow": 22,
+
+	"floor_skull": 23
 }
 module.exports.tiles = tiles
 

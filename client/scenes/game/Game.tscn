@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=2]
+[gd_scene load_steps=80 format=2]
 
 [ext_resource path="res://scripts/Global.gd" type="Script" id=1]
 [ext_resource path="res://assets/effects/vignette.png" type="Texture" id=2]
@@ -55,6 +55,8 @@
 [ext_resource path="res://assets/tiles/keydooryellow.png" type="Texture" id=53]
 [ext_resource path="res://assets/meta/tr.png" type="Texture" id=54]
 [ext_resource path="res://assets/effects/light.png" type="Texture" id=55]
+[ext_resource path="res://assets/tiles/floor_skull.png" type="Texture" id=56]
+[ext_resource path="res://assets/meta/cat.png" type="Texture" id=57]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -454,6 +456,20 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 22/z_index = 0
+23/name = "floor_skull.png 23"
+23/texture = ExtResource( 56 )
+23/tex_offset = Vector2( 0, 0 )
+23/modulate = Color( 1, 1, 1, 1 )
+23/region = Rect2( 0, 0, 32, 32 )
+23/tile_mode = 0
+23/occluder_offset = Vector2( 0, 0 )
+23/navigation_offset = Vector2( 0, 0 )
+23/shape_offset = Vector2( 0, 0 )
+23/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+23/shape_one_way = false
+23/shape_one_way_margin = 0.0
+23/shapes = [  ]
+23/z_index = 0
 
 [sub_resource type="DynamicFont" id=11]
 font_data = ExtResource( 27 )
@@ -870,11 +886,16 @@ text = "Connecting to server...."
 align = 1
 valign = 1
 
+[node name="Cat" type="Sprite" parent="CanvasLayer/Loading"]
+position = Vector2( 1909.75, 1069.75 )
+scale = Vector2( 2.16667, 2.16667 )
+texture = ExtResource( 57 )
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 10 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color( 0.482353, 0.482353, 0.482353, 1 )
+color = Color( 0.290196, 0.129412, 0.129412, 1 )
 
 [node name="Players" type="Node" parent="."]
 script = ExtResource( 23 )
