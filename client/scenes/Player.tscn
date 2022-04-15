@@ -81,7 +81,6 @@ scale = Vector2( 0.5, 0.5 )
 z_index = -1
 frames = ExtResource( 1 )
 animation = "walk_down"
-frame = 1
 speed_scale = 1.5
 playing = true
 
@@ -120,6 +119,7 @@ shape = SubResource( 3 )
 
 [node name="Tracer" type="Area2D" parent="."]
 position = Vector2( 16.2799, 16 )
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tracer"]
 position = Vector2( -0.286152, 37.0313 )
