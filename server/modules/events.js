@@ -163,6 +163,12 @@ function onMessage(ws, message) { /* fired when we get a message */
 			player.networkUpdate(true)
 			player.client.send("player_respawn", { id: player.client.id })
 			break
+		case "chest_open":
+			var chest = map.chests.find(chest => chest.id == data.message)
+			if (chest) {
+				chest.open(ws.player)
+			}
+			break
 	}
 }
 module.exports.onMessage = onMessage

@@ -35,6 +35,7 @@ func _on_Bullet_body_entered(body):
 		})
 	elif body.name == "Enemy":
 		$"../../../Sounds".play("EnemyHit")
+		self.visible = false
 		
 		if Global.settings.lighting_particles == true:
 			var bullethitpuff = BulletHitPuff.instance()
@@ -45,6 +46,23 @@ func _on_Bullet_body_entered(body):
 		$"/root/Game/Players".send("bullet_hit", {
 				"type": "enemy",
 				"id": int(body.get_parent().name),
+				"bullet": $"..".name
+			})
+
+func _on_Bullet_area_entered(area):
+	if area.name == "BulletHitBox":
+		$"../../../Sounds".play("EnemyHit")
+		self.visible = false
+		
+		if Global.settings.lighting_particles == true:
+			var bullethitpuff = BulletHitPuff.instance()
+			bullethitpuff.emitting = true
+			bullethitpuff.process_material.color = area.get_parent().enemyColor
+			area.add_child(bullethitpuff)
+		
+		$"/root/Game/Players".send("bullet_hit", {
+				"type": "enemy",
+				"id": int(area.get_parent().get_parent().name),
 				"bullet": $"..".name
 			})
 

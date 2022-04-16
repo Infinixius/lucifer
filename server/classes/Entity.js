@@ -25,5 +25,7 @@ module.exports.Entity = class Entity {
 module.exports.EntityTypes = {
 	Player: 1,
 	Bullet: 2,
-	Enemy: 3
+	Enemy: 3,
+	EnemyEyeball: 4,
+	Chest: 5
 }

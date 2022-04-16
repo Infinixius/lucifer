@@ -2,11 +2,12 @@ const path = require("path")
 const Jimp = require("jimp")
 const { log, error } = require("../modules/logger.js")
 const { getTile, TileMap } = require("./TileMap.js")
+const { Chest } = require("./Chest.js")
 
 const ROOMDATA_IMAGE_ROWLENGTH = 4 // length of rows in rooms.png
 const ROOMDATA_ROOMS = 10 // amount of rooms in rooms.png
 const ROOM_SIZE = 32 // size of an individual room
-const ROOMS = 16 // total amount of rooms
+const ROOMS = 20 // total amount of rooms
 
 module.exports.Map = class Map {
 	constructor (x, y, roomAmount) {
@@ -18,6 +19,8 @@ module.exports.Map = class Map {
 		this.tiles = new TileMap(x, y)
 
 		this.enemySpawners = []
+
+		this.chests = []
 		
 		this.rooms = [
 			{type: 0, coords: [0, 0]} // starting room
@@ -65,6 +68,17 @@ module.exports.Map = class Map {
 								room.coords[1] * ROOM_SIZE + y + 1,
 								"exit"
 							)
+						} else if (pixel.r == 255 && pixel.g == 100 && pixel.b == 0 && pixel.a == 255) { // orange
+							var rand = lime.random(1,100)
+							if (rand > 65) {
+								var chest = new Chest([
+									(room.coords[0] * ROOM_SIZE + x + 1) * 32 + 16,
+									(room.coords[1] * ROOM_SIZE + y + 1) * 32 + 16
+								],
+									lime.random(1,100) > 75
+								)
+								this.chests.push(chest)
+							}
 						} else if (pixel.r == 255 && pixel.g == 0 && pixel.b == 0 && pixel.a == 255) {
 							this.tiles.set(
 								room.coords[0] * ROOM_SIZE + x + 1,
@@ -103,7 +117,7 @@ module.exports.Map = class Map {
 			Logger.log(`Level ${global.level}`)
 			Logger.log("------------------------")
 			log(`Generated map with ${this.tiles.all().length} tiles and ${this.rooms.length} rooms in ${Date.now() - timestamp}ms`)
-			enemies.spawnEnemies(this, this.enemySpawners)
+			enemies.spawnEnemies(this.enemySpawners)
 
 			clients.forEach(client => {
 				this.send(client.ws)
@@ -121,24 +135,17 @@ module.exports.Map = class Map {
 				})
 			}
 		}
+		for (const chest of this.chests) {
+			chest.networkUpdate(true)
+		}
 		ws.client.send("tile_update_done", true)
 		ws.player.moveTo(128, 128)
 		ws.player.networkUpdate(true)
 	}
 	networkUpdate() {
-		global.clients.forEach(client => {
-			client.send("tile_reset", true)
-			for (const tilex of this.tiles.tiles) {
-				for (const tiley in tilex) {
-					if (isNaN(tilex[tiley])) continue
-					client.send("tile_update", {
-						"x": this.tiles.tiles.indexOf(tilex),
-						"y": Number(tiley),
-						"tile": tilex[tiley] 
-					})
-				}
-			}
-		})
+		for (const chest of this.chests) {
+			chest.networkUpdate()
+		}
 	}
 }
 

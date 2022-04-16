@@ -1,15 +1,19 @@
 const { Entity, EntityTypes } = require("./Entity.js")
 
 module.exports.Enemy = class Enemy extends Entity {
-	constructor(pos) {
-		super(EntityTypes.Enemy, pos, [1,1]) // initalize entity class
+	constructor(pos, type, level, attackReason) {
+		super(type ?? EntityTypes.Enemy, pos, [1,1]) // initalize entity class
+		this.level = level ?? 1
 		this.deleted = false
 		this.asleep = true
 		this.owner = 0
 		this.lastSeen = 0
 		this.lastAttack = Date.now()
 
-		this.health = 50 + (global.level * 10)
+		this.health = 10 + (global.level * 10)
+		this.damage = [5, 10]
+		this.coinDrops = [5, 15]
+		this.attackReason = attackReason ?? "Attacked by an enemy."
 	}
 	hurt(hp, killer) {
 		this.awaken(killer)
@@ -30,7 +34,7 @@ module.exports.Enemy = class Enemy extends Entity {
 		if (!client) return
 		var player = client.fetchPlayer()
 
-		player.coins += Math.round(lime.random(5, 20) * (player.upgrades.skills.luck / 2))
+		player.coins += Math.round(lime.random(this.coinDrops[0], this.coinDrops[1]) * (player.upgrades.skills.luck / 2))
 		player.kills ++
 	}
 	awaken(playerID) {
@@ -45,7 +49,7 @@ module.exports.Enemy = class Enemy extends Entity {
 	}
 	attack(player) {
 		if (Date.now() - this.lastAttack > config.enemyAttackTime) {
-			player.hurt(10, "Attacked by an enemy.")
+			player.hurt(lime.random(this.damage[0], this.damage[1]), this.attackReason)
 			this.lastAttack = Date.now()
 		}
 	}

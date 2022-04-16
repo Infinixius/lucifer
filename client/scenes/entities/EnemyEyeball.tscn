@@ -1,0 +1,82 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://assets/entities/enemy_eyeball/eyeball_enemy_lv1.png" type="Texture" id=1]
+[ext_resource path="res://assets/effects/light.png" type="Texture" id=2]
+[ext_resource path="res://scripts/Enemy.gd" type="Script" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 128, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 160, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=10]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=11]
+radius = 1.0
+
+[sub_resource type="CircleShape2D" id=9]
+radius = 20.0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Enemy" type="KinematicBody2D" parent="."]
+scale = Vector2( 1, 0.982361 )
+collision_layer = 4
+collision_mask = 3
+script = ExtResource( 3 )
+speed = 15000
+enemyColor = Color( 0.960784, 0.396078, 0.396078, 1 )
+
+[node name="Sprite" type="AnimatedSprite" parent="Enemy"]
+position = Vector2( 1, 0 )
+scale = Vector2( 1.5, 1.5 )
+frames = SubResource( 10 )
+frame = 3
+speed_scale = 2.0
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+shape = SubResource( 11 )
+
+[node name="Light2D" type="Light2D" parent="Enemy"]
+enabled = false
+texture = ExtResource( 2 )
+color = Color( 0.984314, 0.4, 0.384314, 1 )
+energy = 0.65
+range_z_min = -512
+range_z_max = 512
+
+[node name="AILine" type="Line2D" parent="Enemy"]
+position = Vector2( -1, 0 )
+width = 5.0
+default_color = Color( 0.192157, 1, 0.188235, 1 )
+
+[node name="BulletHitBox" type="Area2D" parent="Enemy"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/BulletHitBox"]
+shape = SubResource( 9 )

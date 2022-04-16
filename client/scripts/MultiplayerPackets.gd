@@ -3,6 +3,7 @@ extends Node
 onready var chatbox = $"../CanvasLayer/Chat/Messages"
 onready var latencytext = $"../CanvasLayer/Debug/latency_text"
 onready var player = $"../Player"
+var BulletHitPuff = load("res://scenes/entities/BulletHitPuff.tscn")
 var NetworkPlayer = load("res://scenes/entities/NetworkPlayer.tscn")
 var Torch = load("res://scenes/entities/Torch.tscn")
 var Exit = load("res://scenes/entities/Exit.tscn")
@@ -46,11 +47,13 @@ func processPacket(data, msg, id):
 		latencytext.text = "Latency: " + str(OS.get_system_time_msecs() - data.timestamp)
 	
 	elif data.type == "receive_message":
+		$"/root/Game/CanvasLayer".showChat()
 		Console.write_line("CHAT MESSAGE: " + " [ " + msg.name + " ] " + msg.message)
 		chatbox.text = chatbox.text + "\n[ " + msg.name + " ] " + msg.message
 		chatbox.scroll_to_line(chatbox.text.count("\n", 0, 0)) # count gets the amount of lines, to scroll to the bottom
 	
 	elif data.type == "system_message":
+		$"/root/Game/CanvasLayer".showChat()
 		Console.write_line("SYSTEM MESSAGE: " + str(msg))
 		chatbox.text = chatbox.text + "\n" + msg
 		chatbox.scroll_to_line(chatbox.text.count("\n", 0, 0)) # count gets the amount of lines, to scroll to the bottom
@@ -154,6 +157,8 @@ func processPacket(data, msg, id):
 			$"../Entities".deleteEntity(msg.id)
 	elif data.type == "shop_success":
 		$"../Sounds".play("Upgrade")
+	elif data.type == "shop_cantafford":
+		$"../Sounds".play("UpgradeCantAfford")
 	elif data.type == "enemy_hurt":
 		var enemy = $"../Entities".get_node_or_null(str(msg))
 		if enemy:
@@ -167,3 +172,11 @@ func processPacket(data, msg, id):
 		if msg.id == id:
 			Global.isdead = false
 			Global.deathreason = ""
+	elif data.type == "player_hurt":
+		player.get_node("AnimatedSprite").get_node("Camera2D").shake(0.25, 20, 10)
+		
+		$"/root/Game/CanvasLayer/Vignette".modulate = Color8(100,50,50,255)
+		var hit = BulletHitPuff.instance()
+		hit.position = Vector2(16, 16)
+		hit.process_material.color = Color8(100,50,50,255)
+		player.add_child(hit)
