@@ -29,7 +29,7 @@ module.exports.command = function(string) {
 			break
 		case "summon":
 			if (!config.cheats) return Logger.log("Cheats must be enabled to use this command!")
-			global.enemies.spawnEnemies(global.map, Number(args[0] ?? 1))
+			global.enemies.createEnemy([args[0] ?? 128, args[1] ?? 128])
 			break
 		case "stop":
 			Logger.log("Stopping the server!")

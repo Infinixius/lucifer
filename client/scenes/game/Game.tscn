@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=2]
+[gd_scene load_steps=89 format=2]
 
 [ext_resource path="res://scripts/Global.gd" type="Script" id=1]
 [ext_resource path="res://assets/effects/vignette.png" type="Texture" id=2]
@@ -57,12 +57,14 @@
 [ext_resource path="res://assets/effects/light.png" type="Texture" id=55]
 [ext_resource path="res://assets/tiles/floor_skull.png" type="Texture" id=56]
 [ext_resource path="res://assets/meta/cat.png" type="Texture" id=57]
+[ext_resource path="res://assets/sfx/upgrade_cantafford.wav" type="AudioStream" id=58]
+[ext_resource path="res://assets/sfx/chest.wav" type="AudioStream" id=59]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 
-[sub_resource type="ConvexPolygonShape2D" id=2]
-points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
+[sub_resource type="ConvexPolygonShape2D" id=39]
+points = PoolVector2Array( 29.7304, 29.9242, 1.6284, 29.9242, 1.6284, 1.8222, 29.7304, 1.8222 )
 
 [sub_resource type="NavigationPolygon" id=31]
 vertices = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -277,14 +279,14 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
 10/navigation_offset = Vector2( 0, 0 )
 10/shape_offset = Vector2( 0, 0 )
 10/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-10/shape = SubResource( 2 )
+10/shape = SubResource( 39 )
 10/shape_one_way = false
 10/shape_one_way_margin = 1.0
 10/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 2 ),
+"shape": SubResource( 39 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 10/z_index = 0
@@ -555,10 +557,6 @@ adjustment_enabled = true
 audio_stream = ExtResource( 31 )
 random_pitch = 1.5
 
-[sub_resource type="AudioStreamRandomPitch" id=30]
-audio_stream = ExtResource( 33 )
-random_pitch = 2.0
-
 [node name="Game" type="Node2D"]
 position = Vector2( -1, 0 )
 script = ExtResource( 25 )
@@ -572,6 +570,7 @@ tile_set = SubResource( 3 )
 cell_size = Vector2( 32, 32 )
 cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
 show_collision = true
+collision_bounce = 1.0
 collision_layer = 2
 collision_mask = 2
 format = 1
@@ -592,6 +591,7 @@ margin_left = -0.000183105
 margin_right = -0.000244141
 
 [node name="Vignette" type="Sprite" parent="CanvasLayer"]
+modulate = Color( 0, 0, 0, 1 )
 position = Vector2( 960, 540 )
 texture = ExtResource( 2 )
 
@@ -690,13 +690,12 @@ anchor_bottom = 1.0
 margin_top = -4.43994
 margin_right = -2.20001
 margin_bottom = -1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Messages" type="RichTextLabel" parent="CanvasLayer/Chat"]
 margin_right = 467.0
 margin_bottom = 282.0
+
+[node name="Tween" type="Tween" parent="CanvasLayer/Chat"]
 
 [node name="HUD" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0
@@ -961,14 +960,20 @@ stream = ExtResource( 41 )
 [node name="Konami" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 44 )
 
+[node name="Chest" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 59 )
+
 [node name="Upgrade" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 43 )
+
+[node name="UpgradeCantAfford" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 58 )
 
 [node name="Shoot" type="AudioStreamPlayer" parent="Sounds"]
 stream = SubResource( 29 )
 
 [node name="Walk" type="AudioStreamPlayer" parent="Sounds"]
-stream = SubResource( 30 )
+stream = ExtResource( 33 )
 
 [node name="WallHit" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 34 )

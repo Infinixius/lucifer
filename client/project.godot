@@ -675,7 +675,7 @@ boot_splash/image="res://assets/effects/blankpixel.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
-config/windows_native_icon="res://assets/meta/tempicon.ico"
+config/windows_native_icon="res://assets/meta/icon.ico"
 
 [autoload]
 
@@ -703,6 +703,30 @@ enabled=PoolStringArray( "res://addons/discord_game_sdk/plugin.cfg", "res://addo
 
 color=false
 background=false
+
+[importer_defaults]
+
+texture={
+"compress/bptc_ldr": 0,
+"compress/hdr_mode": 0,
+"compress/lossy_quality": 0.7,
+"compress/mode": 0,
+"compress/normal_map": 0,
+"detect_3d": true,
+"flags/anisotropic": false,
+"flags/filter": false,
+"flags/mipmaps": false,
+"flags/repeat": 0,
+"flags/srgb": 2,
+"process/HDR_as_SRGB": false,
+"process/fix_alpha_border": true,
+"process/invert_color": false,
+"process/normal_map_invert_y": false,
+"process/premult_alpha": false,
+"size_limit": 0,
+"stream": false,
+"svg/scale": 1.0
+}
 
 [input]
 
@@ -810,6 +834,7 @@ upgrade={
 
 2d_render/layer_1="walls"
 2d_render/layer_2="player"
+2d_render/layer_3="enemy"
 
 [physics]
 

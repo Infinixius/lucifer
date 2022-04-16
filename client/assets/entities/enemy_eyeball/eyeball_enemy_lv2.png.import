@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/eyeball_enemy.png-eff79af2458d771e5615e3bc6ed235ff.stex"
+path="res://.import/eyeball_enemy_lv2.png-05a08df1f1617fda53f67324fc598b23.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/entities/enemy_eyeball/eyeball_enemy.png"
-dest_files=[ "res://.import/eyeball_enemy.png-eff79af2458d771e5615e3bc6ed235ff.stex" ]
+source_file="res://assets/entities/enemy_eyeball/eyeball_enemy_lv2.png"
+dest_files=[ "res://.import/eyeball_enemy_lv2.png-05a08df1f1617fda53f67324fc598b23.stex" ]
 
 [params]
 

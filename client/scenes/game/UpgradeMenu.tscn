@@ -90,6 +90,7 @@ margin_bottom = 1080.0
 color = Color( 0.168627, 0.168627, 0.168627, 1 )
 
 [node name="Vignette" type="Sprite" parent="."]
+modulate = Color( 0, 0, 0, 1 )
 position = Vector2( 960, 540 )
 texture = ExtResource( 16 )
 

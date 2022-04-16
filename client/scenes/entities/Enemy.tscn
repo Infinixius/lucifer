@@ -1,66 +1,28 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://assets/entities/enemy_eyeball/eyeball_enemy.png" type="Texture" id=1]
+[ext_resource path="res://assets/entities/enemy/enemy.png" type="Texture" id=1]
 [ext_resource path="res://assets/effects/light.png" type="Texture" id=2]
 [ext_resource path="res://scripts/Enemy.gd" type="Script" id=3]
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 1 )
-region = Rect2( 96, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 1 )
-region = Rect2( 128, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 1 )
-region = Rect2( 160, 0, 32, 32 )
-
-[sub_resource type="SpriteFrames" id=2]
-animations = [ {
-"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-} ]
-
 [sub_resource type="CircleShape2D" id=1]
-radius = 10.198
+radius = 1.0
 
 [sub_resource type="CircleShape2D" id=9]
-radius = 125.066
+radius = 20.0
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Enemy" type="KinematicBody2D" parent="."]
 scale = Vector2( 1, 0.982361 )
+collision_layer = 4
 collision_mask = 3
 script = ExtResource( 3 )
 speed = 15000
-enemyColor = Color( 0.333333, 0.376471, 0.329412, 1 )
 
-[node name="Sprite" type="AnimatedSprite" parent="Enemy"]
-position = Vector2( 1, 1 )
-scale = Vector2( 1.3, 1.3 )
-frames = SubResource( 2 )
-frame = 4
-speed_scale = 1.5
-playing = true
+[node name="Sprite" type="Sprite" parent="Enemy"]
+texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
-visible = false
 shape = SubResource( 1 )
 
 [node name="Light2D" type="Light2D" parent="Enemy"]
@@ -71,7 +33,12 @@ energy = 0.65
 range_z_min = -512
 range_z_max = 512
 
-[node name="Swarm" type="Area2D" parent="Enemy"]
+[node name="AILine" type="Line2D" parent="Enemy"]
+position = Vector2( -1, 0 )
+width = 5.0
+default_color = Color( 1, 1, 1, 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Swarm"]
+[node name="BulletHitBox" type="Area2D" parent="Enemy"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/BulletHitBox"]
 shape = SubResource( 9 )

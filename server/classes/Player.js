@@ -55,7 +55,7 @@ module.exports.Player = class Player {
 			this.health = remaining
 		}
 
-		this.networkUpdate()
+		this.client.send("player_hurt", hp)
 	}
 	heal(hp) {
 		var remaining = Math.round(this.health + hp)
@@ -64,8 +64,6 @@ module.exports.Player = class Player {
 		} else {
 			this.health = remaining
 		}
-
-		this.networkUpdate()
 	}
 	kill(reason) { // The kill function will kill the player with a specific reason, such as "burned to death".
 		if (!this.killed) {
@@ -96,8 +94,14 @@ module.exports.Player = class Player {
 	}
 	upgrade(skill) {
 		const cost = this.upgrades.skills[skill] * 100
-		if (this.upgrades.skills[skill] > 9) return this.client.send("system_message", `You've already maxed out this skill!`)
-		if (this.coins < cost) return this.client.send("system_message", `You can't afford that! You need ${cost - this.coins} more coins!`)
+		if (this.upgrades.skills[skill] > 9) {
+			this.client.send("shop_cantafford", true)
+			return this.client.send("system_message", `You've already maxed out this skill!`)
+		}
+		if (this.coins < cost) {
+			this.client.send("shop_cantafford", true)
+			return this.client.send("system_message", `You can't afford that! You need ${cost - this.coins} more coins!`)
+		}
 
 		this.upgrades.skills[skill] ++
 		this.coins -= cost

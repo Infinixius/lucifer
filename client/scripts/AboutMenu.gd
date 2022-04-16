@@ -24,3 +24,9 @@ func _on_Tween_tween_completed(_object, _key):
 func _on_RichTextLabel_meta_clicked(meta):
 	# warning-ignore:return_value_discarded
 	OS.shell_open(str(meta))
+
+
+func _on_TextureRect_gui_input(event):
+	if event.get_class() == "InputEventMouseButton":
+		if not $title.playing:
+			$title.play()

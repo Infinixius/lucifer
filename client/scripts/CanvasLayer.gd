@@ -5,6 +5,7 @@ var Enemy = load("res://scenes/entities/Enemy.tscn")
 
 onready var bulletspawn = $"../Player/BulletSpawn"
 onready var spark = $"../Player/BulletSpawn/Spark"
+onready var tween = $Chat/Tween
 
 var shootCooldown = false
 
@@ -31,5 +32,24 @@ func _on_Exit_to_menu_pressed():
 	# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
 
+func showChat():
+	"""
+	tween.stop($Chat)
+	$Chat.modulate = Color(1,1,1,1)
+	
+	yield(get_tree().create_timer(5), "timeout")
+	tween.interpolate_property($Chat, "modulate",
+		Color(1,1,1,1), Color(1,1,1,0), 0.25,
+		Tween.TRANS_QUART, Tween.EASE_IN)
+	tween.start()
+	"""
+
 func _process(_delta):
 	$Debug.visible = Global.settings.devOptions
+	
+	if $Vignette.modulate.r > 0:
+		$Vignette.modulate.r -= 0.015
+	if $Vignette.modulate.g > 0:
+		$Vignette.modulate.g -= 0.015
+	if $Vignette.modulate.b > 0:
+		$Vignette.modulate.b -= 0.015

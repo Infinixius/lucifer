@@ -40,6 +40,7 @@ global.ticks = 0
 setInterval(() => {
 	global.ticks ++
 	global.enemies.networkUpdate()
+	global.map.networkUpdate()
 	clients.forEach(client => {
 		var player = client.fetchPlayer()
 		player.networkUpdate()

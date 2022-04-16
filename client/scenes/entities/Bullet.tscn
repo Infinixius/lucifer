@@ -63,7 +63,6 @@ range_z_min = -256
 range_z_max = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet"]
-visible = false
 position = Vector2( 0, 54 )
 shape = SubResource( 1 )
 
@@ -82,10 +81,12 @@ rotation = 3.14159
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet/EnemyWaker"]
+visible = false
 position = Vector2( -1.22782e-11, 54 )
 rotation = -3.14159
 scale = Vector2( 3.66998, -95.1117 )
 shape = SubResource( 5 )
 
+[connection signal="area_entered" from="Bullet" to="Bullet" method="_on_Bullet_area_entered"]
 [connection signal="body_entered" from="Bullet" to="Bullet" method="_on_Bullet_body_entered"]
 [connection signal="body_entered" from="Bullet/EnemyWaker" to="Bullet" method="_on_EnemyWaker_body_entered"]
