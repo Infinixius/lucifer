@@ -2,6 +2,7 @@ const fs = require("fs")
 const util = require("util")
 const config = require("../config.json")
 const npmpackage = require("../package.json")
+const colors = require("node-console-colors")
 
 if (!fs.existsSync(config.logsFolder)) {
 	fs.mkdirSync(config.logsFolder)

@@ -10,10 +10,15 @@ var SearchForLANGames = load("res://scenes/game/SearchForLANGames.tscn")
 var fading = false
 
 func _ready():
+	if Global.settings.analytics and Global.firstLaunch:
+		sendAnalyticsRequest()
+	elif Global.firstLaunch:
+		$CanvasLayer/VideoPlayer.play()
+	
 	if str(OS.get_cmdline_args()).find("-deez") != -1:
 		# warning-ignore:return_value_discarded
 		get_tree().change_scene("res://scenes/game/deez.tscn")
-	
+		
 	$CanvasLayer/VideoPlayer.visible = true # hidden in the editor
 	$CanvasLayer/VideoPlayerBackground.visible = true
 	$CanvasLayer/Version.text = "v" + Global.VERSION
@@ -107,3 +112,28 @@ func _on_Button_Hover():
 func _on_SearchLAN_pressed():
 	var searchforlangames = SearchForLANGames.instance()
 	$"/root/TitleScreen/CanvasLayer".add_child(searchforlangames)
+
+func sendAnalyticsRequest():
+	var lang = str(OS.get_locale()).http_escape()
+	var os = str(OS.get_name()).http_escape()
+	var cpu = str(OS.get_processor_count()).http_escape()
+	var gpu = str(VisualServer.get_video_adapter_name()).http_escape()
+	var monitor = OS.get_real_window_size()
+	var boot = str(OS.get_splash_tick_msec()).http_escape()
+
+	var string = Global.analyticsURL + "/?lang=" + lang + "&os=" + os + "&cpu=" + cpu + "&gpu=" + gpu + "&monitorx=" + str(monitor.x) + "&monitory=" + str(monitor.y) + "&boot=" + boot + "&version=" + Global.VERSION
+	var req = $HTTPRequest.request(string)
+
+	yield($HTTPRequest, "request_completed")
+	
+func _on_HTTPRequest_request_completed(result, response_code, headers, body):
+	if not Global.firstLaunch:
+		$CanvasLayer/VideoPlayer.play()
+	
+	var vers = JSON.parse(body.get_string_from_utf8()).result
+	
+	if !vers:
+		Console.write_line("Failed to check for updates")
+	else:
+		if not vers == Global.VERSION:
+			OS.alert("You're on an outdated version! The latest version is v" + vers + ", and you're on v" + Global.VERSION + "!\nYou can get the latest version at https://lucifer.games.", "Outdated Version")

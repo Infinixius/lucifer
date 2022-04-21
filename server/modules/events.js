@@ -10,8 +10,18 @@ module.exports.onJoin = function(ws, req) { // fired when a player joins
 	Logger.log(`Client connected! ID: "${playerID}" IP: "${ws.client.ip}"`)
 
 	if (ws.client.options.get("version") != npmpackage.version) {
-		return ws.client.kick(`Mismatched version. This server is on ${npmpackage.version}.`)
+		return ws.client.kick(`Mismatched version! This server is on ${npmpackage.version}.`)
 	}
+
+	if (clients.length >= 4) {
+		return ws.client.kick("Server is full!")
+	}
+
+	if (clients.find(client => { return client.fetchPlayer().name == ws.client.options.get("username") })) {
+		return ws.client.kick("Someone else on the server already has your username!")
+	}
+
+	
 	clients.push(ws.client)
 
 	let playerArray = []
@@ -157,7 +167,7 @@ function onMessage(ws, message) { /* fired when we get a message */
 			ws.player.leaving = data.message
 			break
 		case "respawn":
-			const player = new Player(ws.client, ws.player.name)
+			const player = new Player(ws.client, ws.player.name, Math.round(ws.player.coins / 2), ws.player.upgrades)
 			ws.client.player = player
 			ws.player = player
 			player.networkUpdate(true)

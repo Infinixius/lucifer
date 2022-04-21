@@ -1,6 +1,6 @@
 {
 	"name": "lucifer-ylp",
-	"version": "1.4",
+	"version": "1.5",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/infinixius/lucifer.git"
@@ -16,6 +16,7 @@
 		"flatted": "^3.2.5",
 		"jimp": "^0.16.1",
 		"local-ipv4-address": "^0.0.2",
+		"node-console-colors": "^1.1.4",
 		"ws": "^8.2.2"
 	},
 	"type": "commonjs",

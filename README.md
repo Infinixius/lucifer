@@ -27,6 +27,17 @@ The game itself is written in [Godot](https://godotengine.org/)'s GDScript. You 
   <img width=45% src="https://lucifer.games/assets/screenshot3.png">
 </p>
 
+
+## Privacy
+
+Every time you boot up the game, a small amount of information is sent to our server. This information includes: your IP address, your system language, your operating system version, CPU & GPU information, your monitor size, and the amount of time it took for the game to load.
+
+This information is useful to us and helps us improve the game. This also allows the game to check for updates and warn you if you're on an old version. If you don't like this, you can either disable the "Analytics" options in options, or run the game with the `-noanalytics` launch option. 
+
+## Credits
+
+A list of all the amazing people who made this project possible can be found [here!](https://github.com/Infinixius/lucifer/blob/main/CREDITS.md)
+
 ## License
 
 The game is licensed under the [MIT License](https://github.com/Infinixius/lucifer/blob/main/LICENSE). This allows you to use, modify, and distribute the source code as long as you include the license.

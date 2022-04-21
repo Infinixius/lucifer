@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=2]
+[gd_scene load_steps=91 format=2]
 
 [ext_resource path="res://scripts/Global.gd" type="Script" id=1]
 [ext_resource path="res://assets/effects/vignette.png" type="Texture" id=2]
@@ -59,6 +59,7 @@
 [ext_resource path="res://assets/meta/cat.png" type="Texture" id=57]
 [ext_resource path="res://assets/sfx/upgrade_cantafford.wav" type="AudioStream" id=58]
 [ext_resource path="res://assets/sfx/chest.wav" type="AudioStream" id=59]
+[ext_resource path="res://assets/ui/fonts/Jost-ExtraLight.ttf" type="DynamicFontData" id=60]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -516,6 +517,9 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
 [sub_resource type="DynamicFont" id=11]
 font_data = ExtResource( 27 )
 
+[sub_resource type="DynamicFont" id=40]
+font_data = ExtResource( 60 )
+
 [sub_resource type="DynamicFont" id=18]
 size = 18
 use_filter = true
@@ -694,6 +698,7 @@ margin_bottom = -1.0
 [node name="Messages" type="RichTextLabel" parent="CanvasLayer/Chat"]
 margin_right = 467.0
 margin_bottom = 282.0
+custom_fonts/normal_font = SubResource( 40 )
 
 [node name="Tween" type="Tween" parent="CanvasLayer/Chat"]
 

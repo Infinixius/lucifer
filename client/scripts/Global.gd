@@ -3,9 +3,10 @@ extends Node
 onready var bus = AudioServer.get_bus_index("Master")
 
 var firstLaunch = true
+var analyticsURL = "http://lucifer-analytics.herokuapp.com"
 var IP = "localhost"
 var PORT = "8000"
-var VERSION = "1.4"
+var VERSION = "1.5"
 var error = ""
 var ingame = false
 var inserver = false
@@ -30,6 +31,7 @@ var settings = {
 	"volume": 0.5,
 	"fpscap": 60,
 	"vsync": true,
+	"analytics": true,
 
 	"lighting_shaders": true,
 	"lighting_particles": true,
@@ -53,6 +55,7 @@ func _ready():
 		settings.volume = settingsFile.get_value("settings", "volume", 0.5)
 		settings.fpscap = settingsFile.get_value("settings", "fpscap", 60)
 		settings.vsync = settingsFile.get_value("settings", "vsync", true)
+		settings.analytics = settingsFile.get_value("settings", "analytics", true)
 
 		settings.lighting_shaders = settingsFile.get_value("settings", "lighting_shaders", true)
 		settings.lighting_particles = settingsFile.get_value("settings", "lighting_particles", true)
@@ -63,12 +66,20 @@ func _ready():
 		Engine.set_target_fps(settings.fpscap)
 		OS.set_use_vsync(settings.vsync)
 	else:
-		print("Failed to load data! Error: " + str(err))
+		Console.write_line("Failed to load data! Error: " + str(err))
 	
 	Console.add_command("eval", self, "command_eval")\
 		.set_description("Evaluates GDScript code. WARNING: Any errors caused by code you eval WILL crash the game!")\
 		.add_argument("code", TYPE_STRING)\
 		.register()
+	
+	if str(OS.get_cmdline_args()).find("-noanalytics") != -1:
+		settings.analytics = false
+		Console.write_line("Analytics forcefully disabled with -noanalytics!")
+		var err2 = settingsFile.save("user://settings.cfg")
+	
+		if err2 != OK:
+			Console.write_line("Failed to save data! Error: " + str(err2))
 
 func _input(event):
 	if event.is_action_pressed("fullscreen"):
@@ -89,6 +100,7 @@ func saveSettings():
 	settingsFile.set_value("settings", "volume", settings.volume)
 	settingsFile.set_value("settings", "fpscap", settings.fpscap)
 	settingsFile.set_value("settings", "vsync", settings.vsync)
+	settingsFile.set_value("settings", "analytics", settings.analytics)
 
 	settingsFile.set_value("settings", "lighting_shaders", settings.lighting_shaders)
 	settingsFile.set_value("settings", "lighting_particles", settings.lighting_particles)
@@ -98,7 +110,7 @@ func saveSettings():
 	var err = settingsFile.save("user://settings.cfg")
 	
 	if err != OK:
-		print("Failed to save data! Error: " + str(err))
+		Console.write_line("Failed to save data! Error: " + str(err))
 
 func updateDiscordRPC():
 	if settings.discord == true:
@@ -116,12 +128,14 @@ func updateDiscordRPC():
 		if Discord.activity_manager != null:
 			var result = yield(Discord.activity_manager.update_activity(discordActivity), "result").result
 			if result != Discord.Result.Ok:
-				print("Failed to set Discord RPC! Error: " + str(result))
+				Console.write_line("Failed to set Discord RPC! Error: " + str(result))
+			else:
+				Console.write_line("Successfully set Discord RPC status!")
 	elif Discord.activity_manager:
 		var result = Discord.activity_manager.clear_activity()
 		
 		if result.result != Discord.Result.Ok:
-			print("Failed to set Discord RPC! Error: " + str(result))
+			Console.write_line("Failed to set Discord RPC! Error: " + str(result))
 
 func StartLANGame(cheatsenabled):
 	var options = ["--langame"]
@@ -138,6 +152,7 @@ func StartLANGame(cheatsenabled):
 	
 	if Global.langameprocess == -1:
 		OS.alert("Failed to start LAN game! The Node.JS executable is likely missing or corrupted.", "Node.JS Executable Error")
+		Console.write_line("Failed to start LAN game! The Node.JS executable is likely missing or corrupted.")
 	else:
 		Global.IP = "http://localhost"
 		Global.PORT = "6666"
@@ -159,6 +174,7 @@ func SearchForLANGames():
 	
 	if exitCode != 0:
 		OS.alert("Failed to get LAN games! The Node.JS executable is likely missing or corrupted.", "Node.JS Executable Error")
+		Console.write_line("Failed to get LAN games! The Node.JS executable is likely missing or corrupted.")
 		return []
 	else:
 		if output[0].trim_suffix("\r").trim_suffix("\n") == "\n":

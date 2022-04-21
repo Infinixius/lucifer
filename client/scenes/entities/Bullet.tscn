@@ -30,7 +30,7 @@ radius = 4.80986
 height = 44.3803
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 72.2076, 2.64952 )
+extents = Vector2( 27.2482, 1.05139 )
 
 [node name="Node2D" type="Node2D"]
 position = Vector2( 0, 17.5 )
@@ -81,8 +81,7 @@ rotation = 3.14159
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet/EnemyWaker"]
-visible = false
-position = Vector2( -1.22782e-11, 54 )
+position = Vector2( -7.62939e-06, 54 )
 rotation = -3.14159
 scale = Vector2( 3.66998, -95.1117 )
 shape = SubResource( 5 )

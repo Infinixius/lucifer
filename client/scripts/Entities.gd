@@ -30,12 +30,14 @@ func spawnEntity(type, id, pos, _size, rot, velocity, data):
 			$".".add_child(enemy)
 			enemy.set_name(str(id))
 			enemy.get_node("Enemy").position = Vector2(pos[0], pos[1])
+			enemy.get_node("Enemy").speed = data.speed * 100
 			enemy.get_node("Enemy").rotation_degrees = rot
 		elif type == Entities.EnemyEyeball:
 			var enemy = EnemyEyeball.instance()
 			$".".add_child(enemy)
 			enemy.set_name(str(id))
 			enemy.get_node("Enemy").position = Vector2(pos[0], pos[1])
+			enemy.get_node("Enemy").speed = data.speed * 100
 			enemy.get_node("Enemy").rotation_degrees = rot
 			enemy.get_node("Enemy").get_node("Sprite").frames = load("res://assets/entities/enemy_eyeball/EnemyEyeball_lv" + str(data.level) + ".tres")
 		elif type == Entities.Chest:

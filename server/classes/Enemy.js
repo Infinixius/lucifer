@@ -11,6 +11,7 @@ module.exports.Enemy = class Enemy extends Entity {
 		this.lastAttack = Date.now()
 
 		this.health = 10 + (global.level * 10)
+		this.speed = 100
 		this.damage = [5, 10]
 		this.coinDrops = [5, 15]
 		this.attackReason = attackReason ?? "Attacked by an enemy."

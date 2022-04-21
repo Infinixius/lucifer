@@ -11,6 +11,7 @@ module.exports.EnemyEyeball = class EnemyEyeball extends Enemy {
 
 		super(pos, EntityTypes.EnemyEyeball, level, "Attacked by an Eyeball.")
 
+		this.speed = 50 + (this.level * 25)
 		this.health = 50 + (this.level * 10) + (25 * this.level)
 		this.damage = [5 + (5 * this.level), 10 + (5 * this.level)]
 		this.coinDrops = [5 + (10 * this.level), 20 + (10 * this.level)]

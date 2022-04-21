@@ -12,6 +12,7 @@ func _ready():
 	$ScrollContainer/Main/DevOptions.pressed = Global.settings.devOptions
 	$ScrollContainer/Main/Silent.pressed = Global.settings.silent
 	$ScrollContainer/Main/Fullscreen.pressed = Global.settings.fullscreen
+	$ScrollContainer/Main/Analytics.pressed = Global.settings.analytics
 	
 	$ScrollContainer/Main/Volume.value = Global.settings.volume
 	AudioServer.set_bus_volume_db(bus, linear2db(Global.settings.volume))
@@ -96,7 +97,6 @@ func _on_FPSCap_value_changed(value):
 	Engine.set_target_fps(value)
 	$ScrollContainer/Main/Label2.text = "FPS Cap (currently " + str(value) + "FPS)"
 
-
 func _on_VSync_toggled(button_pressed):
 	Global.settings.vsync = button_pressed
 	OS.set_use_vsync(button_pressed)
@@ -113,3 +113,7 @@ func _on_Particles_toggled(button_pressed):
 
 func _on_Effects_toggled(button_pressed):
 	Global.settings.lighting_effects = button_pressed
+
+
+func _on_Analytics_toggled(button_pressed):
+	Global.settings.analytics = button_pressed

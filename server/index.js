@@ -33,7 +33,7 @@ global.playerID = 0
 global.uid = 0 // a unique identifier used for enemies, bullets, etc
 global.clients = []
 global.level = 1
-global.map = new Map(1000, 1000, global.level * 10)
+global.map = new Map(1000, 1000, global.level * 15)
 global.enemies = new EnemyFactory()
 global.ticks = 0
 
@@ -53,7 +53,7 @@ setInterval(() => {
 
 		setTimeout(() => {
 			global.level ++
-			global.map = new Map(1000, 1000, global.level * 10)
+			global.map = new Map(1000, 1000, global.level * 15)
 			global.enemies = new EnemyFactory()
 			clients.forEach(client => {
 				client.fetchPlayer().moveTo(128, 128)

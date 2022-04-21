@@ -16,12 +16,14 @@ func _ready():
 	client.connect("server_close_request", self, "kicked")
 
 	# Initiate connection to the given URL.
-	yield(get_tree().create_timer(2), "timeout")
-	client.connect_to_url(Global.IP + ":" + Global.PORT + "/?username=" + Global.settings.name + "&version=" + Global.VERSION)
+	var ip = Global.IP + ":" + Global.PORT + "/?username=" + Global.settings.name + "&version=" + Global.VERSION
+	Console.write_line("SERVER: Attempting connection to " + str(ip))
+	client.connect_to_url(ip)
 	
 	yield(get_tree().create_timer(5), "timeout")
 	
 	if id == 0:
+		Console.write_line("SERVER: Failed to connect to " + str(ip) + "!")
 		Global.error = "Can't connect"
 		# warning-ignore:return_value_discarded
 		get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
@@ -29,6 +31,7 @@ func _ready():
 
 func kicked(_code, reason):
 	iskicked = true
+	Console.write_line("SERVER: Kicked from server: " + str(reason))
 	Global.error = "Kicked from server: " + str(reason)
 	# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
@@ -36,14 +39,14 @@ func kicked(_code, reason):
 
 func closed(_was_clean):
 	if not iskicked:
-		print("Connection closed!")
+		Console.write_line("SERVER: Connection closed!")
 		Global.error = "Connection closed"
 		# warning-ignore:return_value_discarded
 		get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
 		set_process(false)
 
 func connected(_proto):
-	print("Connected to server!")
+	Console.write_line("SERVER: Connected!")
 	Global.inserver = true
 	movement_update()
 	# you MUST always use get_peer(1).put_packet to send data to server, and not put_packet directly

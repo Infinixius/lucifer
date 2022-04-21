@@ -39,7 +39,7 @@ func processPacket(data, msg, id):
 			if plrl.id != id: # we don't want to update ourselves
 				var plr = NetworkPlayer.instance()
 				plr.name = str(plrl.id)
-				plr.get_node("AnimatedSprite").get_node("Name").text = str(plrl.name)
+				plr.get_node("AnimatedSprite").get_node("Node2D").get_node("Name").text = str(plrl.name)
 				plr.position = Vector2(plrl.position[0], plrl.position[1])
 				$"../Players".add_child(plr)
 	
@@ -127,7 +127,7 @@ func processPacket(data, msg, id):
 			$"../CanvasLayer/HUD/Stats/Enemies".text = "Enemies Left: " + str(msg.remaining)
 		
 		if "level" in msg:
-			$"../CanvasLayer/HUD/Level".text = "Level: " + str(msg.level)
+			$"../CanvasLayer/HUD/Level".text = "Level " + str(msg.level)
 		if "cheats" in msg:
 			Global.cheats = bool(msg.cheats)
 		

@@ -2,7 +2,7 @@ const { log } = require("../modules/logger.js")
 const { BulletFactory } = require("./BulletFactory.js")
 
 module.exports.Player = class Player {
-	constructor(client, name) {
+	constructor(client, name, coinsToStart, upgradesToStart) {
 		this.client = client // The client is another class, that includes information such as the player's IP address.
 		this.name = name
 
@@ -13,7 +13,7 @@ module.exports.Player = class Player {
 		this.konami = false
 		this.leaving = false
 
-		this.coins = 0
+		this.coins = coinsToStart ?? 0
 		this.kills = 0
 
 		this.animation = { // The current animation name and frame of the player.
@@ -21,7 +21,7 @@ module.exports.Player = class Player {
 			"frame": 0
 		}
 
-		this.upgrades = {
+		this.upgrades = upgradesToStart ?? {
 			skills: {
 				health: 1,
 				speed: 1,

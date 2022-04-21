@@ -75,7 +75,7 @@ module.exports.Map = class Map {
 									(room.coords[0] * ROOM_SIZE + x + 1) * 32 + 16,
 									(room.coords[1] * ROOM_SIZE + y + 1) * 32 + 16
 								],
-									lime.random(1,100) > 75
+									lime.random(1,100) > 99
 								)
 								this.chests.push(chest)
 							}
@@ -118,6 +118,8 @@ module.exports.Map = class Map {
 			Logger.log("------------------------")
 			log(`Generated map with ${this.tiles.all().length} tiles and ${this.rooms.length} rooms in ${Date.now() - timestamp}ms`)
 			enemies.spawnEnemies(this.enemySpawners)
+
+			broadcast("system_message", `Welcome to level ${global.level}!`)
 
 			clients.forEach(client => {
 				this.send(client.ws)

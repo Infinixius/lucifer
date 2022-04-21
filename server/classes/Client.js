@@ -20,6 +20,12 @@ module.exports.Client = class Client {
             this.ip = req.headers["x-forwarded-for"].split(",")[0].trim() // x-forwarded-for must be used if the server is running behind a reverse proxy
         }
 
+		if (global.lan) {
+			require("local-ipv4-address")().then(ip => {
+				this.send("system_message", `This is a LAN server! Your friends can join by connecting to "ws://${ip}:${config.port}", as long as they're on the same network (that isn't the school Wi-Fi, as it blocks LAN games).`)
+			})
+		}
+
 		setInterval(() => {
 			if (Date.now() - this.lastMessage > config.playerIdleTime) {
 				this.kick("Timed out")

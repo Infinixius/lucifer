@@ -1,0 +1,105 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/ui/fonts/Jost-Bold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/ui/Button_Pressed.png" type="Texture" id=3]
+[ext_resource path="res://assets/ui/Button_Unpressed.png" type="Texture" id=5]
+
+[sub_resource type="Shader" id=7]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform int blurSize : hint_range(0,100);
+
+void fragment()
+{
+COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV, float(blurSize)/10.0);
+}"
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 7 )
+shader_param/blurSize = 75
+
+[sub_resource type="DynamicFont" id=3]
+size = 30
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 42
+font_data = ExtResource( 2 )
+
+[node name="HelpMenu" type="Control"]
+anchor_left = 0.08
+anchor_top = 0.066
+anchor_right = 0.944
+anchor_bottom = 0.953
+margin_left = -0.599991
+margin_top = 999.72
+margin_right = 0.52002
+margin_bottom = 999.76
+
+[node name="Blur" type="ColorRect" parent="."]
+material = SubResource( 6 )
+margin_left = -153.0
+margin_top = -71.0
+margin_right = 1767.0
+margin_bottom = 1009.0
+color = Color( 0.168627, 0.168627, 0.168627, 1 )
+
+[node name="TextureButton" type="TextureButton" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -88.0
+margin_top = -67.0
+margin_right = 88.0
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 3 )
+expand = true
+
+[node name="Label" type="Label" parent="TextureButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -33.5
+margin_top = -22.0
+margin_right = 37.5
+margin_bottom = 23.0
+custom_fonts/font = SubResource( 3 )
+text = "Back"
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Title" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -51.0
+margin_right = 51.0
+margin_bottom = 61.0
+custom_fonts/font = SubResource( 9 )
+text = "Help"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -825.5
+margin_top = -373.0
+margin_right = 825.5
+margin_bottom = 373.0
+
+[node name="Control" type="Control" parent="ScrollContainer"]
+margin_right = 1651.0
+margin_bottom = 746.0
+rect_min_size = Vector2( 1651, 746 )
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/Control"]
+visible = false
+margin_right = 1651.0
+margin_bottom = 746.0
+color = Color( 0.0862745, 0.0862745, 0.0862745, 1 )
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]

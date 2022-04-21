@@ -25,19 +25,19 @@ func get_input():
 	velocity = Vector2()
 	
 	if Input.is_action_pressed("right"):
-		velocity.x += speedvel
+		velocity.x += 1
 		check_direction_walk()
 		
 	if Input.is_action_pressed("left"):
-		velocity.x -= speedvel
+		velocity.x -= 1
 		check_direction_walk()
 		
 	if Input.is_action_pressed("down"):
-		velocity.y += speedvel
+		velocity.y += 1
 		check_direction_walk()
 		
 	if Input.is_action_pressed("up"):
-		velocity.y -= speedvel
+		velocity.y -= 1
 		check_direction_walk()
 		
 	if Input.is_action_pressed("shoot") and not Global.isdead:

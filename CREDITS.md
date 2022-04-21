@@ -1,6 +1,6 @@
 # Credits
 
-Real names are omitted for those who didn't feel comfortable with sharing their name.
+These are the people who helped make Lucifer possible! Discord tags and real names have been omitted for the privacy of those who provided them.
 
 ## Main Team
 
@@ -18,3 +18,11 @@ Real names are omitted for those who didn't feel comfortable with sharing their 
 - Carson Starry
 - Saul Weiskopf
 - Sour Dani
+- ryan
+- Quantum_Insanity
+- Kanishk Devrakonda
+- Trevor Brown
+- Matthew Baker
+- Oliver Peterson
+- Rocco Rinaldi
+- Seth Norris-Powell

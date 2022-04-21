@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/ui/fonts/Jost-Light.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/ui/fonts/Jost-Bold.ttf" type="DynamicFontData" id=2]
@@ -23,6 +23,10 @@ shader = SubResource( 7 )
 shader_param/blurSize = 75
 
 [sub_resource type="DynamicFont" id=4]
+
+[sub_resource type="DynamicFont" id=9]
+size = 34
+font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 34
@@ -60,10 +64,11 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -828.0
-margin_top = -332.0
+margin_top = -345.0
 margin_right = 828.0
-margin_bottom = 394.0
+margin_bottom = 386.0
 custom_fonts/mono_font = SubResource( 4 )
+custom_fonts/bold_font = SubResource( 9 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[center]
@@ -76,7 +81,36 @@ The game was made using [url=https://godotengine.org/]Godot Engine[/url], and th
 The game is fully open-source on [url=https://github.com/Infinixius/lucifer]GitHub[/url]! Feel free to contribute or leave a star!
 
 If you'd like to leave us feedback or suggestions, feel free to do so [url=https://lucifer.games/feedback]here![/url]
-[/center]"
+
+[/center]
+[b]Credits[/b]
+
+These are the people who helped make Lucifer possible! Discord tags and real names have been omitted for the privacy of those who provided them.
+
+[b]Main Team[/b]
+
+- infinixius
+- R3ggo
+- ASSASSIN22
+  
+[b]Soundtrack[/b]
+
+- Brian Kelly
+- Adam Young
+
+[b]Playtesters[/b]
+
+- Carson Starry
+- Saul Weiskopf
+- Sour Dani
+- ryan
+- Quantum_Insanity
+- Kanishk Devrakonda
+- Trevor Brown
+- Matthew Baker
+- Oliver Peterson
+- Rocco Rinaldi
+- Seth Norris-Powell"
 text = "
 Lucifer is a multiplayer roguelite hack 'n slash dungeon crawler created for our school's 2021-2022 year long project. We were tasked with creating a full game in the span of a year.
 
@@ -87,7 +121,36 @@ The game was made using Godot Engine, and the server was written in NodeJS. Comm
 The game is fully open-source on GitHub! Feel free to contribute or leave a star!
 
 If you'd like to leave us feedback or suggestions, feel free to do so here!
-"
+
+
+Credits
+
+These are the people who helped make Lucifer possible! Discord tags and real names have been omitted for the privacy of those who provided them.
+
+Main Team
+
+- infinixius
+- R3ggo
+- ASSASSIN22
+  
+Soundtrack
+
+- Brian Kelly
+- Adam Young
+
+Playtesters
+
+- Carson Starry
+- Saul Weiskopf
+- Sour Dani
+- ryan
+- Quantum_Insanity
+- Kanishk Devrakonda
+- Trevor Brown
+- Matthew Baker
+- Oliver Peterson
+- Rocco Rinaldi
+- Seth Norris-Powell"
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_left = 0.5

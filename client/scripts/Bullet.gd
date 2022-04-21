@@ -4,6 +4,12 @@ export (int) var speed = 500
 var BulletPuff = load("res://scenes/entities/BulletPuff.tscn")
 var BulletHitPuff = load("res://scenes/entities/BulletHitPuff.tscn")
 
+func canSee(pos1, pos2):
+	var space_state = get_world_2d().direct_space_state
+	if pos1.distance_to(pos2) < 512:
+		var result = space_state.intersect_ray(pos1, pos2, [$"/root/Game/Player", self], 2)
+		return result.size() == 0
+
 var time = 0
 func _physics_process(delta):
 	time += delta
@@ -68,4 +74,5 @@ func _on_Bullet_area_entered(area):
 
 func _on_EnemyWaker_body_entered(body):
 	if body.name == "Enemy":
-		$"/root/Game/Players".send("enemy_seen", body.get_parent().name)
+		if canSee(global_position, body.global_position):
+			$"/root/Game/Players".send("enemy_seen", body.get_parent().name)

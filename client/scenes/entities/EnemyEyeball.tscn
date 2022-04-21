@@ -56,7 +56,7 @@ enemyColor = Color( 0.960784, 0.396078, 0.396078, 1 )
 position = Vector2( 1, 0 )
 scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 10 )
-frame = 3
+frame = 5
 speed_scale = 2.0
 playing = true
 

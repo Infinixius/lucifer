@@ -84,7 +84,7 @@ margin_bottom = 360.5
 
 [node name="Main" type="VBoxContainer" parent="ScrollContainer"]
 margin_right = 1575.0
-margin_bottom = 2133.0
+margin_bottom = 2268.0
 size_flags_horizontal = 3
 
 [node name="Label20" type="Label" parent="ScrollContainer/Main"]
@@ -142,10 +142,26 @@ margin_bottom = 639.0
 custom_fonts/font = SubResource( 8 )
 text = "Toggles whether the game is displayed in full-screen or not. Can be toggled via Alt+Enter."
 
-[node name="Discord" type="CheckButton" parent="ScrollContainer/Main"]
+[node name="Analytics" type="CheckButton" parent="ScrollContainer/Main"]
 margin_top = 643.0
 margin_right = 1575.0
 margin_bottom = 701.0
+theme = ExtResource( 1 )
+pressed = true
+text = "Analytics"
+
+[node name="Label22" type="Label" parent="ScrollContainer/Main"]
+margin_top = 705.0
+margin_right = 1575.0
+margin_bottom = 774.0
+custom_fonts/font = SubResource( 8 )
+text = "Toggles whether information such as your system language, CPU/GPU information, and OS version are sent to the developers, which helps us prove the game. Disabling this will also disable checking for updates."
+autowrap = true
+
+[node name="Discord" type="CheckButton" parent="ScrollContainer/Main"]
+margin_top = 778.0
+margin_right = 1575.0
+margin_bottom = 836.0
 theme = ExtResource( 1 )
 text = "Discord Rich Presence"
 __meta__ = {
@@ -153,16 +169,16 @@ __meta__ = {
 }
 
 [node name="Label8" type="Label" parent="ScrollContainer/Main"]
-margin_top = 705.0
+margin_top = 840.0
 margin_right = 1575.0
-margin_bottom = 738.0
+margin_bottom = 873.0
 custom_fonts/font = SubResource( 8 )
 text = "Toggles whether your Discord status will show you playing Lucifer or not. Requires the Discord client to be installed and running."
 
 [node name="Label" type="Label" parent="ScrollContainer/Main"]
-margin_top = 742.0
+margin_top = 877.0
 margin_right = 1575.0
-margin_bottom = 792.0
+margin_bottom = 927.0
 theme = ExtResource( 1 )
 text = " Volume"
 __meta__ = {
@@ -170,33 +186,33 @@ __meta__ = {
 }
 
 [node name="Volume" type="HSlider" parent="ScrollContainer/Main"]
-margin_top = 796.0
+margin_top = 931.0
 margin_right = 1575.0
-margin_bottom = 812.0
+margin_bottom = 947.0
 theme = ExtResource( 1 )
 max_value = 0.5
 step = 0.01
 value = 0.2
 
 [node name="Label9" type="Label" parent="ScrollContainer/Main"]
-margin_top = 816.0
+margin_top = 951.0
 margin_right = 1575.0
-margin_bottom = 849.0
+margin_bottom = 984.0
 custom_fonts/font = SubResource( 8 )
 text = "Changes the volume of the game's music and SFX."
 
 [node name="Label6" type="Label" parent="ScrollContainer/Main"]
-margin_top = 853.0
+margin_top = 988.0
 margin_right = 1575.0
-margin_bottom = 914.0
+margin_bottom = 1049.0
 theme = ExtResource( 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Visuals"
 
 [node name="Shaders" type="CheckButton" parent="ScrollContainer/Main"]
-margin_top = 918.0
+margin_top = 1053.0
 margin_right = 1575.0
-margin_bottom = 976.0
+margin_bottom = 1111.0
 theme = ExtResource( 1 )
 pressed = true
 text = "Shaders"
@@ -205,16 +221,16 @@ __meta__ = {
 }
 
 [node name="Label10" type="Label" parent="ScrollContainer/Main"]
-margin_top = 980.0
+margin_top = 1115.0
 margin_right = 1575.0
-margin_bottom = 1013.0
+margin_bottom = 1148.0
 custom_fonts/font = SubResource( 8 )
 text = "Toggles the vignette and VHS monitor/fisheye effect. Has little impact on performance."
 
 [node name="Particles" type="CheckButton" parent="ScrollContainer/Main"]
-margin_top = 1017.0
+margin_top = 1152.0
 margin_right = 1575.0
-margin_bottom = 1075.0
+margin_bottom = 1210.0
 theme = ExtResource( 1 )
 pressed = true
 text = "Particles"
@@ -223,16 +239,16 @@ __meta__ = {
 }
 
 [node name="Label11" type="Label" parent="ScrollContainer/Main"]
-margin_top = 1079.0
+margin_top = 1214.0
 margin_right = 1575.0
-margin_bottom = 1112.0
+margin_bottom = 1247.0
 custom_fonts/font = SubResource( 8 )
 text = "Toggles whether bullets, torches, etc will emit particles. Has little impact on performance."
 
 [node name="Lighting" type="CheckButton" parent="ScrollContainer/Main"]
-margin_top = 1116.0
+margin_top = 1251.0
 margin_right = 1575.0
-margin_bottom = 1174.0
+margin_bottom = 1309.0
 theme = ExtResource( 1 )
 pressed = true
 text = "Lighting"
@@ -241,16 +257,16 @@ __meta__ = {
 }
 
 [node name="Label12" type="Label" parent="ScrollContainer/Main"]
-margin_top = 1178.0
+margin_top = 1313.0
 margin_right = 1575.0
-margin_bottom = 1211.0
+margin_bottom = 1346.0
 custom_fonts/font = SubResource( 8 )
 text = "Toggles the game's natural lighting and shadows. Has medium impact on performance."
 
 [node name="Effects" type="CheckButton" parent="ScrollContainer/Main"]
-margin_top = 1215.0
+margin_top = 1350.0
 margin_right = 1575.0
-margin_bottom = 1273.0
+margin_bottom = 1408.0
 theme = ExtResource( 1 )
 pressed = true
 text = "Effects"
@@ -259,16 +275,16 @@ __meta__ = {
 }
 
 [node name="Label13" type="Label" parent="ScrollContainer/Main"]
-margin_top = 1277.0
+margin_top = 1412.0
 margin_right = 1575.0
-margin_bottom = 1310.0
+margin_bottom = 1445.0
 custom_fonts/font = SubResource( 8 )
 text = "Toggles whether enemies and bullets will have lighting and effects. Has large impact on performance."
 
 [node name="VSync" type="CheckButton" parent="ScrollContainer/Main"]
-margin_top = 1314.0
+margin_top = 1449.0
 margin_right = 1575.0
-margin_bottom = 1372.0
+margin_bottom = 1507.0
 theme = ExtResource( 1 )
 pressed = true
 text = "V-Sync"
@@ -277,16 +293,16 @@ __meta__ = {
 }
 
 [node name="Label14" type="Label" parent="ScrollContainer/Main"]
-margin_top = 1376.0
+margin_top = 1511.0
 margin_right = 1575.0
-margin_bottom = 1409.0
+margin_bottom = 1544.0
 custom_fonts/font = SubResource( 8 )
 text = "Toggles monitor V-Sync. Can solve issues such as screen tearing or jitter."
 
 [node name="Label2" type="Label" parent="ScrollContainer/Main"]
-margin_top = 1413.0
+margin_top = 1548.0
 margin_right = 1575.0
-margin_bottom = 1463.0
+margin_bottom = 1598.0
 theme = ExtResource( 1 )
 text = "FPS Cap (currently 60FPS)"
 __meta__ = {
@@ -294,32 +310,32 @@ __meta__ = {
 }
 
 [node name="FPSCap" type="HSlider" parent="ScrollContainer/Main"]
-margin_top = 1467.0
+margin_top = 1602.0
 margin_right = 1575.0
-margin_bottom = 1483.0
+margin_bottom = 1618.0
 theme = ExtResource( 1 )
 max_value = 144.0
 value = 60.0
 
 [node name="Label15" type="Label" parent="ScrollContainer/Main"]
-margin_top = 1487.0
+margin_top = 1622.0
 margin_right = 1575.0
-margin_bottom = 1520.0
+margin_bottom = 1655.0
 custom_fonts/font = SubResource( 8 )
 text = "Change's the game's FPS (Frames per Second) cap. The FPS cannot exceed this value. Setting it to 0 will get rid of the cap."
 
 [node name="Label5" type="Label" parent="ScrollContainer/Main"]
-margin_top = 1524.0
+margin_top = 1659.0
 margin_right = 1575.0
-margin_bottom = 1585.0
+margin_bottom = 1720.0
 theme = ExtResource( 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Advanced"
 
 [node name="DevOptions" type="CheckButton" parent="ScrollContainer/Main"]
-margin_top = 1589.0
+margin_top = 1724.0
 margin_right = 1575.0
-margin_bottom = 1647.0
+margin_bottom = 1782.0
 theme = ExtResource( 1 )
 text = "Developer Information"
 __meta__ = {
@@ -327,23 +343,23 @@ __meta__ = {
 }
 
 [node name="Label16" type="Label" parent="ScrollContainer/Main"]
-margin_top = 1651.0
+margin_top = 1786.0
 margin_right = 1575.0
-margin_bottom = 1684.0
+margin_bottom = 1819.0
 custom_fonts/font = SubResource( 8 )
 text = "Toggles whether developer info (XYZ coords, etc) will be displayed in the top right."
 
 [node name="Label3" type="Label" parent="ScrollContainer/Main"]
-margin_top = 1688.0
+margin_top = 1823.0
 margin_right = 1575.0
-margin_bottom = 1738.0
+margin_bottom = 1873.0
 theme = ExtResource( 1 )
 text = " Client-Side Tickrate"
 
 [node name="TickRate" type="HSlider" parent="ScrollContainer/Main"]
-margin_top = 1742.0
+margin_top = 1877.0
 margin_right = 1575.0
-margin_bottom = 1758.0
+margin_bottom = 1893.0
 theme = ExtResource( 1 )
 min_value = 0.01
 max_value = 0.99
@@ -351,54 +367,54 @@ step = 0.01
 value = 0.5
 
 [node name="Label17" type="Label" parent="ScrollContainer/Main"]
-margin_top = 1762.0
+margin_top = 1897.0
 margin_right = 1575.0
-margin_bottom = 1831.0
+margin_bottom = 1966.0
 custom_fonts/font = SubResource( 8 )
 text = "Changes the client-side tickrate, AKA how fast the server and other clients will be notified of changes on your end. The lower the value, the faster other players will receive updates, but your performance will suffer as a result. It is recommended to keep this value as the default."
 autowrap = true
 
 [node name="Label4" type="Label" parent="ScrollContainer/Main"]
-margin_top = 1835.0
+margin_top = 1970.0
 margin_right = 1575.0
-margin_bottom = 1896.0
+margin_bottom = 2031.0
 theme = ExtResource( 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Cheats"
 
 [node name="CheatsEnabled" type="Label" parent="ScrollContainer/Main"]
-margin_top = 1900.0
+margin_top = 2035.0
 margin_right = 1575.0
-margin_bottom = 1935.0
+margin_bottom = 2070.0
 theme = ExtResource( 1 )
 custom_fonts/font = SubResource( 7 )
 text = "You are not connected to a server."
 
 [node name="Noclip" type="CheckButton" parent="ScrollContainer/Main"]
-margin_top = 1939.0
+margin_top = 2074.0
 margin_right = 1575.0
-margin_bottom = 1997.0
+margin_bottom = 2132.0
 theme = ExtResource( 1 )
 text = "Noclip"
 
 [node name="Label18" type="Label" parent="ScrollContainer/Main"]
-margin_top = 2001.0
+margin_top = 2136.0
 margin_right = 1575.0
-margin_bottom = 2034.0
+margin_bottom = 2169.0
 custom_fonts/font = SubResource( 8 )
 text = "Toggles whether you will collide with walls."
 
 [node name="Silent" type="CheckButton" parent="ScrollContainer/Main"]
-margin_top = 2038.0
+margin_top = 2173.0
 margin_right = 1575.0
-margin_bottom = 2096.0
+margin_bottom = 2231.0
 theme = ExtResource( 1 )
 text = "Silent Monsters"
 
 [node name="Label19" type="Label" parent="ScrollContainer/Main"]
-margin_top = 2100.0
+margin_top = 2235.0
 margin_right = 1575.0
-margin_bottom = 2133.0
+margin_bottom = 2268.0
 custom_fonts/font = SubResource( 8 )
 text = "Toggles whether you will be able to wake up enemies. Attacking an enemy will wake them up regardless of this setting."
 
@@ -434,6 +450,7 @@ valign = 1
 [node name="Tween" type="Tween" parent="."]
 
 [connection signal="toggled" from="ScrollContainer/Main/Fullscreen" to="." method="_on_Fullscreen_toggled"]
+[connection signal="toggled" from="ScrollContainer/Main/Analytics" to="." method="_on_Analytics_toggled"]
 [connection signal="toggled" from="ScrollContainer/Main/Discord" to="." method="_on_Discord_toggled"]
 [connection signal="value_changed" from="ScrollContainer/Main/Volume" to="." method="_on_Volume_value_changed"]
 [connection signal="toggled" from="ScrollContainer/Main/Shaders" to="." method="_on_Shaders_toggled"]
